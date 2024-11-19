@@ -2,55 +2,55 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://github.com/Ch0ser/Ch0ser.github.io.git/ar/categories/</loc>
+    <loc>http://localhost:1313/Ch0ser/Ch0ser.github.io.git/ar/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://github.com/Ch0ser/Ch0ser.github.io.git/en/categories/"
+                href="http://localhost:1313/Ch0ser/Ch0ser.github.io.git/en/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://github.com/Ch0ser/Ch0ser.github.io.git/categories/"
+                href="http://localhost:1313/Ch0ser/Ch0ser.github.io.git/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ar"
-                href="https://github.com/Ch0ser/Ch0ser.github.io.git/ar/categories/"
+                href="http://localhost:1313/Ch0ser/Ch0ser.github.io.git/ar/categories/"
                 />
   </url><url>
-    <loc>https://github.com/Ch0ser/Ch0ser.github.io.git/ar/tags/</loc>
+    <loc>http://localhost:1313/Ch0ser/Ch0ser.github.io.git/ar/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://github.com/Ch0ser/Ch0ser.github.io.git/en/tags/"
+                href="http://localhost:1313/Ch0ser/Ch0ser.github.io.git/en/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://github.com/Ch0ser/Ch0ser.github.io.git/tags/"
+                href="http://localhost:1313/Ch0ser/Ch0ser.github.io.git/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ar"
-                href="https://github.com/Ch0ser/Ch0ser.github.io.git/ar/tags/"
+                href="http://localhost:1313/Ch0ser/Ch0ser.github.io.git/ar/tags/"
                 />
   </url><url>
-    <loc>https://github.com/Ch0ser/Ch0ser.github.io.git/ar/</loc>
+    <loc>http://localhost:1313/Ch0ser/Ch0ser.github.io.git/ar/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://github.com/Ch0ser/Ch0ser.github.io.git/en/"
+                href="http://localhost:1313/Ch0ser/Ch0ser.github.io.git/en/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://github.com/Ch0ser/Ch0ser.github.io.git/"
+                href="http://localhost:1313/Ch0ser/Ch0ser.github.io.git/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ar"
-                href="https://github.com/Ch0ser/Ch0ser.github.io.git/ar/"
+                href="http://localhost:1313/Ch0ser/Ch0ser.github.io.git/ar/"
                 />
   </url>
 </urlset>
