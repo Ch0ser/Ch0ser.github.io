@@ -7,6 +7,86 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright>
-        <lastBuildDate></lastBuildDate><atom:link href="https://ch0ser.github.io/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Sat, 23 Nov 2024 21:45:04 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Test</title>
+        <link>https://ch0ser.github.io/p/test/</link>
+        <pubDate>Sat, 23 Nov 2024 21:45:04 +0800</pubDate>
+        
+        <guid>https://ch0ser.github.io/p/test/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/PacificRim.jpg" alt="Featured image of post Test" /&gt;&lt;h1 id=&#34;typora教程&#34;&gt;Typora教程
+&lt;/h1&gt;&lt;h2 id=&#34;typora的安装&#34;&gt;Typora的安装
+&lt;/h2&gt;&lt;p&gt;这是b站up主 &lt;strong&gt;格格分享集&lt;/strong&gt; 提供的1.9.5版本及绕过激活方法，在此鸣谢。&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&amp;amp;vd_source=94c6a60e88fb8109fcdee4173a2a7281&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&amp;vd_source=94c6a60e88fb8109fcdee4173a2a7281&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;不想看视频的可以往下看。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/images/Typora1.9.5zip.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Typora1.9.5zip&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;解压 &lt;strong&gt;Typora1.9.5.zip&lt;/strong&gt;后，文件结构如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/images/Typora02.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;先运行安装程序安装&lt;strong&gt;typora1.9.5&lt;/strong&gt;；&lt;/p&gt;
+&lt;p&gt;然后解压&lt;strong&gt;河蟹.zip&lt;/strong&gt;,将其中的配置文件&lt;strong&gt;winmm.dll&lt;/strong&gt;复制到&lt;strong&gt;typora所在文件夹&lt;/strong&gt;(右键点击typora快捷方式即可)；&lt;/p&gt;
+&lt;p&gt;最后打开typora，点击侧边栏中的帮助，再点击关于激活即可。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/images/Typora03.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;markdown语法&#34;&gt;Markdown语法
+&lt;/h2&gt;&lt;h3 id=&#34;标题&#34;&gt;标题
+&lt;/h3&gt;&lt;p&gt;使用井号 # 后接文本表标题，#个数表示几级标题，至多六级。（有时#后要紧接空格）&lt;/p&gt;
+&lt;p&gt;Typora中快捷键Ctrl+1-6表示相应级标题。&lt;/p&gt;
+&lt;h3 id=&#34;字体&#34;&gt;字体
+&lt;/h3&gt;&lt;h4 id=&#34;斜体&#34;&gt;斜体
+&lt;/h4&gt;&lt;p&gt;一对星号*括住的文本表示斜体文本。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;要表示斜体的文本&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;或者用一对下划线_括住文本表示斜体文本。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;要表示斜体的文本&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Typora快捷键Ctrl+I。&lt;/p&gt;
+&lt;h4 id=&#34;粗体&#34;&gt;粗体
+&lt;/h4&gt;&lt;p&gt;一对 ** 括住的文本表示斜体文本。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;要表示斜体的文本&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;或者用一对下划线 __ 括住文本表示斜体文本。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;要表示斜体的文本&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Typora快捷键Ctrl+B。&lt;/p&gt;
+&lt;h4 id=&#34;粗斜体文本&#34;&gt;粗斜体文本
+&lt;/h4&gt;&lt;p&gt;一对  ***  括住的文本表示斜体文本。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;要表示粗斜体的文本&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;或者用一对下划线 __ 括住文本表示斜体文本。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;要表示斜体的文本&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&#34;各种线&#34;&gt;各种线
+&lt;/h3&gt;&lt;h4 id=&#34;分割线&#34;&gt;分割线
+&lt;/h4&gt;&lt;p&gt;用&lt;strong&gt;三个及以上&lt;/strong&gt;的 &lt;code&gt;+&lt;/code&gt; 号或 &lt;code&gt;*&lt;/code&gt; 号或 &lt;code&gt;-&lt;/code&gt; 来表示一条分割线；&lt;/p&gt;
+&lt;p&gt;Typora右键插入水平分割线即可。&lt;/p&gt;
+&lt;p&gt;下为例子：&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;+++&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;下划线&lt;/p&gt;
+&lt;p&gt;利用的是HTML的标签&lt;/p&gt;
+&lt;p&gt;删除线&lt;/p&gt;
+&lt;p&gt;用一对&lt;code&gt;~~&lt;/code&gt;括住的文本来表示删除文本；&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;要删除的文本&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;待更新&amp;hellip;&lt;/p&gt;
+</description>
+        </item>
+        
     </channel>
 </rss>
