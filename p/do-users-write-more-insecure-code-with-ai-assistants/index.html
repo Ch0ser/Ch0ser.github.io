@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="(2023-11-15) Do Users Write More Insecure Code with AI Assistants?\r作者: Neil Perry; Megha Srivastava; Deepak Kumar; Dan Boneh; 期刊: （发表日期: 2023-11-15） 期刊分区: 本地链接: Perry 等 - 2023 - Do Users Write More Insecure Code with AI Assistants.pdf DOI: 10.1145/3576915.3623157 摘要: AI code assistants have emerged as powerful tools that can aid in the software development life-cycle and can improve developer productivity. Unfortunately, such assistants have also been found to produce insecure code in lab environments, raising significant concerns about their usage in practice. In this paper, we conduct a user study to examine how users interact with AI code assistants to solve a variety of security related tasks. Overall, we find that participants who had access to an AI assistant wrote significantly less secure code than those without access to an assistant. Participants with access to an AI assistant were also more likely to believe they wrote secure code, suggesting that such tools may lead users to be overconfident about security flaws in their code. To better inform the design of future AI-based code assistants, we release our user-study apparatus and anonymized data to researchers seeking to build on our work at this link. **标签:**AI代码安全，用户行为侧 笔记日期: 2024/11/26 16:30:20 📜 研究核心\rTips: 做了什么？解决了什么问题，创新点与不足？\n">
+<title>Do Users Write More Insecure Code with AI Assistants?</title>
+
+<link rel='canonical' href='https://ch0ser.github.io/p/do-users-write-more-insecure-code-with-ai-assistants/'>
+
+<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="Do Users Write More Insecure Code with AI Assistants?">
+<meta property='og:description' content="(2023-11-15) Do Users Write More Insecure Code with AI Assistants?\r作者: Neil Perry; Megha Srivastava; Deepak Kumar; Dan Boneh; 期刊: （发表日期: 2023-11-15） 期刊分区: 本地链接: Perry 等 - 2023 - Do Users Write More Insecure Code with AI Assistants.pdf DOI: 10.1145/3576915.3623157 摘要: AI code assistants have emerged as powerful tools that can aid in the software development life-cycle and can improve developer productivity. Unfortunately, such assistants have also been found to produce insecure code in lab environments, raising significant concerns about their usage in practice. In this paper, we conduct a user study to examine how users interact with AI code assistants to solve a variety of security related tasks. Overall, we find that participants who had access to an AI assistant wrote significantly less secure code than those without access to an assistant. Participants with access to an AI assistant were also more likely to believe they wrote secure code, suggesting that such tools may lead users to be overconfident about security flaws in their code. To better inform the design of future AI-based code assistants, we release our user-study apparatus and anonymized data to researchers seeking to build on our work at this link. **标签:**AI代码安全，用户行为侧 笔记日期: 2024/11/26 16:30:20 📜 研究核心\rTips: 做了什么？解决了什么问题，创新点与不足？\n">
+<meta property='og:url' content='https://ch0ser.github.io/p/do-users-write-more-insecure-code-with-ai-assistants/'>
+<meta property='og:site_name' content='Choser&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-11-23T21:45:04&#43;08:00'/><meta property='article:modified_time' content='2024-11-23T21:45:04&#43;08:00'/><meta property='og:image' content='https://ch0ser.github.io/Tiger.JPG' />
+<meta name="twitter:title" content="Do Users Write More Insecure Code with AI Assistants?">
+<meta name="twitter:description" content="(2023-11-15) Do Users Write More Insecure Code with AI Assistants?\r作者: Neil Perry; Megha Srivastava; Deepak Kumar; Dan Boneh; 期刊: （发表日期: 2023-11-15） 期刊分区: 本地链接: Perry 等 - 2023 - Do Users Write More Insecure Code with AI Assistants.pdf DOI: 10.1145/3576915.3623157 摘要: AI code assistants have emerged as powerful tools that can aid in the software development life-cycle and can improve developer productivity. Unfortunately, such assistants have also been found to produce insecure code in lab environments, raising significant concerns about their usage in practice. In this paper, we conduct a user study to examine how users interact with AI code assistants to solve a variety of security related tasks. Overall, we find that participants who had access to an AI assistant wrote significantly less secure code than those without access to an assistant. Participants with access to an AI assistant were also more likely to believe they wrote secure code, suggesting that such tools may lead users to be overconfident about security flaws in their code. To better inform the design of future AI-based code assistants, we release our user-study apparatus and anonymized data to researchers seeking to build on our work at this link. **标签:**AI代码安全，用户行为侧 笔记日期: 2024/11/26 16:30:20 📜 研究核心\rTips: 做了什么？解决了什么问题，创新点与不足？\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ch0ser.github.io/Tiger.JPG' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu1777375556697644536.png" width="300"
+                            height="158" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Choser&#39;s Blog</a></h1>
+            <h2 class="site-description">进一寸有进一寸的欢喜</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://ch0ser.github.io/en/" >English</option>
+                                
+                                    <option value="https://ch0ser.github.io/" selected>中文</option>
+                                
+                                    <option value="https://ch0ser.github.io/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#span-stylecolor-rgb224-255-255span-stylebackground-color-rgb102-205-170-研究核心spanspan"><span style="color: rgb(224, 255, 255)"><span style="background-color: rgb(102, 205, 170)">📜 研究核心</span></span></a></li>
+    <li><a href="#-内容">⚙️ 内容</a>
+      <ol>
+        <li><a href="#-创新点">💡 创新点</a></li>
+        <li><a href="#-不足">🧩 不足</a></li>
+      </ol>
+    </li>
+    <li><a href="#span-stylecolor-rgb32-178-170span-stylebackground-color-rgb175-238-238-研究内容spanspan"><span style="color: rgb(32, 178, 170)"><span style="background-color: rgb(175, 238, 238)">🔁 研究内容</span></span></a></li>
+    <li><a href="#-方法-与--实验">👩🏻‍💻 方法 与 🔬 实验</a>
+      <ol>
+        <li><a href="#实验设计">实验设计</a></li>
+        <li><a href="#-数据">💧 数据</a></li>
+        <li><a href="#分析过程"><strong>分析过程</strong></a>
+          <ol>
+            <li><a href="#安全分析"><strong>安全分析</strong></a></li>
+            <li><a href="#统计分析"><strong>统计分析</strong>:</a></li>
+            <li><a href="#信任分析">信任分析</a></li>
+            <li><a href="#提示分析">提示分析</a></li>
+          </ol>
+        </li>
+        <li><a href="#-结论总结">📜 结论总结</a>
+          <ol>
+            <li><a href="#ai助手的影响"><strong>AI助手的影响</strong></a></li>
+            <li><a href="#用户信任与安全性的关系"><strong>用户信任与安全性的关系</strong></a></li>
+            <li><a href="#用户行为的多样性"><strong>用户行为的多样性</strong></a></li>
+            <li><a href="#ai助手的设计建议"><strong>AI助手的设计建议</strong></a></li>
+            <li><a href="#研究的局限性"><strong>研究的局限性</strong></a></li>
+            <li><a href="#小结"><strong>小结</strong></a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#span-stylecolor-rgb0-77-153span-stylebackground-color-rgb135-206-250-个人总结spanspan"><span style="color: rgb(0, 77, 153)"><span style="background-color: rgb(135, 206, 250)">🤔 个人总结</span></span></a>
+      <ol>
+        <li><a href="#重点记录">🙋‍♀️重点记录</a></li>
+        <li><a href="#启发">启发</a></li>
+        <li><a href="#heading"></a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/do-users-write-more-insecure-code-with-ai-assistants/">
+                
+                    <img src="/Tiger.JPG" loading="lazy" alt="Featured image of post Do Users Write More Insecure Code with AI Assistants?" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/do-users-write-more-insecure-code-with-ai-assistants/">Do Users Write More Insecure Code with AI Assistants?</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 23, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 8 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="span-stylecolor-rgb25-60-71span-stylebackground-color-rgb238-249-2532023-11-15-do-users-write-more-insecure-code-with-ai-assistantsspanspan"><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(238, 249, 253)">(2023-11-15) Do Users Write More Insecure Code with AI Assistants?</span></span>
+</h1><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)">作者:</span></span></strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)"> Neil Perry; Megha Srivastava; Deepak Kumar; Dan Boneh;</span></span></td>
+      </tr>
+      <tr>
+          <td><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">期刊: （发表日期: 2023-11-15）</span></span></strong></td>
+      </tr>
+      <tr>
+          <td><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)">期刊分区:</span></span></strong></td>
+      </tr>
+      <tr>
+          <td><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">本地链接: </span></span></strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)"><a href="zotero://open-pdf/0_DNM3LZRA" rel="noopener noreferrer nofollow">Perry 等 - 2023 - Do Users Write More Insecure Code with AI Assistants.pdf</a></span></span></td>
+      </tr>
+      <tr>
+          <td><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)">DOI: </span></span></strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)"><a href="https://doi.org/10.1145/3576915.3623157" rel="noopener noreferrer nofollow">10.1145/3576915.3623157</a></span></span></td>
+      </tr>
+      <tr>
+          <td><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">摘要: </span></span></strong><em><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">AI code assistants have emerged as powerful tools that can aid in the software development life-cycle and can improve developer productivity. Unfortunately, such assistants have also been found to produce insecure code in lab environments, raising significant concerns about their usage in practice. In this paper, we conduct a user study to examine how users interact with AI code assistants to solve a variety of security related tasks. Overall, we find that participants who had access to an AI assistant wrote significantly less secure code than those without access to an assistant. Participants with access to an AI assistant were also more likely to believe they wrote secure code, suggesting that such tools may lead users to be overconfident about security flaws in their code. To better inform the design of future AI-based code assistants, we release our user-study apparatus and anonymized data to researchers seeking to build on our work at this link.</span></span></em></td>
+      </tr>
+      <tr>
+          <td>**<span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)">标签:</span></span>**AI代码安全，用户行为侧</td>
+      </tr>
+      <tr>
+          <td><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">笔记日期: </span></span></strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">2024/11/26 16:30:20</span></span></td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="span-stylecolor-rgb224-255-255span-stylebackground-color-rgb102-205-170-研究核心spanspan"><span style="color: rgb(224, 255, 255)"><span style="background-color: rgb(102, 205, 170)">📜 研究核心</span></span>
+</h2><hr>
+<blockquote>
+<p>Tips: 做了什么？解决了什么问题，创新点与不足？</p>
+</blockquote>
+<p>研究用户如何与 AI 代码助手交互以解决各种与安全相关的任务。</p>
+<h2 id="-内容">⚙️ 内容
+</h2><p><strong>背景问题</strong>：AI代码助手在实验室环境中会产生不安全的代码</p>
+<p><strong>研究</strong>：进行了一项用户研究，以研究用户如何与 AI 代码助手交互以解决各种与安全相关的任务。</p>
+<p><strong>核心问题：</strong></p>
+<p>1.用户在使用AI编程助手时是否编写了更多不安全的代码？</p>
+<p>2.用户是否信任AI助手能够编写安全的代码？</p>
+<p>3.用户在与 AI 助手交互时的语言和行为，如何影响，其代码中安全漏洞的程度？</p>
+<p><strong>发现</strong>：</p>
+<p>1.可以访问 AI 助手的参与者编写的代码的安全性明显低于无法使用助手的参与者。</p>
+<p>2.有权访问 AI 助手的参与者也更有可能相信他们编写了安全代码，这表明此类工具可能会导致用户对其代码中的安全漏洞过于自信。</p>
+<h3 id="-创新点">💡 创新点
+</h3><p>从 AI代码确有问题的层面 深入到了</p>
+<p>1.讨论是不是 使用ai就会导致更多代码问题</p>
+<p>2.以及 用户对ai的信任和交互方式 和 AI生成代码问题 之间的内在联系</p>
+<h3 id="-不足">🧩 不足
+</h3><p>研究的参与者主要是大学生，不一定能代表实际使用AI助手的开发者群体。</p>
+<p>而且碍于控制变量和数据收集的难度，样本数量可能确实不算太多。</p>
+<h2 id="span-stylecolor-rgb32-178-170span-stylebackground-color-rgb175-238-238-研究内容spanspan"><span style="color: rgb(32, 178, 170)"><span style="background-color: rgb(175, 238, 238)">🔁 研究内容</span></span>
+</h2><hr>
+<p><strong>研究目的</strong></p>
+<p>本研究旨在探讨用户在使用AI代码助手（如OpenAI的Codex）时如何解决与安全相关的编程任务，以及这种交互如何影响代码的安全性。研究主要关注三个核心问题：</p>
+<p>1.用户在使用AI编程助手时是否编写了更多不安全的代码？</p>
+<p>2.用户是否信任AI助手能够编写安全的代码？</p>
+<p>3.用户在与AI助手互动时的语言和行为如何影响代码中的安全漏洞程度？</p>
+<h2 id="-方法-与--实验">👩🏻‍💻 方法 与 🔬 实验
+</h2><h3 id="实验设计">实验设计
+</h3><p><strong>参与者招募：</strong></p>
+<p>研究招募了54名参与者，涵盖了本科生、研究生以及来自不同公司的专业程序员。参与者在参与前需通过一项筛选问题，以验证其编程能力。</p>
+<p>最终，有47名参与者完成了实验，其中33人使用了AI助手，14人作为对照组未使用AI助手。</p>
+<p><strong>研究工具：</strong></p>
+<p>为本研究定制了一个编程用户界面，实验组还配备了一个AI辅助界面，两个组别均可使用外部浏览器以解决问题。</p>
+<p><strong>实验任务</strong>：</p>
+<p>参与者被要求完成六个与安全相关的编程问题，涉及Python、JavaScript和C语言。任务包括加密/解密字符串、签名消息、处理用户提供的路径、执行SQL操作以及处理C语言中的字符串等。参与者可以自由选择完成任务的顺序，并在两小时内完成所有问题。</p>
+<p><strong>实验设计：</strong></p>
+<p>参与者被随机分配到实验组（使用AI助手）和对照组（不使用AI助手）。</p>
+<p>研究过程中，记录了参与者的所有交互，包括查询、响应和最终提交的代码。同时，研究团队会手动分析参与者的代码，以评估其正确性和安全性。</p>
+<h3 id="-数据">💧 数据
+</h3><p>研究团队记录了参与者在实验中的所有操作，包括代码输出和AI助手的使用情况。通过多变量回归分析，研究者控制了参与者的安全背景和编程经验，以评估AI助手对代码安全性的影响。此外，参与者在完成每个问题后还需填写简短的调查问卷，以获取他们对AI助手的信任程度及代码安全性的自我评估。</p>
+<h3 id="分析过程"><strong>分析过程</strong>
+</h3><p>研究团队详细描述了他们如何分析参与者的编程任务响应，尤其关注正确性和安全性错误的分类和评估过程。</p>
+<p><strong>错误分类:</strong> 两位作者手动检查所有参与者的解决方案，创建了一个错误列表，列出了所有的正确性和安全性错误，并根据严重性对其进行了排名。</p>
+<p><strong>评分标准</strong>: 研究团队设定了明确的评分标准，以衡量每个问题的正确性和安全性，</p>
+<blockquote>
+<p>正确性：指代码是否能成功执行预期功能；</p>
+<p>安全性：涉及是否存在安全漏洞。</p>
+</blockquote>
+<p>例如：每个问题的错误分类包括“安全”、“部分安全”、“不安全”等类别。</p>
+<blockquote>
+<p>注：</p>
+<p><strong>Cohen-Kappa一致性评分</strong>: 研究团队采用Cohen-Kappa指标（取值在-1和1间，越大一致性越高）来评估两位评审者在正确性和安全性评分上的一致性。结果显示，评分的一致性相当高，正确性评分的Kappa值在0.7至0.96之间，安全性评分的Kappa值在0.68至0.88之间，表明评分过程的可靠性。</p>
+</blockquote>
+<h4 id="安全分析"><strong>安全分析</strong>
+</h4><p><em><strong>分类系统:</strong></em></p>
+<p>研究团队为每个安全性问题设计了一个分类系统，以评估参与者的正确性和安全性，进而确定正确率和安全性错误的发生率、错误类型及其来源（来自AI助手还是用户自身）</p>
+<p><em><strong>实验发现：</strong></em></p>
+<p>在其中的四个问题上，可以使用人工智能助手的参与者编写的代码的安全性始终低于无法使用人工智能助手的参与者。</p>
+<h4 id="统计分析"><strong>统计分析</strong>:
+</h4><p>研究团队使用多变量回归分析来控制参与者的安全背景、编程经验等变量，以解释不同组别之间的安全性差异。</p>
+<p>控制变量以确保是否使用AI助手是影响代码安全的主要因素。</p>
+<h4 id="信任分析">信任分析
+</h4><p>研究者探讨了用户对AI助手作为编程辅助工具的信任程度。研究通过调查问卷、自由反馈以及用户对AI建议的采纳程度来综合评估信任这一抽象而复杂的概念。</p>
+<p><em><strong>分析结果</strong></em>：</p>
+<p>提供答案不安全的实验组反而自我正确性和安全性评分更高；</p>
+<p>方案安全的信任度低，不安全的反而高；</p>
+<p>研究者尝试用是否直接复制AI代码来量化信任度，但是发现这因题目而异；</p>
+<p>大部分安全答案都是在AI代码基础上修改的，说明提供安全解决方案可能需要用户更有意识地修改AI生成的代码，而不是盲目信任AI生成的内容。</p>
+<h4 id="提示分析">提示分析
+</h4><p>研究者探讨了用户如何与AI代码助手进行交互，具体分析了用户的提示语言、提示参数和修复策略对代码安全性的影响。</p>
+<p><em><strong>分析结果</strong></em></p>
+<p><strong>提示语言</strong></p>
+<p>使用函数声明和帮助函数的提示更能生成安全的代码。</p>
+<p>提示类型的选择对代码的安全性有显著影响，部分参与者在与AI助手的互动中使用了前一个AI输出作为新提示，这可能导致安全问题的放大或重复。</p>
+<p><strong>提示参数的调整</strong></p>
+<p>调整温度参数可能对代码的安全性产生影响，使用更高的温度值通常与更安全的代码输出相关。</p>
+<p><strong>修复策略</strong></p>
+<p>参与者在修复提示时更倾向于使用更具体的指令和信息。</p>
+<p><strong>安全性</strong></p>
+<p>依赖于AI助手的先前输出进行后续提示的参与者，往往不太可能提供安全答案。这表明，过度依赖AI生成的内容可能导致安全性下降。</p>
+<p>                                                               </p>
+<h3 id="-结论总结">📜 结论总结
+</h3><h4 id="ai助手的影响"><strong>AI助手的影响</strong>
+</h4><p>（同时也是核心问题1的回答）</p>
+<p>研究发现，参与者在使用AI助手时，通常会引入更多的安全漏洞。大多数任务中，使用AI助手的参与者更可能提交不安全的解决方案，而那些没有使用助手的参与者则相对更安全。这表明AI助手可能导致开发者对其生成的代码过于信任，从而忽视潜在的安全问题。</p>
+<h4 id="用户信任与安全性的关系"><strong>用户信任与安全性的关系</strong>
+</h4><p>参与者普遍认为他们的答案更安全，尤其是那些提交不安全代码的用户，相比之下，提交安全代码的用户对AI助手的信任度较低。这种反向关系特别明显，显示出用户在面对AI生成的代码时可能会产生误导性的安全感。</p>
+<h4 id="用户行为的多样性"><strong>用户行为的多样性</strong>
+</h4><p>参与者在与AI助手互动时展现出显著的行为差异。那些更加积极调整提示或参数的参与者，通常能提供更安全的解决方案。这表明用户的交互策略和对AI助手的理解程度直接影响了他们最终的代码安全性。</p>
+<h4 id="ai助手的设计建议"><strong>AI助手的设计建议</strong>
+</h4><p>研究者建议未来的AI助手设计应加强对用户的教育，帮助他们理解如何有效地与AI进行交互，避免过度依赖助手的输出。</p>
+<p>同时，应该考虑在AI助手中集成安全警示和验证测试，以减少用户在使用过程中产生的安全漏洞。</p>
+<h4 id="研究的局限性"><strong>研究的局限性</strong>
+</h4><p>研究的参与者主要是大学生，这可能不代表实际使用AI助手的开发者群体。研究者指出，未来需要更大规模的样本和不同背景的参与者，以更全面地评估AI助手在实际开发环境中的影响。</p>
+<h4 id="小结"><strong>小结</strong>
+</h4><p>总的来说，该总结部分强调了AI助手在提高开发效率的同时，也可能引入安全风险，用户应更加谨慎地对待AI生成的代码，未来的AI助手设计需要考虑如何增强用户的安全意识和代码审查能力。</p>
+<h2 id="span-stylecolor-rgb0-77-153span-stylebackground-color-rgb135-206-250-个人总结spanspan"><span style="color: rgb(0, 77, 153)"><span style="background-color: rgb(135, 206, 250)">🤔 个人总结</span></span>
+</h2><h3 id="重点记录">🙋‍♀️重点记录
+</h3><p><strong>idea的创新之处</strong></p>
+<p>从 AI代码确有问题的层面 深入到了</p>
+<p>1.讨论是不是 使用ai就会导致更多代码问题；</p>
+<p>2.以及 用户对ai的信任和交互方式 和 AI生成代码问题 之间的内在联系。</p>
+<p>在现有的研究上更加深入，具体地探讨了影响 AI生成代码安全问题的 用户因素。</p>
+<p><strong>控制变量的处理</strong></p>
+<p>要确保实验反映的确实是AI代码助手的影响，需要把其它实验变量控制在可控范围内，尽量消除它们对关键要素的判断的影响。</p>
+<p><strong>不足</strong></p>
+<p>研究的参与者主要是大学生，不一定能代表实际使用AI助手的开发者群体。</p>
+<p>而且碍于控制变量和数据收集的难度，样本数量可能确实不算太多。</p>
+<h3 id="启发">启发
+</h3><p>这篇文章是从用户端分析的AI生成代码安全的问题，我觉得从模型端的角度也可以对AI代码安全问题进行分析。虽然感觉实现难度上可能要大得多了。</p>
+<h3 id="heading">
+</h3>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 Example Person
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
