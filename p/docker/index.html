@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Docker命令\rDocker 镜像构建\rdocker build命令是 Docker 引擎的核心命令之一，用于根据 Dockerfile中的指令自动构建 Docker 镜像。\n核心概念与基础语法\r构建上下文：这是 docker build命令中指定的路径（通常是当前目录 .）。Docker 客户端会将这个路径下的所有文件（递归地）打包发送给 Docker 守护进程，因此只有上下文中的文件才能被 Dockerfile中的 COPY或 ADD指令使用。为了提高效率，建议使用空目录作为上下文，或通过 .dockerignore文件排除不必要的文件 Dockerfile：这是一个文本文件，包含了一系列用于构建镜像的指令（如 FROM, RUN, COPY等）。docker build会逐条执行这些指令，每条指令都会创建一个新的镜像层。 基本语法：\n">
+<title>Docker</title>
+
+<link rel='canonical' href='http://localhost:1313/p/docker/'>
+
+<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="Docker">
+<meta property='og:description' content="Docker命令\rDocker 镜像构建\rdocker build命令是 Docker 引擎的核心命令之一，用于根据 Dockerfile中的指令自动构建 Docker 镜像。\n核心概念与基础语法\r构建上下文：这是 docker build命令中指定的路径（通常是当前目录 .）。Docker 客户端会将这个路径下的所有文件（递归地）打包发送给 Docker 守护进程，因此只有上下文中的文件才能被 Dockerfile中的 COPY或 ADD指令使用。为了提高效率，建议使用空目录作为上下文，或通过 .dockerignore文件排除不必要的文件 Dockerfile：这是一个文本文件，包含了一系列用于构建镜像的指令（如 FROM, RUN, COPY等）。docker build会逐条执行这些指令，每条指令都会创建一个新的镜像层。 基本语法：\n">
+<meta property='og:url' content='http://localhost:1313/p/docker/'>
+<meta property='og:site_name' content='Choser&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-10-06T21:56:04&#43;08:00'/><meta property='article:modified_time' content='2025-10-06T21:56:04&#43;08:00'/><meta property='og:image' content='http://localhost:1313/images/wave.png' />
+<meta name="twitter:title" content="Docker">
+<meta name="twitter:description" content="Docker命令\rDocker 镜像构建\rdocker build命令是 Docker 引擎的核心命令之一，用于根据 Dockerfile中的指令自动构建 Docker 镜像。\n核心概念与基础语法\r构建上下文：这是 docker build命令中指定的路径（通常是当前目录 .）。Docker 客户端会将这个路径下的所有文件（递归地）打包发送给 Docker 守护进程，因此只有上下文中的文件才能被 Dockerfile中的 COPY或 ADD指令使用。为了提高效率，建议使用空目录作为上下文，或通过 .dockerignore文件排除不必要的文件 Dockerfile：这是一个文本文件，包含了一系列用于构建镜像的指令（如 FROM, RUN, COPY等）。docker build会逐条执行这些指令，每条指令都会创建一个新的镜像层。 基本语法：\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/images/wave.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu1777375556697644536.png" width="300"
+                            height="158" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Choser&#39;s Blog</a></h1>
+            <h2 class="site-description">进一寸有进一寸的欢喜</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Ch0ser'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#docker-镜像构建">Docker 镜像构建</a>
+      <ol>
+        <li><a href="#核心概念与基础语法"><strong>核心概念与基础语法</strong></a></li>
+        <li><a href="#常用选项详解"><strong>常用选项详解</strong></a></li>
+        <li><a href="#工作原理与流程"><strong>工作原理与流程</strong></a></li>
+        <li><a href="#示例">示例</a></li>
+      </ol>
+    </li>
+    <li><a href="#docker-容器启动">Docker 容器启动</a>
+      <ol>
+        <li><a href="#基本启动命令"><strong>基本启动命令</strong></a></li>
+        <li><a href="#启动已停止的容器"><strong>启动已停止的容器</strong></a></li>
+        <li><a href="#进入运行中的容器"><strong>进入运行中的容器</strong></a></li>
+        <li><a href="#使用docker-compose启动多容器"><strong>使用Docker Compose启动多容器</strong></a></li>
+        <li><a href="#后台运行与资源限制"><strong>后台运行与资源限制</strong></a></li>
+        <li><a href="#注意事项">注意事项</a></li>
+      </ol>
+    </li>
+    <li><a href="#docker-容器镜像重命名">Docker 容器/镜像重命名</a>
+      <ol>
+        <li><a href="#使用docker-rename命令"><strong>使用<code>docker rename</code>命令</strong></a></li>
+        <li><a href="#停止并重新创建容器"><strong>停止并重新创建容器</strong></a></li>
+        <li><a href="#使用docker-compose"><strong>使用Docker Compose</strong></a></li>
+        <li><a href="#常见问题">常见问题</a></li>
+      </ol>
+    </li>
+    <li><a href="#docker-容器提交为镜像">Docker 容器提交为镜像</a></li>
+    <li><a href="#docker-打包镜像">Docker 打包镜像</a></li>
+    <li><a href="#docker-加载镜像">Docker 加载镜像</a></li>
+    <li><a href="#docker-镜像推送">Docker 镜像推送</a></li>
+    <li><a href="#docker-拉取镜像">Docker 拉取镜像</a></li>
+    <li><a href="#docker镜像拉取失败解决方案">Docker镜像拉取失败解决方案</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/docker/">
+                
+                    <img src="/images/wave.png" loading="lazy" alt="Featured image of post Docker" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/docker/">Docker</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 06, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 10 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="docker命令">Docker命令
+</h1><h2 id="docker-镜像构建">Docker 镜像构建
+</h2><p><code>docker build</code>命令是 Docker 引擎的核心命令之一，用于根据 <code>Dockerfile</code>中的指令自动构建 Docker 镜像。</p>
+<h3 id="核心概念与基础语法"><strong>核心概念与基础语法</strong>
+</h3><ul>
+<li><strong>构建上下文</strong>：这是 <code>docker build</code>命令中指定的路径（通常是当前目录 <code>.</code>）。Docker 客户端会将这个路径下的所有文件（递归地）打包发送给 Docker 守护进程，因此<strong>只有上下文中的文件才能被 <code>Dockerfile</code>中的 <code>COPY</code>或 <code>ADD</code>指令使用</strong>。为了提高效率，建议使用<strong>空目录</strong>作为上下文，或通过 <code>.dockerignore</code>文件排除不必要的文件</li>
+<li><strong>Dockerfile</strong>：这是一个文本文件，包含了一系列用于构建镜像的指令（如 <code>FROM</code>, <code>RUN</code>, <code>COPY</code>等）。<code>docker build</code>会逐条执行这些指令，每条指令都会创建一个新的镜像层。</li>
+</ul>
+<p><strong>基本语法</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker build [OPTIONS] PATH | URL | -
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中 <code>PATH</code>就是构建上下文的路径。</p>
+<h3 id="常用选项详解"><strong>常用选项详解</strong>
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">选项</th>
+          <th style="text-align: left">说明与示例</th>
+          <th style="text-align: left">适用场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong><code>-t</code>/ <code>--tag</code></strong></td>
+          <td style="text-align: left">为构建出的镜像命名和打标签。格式为 <code>name:tag</code>。示例：<code>docker build -t myapp:latest -t myapp:v1.0 .</code></td>
+          <td style="text-align: left">镜像版本管理。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong><code>-f</code>/ <code>--file</code></strong></td>
+          <td style="text-align: left">指定要使用的 <code>Dockerfile</code>路径（当 <code>Dockerfile</code>不在上下文根目录或名称非默认时）。示例：<code>docker build -f ./docker/Dockerfile.prod .</code></td>
+          <td style="text-align: left">项目中有多个不同用途的 Dockerfile。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong><code>--build-arg</code></strong></td>
+          <td style="text-align: left">设置构建时的变量，这些变量可以在 <code>Dockerfile</code>中通过 <code>ARG</code>指令引用。示例：<code>docker build --build-arg NODE_ENV=production .</code></td>
+          <td style="text-align: left">动态传入构建参数，如版本号、环境变量。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong><code>--no-cache</code></strong></td>
+          <td style="text-align: left">强制忽略之前构建的缓存，执行全新构建。示例：<code>docker build --no-cache .</code></td>
+          <td style="text-align: left">确保依赖获取最新版本或解决缓存导致的构建问题。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong><code>--target</code></strong></td>
+          <td style="text-align: left">在多阶段构建的 <code>Dockerfile</code>中，只构建到指定的目标阶段。示例：<code>docker build --target builder .</code></td>
+          <td style="text-align: left">仅构建用于编译的中间阶段，以缩小最终镜像体积。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong><code>-q</code>/ <code>--quiet</code></strong></td>
+          <td style="text-align: left">安静模式，构建成功后只输出最终的镜像ID。</td>
+          <td style="text-align: left">适用于自动化脚本，减少输出信息。</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="工作原理与流程"><strong>工作原理与流程</strong>
+</h3><ol>
+<li><strong>发送上下文</strong>：Docker 客户端将<strong>整个</strong>构建上下文目录打包发送给 Docker 守护进程。因此，避免使用根目录 <code>/</code>作为上下文，以免发送大量无用数据。</li>
+<li><strong>逐行执行</strong>：守护进程逐条解析并执行 <code>Dockerfile</code>中的指令。</li>
+<li><strong>层缓存机制</strong>：每条指令都会生成一个只读的镜像层。Docker 会缓存未改变的层，后续构建时直接使用缓存，从而<strong>大幅加速构建过程</strong>。控制台输出中的 <code>CACHED</code>标识即表示使用了缓存。</li>
+<li><strong>输出镜像</strong>：所有指令执行完毕后，生成最终的镜像。</li>
+</ol>
+<h3 id="示例">示例
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># -t 指定镜像名称，标签默认是latest </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># . 代表上下文默认为当前目录</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 所以要保证dockerfile以及里面要copy和add的文件在当前目录下</span>
+</span></span><span class="line"><span class="cl">docker build -t gpac_cve-2019-20162 .
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="docker-容器启动">Docker 容器启动
+</h2><p>启动Docker容器有多种方式，具体取决于使用场景和需求。以下是常见的启动容器方法及详细说明：</p>
+<hr>
+<h3 id="基本启动命令"><strong>基本启动命令</strong>
+</h3><p>使用<code>docker run</code>命令创建并启动一个新容器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run <span class="o">[</span>OPTIONS<span class="o">]</span> IMAGE <span class="o">[</span>COMMAND<span class="o">]</span> <span class="o">[</span>ARG...<span class="o">]</span>  /bin/bash
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>常用选项
+<ul>
+<li><code>-d</code>：后台运行（守护态）。</li>
+<li><code>-it</code>：交互式终端（如<code>/bin/bash</code>）。</li>
+<li><code>--name</code>：指定容器名称。</li>
+<li><code>-rm</code>：容器停止后自动删除容器。</li>
+<li><code>-p</code>：端口映射（格式：<code>主机端口:容器端口</code>）。一般容器有<strong>通信需求</strong>会用</li>
+<li><code>-v</code>：挂载数据卷。</li>
+<li><code>--restart</code>：设置重启策略（如<code>always</code>、<code>unless-stopped</code>）。</li>
+<li><code>/bin/bash</code>：交互式终端进入工作目录。</li>
+</ul>
+</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 后台启动Nginx并映射端口</span>
+</span></span><span class="line"><span class="cl">docker run -d --name my-nginx -p 8080:80 nginx 
+</span></span><span class="line"><span class="cl"><span class="c1"># 挂载目录映射到容器内/testspace目录下</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 并且运行后会进入交互式终端（工作目录下）</span>
+</span></span><span class="line"><span class="cl">docker run -it --rm --name gpac_cve-2019-20162 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v /mnt/d/A.S.E/benchmark-project/gpac:/testspace <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  gpac_cve-2020-23267  /bin/bash
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h3 id="启动已停止的容器"><strong>启动已停止的容器</strong>
+</h3><p>若容器已存在但处于停止状态，使用<code>docker start</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker start &lt;容器ID或名称&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>可结合<code>-a</code>参数查看输出日志。</li>
+</ul>
+<hr>
+<h3 id="进入运行中的容器"><strong>进入运行中的容器</strong>
+</h3><ul>
+<li>
+<p><code>docker exec</code>（推荐）：</p>
+<p>在运行中的容器内启动新终端，退出时容器不会停止：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker exec -it &lt;容器ID&gt; /bin/bash
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>docker attach</code></strong>：
+直接进入容器的主进程终端，退出可能导致容器停止。</p>
+</li>
+</ul>
+<hr>
+<h3 id="使用docker-compose启动多容器"><strong>使用Docker Compose启动多容器</strong>
+</h3><p>通过<code>docker-compose.yml</code>文件定义服务，一键启动：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker-compose up -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>适用场景</strong>：需编排多个关联容器（如Web+数据库）。</li>
+</ul>
+<hr>
+<h3 id="后台运行与资源限制"><strong>后台运行与资源限制</strong>
+</h3><ul>
+<li><strong>后台运行</strong>：添加<code>-d</code>参数。</li>
+<li>资源限制：
+<ul>
+<li>内存：<code>-m 200M --memory-swap=300M</code>。</li>
+<li>CPU权重：<code>--cpu-shares 512</code>。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="注意事项">注意事项
+</h3><ol>
+<li><strong>端口冲突</strong>：确保主机端口未被占用。</li>
+<li><strong>数据持久化</strong>：使用<code>-v</code>挂载重要数据，避免容器删除后丢失。</li>
+<li><strong>日志排查</strong>：启动失败时，通过<code>docker logs &lt;容器ID&gt;</code>查看错误。</li>
+</ol>
+<h2 id="docker-容器镜像重命名">Docker 容器/镜像重命名
+</h2><p>在Docker中，重命名容器可以通过以下命令和方法实现：</p>
+<hr>
+<h3 id="使用docker-rename命令"><strong>使用<code>docker rename</code>命令</strong>
+</h3><p>这是最简便的方法，适用于运行中或已停止的容器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker rename &lt;旧容器名或ID&gt; &lt;新容器名&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker rename my_old_container my_new_container
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>注意：</p>
+<ul>
+<li>新名称必须唯一，不能与现有容器冲突。</li>
+<li>操作不会影响容器内部进程或数据。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="停止并重新创建容器"><strong>停止并重新创建容器</strong>
+</h3><p>若需保留原容器的配置，可先停止并删除原容器，再以新名称重新创建：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker stop old_container
+</span></span><span class="line"><span class="cl">docker rm old_container
+</span></span><span class="line"><span class="cl">docker run -d --name new_container <span class="o">[</span>其他选项<span class="o">]</span> &lt;镜像名&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>适用场景</strong>：需要调整其他参数（如端口、卷）时。</li>
+</ul>
+<hr>
+<h3 id="使用docker-compose"><strong>使用Docker Compose</strong>
+</h3><p>若容器由<code>docker-compose.yml</code>管理，直接修改文件中的服务名称并重启：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">services:
+</span></span><span class="line"><span class="cl">  new_name:  # 修改此处
+</span></span><span class="line"><span class="cl">    image: nginx
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker-compose up -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>优势</strong>：适合多容器编排场景。</li>
+</ul>
+<hr>
+<h3 id="常见问题">常见问题
+</h3><ul>
+<li><strong>名称冲突</strong>：若新名称已存在，Docker会报错<code>Conflict</code>，需先删除或重名冲突容器。</li>
+<li><strong>验证结果</strong>：通过<code>docker ps -a</code>确认名称是否更新。</li>
+</ul>
+<hr>
+<p><strong>总结</strong></p>
+<p>优先使用<code>docker rename</code>快速重命名；复杂需求（如配置变更）可结合停止重建或Compose调整。确保操作前后验证容器状态。</p>
+<h2 id="docker-容器提交为镜像">Docker 容器提交为镜像
+</h2><p><code>docker commit</code>命令允许你直接将一个容器的当前状态（包括文件更改、已安装的软件、配置调整等）保存为一个新的 Docker 镜像。它就像给容器拍了一张快照，便于快速保存或分享特定工作状态。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker commit <span class="o">[</span>OPTIONS<span class="o">]</span> <span class="o">[</span>容器名称<span class="o">]</span> <span class="o">[</span>镜像名称:tag<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">选项</th>
+          <th style="text-align: left">缩写</th>
+          <th style="text-align: left">功能说明</th>
+          <th style="text-align: left">示例</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--author</code></td>
+          <td style="text-align: left"><code>-a</code></td>
+          <td style="text-align: left">指定新镜像的作者信息。</td>
+          <td style="text-align: left"><code>-a &quot;张三 &lt;zhang@example.com&gt;&quot;</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>--message</code></td>
+          <td style="text-align: left"><code>-m</code></td>
+          <td style="text-align: left">添加提交信息，说明此次更改的内容。</td>
+          <td style="text-align: left"><code>-m &quot;安装了Nginx服务器&quot;</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>--change</code></td>
+          <td style="text-align: left"><code>-c</code></td>
+          <td style="text-align: left">应用Dockerfile指令（如<code>ENV</code>, <code>EXPOSE</code>, <code>CMD</code>等）。</td>
+          <td style="text-align: left"><code>-c &quot;EXPOSE 8080&quot;</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>--pause</code></td>
+          <td style="text-align: left"><code>-p</code></td>
+          <td style="text-align: left">提交时是否暂停容器以确保数据一致性（默认为true）。</td>
+          <td style="text-align: left"><code>--pause=false</code></td>
+      </tr>
+  </tbody>
+</table></div>
+<p>适用情况：</p>
+<ul>
+<li><strong>快速保存调试环境</strong>：当你在容器内进行复杂的配置或调试，并希望保存当前进度时，使用 <code>docker commit</code>可以快速创建一个镜像，下次可以直接从这一步开始，无需重头再来。</li>
+<li><strong>紧急热修复</strong>：生产环境中的容器出现问题需要立即修复时，你可以进入容器实施修复，然后通过 <code>docker commit</code>快速生成一个包含修复的临时镜像用于部署，为编写正式的 Dockerfile 争取时间。</li>
+<li><strong>创建自定义开发环境</strong>：基于一个标准镜像（如官方 Python 镜像）启动容器，安装团队所需的各种开发工具和依赖后，提交为一个标准的团队开发环境镜像，方便统一开发环境。</li>
+<li><strong>保存难以Dockerfile化的操作</strong>：有些交互式安装过程或图形界面软件的配置很难用 Dockerfile 指令完全自动化，这时可以通过交互操作后提交镜像来保存成果。</li>
+</ul>
+<p><strong>注意事项</strong></p>
+<p>尽管 <code>docker commit</code>很方便，但也有一些重要的限制和需要注意的地方：</p>
+<ul>
+<li><strong>可重复性差</strong>：通过 <code>docker commit</code>创建的镜像构建过程是黑盒的，缺乏像 Dockerfile 那样的声明性和可重复性。他人很难知晓镜像的准确构建步骤。所以在正式规范的团队开发里，还是尽量通过dockerfile来构建镜像。</li>
+<li><strong>容易导致镜像臃肿</strong>：交互式操作容易引入不必要的临时文件或缓存，如果未及时清理，会使镜像体积迅速膨胀。<strong>最佳实践</strong>：提交前，尽量清理缓存和临时文件（例如执行 <code>apt-get clean</code>）。</li>
+<li><strong>可能存在安全风险</strong>：无意中提交的镜像可能包含敏感信息，如密码、密钥等。<strong>最佳实践</strong>：提交前检查更改，使用 <code>docker diff &lt;容器名&gt;</code>查看文件系统差异，避免提交敏感数据。</li>
+<li><strong>不包含卷（Volume）中的数据</strong>：<code>docker commit</code>不会保存容器内挂载的卷中的数据。</li>
+</ul>
+<p>最后一点补充说明一下，如果你想要保存容器内挂载的卷中的数据，可以用<code>cp</code>指令拷贝进容器内目录。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp <span class="o">[</span>OPTIONS<span class="o">]</span> <span class="o">[</span>源目录<span class="o">]</span> <span class="o">[</span>目的目录<span class="o">]</span>
+</span></span><span class="line"><span class="cl">cp -r /testspace/gpac /workspace
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>前者为被复制的目录（或文件），后者为要复制到的目录</li>
+<li>-r /-R：递归复制，用于复制目录和其中所有内容</li>
+<li>-f：强制覆盖已存在的目标文件</li>
+<li>-n：不覆盖已经存在的目录</li>
+</ul>
+<hr>
+<h2 id="docker-打包镜像">Docker 打包镜像
+</h2><p><code>docker save</code>是一个非常有用的 Docker 命令，它能将你的 Docker 镜像打包成一个独立的归档文件（tar 格式），非常适合用于<strong>镜像的备份、迁移或在离线环境中分发</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker save -o <span class="o">[</span>压缩包名称<span class="o">]</span>.tar <span class="o">[</span>镜像名称<span class="o">]</span>:<span class="o">[</span>tag<span class="o">]</span>
+</span></span><span class="line"><span class="cl">docker save -o my_apps.tar app:v1.0 db:latest
+</span></span><span class="line"><span class="cl">docker save redis:alpine &gt; redis.tar
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>-o：将指定标签的镜像保存为指定名称的 <code>.tar</code>文件</li>
+<li>多个镜像打包：后面可以接好几个镜像一起打包</li>
+<li>使用重定向：使用 Shell 重定向操作，效果与 <code>-o</code>相同</li>
+</ul>
+<h2 id="docker-加载镜像">Docker 加载镜像
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker load -i <span class="o">[</span>压缩包名称<span class="o">]</span>.tar
+</span></span><span class="line"><span class="cl"><span class="c1"># 预计输出</span>
+</span></span><span class="line"><span class="cl">Loaded image: <span class="o">[</span>镜像名称<span class="o">]</span>:<span class="o">[</span>tag<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>核心功能是：将 <code>docker save</code>导出的镜像包（如 <code>nginx.tar</code>）恢复至本地镜像库。</p>
+<p>加载过程会<strong>完整恢复</strong>镜像的所有层（Layers）、标签（Tag）、构建历史等元数据，保持镜像完整性。主要应用于<strong>离线环境部署</strong>、镜像备份恢复和批量镜像迁移。</p>
+<p><strong>常见问题</strong></p>
+<ul>
+<li>
+<p><strong>镜像标签为 <code>&lt;none&gt;</code></strong>：有时加载后镜像名称和标签会显示为 <code>&lt;none&gt;</code>。这通常是因为 tar 文件本身未包含标签信息</p>
+<p>。解决方法很简单，使用 <code>docker tag</code>命令手动为其打上标签即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 先通过 docker images 查看镜像ID
+</span></span><span class="line"><span class="cl">docker images
+</span></span><span class="line"><span class="cl"># 然后为指定镜像ID打上标签
+</span></span><span class="line"><span class="cl">docker tag &lt;镜像ID&gt; nginx:latest
+</span></span><span class="line"><span class="cl">[1,6](@ref)
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>加载失败排查</strong>：如果加载失败，可以先检查 tar 文件是否完整。可以使用 <code>tar -tf nginx.tar</code>命令查看压缩包内容列表。另外，也要确保 Docker 宿主机有足够的磁盘空间。</p>
+</li>
+</ul>
+<h2 id="docker-镜像推送">Docker 镜像推送
+</h2><p>推送镜像是将你本地构建好的镜像上传到远程仓库（一般是dockerhub官网），以便他人或其他机器使用。</p>
+<ol>
+<li>
+<p><strong>登录仓库</strong></p>
+<p>首先需要使用 <code>docker login</code>命令登录到目标镜像仓库（如 Docker Hub 或你的私有仓库）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker login
+</span></span><span class="line"><span class="cl"># 或者指定私有仓库地址
+</span></span><span class="line"><span class="cl">docker login myregistry.example.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行后会提示输入用户名和密码。如果使用私有仓库，地址需替换为你的仓库地址。</p>
+</li>
+<li>
+<p><strong>标记镜像</strong></p>
+<p>在推送之前，必须为本地镜像打上一个符合远程仓库命名规范的标签，格式通常为 <code>[仓库地址]/[用户名或项目名]/[镜像名]:[标签]</code>。当然如果本来就是规范命名就不用改。使用 <code>docker tag</code>命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 语法：docker tag 本地镜像名:标签 新标签
+</span></span><span class="line"><span class="cl">docker tag my-app:latest yourusername/my-app:v1.0
+</span></span><span class="line"><span class="cl"># 如果推送到私有仓库，地址可能如下
+</span></span><span class="line"><span class="cl">docker tag my-app:latest myregistry.example.com/yourproject/my-app:prod
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>执行推送</strong></p>
+<p>使用 <code>docker push</code>命令将标记好的镜像推送到远程仓库。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker push yourusername/my-app:v1.0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>推送成功后，就可以在远程仓库的页面上看到这个镜像了。</p>
+</li>
+</ol>
+<h2 id="docker-拉取镜像">Docker 拉取镜像
+</h2><p>拉取镜像是从远程仓库将镜像下载到本地环境的过程。</p>
+<ol>
+<li>
+<p><strong>基本拉取命令</strong></p>
+<p>最基础的命令是 <code>docker pull</code>，后面跟上镜像的名称和标签（可选，默认为 <code>latest</code>）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 拉取官方Nginx镜像的最新版本
+</span></span><span class="line"><span class="cl">docker pull nginx
+</span></span><span class="line"><span class="cl"># 拉取指定标签的镜像
+</span></span><span class="line"><span class="cl">docker pull nginx:1.27.0-perl
+</span></span><span class="line"><span class="cl"># 从私有仓库拉取
+</span></span><span class="line"><span class="cl">docker pull myregistry.example.com/yourproject/my-app:prod
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>验证拉取结果</strong></p>
+<p>拉取完成后，使用 <code>docker images</code>命令可以查看本地已下载的镜像列表，确认镜像是否成功拉取。</p>
+</li>
+</ol>
+<h2 id="docker镜像拉取失败解决方案">Docker镜像拉取失败解决方案
+</h2><p>如果docker镜像拉取失败，且报错为连接超时，无法连接，可以采取以下办法。</p>
+<p><strong>1.排查DNS</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /etc/resolv.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果resolv.conf中没有8.8.8.8和8.8.4.4，就添上。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">nameserver 8.8.8.8
+</span></span><span class="line"><span class="cl">nameserver 8.8.4.4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>改完后，<code>ctrl+o</code>保存，再<code>enter</code>确认，最后<code>ctrl+x</code>退出。</p>
+<p>此修改在系统重启时会重置，其实也可以永久修改，但是比较麻烦，要拉取的时候修改即可。</p>
+<p><strong>2.修改拉取源</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /etc/docker/daemon.json
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加国内镜像站：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;registry-mirrors&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://docker.m.daocloud.io&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://dockerproxy.com&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://docker.mirrors.ustc.edu.cn&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://docker.nju.edu.cn&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://iju9kaj2.mirror.aliyuncs.com&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;http://hub-mirror.c.163.com&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://cr.console.aliyun.com&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://hub.docker.com&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;http://mirrors.ustc.edu.cn&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>改完后，<code>ctrl+o</code>保存，再<code>enter</code>确认，最后<code>ctrl+x</code>退出。</p>
+<p><strong>3.重启docker服务</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 重新load daemon.json</span>
+</span></span><span class="line"><span class="cl">sudo systemctl daemon-reload
+</span></span><span class="line"><span class="cl"><span class="c1"># 重启docker服务</span>
+</span></span><span class="line"><span class="cl">sudo systemctl restart docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个时候再试试拉取，多半成功了。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Example Person
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.02491b20957ce34c6cbaef143130153bbb70fa8c594c64eb104a00e20fbf9273.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

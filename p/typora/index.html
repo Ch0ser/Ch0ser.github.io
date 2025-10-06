@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Typora教程\rTypora的安装\r这是b站up主 格格分享集 提供的1.9.5版本及绕过激活方法，在此鸣谢。\nhttps://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&vd_source=94c6a60e88fb8109fcdee4173a2a7281\n不想看视频的可以往下看。\n解压 Typora1.9.5.zip后，文件结构如下：\n">
+<title>Typora</title>
+
+<link rel='canonical' href='http://localhost:1313/p/typora/'>
+
+<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="Typora">
+<meta property='og:description' content="Typora教程\rTypora的安装\r这是b站up主 格格分享集 提供的1.9.5版本及绕过激活方法，在此鸣谢。\nhttps://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&vd_source=94c6a60e88fb8109fcdee4173a2a7281\n不想看视频的可以往下看。\n解压 Typora1.9.5.zip后，文件结构如下：\n">
+<meta property='og:url' content='http://localhost:1313/p/typora/'>
+<meta property='og:site_name' content='Choser&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-11-23T21:45:04&#43;08:00'/><meta property='article:modified_time' content='2024-11-23T21:45:04&#43;08:00'/><meta property='og:image' content='http://localhost:1313/images/PacificRim_01.jpg' />
+<meta name="twitter:title" content="Typora">
+<meta name="twitter:description" content="Typora教程\rTypora的安装\r这是b站up主 格格分享集 提供的1.9.5版本及绕过激活方法，在此鸣谢。\nhttps://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&vd_source=94c6a60e88fb8109fcdee4173a2a7281\n不想看视频的可以往下看。\n解压 Typora1.9.5.zip后，文件结构如下：\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/images/PacificRim_01.jpg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu1777375556697644536.png" width="300"
+                            height="158" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Choser&#39;s Blog</a></h1>
+            <h2 class="site-description">进一寸有进一寸的欢喜</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Ch0ser'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#typora的安装">Typora的安装</a></li>
+    <li><a href="#markdown语法及typora快捷键">Markdown语法及Typora快捷键</a>
+      <ol>
+        <li><a href="#标题">标题</a></li>
+        <li><a href="#字体">字体</a>
+          <ol>
+            <li><a href="#斜体">斜体</a></li>
+            <li><a href="#粗体">粗体</a></li>
+            <li><a href="#粗斜体文本">粗斜体文本</a></li>
+            <li><a href="#文本高亮">文本高亮</a></li>
+          </ol>
+        </li>
+        <li><a href="#各种线">各种线</a>
+          <ol>
+            <li><a href="#分割线">分割线</a></li>
+            <li><a href="#下划线">下划线</a></li>
+            <li><a href="#删除线">删除线</a></li>
+          </ol>
+        </li>
+        <li><a href="#表格">表格</a></li>
+        <li><a href="#列表">列表</a>
+          <ol>
+            <li><a href="#无序列表">无序列表</a></li>
+            <li><a href="#有序列表">有序列表</a></li>
+            <li><a href="#嵌套列表">嵌套列表</a></li>
+          </ol>
+        </li>
+        <li><a href="#引用">引用</a></li>
+        <li><a href="#代码块">代码块</a></li>
+        <li><a href="#链接"><strong>链接</strong></a></li>
+        <li><a href="#图像">图像</a></li>
+        <li><a href="#数学">数学</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/typora/">
+                
+                    <img src="/images/PacificRim_01.jpg" loading="lazy" alt="Featured image of post Typora" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/typora/">Typora</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 23, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="typora教程">Typora教程
+</h1><h2 id="typora的安装">Typora的安装
+</h2><p>这是b站up主 <strong>格格分享集</strong> 提供的1.9.5版本及绕过激活方法，在此鸣谢。</p>
+<p><a class="link" href="https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&amp;vd_source=94c6a60e88fb8109fcdee4173a2a7281"  target="_blank" rel="noopener"
+    >https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&vd_source=94c6a60e88fb8109fcdee4173a2a7281</a></p>
+<p>不想看视频的可以往下看。</p>
+<p><img src="/images/Typora1.9.5zip.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Typora1.9.5zip"
+	
+	
+></p>
+<p>解压 <strong>Typora1.9.5.zip</strong>后，文件结构如下：</p>
+<p><img src="/images/Typora02.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>先运行安装程序安装<strong>typora1.9.5</strong>；</p>
+<p>然后解压<strong>河蟹.zip</strong>,将其中的配置文件<strong>winmm.dll</strong>复制到<strong>typora所在文件夹</strong>(右键点击typora快捷方式即可)；</p>
+<p>最后打开typora，点击侧边栏中的帮助，再点击关于激活即可。</p>
+<p><img src="/images/Typora03.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h2 id="markdown语法及typora快捷键">Markdown语法及Typora快捷键
+</h2><h3 id="标题">标题
+</h3><p>使用井号 # 后接文本表标题，#个数表示几级标题，至多六级。（有时#后要紧接空格）</p>
+<p>Typora中快捷键<strong>Ctrl+1-6</strong>表示相应级标题。</p>
+<h3 id="字体">字体
+</h3><h4 id="斜体">斜体
+</h4><p>一对星号*括住的文本表示斜体文本。</p>
+<p><em>要表示斜体的文本</em></p>
+<p>或者用一对下划线_括住文本表示斜体文本。</p>
+<p><em>要表示斜体的文本</em></p>
+<p>Typora快捷键<strong>Ctrl+I</strong>。</p>
+<h4 id="粗体">粗体
+</h4><p>一对 ** 括住的文本表示斜体文本。</p>
+<p><strong>要表示斜体的文本</strong></p>
+<p>或者用一对下划线 __ 括住文本表示斜体文本。</p>
+<p><strong>要表示斜体的文本</strong></p>
+<p>Typora快捷键<strong>Ctrl+B</strong>。</p>
+<h4 id="粗斜体文本">粗斜体文本
+</h4><p>一对  ***  括住的文本表示斜体文本。</p>
+<p><em><strong>要表示粗斜体的文本</strong></em></p>
+<p>或者用一对下划线 __ 括住文本表示斜体文本。</p>
+<p><em><strong>要表示斜体的文本</strong></em></p>
+<h4 id="文本高亮">文本高亮
+</h4><p>算是Typora的一个特色，用一对<code>==</code>将要高亮的文本括起来，需要在<strong>文件-偏好设置</strong>中打开。</p>
+<p>==要高亮的文本==</p>
+<h3 id="各种线">各种线
+</h3><h4 id="分割线">分割线
+</h4><p>用<strong>三个及以上</strong>的 <code>+</code> 号或 <code>*</code> 号或 <code>-</code> 来表示一条分割线；</p>
+<p>Typora右键插入水平分割线即可。</p>
+<p>下为例子：</p>
+<hr>
+<p>+++</p>
+<hr>
+<h4 id="下划线">下划线
+</h4><p>利用的是HTML的标签<u>  和  </u>  表示增加下划线文本，</p>
+<p><u>要增加下划线的文本</u></p>
+<p>Typora快捷键：<strong>Ctrl+U</strong></p>
+<h4 id="删除线">删除线
+</h4><p>用一对<code>~~</code>括住的文本来表示删除文本；</p>
+<p><del>要删除的文本</del></p>
+<p>Typora快捷键：<strong>Alt+Shift+5</strong></p>
+<h3 id="表格">表格
+</h3><p>Markdown 制作表格使用 <code>|</code> 来分隔不同的单元格，使用 <code>-</code> 来分隔表头和其他行。</p>
+<p>Typora快捷键：<strong>Ctrl+T</strong></p>
+<p>Typora中表格的创建和修改都非常精简和方便，所以很多额外的操作（对齐、添加行列等）不加赘述了。</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>表头</th>
+          <th>表头</th>
+          <th>表头</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="列表">列表
+</h3><h4 id="无序列表">无序列表
+</h4><p>用<code>*</code>，<code>+</code>或<code>-</code>标记符号来表示无序列表项，标记符号后要紧接一个空格。</p>
+<ul>
+<li>1</li>
+<li>2</li>
+</ul>
+<p>其它两符号同上。</p>
+<p>（Enter键退出列表）</p>
+<p>Typora快捷键：<strong>Ctrl+Shift+]</strong>   (更建议右键里添加)</p>
+<h4 id="有序列表">有序列表
+</h4><p>以 数字紧接.再紧接空格表示有序列表。</p>
+<ol>
+<li>一</li>
+<li>二</li>
+</ol>
+<p>Typora快捷键：<strong>Ctrl+Shift+[</strong>   (更建议右键里添加)</p>
+<h4 id="嵌套列表">嵌套列表
+</h4><p>列表中：</p>
+<p>回车换行自动生成列表第二列；</p>
+<p>Tab键该项变为上一项的子列表。</p>
+<p>无序列表和有序列表间可相互嵌套。</p>
+<h3 id="引用">引用
+</h3><p>用区块表引用, &gt;加空格表示区块。</p>
+<blockquote>
+<p>这是一级引用</p>
+<blockquote>
+<p>这是二级引用</p>
+</blockquote>
+</blockquote>
+<p>（Enter键退出区块）</p>
+<p>Typora快捷键：<strong>Ctrl+Shift+Q</strong>  (更建议右键里添加)</p>
+<h3 id="代码块">代码块
+</h3><p>代码行：用一对**`**（英语下Tab键上方符号）括住代码</p>
+<p><code>print(&quot;Helloworld&quot;)</code></p>
+<p>代码块：</p>
+<p>以<strong>三个`加回车</strong>进入代码块；</p>
+<p>Typora快捷键：<strong>Ctrl+Shift+`</strong></p>
+<h3 id="链接"><strong>链接</strong>
+</h3><p>用</p>
+<p><a class="link" href="%e9%93%be%e6%8e%a5%e5%9c%b0%e5%9d%80" >链接文字</a></p>
+<p>或</p>
+<p>&lt;链接地址&gt;</p>
+<p>表示链接。</p>
+<p>[]中是链接文本，&lt;&gt;中是链接地址，也可以放本地文件的地址（相对绝对均可）</p>
+<p>但是单独使用&lt;&gt;不能打开文件。</p>
+<p>亦可使用链接实现页内跳转：</p>
+<p><a class="link" href="#%e6%a0%87%e9%a2%98%e6%96%87%e5%ad%97" >链接文字</a></p>
+<p><a class="link" href="#Typora%e7%9a%84%e5%ae%89%e8%a3%85" >CTRL+点击跳转至文章开头</a></p>
+<h3 id="图像">图像
+</h3><p>语法如下：</p>
+<p>！加[属性文本]加(图片地址 ”可选标题“)</p>
+<ul>
+<li>首先一个感叹号</li>
+<li>然后中括号里面写属性文本</li>
+<li>小括号里面写图片地址，后可接标题</li>
+</ul>
+<p><img src="/"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>本地地址和网络地址都行。</p>
+<p>在Typora中，也可以直接使用<code>Ctrl+C</code>，<code>Ctrl+V</code>来直接进行复制粘贴图片，但是，由于Markdown语法的限制，一定需要文件地址，所以需要设置一下Typora。</p>
+<p>在Typora <strong>文件-偏好设置-图像</strong> 中可自行选择将图片复制到什么路径。相对路径以该文本文件为参照。</p>
+<h3 id="数学">数学
+</h3><p>数学公式太繁琐了喵，推荐让ai生成，这里不加赘述了。</p>
+<p>有时间再更。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Example Person
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.02491b20957ce34c6cbaef143130153bbb70fa8c594c64eb104a00e20fbf9273.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
