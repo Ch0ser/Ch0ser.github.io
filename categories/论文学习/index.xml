@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>论文学习 on Choser&#39;s Blog</title>
+        <link>https://ch0ser.github.io/categories/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/</link>
+        <description>Recent content in 论文学习 on Choser&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Example Person</copyright>
+        <lastBuildDate>Sat, 23 Nov 2024 21:45:04 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/categories/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Do Users Write More Insecure Code with AI Assistants?</title>
+        <link>https://ch0ser.github.io/p/do-users-write-more-insecure-code-with-ai-assistants/</link>
+        <pubDate>Sat, 23 Nov 2024 21:45:04 +0800</pubDate>
+        
+        <guid>https://ch0ser.github.io/p/do-users-write-more-insecure-code-with-ai-assistants/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Tiger.JPG" alt="Featured image of post Do Users Write More Insecure Code with AI Assistants?" /&gt;&lt;h1 id=&#34;span-stylecolor-rgb25-60-71span-stylebackground-color-rgb238-249-2532023-11-15-do-users-write-more-insecure-code-with-ai-assistantsspanspan&#34;&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(238, 249, 253)&#34;&gt;(2023-11-15) Do Users Write More Insecure Code with AI Assistants?&lt;/span&gt;&lt;/span&gt;
+&lt;/h1&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(219, 238, 221)&#34;&gt;作者:&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(219, 238, 221)&#34;&gt; Neil Perry; Megha Srivastava; Deepak Kumar; Dan Boneh;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(243, 250, 244)&#34;&gt;期刊: （发表日期: 2023-11-15）&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(219, 238, 221)&#34;&gt;期刊分区:&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(243, 250, 244)&#34;&gt;本地链接: &lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(243, 250, 244)&#34;&gt;&lt;a href=&#34;zotero://open-pdf/0_DNM3LZRA&#34; rel=&#34;noopener noreferrer nofollow&#34;&gt;Perry 等 - 2023 - Do Users Write More Insecure Code with AI Assistants.pdf&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(219, 238, 221)&#34;&gt;DOI: &lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(219, 238, 221)&#34;&gt;&lt;a href=&#34;https://doi.org/10.1145/3576915.3623157&#34; rel=&#34;noopener noreferrer nofollow&#34;&gt;10.1145/3576915.3623157&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(243, 250, 244)&#34;&gt;摘要: &lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;em&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(243, 250, 244)&#34;&gt;AI code assistants have emerged as powerful tools that can aid in the software development life-cycle and can improve developer productivity. Unfortunately, such assistants have also been found to produce insecure code in lab environments, raising significant concerns about their usage in practice. In this paper, we conduct a user study to examine how users interact with AI code assistants to solve a variety of security related tasks. Overall, we find that participants who had access to an AI assistant wrote significantly less secure code than those without access to an assistant. Participants with access to an AI assistant were also more likely to believe they wrote secure code, suggesting that such tools may lead users to be overconfident about security flaws in their code. To better inform the design of future AI-based code assistants, we release our user-study apparatus and anonymized data to researchers seeking to build on our work at this link.&lt;/span&gt;&lt;/span&gt;&lt;/em&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;**&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(219, 238, 221)&#34;&gt;标签:&lt;/span&gt;&lt;/span&gt;**AI代码安全，用户行为侧&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(243, 250, 244)&#34;&gt;笔记日期: &lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(243, 250, 244)&#34;&gt;2024/11/26 16:30:20&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;span-stylecolor-rgb224-255-255span-stylebackground-color-rgb102-205-170-研究核心spanspan&#34;&gt;&lt;span style=&#34;color: rgb(224, 255, 255)&#34;&gt;&lt;span style=&#34;background-color: rgb(102, 205, 170)&#34;&gt;📜 研究核心&lt;/span&gt;&lt;/span&gt;
+&lt;/h2&gt;&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Tips: 做了什么？解决了什么问题，创新点与不足？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;研究用户如何与 AI 代码助手交互以解决各种与安全相关的任务。&lt;/p&gt;
+&lt;h2 id=&#34;-内容&#34;&gt;⚙️ 内容
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;背景问题&lt;/strong&gt;：AI代码助手在实验室环境中会产生不安全的代码&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;研究&lt;/strong&gt;：进行了一项用户研究，以研究用户如何与 AI 代码助手交互以解决各种与安全相关的任务。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;核心问题：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1.用户在使用AI编程助手时是否编写了更多不安全的代码？&lt;/p&gt;
+&lt;p&gt;2.用户是否信任AI助手能够编写安全的代码？&lt;/p&gt;
+&lt;p&gt;3.用户在与 AI 助手交互时的语言和行为，如何影响，其代码中安全漏洞的程度？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;发现&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;1.可以访问 AI 助手的参与者编写的代码的安全性明显低于无法使用助手的参与者。&lt;/p&gt;
+&lt;p&gt;2.有权访问 AI 助手的参与者也更有可能相信他们编写了安全代码，这表明此类工具可能会导致用户对其代码中的安全漏洞过于自信。&lt;/p&gt;
+&lt;h3 id=&#34;-创新点&#34;&gt;💡 创新点
+&lt;/h3&gt;&lt;p&gt;从 AI代码确有问题的层面 深入到了&lt;/p&gt;
+&lt;p&gt;1.讨论是不是 使用ai就会导致更多代码问题&lt;/p&gt;
+&lt;p&gt;2.以及 用户对ai的信任和交互方式 和 AI生成代码问题 之间的内在联系&lt;/p&gt;
+&lt;h3 id=&#34;-不足&#34;&gt;🧩 不足
+&lt;/h3&gt;&lt;p&gt;研究的参与者主要是大学生，不一定能代表实际使用AI助手的开发者群体。&lt;/p&gt;
+&lt;p&gt;而且碍于控制变量和数据收集的难度，样本数量可能确实不算太多。&lt;/p&gt;
+&lt;h2 id=&#34;span-stylecolor-rgb32-178-170span-stylebackground-color-rgb175-238-238-研究内容spanspan&#34;&gt;&lt;span style=&#34;color: rgb(32, 178, 170)&#34;&gt;&lt;span style=&#34;background-color: rgb(175, 238, 238)&#34;&gt;🔁 研究内容&lt;/span&gt;&lt;/span&gt;
+&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;研究目的&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;本研究旨在探讨用户在使用AI代码助手（如OpenAI的Codex）时如何解决与安全相关的编程任务，以及这种交互如何影响代码的安全性。研究主要关注三个核心问题：&lt;/p&gt;
+&lt;p&gt;1.用户在使用AI编程助手时是否编写了更多不安全的代码？&lt;/p&gt;
+&lt;p&gt;2.用户是否信任AI助手能够编写安全的代码？&lt;/p&gt;
+&lt;p&gt;3.用户在与AI助手互动时的语言和行为如何影响代码中的安全漏洞程度？&lt;/p&gt;
+&lt;h2 id=&#34;-方法-与--实验&#34;&gt;👩🏻‍💻 方法 与 🔬 实验
+&lt;/h2&gt;&lt;h3 id=&#34;实验设计&#34;&gt;实验设计
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;参与者招募：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;研究招募了54名参与者，涵盖了本科生、研究生以及来自不同公司的专业程序员。参与者在参与前需通过一项筛选问题，以验证其编程能力。&lt;/p&gt;
+&lt;p&gt;最终，有47名参与者完成了实验，其中33人使用了AI助手，14人作为对照组未使用AI助手。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;研究工具：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;为本研究定制了一个编程用户界面，实验组还配备了一个AI辅助界面，两个组别均可使用外部浏览器以解决问题。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;实验任务&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;参与者被要求完成六个与安全相关的编程问题，涉及Python、JavaScript和C语言。任务包括加密/解密字符串、签名消息、处理用户提供的路径、执行SQL操作以及处理C语言中的字符串等。参与者可以自由选择完成任务的顺序，并在两小时内完成所有问题。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;实验设计：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;参与者被随机分配到实验组（使用AI助手）和对照组（不使用AI助手）。&lt;/p&gt;
+&lt;p&gt;研究过程中，记录了参与者的所有交互，包括查询、响应和最终提交的代码。同时，研究团队会手动分析参与者的代码，以评估其正确性和安全性。&lt;/p&gt;
+&lt;h3 id=&#34;-数据&#34;&gt;💧 数据
+&lt;/h3&gt;&lt;p&gt;研究团队记录了参与者在实验中的所有操作，包括代码输出和AI助手的使用情况。通过多变量回归分析，研究者控制了参与者的安全背景和编程经验，以评估AI助手对代码安全性的影响。此外，参与者在完成每个问题后还需填写简短的调查问卷，以获取他们对AI助手的信任程度及代码安全性的自我评估。&lt;/p&gt;
+&lt;h3 id=&#34;分析过程&#34;&gt;&lt;strong&gt;分析过程&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;研究团队详细描述了他们如何分析参与者的编程任务响应，尤其关注正确性和安全性错误的分类和评估过程。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;错误分类:&lt;/strong&gt; 两位作者手动检查所有参与者的解决方案，创建了一个错误列表，列出了所有的正确性和安全性错误，并根据严重性对其进行了排名。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;评分标准&lt;/strong&gt;: 研究团队设定了明确的评分标准，以衡量每个问题的正确性和安全性，&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;正确性：指代码是否能成功执行预期功能；&lt;/p&gt;
+&lt;p&gt;安全性：涉及是否存在安全漏洞。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;例如：每个问题的错误分类包括“安全”、“部分安全”、“不安全”等类别。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Cohen-Kappa一致性评分&lt;/strong&gt;: 研究团队采用Cohen-Kappa指标（取值在-1和1间，越大一致性越高）来评估两位评审者在正确性和安全性评分上的一致性。结果显示，评分的一致性相当高，正确性评分的Kappa值在0.7至0.96之间，安全性评分的Kappa值在0.68至0.88之间，表明评分过程的可靠性。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;安全分析&#34;&gt;&lt;strong&gt;安全分析&lt;/strong&gt;
+&lt;/h4&gt;&lt;p&gt;&lt;em&gt;&lt;strong&gt;分类系统:&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;研究团队为每个安全性问题设计了一个分类系统，以评估参与者的正确性和安全性，进而确定正确率和安全性错误的发生率、错误类型及其来源（来自AI助手还是用户自身）&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;实验发现：&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;在其中的四个问题上，可以使用人工智能助手的参与者编写的代码的安全性始终低于无法使用人工智能助手的参与者。&lt;/p&gt;
+&lt;h4 id=&#34;统计分析&#34;&gt;&lt;strong&gt;统计分析&lt;/strong&gt;:
+&lt;/h4&gt;&lt;p&gt;研究团队使用多变量回归分析来控制参与者的安全背景、编程经验等变量，以解释不同组别之间的安全性差异。&lt;/p&gt;
+&lt;p&gt;控制变量以确保是否使用AI助手是影响代码安全的主要因素。&lt;/p&gt;
+&lt;h4 id=&#34;信任分析&#34;&gt;信任分析
+&lt;/h4&gt;&lt;p&gt;研究者探讨了用户对AI助手作为编程辅助工具的信任程度。研究通过调查问卷、自由反馈以及用户对AI建议的采纳程度来综合评估信任这一抽象而复杂的概念。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;分析结果&lt;/strong&gt;&lt;/em&gt;：&lt;/p&gt;
+&lt;p&gt;提供答案不安全的实验组反而自我正确性和安全性评分更高；&lt;/p&gt;
+&lt;p&gt;方案安全的信任度低，不安全的反而高；&lt;/p&gt;
+&lt;p&gt;研究者尝试用是否直接复制AI代码来量化信任度，但是发现这因题目而异；&lt;/p&gt;
+&lt;p&gt;大部分安全答案都是在AI代码基础上修改的，说明提供安全解决方案可能需要用户更有意识地修改AI生成的代码，而不是盲目信任AI生成的内容。&lt;/p&gt;
+&lt;h4 id=&#34;提示分析&#34;&gt;提示分析
+&lt;/h4&gt;&lt;p&gt;研究者探讨了用户如何与AI代码助手进行交互，具体分析了用户的提示语言、提示参数和修复策略对代码安全性的影响。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;分析结果&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;提示语言&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;使用函数声明和帮助函数的提示更能生成安全的代码。&lt;/p&gt;
+&lt;p&gt;提示类型的选择对代码的安全性有显著影响，部分参与者在与AI助手的互动中使用了前一个AI输出作为新提示，这可能导致安全问题的放大或重复。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;提示参数的调整&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;调整温度参数可能对代码的安全性产生影响，使用更高的温度值通常与更安全的代码输出相关。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;修复策略&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;参与者在修复提示时更倾向于使用更具体的指令和信息。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;安全性&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;依赖于AI助手的先前输出进行后续提示的参与者，往往不太可能提供安全答案。这表明，过度依赖AI生成的内容可能导致安全性下降。&lt;/p&gt;
+&lt;p&gt;                                                               &lt;/p&gt;
+&lt;h3 id=&#34;-结论总结&#34;&gt;📜 结论总结
+&lt;/h3&gt;&lt;h4 id=&#34;ai助手的影响&#34;&gt;&lt;strong&gt;AI助手的影响&lt;/strong&gt;
+&lt;/h4&gt;&lt;p&gt;（同时也是核心问题1的回答）&lt;/p&gt;
+&lt;p&gt;研究发现，参与者在使用AI助手时，通常会引入更多的安全漏洞。大多数任务中，使用AI助手的参与者更可能提交不安全的解决方案，而那些没有使用助手的参与者则相对更安全。这表明AI助手可能导致开发者对其生成的代码过于信任，从而忽视潜在的安全问题。&lt;/p&gt;
+&lt;h4 id=&#34;用户信任与安全性的关系&#34;&gt;&lt;strong&gt;用户信任与安全性的关系&lt;/strong&gt;
+&lt;/h4&gt;&lt;p&gt;参与者普遍认为他们的答案更安全，尤其是那些提交不安全代码的用户，相比之下，提交安全代码的用户对AI助手的信任度较低。这种反向关系特别明显，显示出用户在面对AI生成的代码时可能会产生误导性的安全感。&lt;/p&gt;
+&lt;h4 id=&#34;用户行为的多样性&#34;&gt;&lt;strong&gt;用户行为的多样性&lt;/strong&gt;
+&lt;/h4&gt;&lt;p&gt;参与者在与AI助手互动时展现出显著的行为差异。那些更加积极调整提示或参数的参与者，通常能提供更安全的解决方案。这表明用户的交互策略和对AI助手的理解程度直接影响了他们最终的代码安全性。&lt;/p&gt;
+&lt;h4 id=&#34;ai助手的设计建议&#34;&gt;&lt;strong&gt;AI助手的设计建议&lt;/strong&gt;
+&lt;/h4&gt;&lt;p&gt;研究者建议未来的AI助手设计应加强对用户的教育，帮助他们理解如何有效地与AI进行交互，避免过度依赖助手的输出。&lt;/p&gt;
+&lt;p&gt;同时，应该考虑在AI助手中集成安全警示和验证测试，以减少用户在使用过程中产生的安全漏洞。&lt;/p&gt;
+&lt;h4 id=&#34;研究的局限性&#34;&gt;&lt;strong&gt;研究的局限性&lt;/strong&gt;
+&lt;/h4&gt;&lt;p&gt;研究的参与者主要是大学生，这可能不代表实际使用AI助手的开发者群体。研究者指出，未来需要更大规模的样本和不同背景的参与者，以更全面地评估AI助手在实际开发环境中的影响。&lt;/p&gt;
+&lt;h4 id=&#34;小结&#34;&gt;&lt;strong&gt;小结&lt;/strong&gt;
+&lt;/h4&gt;&lt;p&gt;总的来说，该总结部分强调了AI助手在提高开发效率的同时，也可能引入安全风险，用户应更加谨慎地对待AI生成的代码，未来的AI助手设计需要考虑如何增强用户的安全意识和代码审查能力。&lt;/p&gt;
+&lt;h2 id=&#34;span-stylecolor-rgb0-77-153span-stylebackground-color-rgb135-206-250-个人总结spanspan&#34;&gt;&lt;span style=&#34;color: rgb(0, 77, 153)&#34;&gt;&lt;span style=&#34;background-color: rgb(135, 206, 250)&#34;&gt;🤔 个人总结&lt;/span&gt;&lt;/span&gt;
+&lt;/h2&gt;&lt;h3 id=&#34;重点记录&#34;&gt;🙋‍♀️重点记录
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;idea的创新之处&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;从 AI代码确有问题的层面 深入到了&lt;/p&gt;
+&lt;p&gt;1.讨论是不是 使用ai就会导致更多代码问题；&lt;/p&gt;
+&lt;p&gt;2.以及 用户对ai的信任和交互方式 和 AI生成代码问题 之间的内在联系。&lt;/p&gt;
+&lt;p&gt;在现有的研究上更加深入，具体地探讨了影响 AI生成代码安全问题的 用户因素。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;控制变量的处理&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;要确保实验反映的确实是AI代码助手的影响，需要把其它实验变量控制在可控范围内，尽量消除它们对关键要素的判断的影响。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;不足&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;研究的参与者主要是大学生，不一定能代表实际使用AI助手的开发者群体。&lt;/p&gt;
+&lt;p&gt;而且碍于控制变量和数据收集的难度，样本数量可能确实不算太多。&lt;/p&gt;
+&lt;h3 id=&#34;启发&#34;&gt;启发
+&lt;/h3&gt;&lt;p&gt;这篇文章是从用户端分析的AI生成代码安全的问题，我觉得从模型端的角度也可以对AI代码安全问题进行分析。虽然感觉实现难度上可能要大得多了。&lt;/p&gt;
+&lt;h3 id=&#34;heading&#34;&gt;
+&lt;/h3&gt;</description>
+        </item>
+        
+    </channel>
+</rss>

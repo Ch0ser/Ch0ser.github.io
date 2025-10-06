@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Choser&#39;s Blog</title>
-        <link>http://localhost:1313/</link>
+        <link>https://ch0ser.github.io/</link>
         <description>Recent content on Choser&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright>
-        <lastBuildDate>Mon, 06 Oct 2025 21:56:04 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Docker</title>
-        <link>http://localhost:1313/p/docker/</link>
+        <lastBuildDate>Mon, 06 Oct 2025 21:56:04 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Docker Commands</title>
+        <link>https://ch0ser.github.io/p/docker-commands/</link>
         <pubDate>Mon, 06 Oct 2025 21:56:04 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/docker/</guid>
-        <description>&lt;img src="http://localhost:1313/images/wave.png" alt="Featured image of post Docker" /&gt;&lt;h1 id=&#34;docker命令&#34;&gt;Docker命令
+        <guid>https://ch0ser.github.io/p/docker-commands/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/wave.png" alt="Featured image of post Docker Commands" /&gt;&lt;h1 id=&#34;docker命令&#34;&gt;Docker命令
 &lt;/h1&gt;&lt;h2 id=&#34;docker-镜像构建&#34;&gt;Docker 镜像构建
 &lt;/h2&gt;&lt;p&gt;&lt;code&gt;docker build&lt;/code&gt;命令是 Docker 引擎的核心命令之一，用于根据 &lt;code&gt;Dockerfile&lt;/code&gt;中的指令自动构建 Docker 镜像。&lt;/p&gt;
 &lt;h3 id=&#34;核心概念与基础语法&#34;&gt;&lt;strong&gt;核心概念与基础语法&lt;/strong&gt;
@@ -605,11 +605,11 @@
         </item>
         <item>
         <title>Quick Git</title>
-        <link>http://localhost:1313/p/quick-git/</link>
+        <link>https://ch0ser.github.io/p/quick-git/</link>
         <pubDate>Fri, 21 Feb 2025 20:58:54 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/quick-git/</guid>
-        <description>&lt;img src="http://localhost:1313/images/PacificRim_02.PNG" alt="Featured image of post Quick Git" /&gt;&lt;h1 id=&#34;git使用教程&#34;&gt;Git使用教程
+        <guid>https://ch0ser.github.io/p/quick-git/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/PacificRim_02.PNG" alt="Featured image of post Quick Git" /&gt;&lt;h1 id=&#34;git使用教程&#34;&gt;Git使用教程
 &lt;/h1&gt;&lt;h2 id=&#34;安装&#34;&gt;安装
 &lt;/h2&gt;&lt;p&gt;官网下载安装即可，安装配置基本默认。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -1119,11 +1119,11 @@
         </item>
         <item>
         <title>Quick Java</title>
-        <link>http://localhost:1313/p/quick-java/</link>
+        <link>https://ch0ser.github.io/p/quick-java/</link>
         <pubDate>Mon, 16 Dec 2024 16:04:20 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/quick-java/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Lover.PNG" alt="Featured image of post Quick Java" /&gt;&lt;h2 id=&#34;1-java背景知识&#34;&gt;1 Java背景知识
+        <guid>https://ch0ser.github.io/p/quick-java/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Lover.PNG" alt="Featured image of post Quick Java" /&gt;&lt;h2 id=&#34;1-java背景知识&#34;&gt;1 Java背景知识
 &lt;/h2&gt;&lt;h3 id=&#34;11-jdk-jre-jvm&#34;&gt;1.1 JDK JRE JVM
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;JDK(开发工具包)&lt;/li&gt;
@@ -3054,11 +3054,11 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
         </item>
         <item>
         <title>Do Users Write More Insecure Code with AI Assistants?</title>
-        <link>http://localhost:1313/p/do-users-write-more-insecure-code-with-ai-assistants/</link>
+        <link>https://ch0ser.github.io/p/do-users-write-more-insecure-code-with-ai-assistants/</link>
         <pubDate>Sat, 23 Nov 2024 21:45:04 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/do-users-write-more-insecure-code-with-ai-assistants/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Tiger.JPG" alt="Featured image of post Do Users Write More Insecure Code with AI Assistants?" /&gt;&lt;h1 id=&#34;span-stylecolor-rgb25-60-71span-stylebackground-color-rgb238-249-2532023-11-15-do-users-write-more-insecure-code-with-ai-assistantsspanspan&#34;&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(238, 249, 253)&#34;&gt;(2023-11-15) Do Users Write More Insecure Code with AI Assistants?&lt;/span&gt;&lt;/span&gt;
+        <guid>https://ch0ser.github.io/p/do-users-write-more-insecure-code-with-ai-assistants/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Tiger.JPG" alt="Featured image of post Do Users Write More Insecure Code with AI Assistants?" /&gt;&lt;h1 id=&#34;span-stylecolor-rgb25-60-71span-stylebackground-color-rgb238-249-2532023-11-15-do-users-write-more-insecure-code-with-ai-assistantsspanspan&#34;&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(238, 249, 253)&#34;&gt;(2023-11-15) Do Users Write More Insecure Code with AI Assistants?&lt;/span&gt;&lt;/span&gt;
 &lt;/h1&gt;&lt;table&gt;
   &lt;thead&gt;
       &lt;tr&gt;
@@ -3211,17 +3211,17 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
         </item>
         <item>
         <title>Typora</title>
-        <link>http://localhost:1313/p/typora/</link>
+        <link>https://ch0ser.github.io/p/typora/</link>
         <pubDate>Sat, 23 Nov 2024 21:45:04 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/typora/</guid>
-        <description>&lt;img src="http://localhost:1313/images/PacificRim_01.jpg" alt="Featured image of post Typora" /&gt;&lt;h1 id=&#34;typora教程&#34;&gt;Typora教程
+        <guid>https://ch0ser.github.io/p/typora/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/PacificRim_01.jpg" alt="Featured image of post Typora" /&gt;&lt;h1 id=&#34;typora教程&#34;&gt;Typora教程
 &lt;/h1&gt;&lt;h2 id=&#34;typora的安装&#34;&gt;Typora的安装
 &lt;/h2&gt;&lt;p&gt;这是b站up主 &lt;strong&gt;格格分享集&lt;/strong&gt; 提供的1.9.5版本及绕过激活方法，在此鸣谢。&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&amp;amp;vd_source=94c6a60e88fb8109fcdee4173a2a7281&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&amp;vd_source=94c6a60e88fb8109fcdee4173a2a7281&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;不想看视频的可以往下看。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/Typora1.9.5zip.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/images/Typora1.9.5zip.png&#34;
 	
 	
 	
@@ -3232,7 +3232,7 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;解压 &lt;strong&gt;Typora1.9.5.zip&lt;/strong&gt;后，文件结构如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/Typora02.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/images/Typora02.png&#34;
 	
 	
 	
@@ -3243,7 +3243,7 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
 &lt;p&gt;先运行安装程序安装&lt;strong&gt;typora1.9.5&lt;/strong&gt;；&lt;/p&gt;
 &lt;p&gt;然后解压&lt;strong&gt;河蟹.zip&lt;/strong&gt;,将其中的配置文件&lt;strong&gt;winmm.dll&lt;/strong&gt;复制到&lt;strong&gt;typora所在文件夹&lt;/strong&gt;(右键点击typora快捷方式即可)；&lt;/p&gt;
 &lt;p&gt;最后打开typora，点击侧边栏中的帮助，再点击关于激活即可。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/Typora03.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/images/Typora03.png&#34;
 	
 	
 	
@@ -3369,7 +3369,7 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
 &lt;li&gt;然后中括号里面写属性文本&lt;/li&gt;
 &lt;li&gt;小括号里面写图片地址，后可接标题&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/&#34;
 	
 	
 	
