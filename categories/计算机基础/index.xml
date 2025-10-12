@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>计算机基础 on Choser&#39;s Blog</title>
-        <link>https://ch0ser.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</link>
+        <link>http://localhost:1313/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</link>
         <description>Recent content in 计算机基础 on Choser&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Ch0ser</copyright>
-        <lastBuildDate>Mon, 06 Oct 2025 21:56:04 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 06 Oct 2025 21:56:04 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Docker Commands</title>
-        <link>https://ch0ser.github.io/p/docker-commands/</link>
+        <link>http://localhost:1313/p/docker-commands/</link>
         <pubDate>Mon, 06 Oct 2025 21:56:04 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/docker-commands/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/wave.png" alt="Featured image of post Docker Commands" /&gt;&lt;h1 id=&#34;docker命令&#34;&gt;Docker命令
+        <guid>http://localhost:1313/p/docker-commands/</guid>
+        <description>&lt;img src="http://localhost:1313/images/wave.png" alt="Featured image of post Docker Commands" /&gt;&lt;h1 id=&#34;docker命令&#34;&gt;Docker命令
 &lt;/h1&gt;&lt;h2 id=&#34;docker-镜像构建&#34;&gt;Docker 镜像构建
 &lt;/h2&gt;&lt;p&gt;&lt;code&gt;docker build&lt;/code&gt;命令是 Docker 引擎的核心命令之一，用于根据 &lt;code&gt;Dockerfile&lt;/code&gt;中的指令自动构建 Docker 镜像。&lt;/p&gt;
 &lt;h3 id=&#34;核心概念与基础语法&#34;&gt;&lt;strong&gt;核心概念与基础语法&lt;/strong&gt;
@@ -605,11 +605,11 @@
         </item>
         <item>
         <title>Quick Git</title>
-        <link>https://ch0ser.github.io/p/quick-git/</link>
+        <link>http://localhost:1313/p/quick-git/</link>
         <pubDate>Fri, 21 Feb 2025 20:58:54 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/quick-git/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/PacificRim_02.PNG" alt="Featured image of post Quick Git" /&gt;&lt;h1 id=&#34;git使用教程&#34;&gt;Git使用教程
+        <guid>http://localhost:1313/p/quick-git/</guid>
+        <description>&lt;img src="http://localhost:1313/images/PacificRim_02.PNG" alt="Featured image of post Quick Git" /&gt;&lt;h1 id=&#34;git使用教程&#34;&gt;Git使用教程
 &lt;/h1&gt;&lt;h2 id=&#34;安装&#34;&gt;安装
 &lt;/h2&gt;&lt;p&gt;官网下载安装即可，安装配置基本默认。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -1119,11 +1119,11 @@
         </item>
         <item>
         <title>Quick Java</title>
-        <link>https://ch0ser.github.io/p/quick-java/</link>
+        <link>http://localhost:1313/p/quick-java/</link>
         <pubDate>Mon, 16 Dec 2024 16:04:20 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/quick-java/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Lover.PNG" alt="Featured image of post Quick Java" /&gt;&lt;h2 id=&#34;1-java背景知识&#34;&gt;1 Java背景知识
+        <guid>http://localhost:1313/p/quick-java/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Lover.PNG" alt="Featured image of post Quick Java" /&gt;&lt;h2 id=&#34;1-java背景知识&#34;&gt;1 Java背景知识
 &lt;/h2&gt;&lt;h3 id=&#34;11-jdk-jre-jvm&#34;&gt;1.1 JDK JRE JVM
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;JDK(开发工具包)&lt;/li&gt;
@@ -3054,17 +3054,17 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
         </item>
         <item>
         <title>Typora</title>
-        <link>https://ch0ser.github.io/p/typora/</link>
+        <link>http://localhost:1313/p/typora/</link>
         <pubDate>Sat, 23 Nov 2024 21:45:04 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/typora/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/PacificRim_01.jpg" alt="Featured image of post Typora" /&gt;&lt;h1 id=&#34;typora教程&#34;&gt;Typora教程
+        <guid>http://localhost:1313/p/typora/</guid>
+        <description>&lt;img src="http://localhost:1313/images/PacificRim_01.jpg" alt="Featured image of post Typora" /&gt;&lt;h1 id=&#34;typora教程&#34;&gt;Typora教程
 &lt;/h1&gt;&lt;h2 id=&#34;typora的安装&#34;&gt;Typora的安装
 &lt;/h2&gt;&lt;p&gt;这是b站up主 &lt;strong&gt;格格分享集&lt;/strong&gt; 提供的1.9.5版本及绕过激活方法，在此鸣谢。&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&amp;amp;vd_source=94c6a60e88fb8109fcdee4173a2a7281&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&amp;vd_source=94c6a60e88fb8109fcdee4173a2a7281&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;不想看视频的可以往下看。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/images/Typora1.9.5zip.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/Typora1.9.5zip.png&#34;
 	
 	
 	
@@ -3075,7 +3075,7 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;解压 &lt;strong&gt;Typora1.9.5.zip&lt;/strong&gt;后，文件结构如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/images/Typora02.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/Typora02.png&#34;
 	
 	
 	
@@ -3086,7 +3086,7 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
 &lt;p&gt;先运行安装程序安装&lt;strong&gt;typora1.9.5&lt;/strong&gt;；&lt;/p&gt;
 &lt;p&gt;然后解压&lt;strong&gt;河蟹.zip&lt;/strong&gt;,将其中的配置文件&lt;strong&gt;winmm.dll&lt;/strong&gt;复制到&lt;strong&gt;typora所在文件夹&lt;/strong&gt;(右键点击typora快捷方式即可)；&lt;/p&gt;
 &lt;p&gt;最后打开typora，点击侧边栏中的帮助，再点击关于激活即可。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/images/Typora03.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/Typora03.png&#34;
 	
 	
 	
@@ -3212,183 +3212,7 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
 &lt;li&gt;然后中括号里面写属性文本&lt;/li&gt;
 &lt;li&gt;小括号里面写图片地址，后可接标题&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;本地地址和网络地址都行。&lt;/p&gt;
-&lt;p&gt;在Typora中，也可以直接使用&lt;code&gt;Ctrl+C&lt;/code&gt;，&lt;code&gt;Ctrl+V&lt;/code&gt;来直接进行复制粘贴图片，但是，由于Markdown语法的限制，一定需要文件地址，所以需要设置一下Typora。&lt;/p&gt;
-&lt;p&gt;在Typora &lt;strong&gt;文件-偏好设置-图像&lt;/strong&gt; 中可自行选择将图片复制到什么路径。相对路径以该文本文件为参照。&lt;/p&gt;
-&lt;h3 id=&#34;数学&#34;&gt;数学
-&lt;/h3&gt;&lt;p&gt;数学公式太繁琐了喵，推荐让ai生成，这里不加赘述了。&lt;/p&gt;
-&lt;p&gt;有时间再更。&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>Typora</title>
-        <link>https://ch0ser.github.io/p/typora/</link>
-        <pubDate>Sat, 23 Nov 2024 21:45:04 +0800</pubDate>
-        
-        <guid>https://ch0ser.github.io/p/typora/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/PacificRim_01.jpg" alt="Featured image of post Typora" /&gt;&lt;h1 id=&#34;typora教程&#34;&gt;Typora教程
-&lt;/h1&gt;&lt;h2 id=&#34;typora的安装&#34;&gt;Typora的安装
-&lt;/h2&gt;&lt;p&gt;这是b站up主 &lt;strong&gt;格格分享集&lt;/strong&gt; 提供的1.9.5版本及绕过激活方法，在此鸣谢。&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&amp;amp;vd_source=94c6a60e88fb8109fcdee4173a2a7281&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&amp;vd_source=94c6a60e88fb8109fcdee4173a2a7281&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;不想看视频的可以往下看。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/images/Typora1.9.5zip.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;Typora1.9.5zip&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;解压 &lt;strong&gt;Typora1.9.5.zip&lt;/strong&gt;后，文件结构如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/images/Typora02.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;先运行安装程序安装&lt;strong&gt;typora1.9.5&lt;/strong&gt;；&lt;/p&gt;
-&lt;p&gt;然后解压&lt;strong&gt;河蟹.zip&lt;/strong&gt;,将其中的配置文件&lt;strong&gt;winmm.dll&lt;/strong&gt;复制到&lt;strong&gt;typora所在文件夹&lt;/strong&gt;(右键点击typora快捷方式即可)；&lt;/p&gt;
-&lt;p&gt;最后打开typora，点击侧边栏中的帮助，再点击关于激活即可。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/images/Typora03.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;h2 id=&#34;markdown语法及typora快捷键&#34;&gt;Markdown语法及Typora快捷键
-&lt;/h2&gt;&lt;h3 id=&#34;标题&#34;&gt;标题
-&lt;/h3&gt;&lt;p&gt;使用井号 # 后接文本表标题，#个数表示几级标题，至多六级。（有时#后要紧接空格）&lt;/p&gt;
-&lt;p&gt;Typora中快捷键&lt;strong&gt;Ctrl+1-6&lt;/strong&gt;表示相应级标题。&lt;/p&gt;
-&lt;h3 id=&#34;字体&#34;&gt;字体
-&lt;/h3&gt;&lt;h4 id=&#34;斜体&#34;&gt;斜体
-&lt;/h4&gt;&lt;p&gt;一对星号*括住的文本表示斜体文本。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;要表示斜体的文本&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;或者用一对下划线_括住文本表示斜体文本。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;要表示斜体的文本&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;Typora快捷键&lt;strong&gt;Ctrl+I&lt;/strong&gt;。&lt;/p&gt;
-&lt;h4 id=&#34;粗体&#34;&gt;粗体
-&lt;/h4&gt;&lt;p&gt;一对 ** 括住的文本表示斜体文本。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;要表示斜体的文本&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;或者用一对下划线 __ 括住文本表示斜体文本。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;要表示斜体的文本&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Typora快捷键&lt;strong&gt;Ctrl+B&lt;/strong&gt;。&lt;/p&gt;
-&lt;h4 id=&#34;粗斜体文本&#34;&gt;粗斜体文本
-&lt;/h4&gt;&lt;p&gt;一对  ***  括住的文本表示斜体文本。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;要表示粗斜体的文本&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;或者用一对下划线 __ 括住文本表示斜体文本。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;要表示斜体的文本&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;h4 id=&#34;文本高亮&#34;&gt;文本高亮
-&lt;/h4&gt;&lt;p&gt;算是Typora的一个特色，用一对&lt;code&gt;==&lt;/code&gt;将要高亮的文本括起来，需要在&lt;strong&gt;文件-偏好设置&lt;/strong&gt;中打开。&lt;/p&gt;
-&lt;p&gt;==要高亮的文本==&lt;/p&gt;
-&lt;h3 id=&#34;各种线&#34;&gt;各种线
-&lt;/h3&gt;&lt;h4 id=&#34;分割线&#34;&gt;分割线
-&lt;/h4&gt;&lt;p&gt;用&lt;strong&gt;三个及以上&lt;/strong&gt;的 &lt;code&gt;+&lt;/code&gt; 号或 &lt;code&gt;*&lt;/code&gt; 号或 &lt;code&gt;-&lt;/code&gt; 来表示一条分割线；&lt;/p&gt;
-&lt;p&gt;Typora右键插入水平分割线即可。&lt;/p&gt;
-&lt;p&gt;下为例子：&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;+++&lt;/p&gt;
-&lt;hr&gt;
-&lt;h4 id=&#34;下划线&#34;&gt;下划线
-&lt;/h4&gt;&lt;p&gt;利用的是HTML的标签&lt;u&gt;  和  &lt;/u&gt;  表示增加下划线文本，&lt;/p&gt;
-&lt;p&gt;&lt;u&gt;要增加下划线的文本&lt;/u&gt;&lt;/p&gt;
-&lt;p&gt;Typora快捷键：&lt;strong&gt;Ctrl+U&lt;/strong&gt;&lt;/p&gt;
-&lt;h4 id=&#34;删除线&#34;&gt;删除线
-&lt;/h4&gt;&lt;p&gt;用一对&lt;code&gt;~~&lt;/code&gt;括住的文本来表示删除文本；&lt;/p&gt;
-&lt;p&gt;&lt;del&gt;要删除的文本&lt;/del&gt;&lt;/p&gt;
-&lt;p&gt;Typora快捷键：&lt;strong&gt;Alt+Shift+5&lt;/strong&gt;&lt;/p&gt;
-&lt;h3 id=&#34;表格&#34;&gt;表格
-&lt;/h3&gt;&lt;p&gt;Markdown 制作表格使用 &lt;code&gt;|&lt;/code&gt; 来分隔不同的单元格，使用 &lt;code&gt;-&lt;/code&gt; 来分隔表头和其他行。&lt;/p&gt;
-&lt;p&gt;Typora快捷键：&lt;strong&gt;Ctrl+T&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Typora中表格的创建和修改都非常精简和方便，所以很多额外的操作（对齐、添加行列等）不加赘述了。&lt;/p&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;表头&lt;/th&gt;
-          &lt;th&gt;表头&lt;/th&gt;
-          &lt;th&gt;表头&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h3 id=&#34;列表&#34;&gt;列表
-&lt;/h3&gt;&lt;h4 id=&#34;无序列表&#34;&gt;无序列表
-&lt;/h4&gt;&lt;p&gt;用&lt;code&gt;*&lt;/code&gt;，&lt;code&gt;+&lt;/code&gt;或&lt;code&gt;-&lt;/code&gt;标记符号来表示无序列表项，标记符号后要紧接一个空格。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;1&lt;/li&gt;
-&lt;li&gt;2&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;其它两符号同上。&lt;/p&gt;
-&lt;p&gt;（Enter键退出列表）&lt;/p&gt;
-&lt;p&gt;Typora快捷键：&lt;strong&gt;Ctrl+Shift+]&lt;/strong&gt;   (更建议右键里添加)&lt;/p&gt;
-&lt;h4 id=&#34;有序列表&#34;&gt;有序列表
-&lt;/h4&gt;&lt;p&gt;以 数字紧接.再紧接空格表示有序列表。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;一&lt;/li&gt;
-&lt;li&gt;二&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Typora快捷键：&lt;strong&gt;Ctrl+Shift+[&lt;/strong&gt;   (更建议右键里添加)&lt;/p&gt;
-&lt;h4 id=&#34;嵌套列表&#34;&gt;嵌套列表
-&lt;/h4&gt;&lt;p&gt;列表中：&lt;/p&gt;
-&lt;p&gt;回车换行自动生成列表第二列；&lt;/p&gt;
-&lt;p&gt;Tab键该项变为上一项的子列表。&lt;/p&gt;
-&lt;p&gt;无序列表和有序列表间可相互嵌套。&lt;/p&gt;
-&lt;h3 id=&#34;引用&#34;&gt;引用
-&lt;/h3&gt;&lt;p&gt;用区块表引用, &amp;gt;加空格表示区块。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;这是一级引用&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;这是二级引用&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;（Enter键退出区块）&lt;/p&gt;
-&lt;p&gt;Typora快捷键：&lt;strong&gt;Ctrl+Shift+Q&lt;/strong&gt;  (更建议右键里添加)&lt;/p&gt;
-&lt;h3 id=&#34;代码块&#34;&gt;代码块
-&lt;/h3&gt;&lt;p&gt;代码行：用一对**`**（英语下Tab键上方符号）括住代码&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;print(&amp;quot;Helloworld&amp;quot;)&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;代码块：&lt;/p&gt;
-&lt;p&gt;以&lt;strong&gt;三个`加回车&lt;/strong&gt;进入代码块；&lt;/p&gt;
-&lt;p&gt;Typora快捷键：&lt;strong&gt;Ctrl+Shift+`&lt;/strong&gt;&lt;/p&gt;
-&lt;h3 id=&#34;链接&#34;&gt;&lt;strong&gt;链接&lt;/strong&gt;
-&lt;/h3&gt;&lt;p&gt;用&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;%e9%93%be%e6%8e%a5%e5%9c%b0%e5%9d%80&#34; &gt;链接文字&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;或&lt;/p&gt;
-&lt;p&gt;&amp;lt;链接地址&amp;gt;&lt;/p&gt;
-&lt;p&gt;表示链接。&lt;/p&gt;
-&lt;p&gt;[]中是链接文本，&amp;lt;&amp;gt;中是链接地址，也可以放本地文件的地址（相对绝对均可）&lt;/p&gt;
-&lt;p&gt;但是单独使用&amp;lt;&amp;gt;不能打开文件。&lt;/p&gt;
-&lt;p&gt;亦可使用链接实现页内跳转：&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#%e6%a0%87%e9%a2%98%e6%96%87%e5%ad%97&#34; &gt;链接文字&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;#Typora%e7%9a%84%e5%ae%89%e8%a3%85&#34; &gt;CTRL+点击跳转至文章开头&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;图像&#34;&gt;图像
-&lt;/h3&gt;&lt;p&gt;语法如下：&lt;/p&gt;
-&lt;p&gt;！加[属性文本]加(图片地址 ”可选标题“)&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;首先一个感叹号&lt;/li&gt;
-&lt;li&gt;然后中括号里面写属性文本&lt;/li&gt;
-&lt;li&gt;小括号里面写图片地址，后可接标题&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/&#34;
 	
 	
 	
