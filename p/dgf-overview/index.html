@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Typora教程\rTypora的安装\r这是b站up主 格格分享集 提供的1.9.5版本及绕过激活方法，在此鸣谢。\nhttps://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&vd_source=94c6a60e88fb8109fcdee4173a2a7281\n不想看视频的可以往下看。\n解压 Typora1.9.5.zip后，文件结构如下：\n">
-<title>Typora</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="DGF Overview\r定向灰盒测试相关技术 核心策略 时间顺序梳理 速览\nAFL(American Fuzzy Lop 2014)\r传统灰盒：全图覆盖，无定向\n变异策略\n确定性：bit/byte flip（翻转）、整数加减、边界值、字典 随机叠加（Havoc）：纯随机组合多种变异操作（如插入、删除、替换） 拼接（Splicing）：将两个种子拼接后执行 havoc 变异 反馈引导策略\n">
+<title>DGF Overview</title>
 
-<link rel='canonical' href='http://localhost:1313/p/typora/'>
+<link rel='canonical' href='http://localhost:1313/p/dgf-overview/'>
 
-<link rel="stylesheet" href="/scss/style.min.48ce54e3e307e3741d61de84a9b7fd091d2b70c905a608c90a1db85a009feb1b.css"><meta property='og:title' content="Typora">
-<meta property='og:description' content="Typora教程\rTypora的安装\r这是b站up主 格格分享集 提供的1.9.5版本及绕过激活方法，在此鸣谢。\nhttps://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&vd_source=94c6a60e88fb8109fcdee4173a2a7281\n不想看视频的可以往下看。\n解压 Typora1.9.5.zip后，文件结构如下：\n">
-<meta property='og:url' content='http://localhost:1313/p/typora/'>
+<link rel="stylesheet" href="/scss/style.min.48ce54e3e307e3741d61de84a9b7fd091d2b70c905a608c90a1db85a009feb1b.css"><meta property='og:title' content="DGF Overview">
+<meta property='og:description' content="DGF Overview\r定向灰盒测试相关技术 核心策略 时间顺序梳理 速览\nAFL(American Fuzzy Lop 2014)\r传统灰盒：全图覆盖，无定向\n变异策略\n确定性：bit/byte flip（翻转）、整数加减、边界值、字典 随机叠加（Havoc）：纯随机组合多种变异操作（如插入、删除、替换） 拼接（Splicing）：将两个种子拼接后执行 havoc 变异 反馈引导策略\n">
+<meta property='og:url' content='http://localhost:1313/p/dgf-overview/'>
 <meta property='og:site_name' content='Choser&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='typora' /><meta property='article:published_time' content='2024-11-23T21:45:04&#43;08:00'/><meta property='article:modified_time' content='2024-11-23T21:45:04&#43;08:00'/><meta property='og:image' content='http://localhost:1313/images/PacificRim_01.jpg' />
-<meta name="twitter:title" content="Typora">
-<meta name="twitter:description" content="Typora教程\rTypora的安装\r这是b站up主 格格分享集 提供的1.9.5版本及绕过激活方法，在此鸣谢。\nhttps://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&vd_source=94c6a60e88fb8109fcdee4173a2a7281\n不想看视频的可以往下看。\n解压 Typora1.9.5.zip后，文件结构如下：\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:1313/images/PacificRim_01.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Fuzz' /><meta property='article:published_time' content='2025-10-13T23:51:05&#43;08:00'/><meta property='article:modified_time' content='2025-10-13T23:51:05&#43;08:00'/><meta property='og:image' content='http://localhost:1313/images/EarlyMorningForest.png' />
+<meta name="twitter:title" content="DGF Overview">
+<meta name="twitter:description" content="DGF Overview\r定向灰盒测试相关技术 核心策略 时间顺序梳理 速览\nAFL(American Fuzzy Lop 2014)\r传统灰盒：全图覆盖，无定向\n变异策略\n确定性：bit/byte flip（翻转）、整数加减、边界值、字典 随机叠加（Havoc）：纯随机组合多种变异操作（如插入、删除、替换） 拼接（Splicing）：将两个种子拼接后执行 havoc 变异 反馈引导策略\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/images/EarlyMorningForest.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -227,40 +227,11 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#typora的安装">Typora的安装</a></li>
-    <li><a href="#markdown语法及typora快捷键">Markdown语法及Typora快捷键</a>
-      <ol>
-        <li><a href="#标题">标题</a></li>
-        <li><a href="#字体">字体</a>
-          <ol>
-            <li><a href="#斜体">斜体</a></li>
-            <li><a href="#粗体">粗体</a></li>
-            <li><a href="#粗斜体文本">粗斜体文本</a></li>
-            <li><a href="#文本高亮">文本高亮</a></li>
-          </ol>
-        </li>
-        <li><a href="#各种线">各种线</a>
-          <ol>
-            <li><a href="#分割线">分割线</a></li>
-            <li><a href="#下划线">下划线</a></li>
-            <li><a href="#删除线">删除线</a></li>
-          </ol>
-        </li>
-        <li><a href="#表格">表格</a></li>
-        <li><a href="#列表">列表</a>
-          <ol>
-            <li><a href="#无序列表">无序列表</a></li>
-            <li><a href="#有序列表">有序列表</a></li>
-            <li><a href="#嵌套列表">嵌套列表</a></li>
-          </ol>
-        </li>
-        <li><a href="#引用">引用</a></li>
-        <li><a href="#代码块">代码块</a></li>
-        <li><a href="#链接"><strong>链接</strong></a></li>
-        <li><a href="#图像">图像</a></li>
-        <li><a href="#数学">数学</a></li>
-      </ol>
-    </li>
+    <li><a href="#aflamerican-fuzzy-lop-2014">AFL(American Fuzzy Lop 2014)</a></li>
+    <li><a href="#aflgo-2017">AFLGo （2017）</a></li>
+    <li><a href="#windrangericse-2022">WindRanger（ICSE 2022）</a></li>
+    <li><a href="#beaconieee-sp-2022">Beacon（IEEE S&amp;P 2022）</a></li>
+    <li><a href="#参考资料">参考资料</a></li>
   </ol>
 </nav>
         </div>
@@ -275,9 +246,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/typora/">
+            <a href="/p/dgf-overview/">
                 
-                    <img src="/images/PacificRim_01.jpg" loading="lazy" alt="Featured image of post Typora" />
+                    <img src="/images/EarlyMorningForest.png" loading="lazy" alt="Featured image of post DGF Overview" />
                 
             </a>
         </div>
@@ -287,8 +258,8 @@
     
     <header class="article-category">
         
-            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" >
-                计算机基础
+            <a href="/categories/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/" >
+                二进制安全
             </a>
         
     </header>
@@ -296,7 +267,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/typora/">Typora</a>
+            <a href="/p/dgf-overview/">DGF Overview</a>
         </h2>
     
         
@@ -318,7 +289,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Nov 23, 2024</time>
+                <time class="article-time--published">Oct 13, 2025</time>
             </div>
         
 
@@ -333,7 +304,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 4 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -348,174 +319,115 @@
     <section class="article-content">
     
     
-    <h1 id="typora教程">Typora教程
-</h1><h2 id="typora的安装">Typora的安装
-</h2><p>这是b站up主 <strong>格格分享集</strong> 提供的1.9.5版本及绕过激活方法，在此鸣谢。</p>
-<p><a class="link" href="https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&amp;vd_source=94c6a60e88fb8109fcdee4173a2a7281"  target="_blank" rel="noopener"
-    >https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&vd_source=94c6a60e88fb8109fcdee4173a2a7281</a></p>
-<p>不想看视频的可以往下看。</p>
-<p><img src="/pics/Typora1.9.5zip.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="Typora1.9.5zip"
-	
-	
-></p>
-<p>解压 <strong>Typora1.9.5.zip</strong>后，文件结构如下：</p>
-<p><img src="/pics/Typora02.png"
-	
-	
-	
-	loading="lazy"
-	
-	
-></p>
-<p>先运行安装程序安装<strong>typora1.9.5</strong>；</p>
-<p>然后解压<strong>河蟹.zip</strong>,将其中的配置文件<strong>winmm.dll</strong>复制到<strong>typora所在文件夹</strong>(右键点击typora快捷方式即可)；</p>
-<p>最后打开typora，点击侧边栏中的帮助，再点击关于激活即可。</p>
-<p><img src="/pics/Typora03.png"
-	
-	
-	
-	loading="lazy"
-	
-	
-></p>
-<h2 id="markdown语法及typora快捷键">Markdown语法及Typora快捷键
-</h2><h3 id="标题">标题
-</h3><p>使用井号 # 后接文本表标题，#个数表示几级标题，至多六级。（有时#后要紧接空格）</p>
-<p>Typora中快捷键<strong>Ctrl+1-6</strong>表示相应级标题。</p>
-<h3 id="字体">字体
-</h3><h4 id="斜体">斜体
-</h4><p>一对星号*括住的文本表示斜体文本。</p>
-<p><em>要表示斜体的文本</em></p>
-<p>或者用一对下划线_括住文本表示斜体文本。</p>
-<p><em>要表示斜体的文本</em></p>
-<p>Typora快捷键<strong>Ctrl+I</strong>。</p>
-<h4 id="粗体">粗体
-</h4><p>一对 ** 括住的文本表示斜体文本。</p>
-<p><strong>要表示斜体的文本</strong></p>
-<p>或者用一对下划线 __ 括住文本表示斜体文本。</p>
-<p><strong>要表示斜体的文本</strong></p>
-<p>Typora快捷键<strong>Ctrl+B</strong>。</p>
-<h4 id="粗斜体文本">粗斜体文本
-</h4><p>一对  ***  括住的文本表示斜体文本。</p>
-<p><em><strong>要表示粗斜体的文本</strong></em></p>
-<p>或者用一对下划线 __ 括住文本表示斜体文本。</p>
-<p><em><strong>要表示斜体的文本</strong></em></p>
-<h4 id="文本高亮">文本高亮
-</h4><p>算是Typora的一个特色，用一对<code>==</code>将要高亮的文本括起来，需要在<strong>文件-偏好设置</strong>中打开。</p>
-<p>==要高亮的文本==</p>
-<h3 id="各种线">各种线
-</h3><h4 id="分割线">分割线
-</h4><p>用<strong>三个及以上</strong>的 <code>+</code> 号或 <code>*</code> 号或 <code>-</code> 来表示一条分割线；</p>
-<p>Typora右键插入水平分割线即可。</p>
-<p>下为例子：</p>
-<hr>
-<p>+++</p>
-<hr>
-<h4 id="下划线">下划线
-</h4><p>利用的是HTML的标签<u>  和  </u>  表示增加下划线文本，</p>
-<p><u>要增加下划线的文本</u></p>
-<p>Typora快捷键：<strong>Ctrl+U</strong></p>
-<h4 id="删除线">删除线
-</h4><p>用一对<code>~~</code>括住的文本来表示删除文本；</p>
-<p><del>要删除的文本</del></p>
-<p>Typora快捷键：<strong>Alt+Shift+5</strong></p>
-<h3 id="表格">表格
-</h3><p>Markdown 制作表格使用 <code>|</code> 来分隔不同的单元格，使用 <code>-</code> 来分隔表头和其他行。</p>
-<p>Typora快捷键：<strong>Ctrl+T</strong></p>
-<p>Typora中表格的创建和修改都非常精简和方便，所以很多额外的操作（对齐、添加行列等）不加赘述了。</p>
-<div class="table-wrapper"><table>
-  <thead>
-      <tr>
-          <th>表头</th>
-          <th>表头</th>
-          <th>表头</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-      </tr>
-  </tbody>
-</table></div>
-<h3 id="列表">列表
-</h3><h4 id="无序列表">无序列表
-</h4><p>用<code>*</code>，<code>+</code>或<code>-</code>标记符号来表示无序列表项，标记符号后要紧接一个空格。</p>
+    <h1 id="dgf-overview">DGF Overview
+</h1><p>定向灰盒测试相关技术 核心策略 时间顺序梳理 速览</p>
+<h2 id="aflamerican-fuzzy-lop-2014">AFL(American Fuzzy Lop 2014)
+</h2><p>传统灰盒：全图覆盖，无定向</p>
+<p><strong>变异策略</strong></p>
 <ul>
-<li>1</li>
-<li>2</li>
+<li>确定性：bit/byte flip（翻转）、整数加减、边界值、字典</li>
+<li>随机叠加（Havoc）：纯随机组合多种变异操作（如插入、删除、替换）</li>
+<li>拼接（Splicing）：将两个种子拼接后执行 havoc 变异</li>
 </ul>
-<p>其它两符号同上。</p>
-<p>（Enter键退出列表）</p>
-<p>Typora快捷键：<strong>Ctrl+Shift+]</strong>   (更建议右键里添加)</p>
-<h4 id="有序列表">有序列表
-</h4><p>以 数字紧接.再紧接空格表示有序列表。</p>
+<p><strong>反馈引导策略</strong></p>
+<ul>
+<li>边覆盖率（Edge Coverage）：插桩追踪 CFG 边的命中情况，作为变异方向的反馈</li>
+<li>上下文敏感边覆盖：区分同一 CFG 边在不同调用上下文下的命中情况，提升精度</li>
+<li>路径覆盖（PathAFL）：记录完整路径哈希，避免路径碰撞</li>
+<li>Ngram 插桩：记录最近前 N 个分支的历史状态</li>
+</ul>
+<h2 id="aflgo-2017">AFLGo （2017）
+</h2><p>首次提出“定向”概念，距离制导。（DGF 的起点）</p>
+<blockquote>
+<p>AFL（基于覆盖率引导）-&gt;AFLGo（定向制导）</p>
+</blockquote>
+<p><strong>距离度量（Distance Metric）</strong></p>
+<p>静态阶段</p>
+<ul>
+<li>用 LLVM 生成调用图 CG + 过程间控制流图 ICFG。</li>
+<li>对每个基本块到目标块跑 <strong>Dijkstra</strong>，算出最短路径长度 <code>distance(b)</code>。</li>
+<li>一个种子到目标的距离取它所有覆盖块距离的 <strong>加权平均</strong>。</li>
+<li>距离越小，优先级越高；距离为 0 表示已命中目标。</li>
+</ul>
+<blockquote>
+<p>多目标扩展：若同时定向 N 个目标，可维护 最小距离 或 平均距离 两种模式（<code>-m</code> 选项）。</p>
+</blockquote>
+<p><strong>能量调度（Power Schedule）</strong></p>
+<p>AFLGo 把 AFL 的 <code>perf_score</code> 公式改造成 <strong>Simulated Annealing (SA)</strong> 形式，解决“过早收敛”与“局部最优”。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">double</span> <span class="n">T</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="nf">pow</span><span class="p">(</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">progress_to_tx</span><span class="p">);</span>          <span class="c1">// 温度随时间衰减
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">double</span> <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">normalized_d</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">T</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">T</span><span class="p">;</span> <span class="c1">// 距离+时间双因子
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">perf_score</span> <span class="o">*=</span> <span class="nf">pow</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="nf">log2</span><span class="p">(</span><span class="n">MAX_FACTOR</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="mf">0.5</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>总结一下 模拟退火 ：早期系统鼓励探索，距离较远也给予能量（算力）；后期系统愈发挑剔，只给近距离种子变异机会。</p>
+<p><strong>种子队列管理</strong></p>
+<ul>
+<li><strong>主队列</strong>（AFL ）：按覆盖率排队。</li>
+<li><strong>优先队列</strong>（AFLGo 新增）：按距离排序；每次 fuzz 80% 概率从优先队列取种子。</li>
+</ul>
+<p><strong>变异策略</strong></p>
 <ol>
-<li>一</li>
-<li>二</li>
-</ol>
-<p>Typora快捷键：<strong>Ctrl+Shift+[</strong>   (更建议右键里添加)</p>
-<h4 id="嵌套列表">嵌套列表
-</h4><p>列表中：</p>
-<p>回车换行自动生成列表第二列；</p>
-<p>Tab键该项变为上一项的子列表。</p>
-<p>无序列表和有序列表间可相互嵌套。</p>
-<h3 id="引用">引用
-</h3><p>用区块表引用, &gt;加空格表示区块。</p>
-<blockquote>
-<p>这是一级引用</p>
-<blockquote>
-<p>这是二级引用</p>
-</blockquote>
-</blockquote>
-<p>（Enter键退出区块）</p>
-<p>Typora快捷键：<strong>Ctrl+Shift+Q</strong>  (更建议右键里添加)</p>
-<h3 id="代码块">代码块
-</h3><p>代码行：用一对**`**（英语下Tab键上方符号）括住代码</p>
-<p><code>print(&quot;Helloworld&quot;)</code></p>
-<p>代码块：</p>
-<p>以<strong>三个`加回车</strong>进入代码块；</p>
-<p>Typora快捷键：<strong>Ctrl+Shift+`</strong></p>
-<h3 id="链接"><strong>链接</strong>
-</h3><p>用</p>
-<p><a class="link" href="%e9%93%be%e6%8e%a5%e5%9c%b0%e5%9d%80" >链接文字</a></p>
-<p>或</p>
-<p>&lt;链接地址&gt;</p>
-<p>表示链接。</p>
-<p>[]中是链接文本，&lt;&gt;中是链接地址，也可以放本地文件的地址（相对绝对均可）</p>
-<p>但是单独使用&lt;&gt;不能打开文件。</p>
-<p>亦可使用链接实现页内跳转：</p>
-<p><a class="link" href="#%e6%a0%87%e9%a2%98%e6%96%87%e5%ad%97" >链接文字</a></p>
-<p><a class="link" href="#Typora%e7%9a%84%e5%ae%89%e8%a3%85" >CTRL+点击跳转至文章开头</a></p>
-<h3 id="图像">图像
-</h3><p>语法如下：</p>
-<p>！加[属性文本]加(图片地址 ”可选标题“)</p>
+<li>确定性阶段（固定套路）
 <ul>
-<li>首先一个感叹号</li>
-<li>然后中括号里面写属性文本</li>
-<li>小括号里面写图片地址，后可接标题</li>
+<li>与 AFL 相同（bit/byte flip, arith, interest, dictionary）。</li>
+<li>距离度量不会缩短确定性阶段，只是 <strong>打分</strong>，保证兼容性。</li>
 </ul>
-<p><img src="/"
-	
-	
-	
-	loading="lazy"
-	
-	
-></p>
-<p>本地地址和网络地址都行。</p>
-<p>在Typora中，也可以直接使用<code>Ctrl+C</code>，<code>Ctrl+V</code>来直接进行复制粘贴图片，但是，由于Markdown语法的限制，一定需要文件地址，所以需要设置一下Typora。</p>
-<p>在Typora <strong>文件-偏好设置-图像</strong> 中可自行选择将图片复制到什么路径。相对路径以该文本文件为参照。</p>
-<h3 id="数学">数学
-</h3><p>数学公式太繁琐了喵，推荐让ai生成，这里不加赘述了。</p>
-<p>有时间再更。</p>
+</li>
+<li>Havoc / Splicing
+<ul>
+<li><strong>距离越小的种子</strong> 获得的 havoc 轮次越多（由 power_factor 决定）。</li>
+<li>对“已到达目标”的种子，AFLGo 会额外给 <strong>二次变异</strong> 机会，以探索目标附近的新分支（patch 回归测试常用）。</li>
+</ul>
+</li>
+</ol>
+<h2 id="windrangericse-2022">WindRanger（ICSE 2022）
+</h2><p>核心是用“走错路口”指路：Deviation Basic Block（DBB）。</p>
+<p><strong>DBB 机制</strong></p>
+<ul>
+<li>静态找“一步错即永远到不了目标”的块</li>
+<li>动态过滤：仅保留种子真实触发者（它在执行时真的走错的路口）</li>
+</ul>
+<p><strong>距离</strong></p>
+<ul>
+<li>仅累加 DBB 到目标的最短路径 × 难度系数（该系数青睐简单分支）</li>
+</ul>
+<p><strong>调度</strong></p>
+<ul>
+<li>Favored 队列（90 %）：按 DBB 距离排序</li>
+<li>Less-favored 队列（10 %）：保留全局探索</li>
+</ul>
+<h2 id="beaconieee-sp-2022">Beacon（IEEE S&amp;P 2022）
+</h2><p>核心是 运行时剪枝：Weakest Precondition。</p>
+<p><strong>核心</strong></p>
+<ul>
+<li>静态：推导 最小充分条件 WP，插入 <code>assert(WP)</code></li>
+<li>动态：断言失败立即退出路径</li>
+</ul>
+<p><strong>代价</strong></p>
+<ul>
+<li>复杂循环下 WP 爆炸，静态耗时显著</li>
+</ul>
+<blockquote>
+<p>注意：与 DAFL 的“非侵入”不同，Beacon会 <strong>修改被测程序</strong> 本体。</p>
+</blockquote>
+<h2 id="参考资料">参考资料
+</h2><ol>
+<li>Böhme, M., Pham, V.-T., Nguyen, M.-D., and Roychoudhury, A. 2017. <em>Directed Greybox Fuzzing</em>. In <em>Proceedings of the 2017 ACM SIGSAC Conference on Computer and Communications Security</em> (CCS ’17). ACM, New York, NY, USA, 2329–2344. <a class="link" href="https://doi.org/10.1145/3133956.3134020"  target="_blank" rel="noopener"
+    >https://doi.org/10.1145/3133956.3134020</a></li>
+<li>Du, Z., Li, Y., Liu, Y., and Mao, B. 2022. <em>Windranger: A Directed Greybox Fuzzer Driven by Deviation Basic Blocks</em>. In <em>Proceedings of the 44th International Conference on Software Engineering</em> (ICSE ’22). ACM, New York, NY, USA, 2440–2451. <a class="link" href="https://doi.org/10.1145/3510003.3510197"  target="_blank" rel="noopener"
+    >https://doi.org/10.1145/3510003.3510197</a></li>
+<li>Huang, H., Guo, Y., Shi, Q., Yao, P., Wu, R., and Zhang, C. 2022. <em>Beacon: Directed Grey-box Fuzzing with Provable Path Pruning</em>. In <em>Proceedings of the 2022 IEEE Symposium on Security and Privacy</em> (SP ’22). IEEE, 36–50. <a class="link" href="https://doi.org/10.1109/SP46214.2022.9833709"  target="_blank" rel="noopener"
+    >https://doi.org/10.1109/SP46214.2022.9833709</a></li>
+<li>Zalewski, M. 2018. <em>American Fuzzy Lop (AFL)</em>. GitHub repository, <a class="link" href="https://github.com/google/AFL"  target="_blank" rel="noopener"
+    >https://github.com/google/AFL</a></li>
+</ol>
 
 </section>
 
@@ -524,7 +436,7 @@
     
     <section class="article-tags">
         
-            <a href="/tags/typora/">Typora</a>
+            <a href="/tags/fuzz/">Fuzz</a>
         
     </section>
 
@@ -558,18 +470,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/docker-commands/">
+    <a href="/p/beaconwindranger/">
         
         
             <div class="article-image">
                 
-                    <img src="/images/wave.png" loading="lazy" data-key="" data-hash="/images/wave.png"/>
+                    <img src="/images/EarlyMorningForest.png" loading="lazy" data-key="" data-hash="/images/EarlyMorningForest.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Docker Commands</h2>
+            <h2 class="article-title">Beacon&amp;WindRanger</h2>
         </div>
     </a>
 </article>
@@ -577,18 +489,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/quick-git/">
+    <a href="/p/dgf-tool-energy-allocation-strategies/">
         
         
             <div class="article-image">
                 
-                    <img src="/images/PacificRim_02.PNG" loading="lazy" data-key="" data-hash="/images/PacificRim_02.PNG"/>
+                    <img src="/images/RiverInTrees.png" loading="lazy" data-key="" data-hash="/images/RiverInTrees.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Quick Git</h2>
+            <h2 class="article-title">DGF Tool Energy Allocation Strategies</h2>
         </div>
     </a>
 </article>
@@ -596,18 +508,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/quick-java/">
+    <a href="/p/quick_fuzz/">
         
         
             <div class="article-image">
                 
-                    <img src="/images/Lover.PNG" loading="lazy" data-key="" data-hash="/images/Lover.PNG"/>
+                    <img src="/images/greenland.png" loading="lazy" data-key="" data-hash="/images/greenland.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Quick Java</h2>
+            <h2 class="article-title">Quick_fuzz</h2>
         </div>
     </a>
 </article>

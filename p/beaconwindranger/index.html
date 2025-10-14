@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Typora教程\rTypora的安装\r这是b站up主 格格分享集 提供的1.9.5版本及绕过激活方法，在此鸣谢。\nhttps://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&vd_source=94c6a60e88fb8109fcdee4173a2a7281\n不想看视频的可以往下看。\n解压 Typora1.9.5.zip后，文件结构如下：\n">
-<title>Typora</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="WindRanger&amp;BeaconFuzz\rWindRanger 是一个基于 BeaconFuzz 算法的定向模糊测试工具，发表于 ICSE 2022，旨在高效引导模糊测试到达目标代码（如漏洞触发点）。其核心创新是 BeaconFuzz 策略，通过动态识别关键代码块（Beacon）来优化路径探索。\n">
+<title>Beacon&amp;WindRanger</title>
 
-<link rel='canonical' href='http://localhost:1313/p/typora/'>
+<link rel='canonical' href='http://localhost:1313/p/beaconwindranger/'>
 
-<link rel="stylesheet" href="/scss/style.min.48ce54e3e307e3741d61de84a9b7fd091d2b70c905a608c90a1db85a009feb1b.css"><meta property='og:title' content="Typora">
-<meta property='og:description' content="Typora教程\rTypora的安装\r这是b站up主 格格分享集 提供的1.9.5版本及绕过激活方法，在此鸣谢。\nhttps://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&vd_source=94c6a60e88fb8109fcdee4173a2a7281\n不想看视频的可以往下看。\n解压 Typora1.9.5.zip后，文件结构如下：\n">
-<meta property='og:url' content='http://localhost:1313/p/typora/'>
+<link rel="stylesheet" href="/scss/style.min.48ce54e3e307e3741d61de84a9b7fd091d2b70c905a608c90a1db85a009feb1b.css"><meta property='og:title' content="Beacon&WindRanger">
+<meta property='og:description' content="WindRanger&amp;BeaconFuzz\rWindRanger 是一个基于 BeaconFuzz 算法的定向模糊测试工具，发表于 ICSE 2022，旨在高效引导模糊测试到达目标代码（如漏洞触发点）。其核心创新是 BeaconFuzz 策略，通过动态识别关键代码块（Beacon）来优化路径探索。\n">
+<meta property='og:url' content='http://localhost:1313/p/beaconwindranger/'>
 <meta property='og:site_name' content='Choser&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='typora' /><meta property='article:published_time' content='2024-11-23T21:45:04&#43;08:00'/><meta property='article:modified_time' content='2024-11-23T21:45:04&#43;08:00'/><meta property='og:image' content='http://localhost:1313/images/PacificRim_01.jpg' />
-<meta name="twitter:title" content="Typora">
-<meta name="twitter:description" content="Typora教程\rTypora的安装\r这是b站up主 格格分享集 提供的1.9.5版本及绕过激活方法，在此鸣谢。\nhttps://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&vd_source=94c6a60e88fb8109fcdee4173a2a7281\n不想看视频的可以往下看。\n解压 Typora1.9.5.zip后，文件结构如下：\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:1313/images/PacificRim_01.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Fuzz' /><meta property='article:published_time' content='2025-10-14T14:59:29&#43;08:00'/><meta property='article:modified_time' content='2025-10-14T14:59:29&#43;08:00'/><meta property='og:image' content='http://localhost:1313/images/EarlyMorningForest.png' />
+<meta name="twitter:title" content="Beacon&WindRanger">
+<meta name="twitter:description" content="WindRanger&amp;BeaconFuzz\rWindRanger 是一个基于 BeaconFuzz 算法的定向模糊测试工具，发表于 ICSE 2022，旨在高效引导模糊测试到达目标代码（如漏洞触发点）。其核心创新是 BeaconFuzz 策略，通过动态识别关键代码块（Beacon）来优化路径探索。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/images/EarlyMorningForest.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -227,38 +227,26 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#typora的安装">Typora的安装</a></li>
-    <li><a href="#markdown语法及typora快捷键">Markdown语法及Typora快捷键</a>
+    <li><a href="#1-windranger-概述"><strong>1. WindRanger 概述</strong></a>
       <ol>
-        <li><a href="#标题">标题</a></li>
-        <li><a href="#字体">字体</a>
+        <li><a href="#11-是什么"><strong>1.1 是什么？</strong></a></li>
+        <li><a href="#12-核心优势"><strong>1.2 核心优势</strong></a></li>
+      </ol>
+    </li>
+    <li><a href="#2-beaconfuzzwindranger-的核心算法"><strong>2. BeaconFuzz：WindRanger 的核心算法</strong></a>
+      <ol>
+        <li><a href="#21-beaconfuzz-的核心思想"><strong>2.1 BeaconFuzz 的核心思想</strong></a></li>
+        <li><a href="#22-beaconfuzz-的工作流程"><strong>2.2 BeaconFuzz 的工作流程</strong></a>
           <ol>
-            <li><a href="#斜体">斜体</a></li>
-            <li><a href="#粗体">粗体</a></li>
-            <li><a href="#粗斜体文本">粗斜体文本</a></li>
-            <li><a href="#文本高亮">文本高亮</a></li>
+            <li><a href="#1静态分析由-cbi-工具完成"><strong>（1）静态分析（由 <code>cbi</code> 工具完成）</strong></a></li>
+            <li><a href="#2动态模糊测试由改进的-afl-fuzz-执行"><strong>（2）动态模糊测试（由改进的 <code>afl-fuzz</code> 执行）</strong></a></li>
           </ol>
         </li>
-        <li><a href="#各种线">各种线</a>
-          <ol>
-            <li><a href="#分割线">分割线</a></li>
-            <li><a href="#下划线">下划线</a></li>
-            <li><a href="#删除线">删除线</a></li>
-          </ol>
-        </li>
-        <li><a href="#表格">表格</a></li>
-        <li><a href="#列表">列表</a>
-          <ol>
-            <li><a href="#无序列表">无序列表</a></li>
-            <li><a href="#有序列表">有序列表</a></li>
-            <li><a href="#嵌套列表">嵌套列表</a></li>
-          </ol>
-        </li>
-        <li><a href="#引用">引用</a></li>
-        <li><a href="#代码块">代码块</a></li>
-        <li><a href="#链接"><strong>链接</strong></a></li>
-        <li><a href="#图像">图像</a></li>
-        <li><a href="#数学">数学</a></li>
+      </ol>
+    </li>
+    <li><a href="#3-windranger-和-beaconfuzz-的关系"><strong>3. WindRanger 和 BeaconFuzz 的关系</strong></a>
+      <ol>
+        <li><a href="#31-windranger--beaconfuzz--工具链实现"><strong>3.1 WindRanger = BeaconFuzz + 工具链实现</strong></a></li>
       </ol>
     </li>
   </ol>
@@ -275,9 +263,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/typora/">
+            <a href="/p/beaconwindranger/">
                 
-                    <img src="/images/PacificRim_01.jpg" loading="lazy" alt="Featured image of post Typora" />
+                    <img src="/images/EarlyMorningForest.png" loading="lazy" alt="Featured image of post Beacon&amp;WindRanger" />
                 
             </a>
         </div>
@@ -287,8 +275,8 @@
     
     <header class="article-category">
         
-            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" >
-                计算机基础
+            <a href="/categories/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/" >
+                二进制安全
             </a>
         
     </header>
@@ -296,7 +284,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/typora/">Typora</a>
+            <a href="/p/beaconwindranger/">Beacon&amp;WindRanger</a>
         </h2>
     
         
@@ -318,7 +306,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Nov 23, 2024</time>
+                <time class="article-time--published">Oct 14, 2025</time>
             </div>
         
 
@@ -333,7 +321,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 4 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -348,174 +336,129 @@
     <section class="article-content">
     
     
-    <h1 id="typora教程">Typora教程
-</h1><h2 id="typora的安装">Typora的安装
-</h2><p>这是b站up主 <strong>格格分享集</strong> 提供的1.9.5版本及绕过激活方法，在此鸣谢。</p>
-<p><a class="link" href="https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&amp;vd_source=94c6a60e88fb8109fcdee4173a2a7281"  target="_blank" rel="noopener"
-    >https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&vd_source=94c6a60e88fb8109fcdee4173a2a7281</a></p>
-<p>不想看视频的可以往下看。</p>
-<p><img src="/pics/Typora1.9.5zip.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="Typora1.9.5zip"
-	
-	
-></p>
-<p>解压 <strong>Typora1.9.5.zip</strong>后，文件结构如下：</p>
-<p><img src="/pics/Typora02.png"
-	
-	
-	
-	loading="lazy"
-	
-	
-></p>
-<p>先运行安装程序安装<strong>typora1.9.5</strong>；</p>
-<p>然后解压<strong>河蟹.zip</strong>,将其中的配置文件<strong>winmm.dll</strong>复制到<strong>typora所在文件夹</strong>(右键点击typora快捷方式即可)；</p>
-<p>最后打开typora，点击侧边栏中的帮助，再点击关于激活即可。</p>
-<p><img src="/pics/Typora03.png"
-	
-	
-	
-	loading="lazy"
-	
-	
-></p>
-<h2 id="markdown语法及typora快捷键">Markdown语法及Typora快捷键
-</h2><h3 id="标题">标题
-</h3><p>使用井号 # 后接文本表标题，#个数表示几级标题，至多六级。（有时#后要紧接空格）</p>
-<p>Typora中快捷键<strong>Ctrl+1-6</strong>表示相应级标题。</p>
-<h3 id="字体">字体
-</h3><h4 id="斜体">斜体
-</h4><p>一对星号*括住的文本表示斜体文本。</p>
-<p><em>要表示斜体的文本</em></p>
-<p>或者用一对下划线_括住文本表示斜体文本。</p>
-<p><em>要表示斜体的文本</em></p>
-<p>Typora快捷键<strong>Ctrl+I</strong>。</p>
-<h4 id="粗体">粗体
-</h4><p>一对 ** 括住的文本表示斜体文本。</p>
-<p><strong>要表示斜体的文本</strong></p>
-<p>或者用一对下划线 __ 括住文本表示斜体文本。</p>
-<p><strong>要表示斜体的文本</strong></p>
-<p>Typora快捷键<strong>Ctrl+B</strong>。</p>
-<h4 id="粗斜体文本">粗斜体文本
-</h4><p>一对  ***  括住的文本表示斜体文本。</p>
-<p><em><strong>要表示粗斜体的文本</strong></em></p>
-<p>或者用一对下划线 __ 括住文本表示斜体文本。</p>
-<p><em><strong>要表示斜体的文本</strong></em></p>
-<h4 id="文本高亮">文本高亮
-</h4><p>算是Typora的一个特色，用一对<code>==</code>将要高亮的文本括起来，需要在<strong>文件-偏好设置</strong>中打开。</p>
-<p>==要高亮的文本==</p>
-<h3 id="各种线">各种线
-</h3><h4 id="分割线">分割线
-</h4><p>用<strong>三个及以上</strong>的 <code>+</code> 号或 <code>*</code> 号或 <code>-</code> 来表示一条分割线；</p>
-<p>Typora右键插入水平分割线即可。</p>
-<p>下为例子：</p>
+    <h1 id="windrangerbeaconfuzz">WindRanger&amp;BeaconFuzz
+</h1><p>WindRanger 是一个<strong>基于 BeaconFuzz 算法的定向模糊测试工具</strong>，发表于 <strong>ICSE 2022</strong>，旨在高效引导模糊测试到达目标代码（如漏洞触发点）。其核心创新是 <strong>BeaconFuzz 策略</strong>，通过动态识别关键代码块（Beacon）来优化路径探索。</p>
 <hr>
-<p>+++</p>
-<hr>
-<h4 id="下划线">下划线
-</h4><p>利用的是HTML的标签<u>  和  </u>  表示增加下划线文本，</p>
-<p><u>要增加下划线的文本</u></p>
-<p>Typora快捷键：<strong>Ctrl+U</strong></p>
-<h4 id="删除线">删除线
-</h4><p>用一对<code>~~</code>括住的文本来表示删除文本；</p>
-<p><del>要删除的文本</del></p>
-<p>Typora快捷键：<strong>Alt+Shift+5</strong></p>
-<h3 id="表格">表格
-</h3><p>Markdown 制作表格使用 <code>|</code> 来分隔不同的单元格，使用 <code>-</code> 来分隔表头和其他行。</p>
-<p>Typora快捷键：<strong>Ctrl+T</strong></p>
-<p>Typora中表格的创建和修改都非常精简和方便，所以很多额外的操作（对齐、添加行列等）不加赘述了。</p>
-<div class="table-wrapper"><table>
+<h2 id="1-windranger-概述"><strong>1. WindRanger 概述</strong>
+</h2><h3 id="11-是什么"><strong>1.1 是什么？</strong>
+</h3><ul>
+<li><strong>WindRanger</strong> 是一个<strong>灰盒（Greybox）定向模糊测试工具</strong>，基于 AFL++ 改进，专门用于<strong>快速触发特定代码位置</strong>（如已知漏洞点）。</li>
+<li>主要用途：
+<ul>
+<li>漏洞复现（如 CVE 测试）</li>
+<li>补丁验证（检查修复是否有效）</li>
+<li>关键代码覆盖测试</li>
+</ul>
+</li>
+</ul>
+<h3 id="12-核心优势"><strong>1.2 核心优势</strong>
+</h3><div class="table-wrapper"><table>
   <thead>
       <tr>
-          <th>表头</th>
-          <th>表头</th>
-          <th>表头</th>
+          <th>对比对象</th>
+          <th>传统定向模糊测试（如 AFLGo）</th>
+          <th>WindRanger</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td><strong>引导方式</strong></td>
+          <td>静态控制流距离（固定优先级）</td>
+          <td>动态 Beacon 识别（自适应优化）</td>
+      </tr>
+      <tr>
+          <td><strong>路径探索</strong></td>
+          <td>容易陷入局部最优（长路径依赖）</td>
+          <td>通过 Beacon 发现“捷径”</td>
+      </tr>
+      <tr>
+          <td><strong>效率</strong></td>
+          <td>较慢（需大量变异）</td>
+          <td>更快收敛到目标</td>
       </tr>
   </tbody>
 </table></div>
-<h3 id="列表">列表
-</h3><h4 id="无序列表">无序列表
-</h4><p>用<code>*</code>，<code>+</code>或<code>-</code>标记符号来表示无序列表项，标记符号后要紧接一个空格。</p>
-<ul>
-<li>1</li>
-<li>2</li>
-</ul>
-<p>其它两符号同上。</p>
-<p>（Enter键退出列表）</p>
-<p>Typora快捷键：<strong>Ctrl+Shift+]</strong>   (更建议右键里添加)</p>
-<h4 id="有序列表">有序列表
-</h4><p>以 数字紧接.再紧接空格表示有序列表。</p>
+<hr>
+<h2 id="2-beaconfuzzwindranger-的核心算法"><strong>2. BeaconFuzz：WindRanger 的核心算法</strong>
+</h2><h3 id="21-beaconfuzz-的核心思想"><strong>2.1 BeaconFuzz 的核心思想</strong>
+</h3><p>BeaconFuzz 的核心是 <strong>Deviation Basic Blocks（偏离基本块，即 Beacon）</strong>，它通过以下方式优化模糊测试：</p>
 <ol>
-<li>一</li>
-<li>二</li>
-</ol>
-<p>Typora快捷键：<strong>Ctrl+Shift+[</strong>   (更建议右键里添加)</p>
-<h4 id="嵌套列表">嵌套列表
-</h4><p>列表中：</p>
-<p>回车换行自动生成列表第二列；</p>
-<p>Tab键该项变为上一项的子列表。</p>
-<p>无序列表和有序列表间可相互嵌套。</p>
-<h3 id="引用">引用
-</h3><p>用区块表引用, &gt;加空格表示区块。</p>
-<blockquote>
-<p>这是一级引用</p>
-<blockquote>
-<p>这是二级引用</p>
-</blockquote>
-</blockquote>
-<p>（Enter键退出区块）</p>
-<p>Typora快捷键：<strong>Ctrl+Shift+Q</strong>  (更建议右键里添加)</p>
-<h3 id="代码块">代码块
-</h3><p>代码行：用一对**`**（英语下Tab键上方符号）括住代码</p>
-<p><code>print(&quot;Helloworld&quot;)</code></p>
-<p>代码块：</p>
-<p>以<strong>三个`加回车</strong>进入代码块；</p>
-<p>Typora快捷键：<strong>Ctrl+Shift+`</strong></p>
-<h3 id="链接"><strong>链接</strong>
-</h3><p>用</p>
-<p><a class="link" href="%e9%93%be%e6%8e%a5%e5%9c%b0%e5%9d%80" >链接文字</a></p>
-<p>或</p>
-<p>&lt;链接地址&gt;</p>
-<p>表示链接。</p>
-<p>[]中是链接文本，&lt;&gt;中是链接地址，也可以放本地文件的地址（相对绝对均可）</p>
-<p>但是单独使用&lt;&gt;不能打开文件。</p>
-<p>亦可使用链接实现页内跳转：</p>
-<p><a class="link" href="#%e6%a0%87%e9%a2%98%e6%96%87%e5%ad%97" >链接文字</a></p>
-<p><a class="link" href="#Typora%e7%9a%84%e5%ae%89%e8%a3%85" >CTRL+点击跳转至文章开头</a></p>
-<h3 id="图像">图像
-</h3><p>语法如下：</p>
-<p>！加[属性文本]加(图片地址 ”可选标题“)</p>
+<li>静态分析阶段：
 <ul>
-<li>首先一个感叹号</li>
-<li>然后中括号里面写属性文本</li>
-<li>小括号里面写图片地址，后可接标题</li>
+<li>识别程序中能<strong>显著缩短到目标代码距离的分支</strong>（即 Beacon 块）。</li>
+<li>例如：<code>if (x &gt; 100)</code> 的分支比 <code>else</code> 分支更接近目标，则 <code>x &gt; 100</code> 被标记为 Beacon。</li>
 </ul>
-<p><img src="/"
-	
-	
-	
-	loading="lazy"
-	
-	
-></p>
-<p>本地地址和网络地址都行。</p>
-<p>在Typora中，也可以直接使用<code>Ctrl+C</code>，<code>Ctrl+V</code>来直接进行复制粘贴图片，但是，由于Markdown语法的限制，一定需要文件地址，所以需要设置一下Typora。</p>
-<p>在Typora <strong>文件-偏好设置-图像</strong> 中可自行选择将图片复制到什么路径。相对路径以该文本文件为参照。</p>
-<h3 id="数学">数学
-</h3><p>数学公式太繁琐了喵，推荐让ai生成，这里不加赘述了。</p>
-<p>有时间再更。</p>
+</li>
+<li>动态执行阶段：
+<ul>
+<li>优先变异那些能触发 Beacon 块的输入，快速逼近目标。</li>
+</ul>
+</li>
+</ol>
+<h3 id="22-beaconfuzz-的工作流程"><strong>2.2 BeaconFuzz 的工作流程</strong>
+</h3><h4 id="1静态分析由-cbi-工具完成"><strong>（1）静态分析（由 <code>cbi</code> 工具完成）</strong>
+</h4><ul>
+<li>输入：
+<ul>
+<li>目标程序的 LLVM 字节码（<code>.bc</code> 文件）</li>
+<li>用户指定的目标代码行（如 <code>decompile.c:398</code>）</li>
+</ul>
+</li>
+<li>步骤：
+<ol>
+<li><strong>构建控制流图（CFG）</strong>：分析程序的基本块（Basic Block）和跳转关系。</li>
+<li><strong>计算静态距离</strong>：对每个基本块，计算其到目标代码的最短路径步数。</li>
+<li><strong>识别 Beacon 块</strong>：标记能显著缩短距离的关键分支（如 <code>if-else</code> 中的某个分支）。</li>
+</ol>
+</li>
+</ul>
+<h4 id="2动态模糊测试由改进的-afl-fuzz-执行"><strong>（2）动态模糊测试（由改进的 <code>afl-fuzz</code> 执行）</strong>
+</h4><ul>
+<li>种子调度：
+<ul>
+<li>对输入队列中的种子，根据其是否触发 Beacon 动态调整优先级。</li>
+<li><strong>奖励机制</strong>：触发 Beacon 的种子会被更频繁地变异。</li>
+</ul>
+</li>
+<li>变异策略：
+<ul>
+<li>结合 AFL 的变异方式（如位翻转、算术变异），但<strong>偏向生成能覆盖 Beacon 的输入</strong>。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="3-windranger-和-beaconfuzz-的关系"><strong>3. WindRanger 和 BeaconFuzz 的关系</strong>
+</h2><h3 id="31-windranger--beaconfuzz--工具链实现"><strong>3.1 WindRanger = BeaconFuzz + 工具链实现</strong>
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th><strong>组件</strong></th>
+          <th><strong>功能</strong></th>
+          <th><strong>BeaconFuzz 的作用</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong><code>cbi</code></strong></td>
+          <td>静态分析，插桩</td>
+          <td>识别 Beacon 块，计算距离</td>
+      </tr>
+      <tr>
+          <td><strong><code>afl-fuzz</code></strong></td>
+          <td>动态模糊测试</td>
+          <td>基于 Beacon 动态调整种子优先级</td>
+      </tr>
+      <tr>
+          <td><strong><code>beacon.txt</code></strong></td>
+          <td>记录 Beacon 触发情况</td>
+          <td>用于调试和优化引导策略</td>
+      </tr>
+  </tbody>
+</table></div>
+<ul>
+<li><strong>BeaconFuzz</strong> 是windranger的核心导航算法，负责找到最优路径。</li>
+<li><strong>其他组件</strong>（如插桩、崩溃检测）是剩余fuzz流程的补全。</li>
+</ul>
 
 </section>
 
@@ -524,7 +467,7 @@
     
     <section class="article-tags">
         
-            <a href="/tags/typora/">Typora</a>
+            <a href="/tags/fuzz/">Fuzz</a>
         
     </section>
 
@@ -558,18 +501,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/docker-commands/">
+    <a href="/p/dgf-tool-energy-allocation-strategies/">
         
         
             <div class="article-image">
                 
-                    <img src="/images/wave.png" loading="lazy" data-key="" data-hash="/images/wave.png"/>
+                    <img src="/images/RiverInTrees.png" loading="lazy" data-key="" data-hash="/images/RiverInTrees.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Docker Commands</h2>
+            <h2 class="article-title">DGF Tool Energy Allocation Strategies</h2>
         </div>
     </a>
 </article>
@@ -577,18 +520,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/quick-git/">
+    <a href="/p/quick_fuzz/">
         
         
             <div class="article-image">
                 
-                    <img src="/images/PacificRim_02.PNG" loading="lazy" data-key="" data-hash="/images/PacificRim_02.PNG"/>
+                    <img src="/images/greenland.png" loading="lazy" data-key="" data-hash="/images/greenland.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Quick Git</h2>
+            <h2 class="article-title">Quick_fuzz</h2>
         </div>
     </a>
 </article>
@@ -596,18 +539,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/quick-java/">
+    <a href="/p/dgf-overview/">
         
         
             <div class="article-image">
                 
-                    <img src="/images/Lover.PNG" loading="lazy" data-key="" data-hash="/images/Lover.PNG"/>
+                    <img src="/images/EarlyMorningForest.png" loading="lazy" data-key="" data-hash="/images/EarlyMorningForest.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Quick Java</h2>
+            <h2 class="article-title">DGF Overview</h2>
         </div>
     </a>
 </article>

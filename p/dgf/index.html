@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="DGF Tool Energy Allocation Strategies\rDGF工具能量分配策略一览\nAFL\r本节聚焦AFL 及其衍生工具在 seed fuzzing 过程中的能量分配策略（power schedule），即决定“从某个种子输入生成多少额外测试用例”的算法。以 AFLFast 提供的六种策略为基准，给出简明对比和使用建议。\n">
+<title>DGF</title>
+
+<link rel='canonical' href='http://localhost:1313/p/dgf/'>
+
+<link rel="stylesheet" href="/scss/style.min.48ce54e3e307e3741d61de84a9b7fd091d2b70c905a608c90a1db85a009feb1b.css"><meta property='og:title' content="DGF">
+<meta property='og:description' content="DGF Tool Energy Allocation Strategies\rDGF工具能量分配策略一览\nAFL\r本节聚焦AFL 及其衍生工具在 seed fuzzing 过程中的能量分配策略（power schedule），即决定“从某个种子输入生成多少额外测试用例”的算法。以 AFLFast 提供的六种策略为基准，给出简明对比和使用建议。\n">
+<meta property='og:url' content='http://localhost:1313/p/dgf/'>
+<meta property='og:site_name' content='Choser&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Fuzz' /><meta property='article:published_time' content='2025-10-14T14:47:25&#43;08:00'/><meta property='article:modified_time' content='2025-10-14T14:47:25&#43;08:00'/><meta property='og:image' content='http://localhost:1313/images/RiverInTrees.png' />
+<meta name="twitter:title" content="DGF">
+<meta name="twitter:description" content="DGF Tool Energy Allocation Strategies\rDGF工具能量分配策略一览\nAFL\r本节聚焦AFL 及其衍生工具在 seed fuzzing 过程中的能量分配策略（power schedule），即决定“从某个种子输入生成多少额外测试用例”的算法。以 AFLFast 提供的六种策略为基准，给出简明对比和使用建议。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/images/RiverInTrees.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu1777375556697644536.png" width="300"
+                            height="158" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Choser&#39;s Blog</a></h1>
+            <h2 class="site-description">进一寸有进一寸的欢喜</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Ch0ser'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:ch0ser@qq.com'
+                        target="_blank"
+                        title="✉️ Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1760270206847" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5175" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M858.656 192 165.344 192C109.472 192 64 237.44 64 293.312l0 469.376C64 818.56 109.472 864 165.344 864l693.312 0C914.528 864 960 818.56 960 762.688L960 293.312C960 237.44 914.528 192 858.656 192zM858.656 800 165.344 800C144.736 800 128 783.264 128 762.688L128 293.312C128 272.736 144.736 256 165.344 256l684.544 0-307.488 279.808c-14.592 14.56-38.272 14.528-54.752-1.792l-244.256-206.752C229.856 315.84 209.664 317.504 198.272 331.008c-11.424 13.472-9.76 33.664 3.744 45.088l242.304 204.96c19.904 19.904 46.048 29.792 72.032 29.792 25.632 0 51.136-9.632 70.176-28.736L896 300.544l0 462.144C896 783.264 879.264 800 858.656 800z" fill="#5D646F" p-id="5176"></path></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于我</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#afl">AFL</a></li>
+    <li><a href="#aflgo">AFLGo</a></li>
+    <li><a href="#beacon">Beacon</a></li>
+    <li><a href="#windranger">WindRanger</a></li>
+    <li><a href="#dafl">DAFL</a></li>
+    <li><a href="#dafl实验消融对比配置">DAFL实验<strong>消融/对比配置</strong></a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/dgf/">
+                
+                    <img src="/images/RiverInTrees.png" loading="lazy" alt="Featured image of post DGF" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/" >
+                二进制安全
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/dgf/">DGF</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 14, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 7 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="dgf-tool-energy-allocation-strategies">DGF Tool Energy Allocation Strategies
+</h1><p>DGF工具能量分配策略一览</p>
+<h2 id="afl">AFL
+</h2><p>本节聚焦AFL 及其衍生工具在 seed fuzzing 过程中的<strong>能量分配策略</strong>（power schedule），即决定“从某个种子输入生成多少额外测试用例”的算法。以 AFLFast 提供的六种策略为基准，给出简明对比和使用建议。</p>
+<blockquote>
+<p>参考：https://github.com/lhxdz/afl-mix?tab=readme-ov-file</p>
+<p>ps：冷热程度指<strong>有多少其他输入已经跑过同一条路径</strong></p>
+</blockquote>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>AFL 标志</th>
+          <th>策略名称</th>
+          <th>能量公式</th>
+          <th>核心思想</th>
+          <th>简言之</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>-p fast</code>（默认）</td>
+          <td>FAST</td>
+          <td><img src="http://latex.codecogs.com/gif.latex?p%28i%29=%5c%5cmin%5c%5cleft%28%5c%5cfrac%7b%5c%5calpha%28i%29%7d%7b%5c%5cbeta%7d%5c%5ccdot%5c%5cfrac%7b2%5e%7bs%28i%29%7d%7d%7bf%28i%29%7d,M%5c%5cright%29"
+	
+	
+	
+	loading="lazy"
+	
+		alt="FAST"
+	
+	
+></td>
+          <td>指数放大低频路径能量，快速收敛</td>
+          <td>偏袒“冷门”路径，给的测试用例更多；热门路径反之</td>
+      </tr>
+      <tr>
+          <td><code>-p coe</code></td>
+          <td>COE (cut-off exponential)</td>
+          <td><img src="http://latex.codecogs.com/gif.latex?p%28i%29%3D%5Cbegin%7Bcases%7D%200%20%26%20%5Ctext%7B%20if%20%7D%20f%28i%29%20%3E%20%5Cmu%5C%5C%20%5Cmin%5Cleft%28%5Cfrac%7B%5Calpha%28i%29%7D%7B%5Cbeta%7D%5Ccdot%202%5E%7Bs%28i%29%7D%2C%20M%5Cright%29%20%26%20%5Ctext%7B%20otherwise.%7D%20%5Cend%7Bcases%7D"
+	
+	
+	
+	loading="lazy"
+	
+		alt="COE"
+	
+	
+></td>
+          <td>高频路径直接“断电”，资源全给罕见路径</td>
+          <td>检测到某路径太热门（超过平均值）就直接断电（0 个新用例），冷门路径才继续深究</td>
+      </tr>
+      <tr>
+          <td><code>-p explore</code></td>
+          <td>EXPLORE</td>
+          <td><img src="http://latex.codecogs.com/gif.latex?p%28i%29%3D%5Cfrac%7B%5Calpha%28i%29%7D%7B%5Cbeta%7D"
+	
+	
+	
+	loading="lazy"
+	
+		alt="EXPLORE"
+	
+	
+></td>
+          <td>线性均衡，与路径频率无关</td>
+          <td>一视同仁，每个种子按 AFL 原始评分给能量，不看冷热。</td>
+      </tr>
+      <tr>
+          <td><code>-p quad</code></td>
+          <td>QUAD</td>
+          <td><img src="http://latex.codecogs.com/gif.latex?p%28i%29%20%3D%20%5Cmin%5Cleft%28%5Cfrac%7B%5Calpha%28i%29%7D%7B%5Cbeta%7D%5Ccdot%5Cfrac%7Bs%28i%29%5E2%7D%7Bf%28i%29%7D%2CM%5Cright%29"
+	
+	
+	
+	loading="lazy"
+	
+		alt="QUAD"
+	
+	
+></td>
+          <td>二次曲线惩罚高频路径</td>
+          <td>冷门路径奖励得更快（二次曲线），热门路径被二次方打压。</td>
+      </tr>
+      <tr>
+          <td><code>-p lin</code></td>
+          <td>LIN</td>
+          <td><img src="http://latex.codecogs.com/gif.latex?p%28i%29%20%3D%20%5Cmin%5Cleft%28%5Cfrac%7B%5Calpha%28i%29%7D%7B%5Cbeta%7D%5Ccdot%5Cfrac%7Bs%28i%29%7D%7Bf%28i%29%7D%2CM%5Cright%29"
+	
+	
+	
+	loading="lazy"
+	
+		alt="LIN"
+	
+	
+></td>
+          <td>线性惩罚高频路径</td>
+          <td>冷门路径奖励、热门路径惩罚都按线性比例，节奏比较温柔。</td>
+      </tr>
+      <tr>
+          <td><code>-p exploit</code></td>
+          <td>EXPLOIT (原生 AFL)</td>
+          <td><img src="http://latex.codecogs.com/gif.latex?p%28i%29%20%3D%20%5Calpha%28i%29"
+	
+	
+	
+	loading="lazy"
+	
+		alt="LIN"
+	
+	
+></td>
+          <td>恒定能量，仅依赖 AFL 原始性能分</td>
+          <td>只按“跑得快不快、覆盖新不新”给能量，完全不考虑路径冷热。</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>符号释义</p>
+<ul>
+<li>α(i)：AFL 原生性能评分（执行时间、块转移覆盖率等）</li>
+<li>β：全局常数，防止能量爆炸</li>
+<li>s(i)：种子 i 被 fuzz 的次数</li>
+<li>f(i)：触发与 i 相同路径的输入总量</li>
+<li>μ：所有路径的平均输入数</li>
+</ul>
+<p>快速实践指南</p>
+<ol>
+<li>单机 fuzz：保持默认 <code>-p fast</code> 即可。</li>
+<li>并行集群：
+<ul>
+<li>master 用 <code>-p exploit</code> 稳定产生种子；</li>
+<li>slaves 组合 <code>-p coe</code> / <code>-p fast</code> / <code>-p explore</code> 以覆盖低频路径。</li>
+</ul>
+</li>
+<li>若使用 AFL++，可直接在命令行追加对应 <code>-p</code> 参数，无需额外补丁。</li>
+</ol>
+<hr>
+<h2 id="aflgo">AFLGo
+</h2><p>与追求广覆盖的 AFL/AFLFast 不同，AFLGo 专为**定向灰盒模糊测试（DGF）<strong>设计，其能量分配核心在于“越靠近目标代码的种子，获得的 fuzz 轮次越多”。算法基于</strong>模拟退火（Simulated Annealing）**动态调节，公式与参数如下表所示。</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>AFLGo 变量</th>
+          <th>定义/作用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>d(s,T)</td>
+          <td>种子 s 到目标集合 T 的**平均基本块距离（**静态分析得出，越小越近）</td>
+      </tr>
+      <tr>
+          <td>d̃(s,T)</td>
+          <td>归一化距离：d̃ = d / d_max ∈ [0,1]，0 表示最近，1 表示最远</td>
+      </tr>
+      <tr>
+          <td>T_exp</td>
+          <td>退火温度：T_exp = 20^(−t/tₓ)，t 为已用时间，tₓ 为“利用阶段”起始参数</td>
+      </tr>
+      <tr>
+          <td>p_afl(s)</td>
+          <td>AFL 原生能量（由执行速度、路径稀有度决定）</td>
+      </tr>
+      <tr>
+          <td>p(s,T)</td>
+          <td>退火比例因子：p = (1−d̃)·(1−T_exp) + 0.5·T_exp</td>
+      </tr>
+      <tr>
+          <td>E(s,T)</td>
+          <td>最终能量：E = p_afl(s) · 2^(2 log₂(MAX)·(p−0.5))，MAX≈30</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>根据格式可以得到能量分配规则</p>
+<ul>
+<li>在时间较小时，温度影响较大，而距离影响较小</li>
+<li>随着时间推移，T_exp 递减，距离影响较大</li>
+<li>因此系统从“全局探索”逐步过渡到“局部深究”。</li>
+</ul>
+<p>快速实践</p>
+<ol>
+<li>编译：afl-clang-fast + <code>-targets=</code> 生成含距离信息的二进制。</li>
+<li>运行：afl-fuzz 追加 <code>-z targets.txt</code> 即启用 AFLGo；无需额外 <code>-p</code> 参数。</li>
+<li>并行：官方脚本自动为各实例划分不同目标区间，避免能量冲突。</li>
+</ol>
+<h2 id="beacon">Beacon
+</h2><p>Beacon 是面向“混合符号执行引导的定向模糊测试”工具，核心目标是在最短 CPU 时间内到达用户指定的目标地址/断言。其能量分配策略以<strong>距离-稀缺联合权重</strong>（Distance-Scarcity Weight, DSW）为核心，同时引入<strong>梯度冷却</strong>（Gradient Cooling）机制抑制过度消耗。</p>
+<p>关键公式与参数如下表所示。</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>Beacon 符号</th>
+          <th>定义/作用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>d(s,t)</td>
+          <td>种子 s 到目标 t 的<strong>动态最短路径距离</strong>（插桩实时计算，单位：基本块数）</td>
+      </tr>
+      <tr>
+          <td>r(s)</td>
+          <td>稀缺度：r(s)=1/(hit(s)+ε)，hit(s) 为触发该种子路径的输入次数</td>
+      </tr>
+      <tr>
+          <td>α</td>
+          <td>距离权重系数，默认 0.7（用户可通过 <code>--alpha</code> 调整）</td>
+      </tr>
+      <tr>
+          <td>β</td>
+          <td>稀缺权重系数，默认 0.3（满足 α+β=1）</td>
+      </tr>
+      <tr>
+          <td>w(s,t)</td>
+          <td>联合权重：w(s,t)=α·d̃(s,t)⁻¹+β·r(s)；d̃ 为归一化距离</td>
+      </tr>
+      <tr>
+          <td>T(k)</td>
+          <td>梯度冷却温度：T(k)=w_max·e^(−k/k₀)，k 为当前轮次，k₀ 为冷却常数</td>
+      </tr>
+      <tr>
+          <td>E(s,t)</td>
+          <td>最终能量：E(s,t)=E₀·w(s,t)/T(k)，E₀ 为基准能量（默认 1000）</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>能量分配规则总结</p>
+<ul>
+<li><strong>越靠近目标</strong>（d 越小）且<strong>越罕见</strong>（r 越大）的种子，联合权重 w 越高；</li>
+<li>随着 fuzz 轮次 k 增加，温度 T(k) 指数下降 → 高权重种子能量被进一步放大；</li>
+<li>当 T(k) 接近 0 时，能量几乎只流向离目标最近的稀缺路径。</li>
+</ul>
+<p>快速实践</p>
+<ol>
+<li>编译：<code>clang-beacon -targets=targets.txt</code> 生成带距离插桩的二进制。</li>
+<li>运行：<code>./beacon-fuzz -i in -o out -t targets.txt [可选 --alpha=0.6]</code>。</li>
+<li>并行：官方脚本 <code>beacon-parallel.py</code> 自动为各实例分配不同 k₀ 值，避免冷却同步。</li>
+</ol>
+<h2 id="windranger">WindRanger
+</h2><p>WindRanger 是面向<strong>多目标定向灰盒模糊测试（DGF）<strong>的工具，其核心创新在于</strong>“多级优先级队列 + 距离驱动能量分配”<strong>机制，可在一次 fuzzing 会话中同时逼近多个目标（偏差基本块 DBB），并确保测试资源向</strong>最易触发新路径的种子</strong>快速收敛。关键公式与参数如下表所示。</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>WindRanger 符号</th>
+          <th>定义 / 作用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>DBB</td>
+          <td>Deviation Basic Block：待覆盖的目标基本块</td>
+      </tr>
+      <tr>
+          <td>d(s, DBB)</td>
+          <td>种子 s 到目标 DBB 的<strong>静态最短路径距离</strong>（单位：基本块数）</td>
+      </tr>
+      <tr>
+          <td>L(s, DBB)</td>
+          <td>为每个 DBB 维护的<strong>种子列表</strong>，按 d(s, DBB) 升序排序</td>
+      </tr>
+      <tr>
+          <td>Q₁</td>
+          <td>一级优先级队列：每个 DBB 对应列表头部种子（距离最近）</td>
+      </tr>
+      <tr>
+          <td>Q₂</td>
+          <td>二级优先级队列：同一 DBB 列表中剩余种子</td>
+      </tr>
+      <tr>
+          <td>E(s)</td>
+          <td>种子实时能量：E(s) = E₀ · (1 / (d(s, DBB)+ε))，ε 防止除零</td>
+      </tr>
+      <tr>
+          <td>T_select</td>
+          <td>队列选择策略：先耗尽 Q₁ 再取 Q₂，确保最近种子优先突变</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>能量分配规则总结</p>
+<ul>
+<li>距离越短 -&gt; 排序越靠前 -&gt; 进入 Q₁ -&gt; 获得高能量 E(s)；</li>
+<li>距离越远 -&gt;落入 Q₂ -&gt; 能量随 d 线性衰减，甚至长期不被选中；</li>
+<li>每轮 fuzz 只从当前最高优先级队列取种子，形成“探索→利用”过渡。</li>
+</ul>
+<p>快速实践</p>
+<ol>
+<li>编译：<code>clang-windranger -targets=targets.txt</code> 生成带 DBB 距离的二进制。</li>
+<li>运行：<code>./windranger-fuzz -i in -o out -t targets.txt</code></li>
+<li>并行：官方脚本自动为不同 DBB 建立独立队列，避免队列间饥饿。</li>
+</ol>
+<h2 id="dafl">DAFL
+</h2><p>DAFL（<strong>D</strong>ata-dependency <strong>A</strong>ware <strong>F</strong>uzzing with <strong>L</strong>ightweight slicing）是以<strong>数据依赖</strong>为核心的定向灰盒模糊测试工具。其能量分配机制在传统 AFL 能量公式基础上，引入<strong>语义相关性评分</strong>（semantic-relevance score）进行<strong>比例再缩放</strong>，使 fuzz 资源优先流向<strong>与漏洞触发点数据依赖更紧密</strong>的种子。</p>
+<p>关键公式与参数如下表所示。</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>DAFL 符号</th>
+          <th>定义 / 作用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>scr_s</td>
+          <td>种子 s 的<strong>语义相关性评分</strong>（由静态数据依赖切片计算得出，越大越相关）</td>
+      </tr>
+      <tr>
+          <td>scr_avg</td>
+          <td>当前种子池内所有种子的平均语义相关性评分</td>
+      </tr>
+      <tr>
+          <td>E_AFL(s)</td>
+          <td>AFL 原生能量（基于执行速度、路径稀有度等 AFL 传统因子）</td>
+      </tr>
+      <tr>
+          <td>E_DAFL(s)</td>
+          <td>DAFL 调整后能量：E_DAFL(s) = (scr_s / scr_avg) × E_AFL(s)</td>
+      </tr>
+      <tr>
+          <td>ε</td>
+          <td>极小常数，避免除零</td>
+      </tr>
+      <tr>
+          <td>种子池排序</td>
+          <td>每轮按 scr_s 降序重排，循环队列指针不重置，防止饥饿</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>能量分配规则总结</p>
+<ul>
+<li><strong>数据依赖越紧密</strong>（scr_s 越高）的种子，获得 <strong>E_DAFL(s)</strong> 线性放大；</li>
+<li><strong>依赖关系稀疏</strong>（scr_s 低）的种子，能量被等比例压缩；</li>
+<li>每轮重新排序队列保证高相关性种子始终优先，且不会产生饥饿。</li>
+</ul>
+<p>快速实践</p>
+<ol>
+<li>编译：<code>afl-clang-dafl -targets=targets.txt</code> 生成带数据依赖插桩的二进制。</li>
+<li>运行：<code>./dafl-fuzz -i in -o out -t targets.txt</code>（无需额外 <code>-p</code> 参数）。</li>
+<li>并行：官方脚本 <code>dafl-parallel.py</code> 为不同目标 DBB 维护独立 scr_avg，避免跨目标干扰。</li>
+</ol>
+<p>已知效果</p>
+<ul>
+<li>与 AFLGo 相比，基于数据依赖的能量分配平均提速 1.27×；</li>
+<li>与原生 AFL 相比，DAFL 平均复现时间缩短 1.93×，并解决 AFL 无法触达的 4 个超时案例。</li>
+</ul>
+<h2 id="dafl实验消融对比配置">DAFL实验<strong>消融/对比配置</strong>
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>配置名称</th>
+          <th>数据依赖切片</th>
+          <th>语义相关评分 scr_s</th>
+          <th>能量公式</th>
+          <th>种子池策略</th>
+          <th>适用场景 / 研究目的</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>DAFL_noasan</strong></td>
+          <td>是</td>
+          <td>是</td>
+          <td>E = (scr_s/scr_avg)·E_AFL</td>
+          <td>动态重排</td>
+          <td>评估 ASan 运行时开销对能量分配的影响</td>
+      </tr>
+      <tr>
+          <td><strong>DAFL_naive</strong></td>
+          <td>否</td>
+          <td>否（直接scr_s=1）</td>
+          <td>E = E_AFL</td>
+          <td>动态重排</td>
+          <td>退化为传统 AFL，验证切片+评分带来的增益</td>
+      </tr>
+      <tr>
+          <td><strong>DAFL_selIns</strong></td>
+          <td>是</td>
+          <td>是</td>
+          <td>E = (scr_s/scr_avg)·E_AFL</td>
+          <td>动态重排</td>
+          <td>仅插桩数据依赖相关的指令，评估插桩开销与精度权衡</td>
+      </tr>
+      <tr>
+          <td><strong>DAFL_semRel</strong></td>
+          <td>否</td>
+          <td>是</td>
+          <td>E = (scr_s/scr_avg)·E_AFL</td>
+          <td>动态重排</td>
+          <td>关闭切片，验证语义评分单独贡献</td>
+      </tr>
+      <tr>
+          <td><strong>DAFL_seedpool</strong></td>
+          <td>是</td>
+          <td>是</td>
+          <td>E = (scr_s/scr_avg)·E_AFL</td>
+          <td><strong>固定大小</strong>（1000）</td>
+          <td>评估动态种子池策略对覆盖率的影响</td>
+      </tr>
+      <tr>
+          <td><strong>DAFL_energy</strong></td>
+          <td>否</td>
+          <td>是</td>
+          <td><strong>仅能量公式有效</strong>，不重新排序</td>
+          <td>无重排</td>
+          <td>验证排序机制与能量放大机制的独立贡献</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>使用示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 完整 DAFL</span>
+</span></span><span class="line"><span class="cl"><span class="nv">CC</span><span class="o">=</span>afl-clang-dafl make
+</span></span><span class="line"><span class="cl">./dafl-fuzz -i in -o out -t targets.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 关闭 ASan</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AFL_NO_ASAN</span><span class="o">=</span><span class="m">1</span> <span class="nv">CC</span><span class="o">=</span>afl-clang-dafl make
+</span></span><span class="line"><span class="cl">./dafl-fuzz -i in -o out -t targets.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 退化为 AFL（naive）</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AFL_DAFL_NAIVE</span><span class="o">=</span><span class="m">1</span> <span class="nv">CC</span><span class="o">=</span>afl-clang-dafl make
+</span></span><span class="line"><span class="cl">./dafl-fuzz -i in -o out -t targets.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/fuzz/">Fuzz</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/quick_fuzz/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/greenland.png" loading="lazy" data-key="" data-hash="/images/greenland.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Quick_fuzz</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/dgf-overview/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/EarlyMorningForest.png" loading="lazy" data-key="" data-hash="/images/EarlyMorningForest.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">DGF Overview</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-cn"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2025 Ch0ser
+    </section>
+    
+    <section class="powerby">
+        
+            © 2023-2025 Ch0ser. All Rights Reserved. <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.02491b20957ce34c6cbaef143130153bbb70fa8c594c64eb104a00e20fbf9273.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

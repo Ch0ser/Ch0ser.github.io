@@ -2,8 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/p/beaconwindranger/</loc>
+    <lastmod>2025-10-14T14:59:29+08:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2025-10-13T23:51:05+08:00</lastmod>
+    <lastmod>2025-10-14T14:59:29+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -21,7 +24,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2025-10-13T23:51:05+08:00</lastmod>
+    <lastmod>2025-10-14T14:59:29+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -38,17 +41,14 @@
                 href="http://localhost:1313/"
                 />
   </url><url>
-    <loc>http://localhost:1313/p/dgf%E4%B8%80%E8%A7%88/</loc>
-    <lastmod>2025-10-13T23:51:05+08:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/tags/fuzz/</loc>
-    <lastmod>2025-10-13T23:51:05+08:00</lastmod>
+    <lastmod>2025-10-14T14:59:29+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2025-10-13T23:51:05+08:00</lastmod>
+    <lastmod>2025-10-14T14:59:29+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2025-10-13T23:51:05+08:00</lastmod>
+    <lastmod>2025-10-14T14:59:29+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -66,6 +66,15 @@
                 />
   </url><url>
     <loc>http://localhost:1313/categories/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/</loc>
+    <lastmod>2025-10-14T14:59:29+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/dgf-tool-energy-allocation-strategies/</loc>
+    <lastmod>2025-10-14T14:47:25+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/quick_fuzz/</loc>
+    <lastmod>2025-10-14T14:40:02+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/dgf-overview/</loc>
     <lastmod>2025-10-13T23:51:05+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/docker/</loc>

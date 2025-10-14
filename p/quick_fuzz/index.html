@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="QuickFuzz\rFuzz入门，学习参考：Baby Fuzz · Home，BV1ZM4m1R7gZ\n模糊测试理论与工具实践\r总览\r模糊测试又称为fuzzing，是一种软件测试技术。其核心概念为自动产生随机输入到一个程序中，并监视程序异常，如崩溃、断言失败，以发现可能的程序错误。\n">
+<title>Quick_fuzz</title>
+
+<link rel='canonical' href='http://localhost:1313/p/quick_fuzz/'>
+
+<link rel="stylesheet" href="/scss/style.min.48ce54e3e307e3741d61de84a9b7fd091d2b70c905a608c90a1db85a009feb1b.css"><meta property='og:title' content="Quick_fuzz">
+<meta property='og:description' content="QuickFuzz\rFuzz入门，学习参考：Baby Fuzz · Home，BV1ZM4m1R7gZ\n模糊测试理论与工具实践\r总览\r模糊测试又称为fuzzing，是一种软件测试技术。其核心概念为自动产生随机输入到一个程序中，并监视程序异常，如崩溃、断言失败，以发现可能的程序错误。\n">
+<meta property='og:url' content='http://localhost:1313/p/quick_fuzz/'>
+<meta property='og:site_name' content='Choser&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Fuzz' /><meta property='article:published_time' content='2025-10-14T14:40:02&#43;08:00'/><meta property='article:modified_time' content='2025-10-14T14:40:02&#43;08:00'/><meta property='og:image' content='http://localhost:1313/images/greenland.png' />
+<meta name="twitter:title" content="Quick_fuzz">
+<meta name="twitter:description" content="QuickFuzz\rFuzz入门，学习参考：Baby Fuzz · Home，BV1ZM4m1R7gZ\n模糊测试理论与工具实践\r总览\r模糊测试又称为fuzzing，是一种软件测试技术。其核心概念为自动产生随机输入到一个程序中，并监视程序异常，如崩溃、断言失败，以发现可能的程序错误。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/images/greenland.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu1777375556697644536.png" width="300"
+                            height="158" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Choser&#39;s Blog</a></h1>
+            <h2 class="site-description">进一寸有进一寸的欢喜</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Ch0ser'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:ch0ser@qq.com'
+                        target="_blank"
+                        title="✉️ Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1760270206847" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5175" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M858.656 192 165.344 192C109.472 192 64 237.44 64 293.312l0 469.376C64 818.56 109.472 864 165.344 864l693.312 0C914.528 864 960 818.56 960 762.688L960 293.312C960 237.44 914.528 192 858.656 192zM858.656 800 165.344 800C144.736 800 128 783.264 128 762.688L128 293.312C128 272.736 144.736 256 165.344 256l684.544 0-307.488 279.808c-14.592 14.56-38.272 14.528-54.752-1.792l-244.256-206.752C229.856 315.84 209.664 317.504 198.272 331.008c-11.424 13.472-9.76 33.664 3.744 45.088l242.304 204.96c19.904 19.904 46.048 29.792 72.032 29.792 25.632 0 51.136-9.632 70.176-28.736L896 300.544l0 462.144C896 783.264 879.264 800 858.656 800z" fill="#5D646F" p-id="5176"></path></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于我</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#模糊测试理论与工具实践">模糊测试理论与工具实践</a></li>
+    <li><a href="#总览">总览</a>
+      <ol>
+        <li><a href="#举例">举例</a></li>
+      </ol>
+    </li>
+    <li><a href="#内部架构">内部架构</a></li>
+    <li><a href="#aflamerican-fuzz-loop">AFL(American Fuzz Loop)</a></li>
+    <li><a href="#fuzz方式">Fuzz方式</a></li>
+    <li><a href="#环境搭建">环境搭建</a>
+      <ol>
+        <li><a href="#安装">安装</a></li>
+      </ol>
+    </li>
+    <li><a href="#aflamerican-fuzz-loop-1">AFL(American Fuzz Loop)</a>
+      <ol>
+        <li><a href="#插桩instrumentation">插桩（instrumentation）</a></li>
+        <li><a href="#特点">特点：</a></li>
+      </ol>
+    </li>
+    <li><a href="#demo">Demo</a>
+      <ol>
+        <li><a href="#afl-gcc">afl-gcc</a></li>
+        <li><a href="#afl-as">afl-as</a></li>
+        <li><a href="#afl-fuzz">afl-fuzz</a></li>
+      </ol>
+    </li>
+    <li><a href="#crash分析">Crash分析</a></li>
+    <li><a href="#sanitizer">Sanitizer</a></li>
+    <li><a href="#addresssanitizer原理简介">AddressSanitizer原理简介</a>
+      <ol>
+        <li><a href="#堆对象分配">堆对象分配</a></li>
+        <li><a href="#堆栈变量">堆栈变量</a></li>
+        <li><a href="#额外的开销">额外的开销</a></li>
+      </ol>
+    </li>
+    <li><a href="#实战演示-libpng">实战演示-libpng</a>
+      <ol>
+        <li><a href="#0x0编译fuzz目标">0x0.编译fuzz目标</a></li>
+        <li><a href="#0x1准备环境准备种子">0x1.准备环境(准备种子)</a></li>
+        <li><a href="#0x2开始fuzzhttpslidaxian121githubiopostsfuzz0x2开始fuzz">0x2.开始fuzz<a href="https://lidaxian121.github.io/posts/fuzz/#0x2%E5%BC%80%E5%A7%8Bfuzz">#</a></a></li>
+        <li><a href="#0x3报错处理如果安装在系统上时">0x3.报错处理(如果安装在系统上时)</a></li>
+      </ol>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/quick_fuzz/">
+                
+                    <img src="/images/greenland.png" loading="lazy" alt="Featured image of post Quick_fuzz" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/" >
+                二进制安全
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/quick_fuzz/">Quick_fuzz</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 14, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 7 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="quickfuzz">QuickFuzz
+</h1><blockquote>
+<p>Fuzz入门，学习参考：<a class="link" href="https://lidaxian121.github.io/posts/fuzz/"  target="_blank" rel="noopener"
+    >Baby Fuzz · Home</a>，BV1ZM4m1R7gZ</p>
+</blockquote>
+<h2 id="模糊测试理论与工具实践">模糊测试理论与工具实践
+</h2><h2 id="总览">总览
+</h2><p><strong>模糊测试</strong>又称为fuzzing，是一种软件测试技术。其核心概念为<strong>自动</strong>产生<strong>随机输入</strong>到一个程序中，并监视程序异常，如崩溃、断言失败，以发现可能的程序错误。</p>
+<hr>
+<h3 id="举例">举例
+</h3><p>测试.c:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// gcc -o test test.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">input</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">read</span><span class="p">(</span><span class="n">STDIN_FILENO</span><span class="p">,</span> <span class="n">input</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;A&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">input</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;B&#39;</span><span class="p">)</span> <span class="c1">// (1)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">*</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mh">0xdeadbeef</span><span class="p">;</span> <span class="c1">// (2)，将空指针赋值为0xdeadbeef，引发程序崩溃
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">write</span><span class="p">(</span><span class="n">STDOUT_FILENO</span><span class="p">,</span> <span class="n">input</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<p>模糊器.py：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">subprocess</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">target</span> <span class="o">=</span> <span class="s1">&#39;./test&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">inps</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;AA&#39;</span><span class="p">,</span> <span class="s1">&#39;BB&#39;</span><span class="p">,</span> <span class="s1">&#39;BA&#39;</span><span class="p">,</span> <span class="s1">&#39;AB&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">inp</span> <span class="ow">in</span> <span class="n">inps</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">不断测试哪些输入会引发程序崩溃</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">target</span><span class="p">],</span> <span class="nb">input</span><span class="o">=</span><span class="n">inp</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span><span class="p">:</span> <span class="c1"># (1)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;bug found with input: &#39;</span><span class="si">{</span><span class="n">inp</span><span class="si">}</span><span class="s2">&#39;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># (output)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># bug found with input: &#39;AB&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="内部架构">内部架构
+</h2><hr>
+<p><strong>在执行时会因为不同的条件执行不同的程序码，而不同</strong>的条件主要<code>if</code>就是定义</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;condition 1&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;condition 2&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://github.com/u1f383/fuzzing-learning-in-30-days/raw/main/images/2-0.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<hr>
+<p>IDA pro生产出来的指令级别的<strong>控制流图</strong>(CFG)</p>
+<p><img src="https://github.com/u1f383/fuzzing-learning-in-30-days/raw/main/images/2-1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<hr>
+<p>fuzzing流程大致可以拆成三个组件分别为：</p>
+<p>1.种子选择、2.突变、3.覆盖范围。</p>
+<p><img src="https://github.com/u1f383/fuzzing-learning-in-30-days/raw/main/images/2-2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<hr>
+<p>举例：</p>
+<p>测试.c</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// gcc -o test test.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">input</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">read</span><span class="p">(</span><span class="n">STDIN_FILENO</span><span class="p">,</span> <span class="n">input</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;A&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;AAA&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;B&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">           <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;BBB&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">           <span class="k">if</span> <span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;C&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="o">*</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mh">0xdeadbeef</span><span class="p">;</span> <span class="c1">// bug
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>           <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<p>测试器.py</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">subprocess</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">random</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">target</span> <span class="o">=</span> <span class="s1">&#39;./test&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">inps</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="c1"># 语料库</span>
+</span></span><span class="line"><span class="cl"><span class="n">count</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">inp</span> <span class="o">=</span> <span class="n">inps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># 种子选择演算法比较简单，使用最新的的种子作为下一个输入</span>
+</span></span><span class="line"><span class="cl">    <span class="n">inp</span> <span class="o">+=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">])</span> <span class="c1"># 变异演算会挑选出来的种子加上一个随机字元作为最终的输入。</span>
+</span></span><span class="line"><span class="cl">    <span class="k">del</span> <span class="n">inps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#加一个删一个，保证下次取的是下一个</span>
+</span></span><span class="line"><span class="cl">    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span> <span class="c1">#记录处理了多少个输入</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">comp</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">target</span><span class="p">],</span> <span class="nb">input</span><span class="o">=</span><span class="n">inp</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">comp</span><span class="o">.</span><span class="n">stdout</span> <span class="o">!=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">inps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span> <span class="c1"># 如果有输出的话则代表此输入为有趣</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;bug found with input: &#39;</span><span class="si">{</span><span class="n">inp</span><span class="si">}</span><span class="s2">&#39;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">count</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">inps</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># 定期打乱语料库,避免变异效果不好导致输入无法取得新的覆盖范围</span>
+</span></span><span class="line"><span class="cl">        <span class="n">inps</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<p>模糊器的好坏，通常是：</p>
+<ol>
+<li><strong>种子选择</strong>是否能挑出真正有意义的种子</li>
+<li><strong>变异</strong>的随机是否有效率</li>
+<li><strong>覆盖</strong>实现的方式是否会造成大量的开销。</li>
+</ol>
+<hr>
+<h2 id="aflamerican-fuzz-loop">AFL(American Fuzz Loop)
+</h2><p>– 简介 &amp; 安装</p>
+<hr>
+<p>以下是一些比较有名的开源模糊测试工具：</p>
+<ol>
+<li><strong>American Fuzzy Lop (AFL)</strong>: AFL 是一个高效的模糊测试工具</li>
+<li><strong>libFuzzer</strong>: libFuzzer 是 LLVM/Clang 提供的一个模糊测试引擎，它可以轻松地集成到现有的代码中</li>
+<li><strong>Syzkaller</strong>: Syzkaller 是一个专注于系统调用接口的模糊测试工具，它可以自动生成各种系统调用序列，并对内核进行测试以发现漏洞和错误。</li>
+<li><strong>OSS-Fuzz</strong>: OSS-Fuzz旨在通过自动化模糊测试发现开源软件中的安全漏洞和错误。</li>
+</ol>
+<hr>
+<h2 id="fuzz方式">Fuzz方式
+</h2><p>AFL有两种fuzz途径：</p>
+<ol>
+<li>开源软件：AFL软件进行编译的同时进行插桩，以方便fuzz</li>
+<li>闭源软件：配合QEMU直接对闭源的二进制代码进行fuzz</li>
+</ol>
+<hr>
+<h2 id="环境搭建">环境搭建
+</h2><h3 id="安装">安装
+</h3><p><strong>Linux包管理(deb)：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell-session" data-lang="shell-session"><span class="line"><span class="cl"><span class="gp">$</span> sudo apt install afl++
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>源码编译安装 ：</strong></p>
+<p>下载源码自行编译：(推荐安装AFL++，AFl的话如果开ASAN可能有问题)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell-session" data-lang="shell-session"><span class="line"><span class="cl"><span class="gp">$</span> git clone https://github.com/AFLplusplus/AFLplusplus.git
+</span></span><span class="line"><span class="cl"><span class="gp">$</span> <span class="nb">cd</span> AFLplusplus
+</span></span><span class="line"><span class="cl"><span class="gp">$</span> make
+</span></span><span class="line"><span class="cl"><span class="gp">$</span> sudo make install
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="aflamerican-fuzz-loop-1">AFL(American Fuzz Loop)
+</h2><h3 id="插桩instrumentation">插桩（instrumentation）
+</h3><p>在保证原程序逻辑的完整性下，在程序中插入一些程序码来采集运行期间的执行状态。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">test_var</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// original (1)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">b</span><span class="p">()</span> <span class="p">{</span> <span class="p">...;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">a</span><span class="p">()</span> <span class="p">{</span> <span class="p">...;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// instrumented (2)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">b</span><span class="p">()</span> <span class="p">{</span> <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;test_var: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">test_var</span><span class="p">);</span> <span class="p">...;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">a</span><span class="p">()</span> <span class="p">{</span> <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;test_var: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">test_var</span><span class="p">);</span> <span class="p">...;</span> <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h3 id="特点">特点：
+</h3><ol>
+<li>插桩的对象通常都具有相同的属性或类别涉及所有的功能、所有的<strong>基本块</strong>，比较少针对单一目标。</li>
+<li>插桩的程序代码通常只有几行汇编代码，并且不会做太复杂的操作</li>
+<li>在<strong>模糊器</strong>中，插桩被用来进行<strong>覆盖</strong>，那么记录多少程序码被执行到。</li>
+</ol>
+<hr>
+<p>举例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">had_exec</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">a</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">had_exec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// (1)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">b</span><span class="p">()</span> <span class="p">{</span> <span class="n">had_exec</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="p">...;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">c</span><span class="p">()</span> <span class="p">{</span> <span class="n">had_exec</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="p">...;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">had_exec</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1">// (2)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;function a had been called&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="demo">Demo
+</h2><p>演示</p>
+<hr>
+<p>测试程序test.c</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">idx</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">scanf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">idx</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">buf</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="mh">0x2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mh">0xdead</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">*</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="mi">0</span> <span class="o">=</span> <span class="mh">0xdeadbeef</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h3 id="afl-gcc">afl-gcc
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell-session" data-lang="shell-session"><span class="line"><span class="cl"><span class="gp">$</span> <span class="nb">export</span> <span class="nv">AFL_USE_ASAN</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="gp">$</span> afl-gcc -fsanitize<span class="o">=</span>address -o <span class="nb">test</span> test.c
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>最后会我们的命令会变成这样</li>
+</ul>
+<blockquote>
+<p>gcc选用afl的汇编器来编译</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell-session" data-lang="shell-session"><span class="line"><span class="cl"><span class="gp">$</span> gcc -fsanitize<span class="o">=</span>address -o <span class="nb">test</span> test.c -B ~/fuzz/AFLplusplus -g -O3 -funroll-loops -D__AFL_COMPILER<span class="o">=</span><span class="m">1</span> -DFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION<span class="o">=</span><span class="m">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>有趣的是<code>-B ~/fuzz/AFL</code>，gcc 会尝试在这里寻找路径工具链中的<strong>汇编器</strong>来执行</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell-session" data-lang="shell-session"><span class="line"><span class="cl"><span class="gp">$</span> ls -al ~/fuzz/AFLplusplus/as
+</span></span><span class="line"><span class="cl"><span class="gp">$</span> lrwxrwxrwx <span class="m">1</span> lidaxian lidaxian <span class="m">6</span> Mar <span class="m">29</span> 14:53 as -&gt; afl-as
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h3 id="afl-as">afl-as
+</h3><ul>
+<li>afl-as首先会执行函数<code>add_instrumentation()</code>做插桩（对汇编代码），最后执行as做汇编（编译成机械代码）。所以插桩是在编译之后汇编之前。</li>
+<li>做完插桩后会执行调整后的参数来汇编新的asm文件，最后产生的执行文件test即是有插桩的版本，简单用objdump就可以看到许多以__afl为前缀的函数(说明已完成插桩)：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell-session" data-lang="shell-session"><span class="line"><span class="cl"><span class="gp">$</span> objdump -M intel -d <span class="nb">test</span> <span class="p">|</span> grep afl
+</span></span><span class="line"><span class="cl"><span class="go">    119d:       e8 1e 02 00 00          call   13c0 &lt;__afl_maybe_log&gt;
+</span></span></span><span class="line"><span class="cl"><span class="go">    120d:       e8 ae 01 00 00          call   13c0 &lt;__afl_maybe_log&gt;
+</span></span></span><span class="line"><span class="cl"><span class="go">    1255:       e8 66 01 00 00          call   13c0 &lt;__afl_maybe_log&gt;
+</span></span></span><span class="line"><span class="cl"><span class="go">    12a1:       e8 1a 01 00 00          call   13c0 &lt;__afl_maybe_log&gt;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h3 id="afl-fuzz">afl-fuzz
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell-session" data-lang="shell-session"><span class="line"><span class="cl"><span class="go">afl-fuzz -i seed-dir -o out-dir -m none ./test
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>-i - 存放测试用例的资料夹</li>
+<li>-o - 搁置执行结果资料夹</li>
+<li>-f - 从指定文件读取输入</li>
+<li>-t - timeout，执行时间超过的话就会被kill掉</li>
+<li>-m - 内存限制，执行时所能使用的内存体上限</li>
+<li>-d - 跳过确定性，突变阶段跳过最初的处理</li>
+<li>-n - 对没有插桩的目标进行模糊测试</li>
+</ul>
+<p>tips：</p>
+<p>运行后遇到一些问题：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">demian@Friday:~/C_lab/fuzz$ afl-fuzz -i seed-dir -o out-dir -m none ./test~
+</span></span><span class="line"><span class="cl">afl-fuzz++4.09c based on afl by Michal Zalewski and a large online community
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> AFL++ is maintained by Marc <span class="s2">&#34;van Hauser&#34;</span> Heuse, Dominik Maier, Andrea Fioraldi and Heiko <span class="s2">&#34;hexcoder&#34;</span> Eißfeldt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> AFL++ is open source, get it at https://github.com/AFLplusplus/AFLplusplus
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> NOTE: AFL++ &gt;<span class="o">=</span> v3 has changed defaults and behaviours - see README.md
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> No -M/-S set, autoconfiguring <span class="k">for</span> <span class="s2">&#34;-S default&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Getting to work...
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Using exponential power schedule <span class="o">(</span>FAST<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Enabled testcache with <span class="m">50</span> MB
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Generating fuzz data with a length of <span class="nv">min</span><span class="o">=</span><span class="m">1</span> <span class="nv">max</span><span class="o">=</span><span class="m">1048576</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Checking core_pattern...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> Hmm, your system is configured to send core dump notifications to an
+</span></span><span class="line"><span class="cl">    external utility. This will cause issues: there will be an extended delay
+</span></span><span class="line"><span class="cl">    between stumbling upon a crash and having this information relayed to the
+</span></span><span class="line"><span class="cl">    fuzzer via the standard waitpid<span class="o">()</span> API.
+</span></span><span class="line"><span class="cl">    If you<span class="s1">&#39;re just testing, set &#39;</span><span class="nv">AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES</span><span class="o">=</span>1<span class="s1">&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">    To avoid having crashes misinterpreted as timeouts, please log in as root
+</span></span></span><span class="line"><span class="cl"><span class="s1">    and temporarily modify /proc/sys/kernel/core_pattern, like so:
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">    echo core &gt;/proc/sys/kernel/core_pattern
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">[-] PROGRAM ABORT : Pipe at the beginning of &#39;</span>core_pattern<span class="err">&#39;</span>
+</span></span><span class="line"><span class="cl">         Location : check_crash_handling<span class="o">()</span>, src/afl-fuzz-init.c:2361
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>从错误信息来看，系统配置了外部工具来处理核心转储（core dump），这会导致 AFL++ 无法正确处理崩溃信息。</p>
+<p>所以我们要修改系统的 <code>core_pattern</code> 配置。</p>
+<p>首先，运行以下命令查看当前的 <code>core_pattern</code> 配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /proc/sys/kernel/core_pattern
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出类似于 <code>|/usr/lib/systemd/systemd-coredump %p %u %g %s %t %c %h</code>，说明系统配置了外部工具来处理核心转储。</p>
+<p>然后以 root 用户身份运行以下命令，将 <code>core_pattern</code> 修改为 <code>core</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> core <span class="p">|</span> sudo tee /proc/sys/kernel/core_pattern
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>再次查看 <code>core_pattern</code> 配置，确认修改成功：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /proc/sys/kernel/core_pattern
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果输出为 <code>core</code>，说明修改成功。</p>
+<p>接下来就可以重新运行 AFL-fuzz。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell-session" data-lang="shell-session"><span class="line"><span class="cl"><span class="go">afl-fuzz -i seed-dir -o out-dir -m none ./test
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在创建了相关目录和种子文件后，命令运行成功就能在终端看见如下结果了：</p>
+<p><img src="/pics/fuzzing.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="fuzzing"
+	
+	
+></p>
+<h2 id="crash分析">Crash分析
+</h2><p>out-dir/crashes目录下的内容是引发崩溃的输入。</p>
+<hr>
+<h2 id="sanitizer">Sanitizer
+</h2><hr>
+<p>即使程序存在漏洞，也不一定会在执行到有漏洞的程式码时触发异常</p>
+<p>举例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nf">scanf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">idx</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">buf</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span> <span class="c1">// (1)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>然而即便会有out-of-bound write 的漏洞发生，但如果<code>buf[101]</code>对应到的地址正好没被使用到，那么fuzzer也不会感兴趣。</p>
+<p>所以我们需要“Sanitizer”来辅助检测程序问题，它是一种用于检测程序中各种错误（如内存错误、数据竞争等）的工具。它通常集成在编译器中，可以在程序运行时检测问题。</p>
+<p>能辅助检测，但是有额外性能和时间需求。</p>
+<hr>
+<p>常见的Sanitizer有：</p>
+<ol>
+<li><strong>AddressSanitizer</strong> (+LeakSanitizer)</li>
+<li>ThreadSanitizer</li>
+<li>UndefinedBehaviorSanitizer</li>
+<li>MemorySanitizer</li>
+</ol>
+<hr>
+<h2 id="addresssanitizer原理简介">AddressSanitizer原理简介
+</h2><p>这个内存检查是如何工作的？</p>
+<hr>
+<p>左侧，蓝色区域是我们分配的内存在右侧</p>
+<p>右侧，<code>Redzones</code>是中毒的内存，访问即报错。</p>
+<p><img src="https://suelan.github.io/2020/08/18/20200817-address-sanitizer/image-20200816120042864.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="图片20200816120042864"
+	
+	
+></p>
+<hr>
+<p>如果通过启用Address Sanitizer来编译可执行文件，则每次访问内存之前，都会有前缀指令来检查该内存是否为<code>poisoned</code>.如果是，Address Sanitizer 将生成如上所示的诊断报告。</p>
+<p><img src="https://suelan.github.io/2020/08/18/20200817-address-sanitizer/image-20200816120700174.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="图片20200816120700174"
+	
+	
+></p>
+<hr>
+<p>下图显示该进程正在尝试访问中毒内存，并触发<code>Crash</code>并生成诊断报告。</p>
+<p><img src="https://suelan.github.io/2020/08/18/20200817-address-sanitizer/image-20200816120921377.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="图片20200816120921377"
+	
+	
+></p>
+<hr>
+<h3 id="堆对象分配">堆对象分配
+</h3><p>Address Sanitizer通过使用它自己的分配实现来替换默认的 Malloc 实现，该实现将对象彼此分开，中间插入有毒内存。</p>
+<p><img src="https://suelan.github.io/2020/08/18/20200817-address-sanitizer/image-20200816123141896.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="图片20200816123141896"
+	
+	
+></p>
+<hr>
+<h3 id="堆栈变量">堆栈变量
+</h3><p>在两个堆栈变量之间插入一些红色区域，因此堆栈红色区域在运行时中毒。</p>
+<p><img src="https://suelan.github.io/2020/08/18/20200817-address-sanitizer/image-20200816150456865.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="图片20200816150456865"
+	
+	
+></p>
+<hr>
+<h3 id="额外的开销">额外的开销
+</h3><ul>
+<li>CPU 减速通常在 2 倍到 5 倍之间 正常情况下，CPU 速度减慢 2 倍至 3 倍。在某些极端情况下，他们的速度下降了 5 倍。</li>
+<li>内存开销 2x–3x</li>
+<li>AddressSanitizer 使用比本机运行更多的实际内存。确切的开销取决于分配大小。分配越小，开销就越大。</li>
+<li>AddressSanitizer 使用更多的堆栈内存。我们看到增长高达 3 倍。</li>
+</ul>
+<hr>
+<h2 id="实战演示-libpng">实战演示-libpng
+</h2><hr>
+<h3 id="0x0编译fuzz目标">0x0.编译fuzz目标
+</h3><p><a class="link" href="https://libpng.sourceforge.io/"  target="_blank" rel="noopener"
+    >libpng</a>是开源的png解析库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell-session" data-lang="shell-session"><span class="line"><span class="cl"><span class="gp">$</span> wget https://nchc.dl.sourceforge.net/project/libpng/libpng16/1.6.36/libpng-1.6.36.tar.xz
+</span></span><span class="line"><span class="cl"><span class="gp">$</span> tar xvf libpng-1.6.36.tar.xz
+</span></span><span class="line"><span class="cl"><span class="gp">$</span> <span class="nb">cd</span> libpng-1.6.36
+</span></span><span class="line"><span class="cl"><span class="gp">$</span> ./autogen.sh 
+</span></span><span class="line"><span class="cl"><span class="gp">$</span> <span class="nv">CC</span><span class="o">=</span>afl-clang <span class="nv">CXX</span><span class="o">=</span>afl-g++ ./configure --enable-static
+</span></span><span class="line"><span class="cl"><span class="gp">$</span> make -j4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>--enable-static</code> ： 用于生成静态库，fuzz开源库时会需要</p>
+</blockquote>
+<hr>
+<h3 id="0x1准备环境准备种子">0x1.准备环境(准备种子)
+</h3><p>获取官网提供的测试集作为输入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell-session" data-lang="shell-session"><span class="line"><span class="cl"><span class="gp">$</span> mkdir fuzz_in fuzz_out
+</span></span><span class="line"><span class="cl"><span class="gp">$</span> <span class="nb">cd</span> fuzz_in
+</span></span><span class="line"><span class="cl"><span class="gp">$</span> wget http://lcamtuf.coredump.cx/afl/demo/afl_testcases.tgz
+</span></span><span class="line"><span class="cl"><span class="gp">$</span> tar xvf afl_testcases.tgz
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h3 id="0x2开始fuzzhttpslidaxian121githubiopostsfuzz0x2开始fuzz">0x2.开始fuzz<a class="link" href="https://lidaxian121.github.io/posts/fuzz/#0x2%e5%bc%80%e5%a7%8bfuzz"  target="_blank" rel="noopener"
+    >#</a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell-session" data-lang="shell-session"><span class="line"><span class="cl"><span class="gp">$</span> afl-fuzz -i ../fuzz_in/png/full/images -o ../fuzz_out ../.libs/pngimage @@
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>../fuzz_in/png/full/images</code>为afl测试集</p>
+<p><code>../.libs/pngimage</code>是编译出来的被测试程序</p>
+<p>@@代表测试输入样本</p>
+<hr>
+<h3 id="0x3报错处理如果安装在系统上时">0x3.报错处理(如果安装在系统上时)
+</h3><p>AFL测试时用到功能需要还没有开启</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo su
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> core &gt;/proc/sys/kernel/core_pattern
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /sys/devices/system/cpu
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> performance <span class="p">|</span> tee cpu*/cpufreq/scaling_governor
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="总结">总结
+</h2><hr>
+<ul>
+<li>使用AFL在linux上fuzz开源软件十分简单</li>
+<li>大多数的lib/开源软件的源代码都是可以获取的</li>
+<li>在编译时插桩是可行的</li>
+<li>在Fuzz时要用ASAN,MSAN,UBSAN</li>
+<li>有时最需要花费时间的过程是项目编译
+<ul>
+<li>缺失引用的第三方库（lib）</li>
+<li>编译过程中的各种错误</li>
+<li>不同项目不同的编译方法与各种选项</li>
+</ul>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/fuzz/">Fuzz</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/beaconwindranger/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/EarlyMorningForest.png" loading="lazy" data-key="" data-hash="/images/EarlyMorningForest.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Beacon&amp;WindRanger</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/dgf-tool-energy-allocation-strategies/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/RiverInTrees.png" loading="lazy" data-key="" data-hash="/images/RiverInTrees.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">DGF Tool Energy Allocation Strategies</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/dgf-overview/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/EarlyMorningForest.png" loading="lazy" data-key="" data-hash="/images/EarlyMorningForest.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">DGF Overview</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-cn"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2025 Ch0ser
+    </section>
+    
+    <section class="powerby">
+        
+            © 2023-2025 Ch0ser. All Rights Reserved. <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.02491b20957ce34c6cbaef143130153bbb70fa8c594c64eb104a00e20fbf9273.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
