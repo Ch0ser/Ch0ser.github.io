@@ -13,7 +13,7 @@
         <pubDate>Tue, 14 Oct 2025 14:59:29 +0800</pubDate>
         
         <guid>http://localhost:1313/p/beaconwindranger/</guid>
-        <description>&lt;img src="http://localhost:1313/images/EarlyMorningForest.png" alt="Featured image of post Beacon&amp;WindRanger" /&gt;&lt;h1 id=&#34;windrangerbeaconfuzz&#34;&gt;WindRanger&amp;amp;BeaconFuzz
+        <description>&lt;img src="http://localhost:1313/images/ChillOcean.png" alt="Featured image of post Beacon&amp;WindRanger" /&gt;&lt;h1 id=&#34;windrangerbeaconfuzz&#34;&gt;WindRanger&amp;amp;BeaconFuzz
 &lt;/h1&gt;&lt;p&gt;WindRanger 是一个&lt;strong&gt;基于 BeaconFuzz 算法的定向模糊测试工具&lt;/strong&gt;，发表于 &lt;strong&gt;ICSE 2022&lt;/strong&gt;，旨在高效引导模糊测试到达目标代码（如漏洞触发点）。其核心创新是 &lt;strong&gt;BeaconFuzz 策略&lt;/strong&gt;，通过动态识别关键代码块（Beacon）来优化路径探索。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;1-windranger-概述&#34;&gt;&lt;strong&gt;1. WindRanger 概述&lt;/strong&gt;
