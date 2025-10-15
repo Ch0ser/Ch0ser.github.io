@@ -2,6 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ch0ser.github.io/tags/bash/</loc>
+    <lastmod>2025-10-15T19:08:35+08:00</lastmod>
+  </url><url>
+    <loc>https://ch0ser.github.io/p/bash_quotation/</loc>
+    <lastmod>2025-10-15T19:08:35+08:00</lastmod>
+  </url><url>
+    <loc>https://ch0ser.github.io/categories/</loc>
+    <lastmod>2025-10-15T19:08:35+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ch0ser.github.io/en/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ar"
+                href="https://ch0ser.github.io/ar/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://ch0ser.github.io/categories/"
+                />
+  </url><url>
     <loc>https://ch0ser.github.io/</loc>
     <lastmod>2025-10-15T19:08:35+08:00</lastmod>
     <xhtml:link
@@ -23,32 +47,8 @@
     <loc>https://ch0ser.github.io/post/</loc>
     <lastmod>2025-10-15T19:08:35+08:00</lastmod>
   </url><url>
-    <loc>https://ch0ser.github.io/tags/bash/</loc>
-    <lastmod>2025-10-15T16:38:58+08:00</lastmod>
-  </url><url>
-    <loc>https://ch0ser.github.io/p/bash_extension/</loc>
-    <lastmod>2025-10-15T16:38:58+08:00</lastmod>
-  </url><url>
-    <loc>https://ch0ser.github.io/categories/</loc>
-    <lastmod>2025-10-15T16:38:58+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://ch0ser.github.io/en/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ar"
-                href="https://ch0ser.github.io/ar/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://ch0ser.github.io/categories/"
-                />
-  </url><url>
     <loc>https://ch0ser.github.io/tags/</loc>
-    <lastmod>2025-10-15T16:38:58+08:00</lastmod>
+    <lastmod>2025-10-15T19:08:35+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -66,6 +66,9 @@
                 />
   </url><url>
     <loc>https://ch0ser.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2025-10-15T19:08:35+08:00</lastmod>
+  </url><url>
+    <loc>https://ch0ser.github.io/p/bash_extension/</loc>
     <lastmod>2025-10-15T16:38:58+08:00</lastmod>
   </url><url>
     <loc>https://ch0ser.github.io/p/bash_introgrammar/</loc>
