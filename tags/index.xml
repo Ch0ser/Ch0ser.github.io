@@ -2,65 +2,65 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Tags on Choser&#39;s Blog</title>
-        <link>https://ch0ser.github.io/tags/</link>
+        <link>http://localhost:1313/tags/</link>
         <description>Recent content in Tags on Choser&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Ch0ser</copyright>
-        <lastBuildDate>Wed, 15 Oct 2025 16:10:33 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 15 Oct 2025 16:38:58 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Bash</title>
-        <link>https://ch0ser.github.io/tags/bash/</link>
-        <pubDate>Wed, 15 Oct 2025 16:10:33 +0800</pubDate>
+        <link>http://localhost:1313/tags/bash/</link>
+        <pubDate>Wed, 15 Oct 2025 16:38:58 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/tags/bash/</guid>
+        <guid>http://localhost:1313/tags/bash/</guid>
         <description></description>
         </item>
         <item>
         <title>Fuzz</title>
-        <link>https://ch0ser.github.io/tags/fuzz/</link>
+        <link>http://localhost:1313/tags/fuzz/</link>
         <pubDate>Tue, 14 Oct 2025 14:59:29 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/tags/fuzz/</guid>
+        <guid>http://localhost:1313/tags/fuzz/</guid>
         <description></description>
         </item>
         <item>
         <title>Docker</title>
-        <link>https://ch0ser.github.io/tags/docker/</link>
+        <link>http://localhost:1313/tags/docker/</link>
         <pubDate>Mon, 06 Oct 2025 21:56:04 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/tags/docker/</guid>
+        <guid>http://localhost:1313/tags/docker/</guid>
         <description></description>
         </item>
         <item>
         <title>Git</title>
-        <link>https://ch0ser.github.io/tags/git/</link>
+        <link>http://localhost:1313/tags/git/</link>
         <pubDate>Fri, 21 Feb 2025 20:58:54 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/tags/git/</guid>
+        <guid>http://localhost:1313/tags/git/</guid>
         <description></description>
         </item>
         <item>
         <title>Java</title>
-        <link>https://ch0ser.github.io/tags/java/</link>
+        <link>http://localhost:1313/tags/java/</link>
         <pubDate>Mon, 16 Dec 2024 16:04:20 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/tags/java/</guid>
+        <guid>http://localhost:1313/tags/java/</guid>
         <description></description>
         </item>
         <item>
         <title>AI</title>
-        <link>https://ch0ser.github.io/tags/ai/</link>
+        <link>http://localhost:1313/tags/ai/</link>
         <pubDate>Sat, 23 Nov 2024 21:45:04 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/tags/ai/</guid>
+        <guid>http://localhost:1313/tags/ai/</guid>
         <description></description>
         </item>
         <item>
         <title>Typora</title>
-        <link>https://ch0ser.github.io/tags/typora/</link>
+        <link>http://localhost:1313/tags/typora/</link>
         <pubDate>Sat, 23 Nov 2024 21:45:04 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/tags/typora/</guid>
+        <guid>http://localhost:1313/tags/typora/</guid>
         <description></description>
         </item>
         
