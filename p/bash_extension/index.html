@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 学习参考的教程为Bash 脚本教程 - 网道，非常感谢开源工作者的贡献！\n如使用到该教程，可随意使用，但请标明出处（Bash 脚本教程 - 网道）。\n笔记汇总在Bash中。\n">
 <title>Bash_extension</title>
 
-<link rel='canonical' href='http://localhost:1313/p/bash_extension/'>
+<link rel='canonical' href='https://ch0ser.github.io/p/bash_extension/'>
 
 <link rel="stylesheet" href="/scss/style.min.48ce54e3e307e3741d61de84a9b7fd091d2b70c905a608c90a1db85a009feb1b.css"><meta property='og:title' content="Bash_extension">
 <meta property='og:description' content=" 学习参考的教程为Bash 脚本教程 - 网道，非常感谢开源工作者的贡献！\n如使用到该教程，可随意使用，但请标明出处（Bash 脚本教程 - 网道）。\n笔记汇总在Bash中。\n">
-<meta property='og:url' content='http://localhost:1313/p/bash_extension/'>
+<meta property='og:url' content='https://ch0ser.github.io/p/bash_extension/'>
 <meta property='og:site_name' content='Choser&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Bash' /><meta property='article:published_time' content='2025-10-15T16:38:58&#43;08:00'/><meta property='article:modified_time' content='2025-10-15T16:38:58&#43;08:00'/><meta property='og:image' content='http://localhost:1313/images/OasisInDesert.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Bash' /><meta property='article:published_time' content='2025-10-15T16:38:58&#43;08:00'/><meta property='article:modified_time' content='2025-10-15T16:38:58&#43;08:00'/><meta property='og:image' content='https://ch0ser.github.io/images/Cloud.png' />
 <meta name="twitter:title" content="Bash_extension">
 <meta name="twitter:description" content=" 学习参考的教程为Bash 脚本教程 - 网道，非常感谢开源工作者的贡献！\n如使用到该教程，可随意使用，但请标明出处（Bash 脚本教程 - 网道）。\n笔记汇总在Bash中。\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:1313/images/OasisInDesert.png' />
+    <meta name="twitter:image" content='https://ch0ser.github.io/images/Cloud.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -168,11 +168,11 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://localhost:1313/en/" >English</option>
+                                    <option value="https://ch0ser.github.io/en/" >English</option>
                                 
-                                    <option value="http://localhost:1313/" selected>中文</option>
+                                    <option value="https://ch0ser.github.io/" selected>中文</option>
                                 
-                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                    <option value="https://ch0ser.github.io/ar/" >عربي</option>
                                 
                             </select>
                         </li>
@@ -227,21 +227,21 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#1简介">1.简介</a></li>
-    <li><a href="#2波浪线扩展">2.波浪线扩展</a></li>
-    <li><a href="#3-字符扩展">3.<code>?</code> 字符扩展</a></li>
-    <li><a href="#4-字符扩展">4.<code>*</code> 字符扩展</a></li>
-    <li><a href="#5方括号扩展">5.方括号扩展</a></li>
-    <li><a href="#6start-end-扩展">6.[start-end] 扩展</a></li>
-    <li><a href="#7大括号扩展">7.大括号扩展</a></li>
-    <li><a href="#8startend-扩展">8.{start..end} 扩展</a></li>
-    <li><a href="#9变量扩展"><strong>9.变量扩展</strong></a></li>
-    <li><a href="#10子命令扩展">10.子命令扩展</a></li>
-    <li><a href="#11算术扩展">11.算术扩展</a></li>
-    <li><a href="#12字符类">12.字符类</a></li>
-    <li><a href="#13使用注意点">13.使用注意点</a></li>
-    <li><a href="#14量词语法">14.量词语法</a></li>
-    <li><a href="#15shopt-命令">15.shopt 命令</a></li>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#波浪线扩展">波浪线扩展</a></li>
+    <li><a href="#-字符扩展"><code>?</code> 字符扩展</a></li>
+    <li><a href="#-字符扩展-1"><code>*</code> 字符扩展</a></li>
+    <li><a href="#方括号扩展">方括号扩展</a></li>
+    <li><a href="#start-end-扩展">[start-end] 扩展</a></li>
+    <li><a href="#大括号扩展">大括号扩展</a></li>
+    <li><a href="#startend-扩展">{start..end} 扩展</a></li>
+    <li><a href="#变量扩展"><strong>变量扩展</strong></a></li>
+    <li><a href="#子命令扩展">子命令扩展</a></li>
+    <li><a href="#算术扩展">算术扩展</a></li>
+    <li><a href="#字符类">字符类</a></li>
+    <li><a href="#使用注意点">使用注意点</a></li>
+    <li><a href="#量词语法">量词语法</a></li>
+    <li><a href="#shopt-命令">shopt 命令</a></li>
     <li><a href="#参考链接">参考链接</a></li>
   </ol>
 </nav>
@@ -259,7 +259,7 @@
         <div class="article-image">
             <a href="/p/bash_extension/">
                 
-                    <img src="/images/OasisInDesert.png" loading="lazy" alt="Featured image of post Bash_extension" />
+                    <img src="/images/Cloud.png" loading="lazy" alt="Featured image of post Bash_extension" />
                 
             </a>
         </div>
@@ -338,14 +338,14 @@
 <p>笔记汇总在<a class="link" href="/p/bash/" >Bash</a>中。</p>
 </blockquote>
 <h1 id="bash的模式拓展">Bash的模式拓展
-</h1><h2 id="1简介">1.简介
+</h1><h2 id="简介">简介
 </h2><blockquote>
 <p>详见 <a class="link" href="https://wangdoc.com/bash/expansion"  target="_blank" rel="noopener"
     >Bash 的模式扩展 - Bash 脚本教程 - 网道</a></p>
 </blockquote>
 <p>注意：Bash 是先进行扩展，再执行命令。因此，<strong>扩展的结果是由 Bash 负责的</strong>，与所要执行的命令无关。<strong>命令本身并不存在参数扩展</strong>，收到什么参数就原样执行。这一点务必需要记住。</p>
 <hr>
-<h2 id="2波浪线扩展">2.波浪线扩展
+<h2 id="波浪线扩展">波浪线扩展
 </h2><p>波浪线<code>~</code>会自动扩展成当前用户的主目录。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -411,7 +411,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><hr>
-<h2 id="3-字符扩展">3.<code>?</code> 字符扩展
+<h2 id="-字符扩展"><code>?</code> 字符扩展
 </h2><p><code>?</code>字符<strong>代表文件路径里面的任意单个字符</strong>，不包括空字符。比如，<code>Data???</code>匹配所有<code>Data</code>后面跟着三个字符的文件名。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -465,7 +465,7 @@
 </div>
 </div><p>上面例子中，如果<code>?.txt</code>可以扩展成文件名，<code>echo</code>命令会输出扩展后的结果；如果不能扩展成文件名，<code>echo</code>就会原样输出<code>?.txt</code>。</p>
 <hr>
-<h2 id="4-字符扩展">4.<code>*</code> 字符扩展
+<h2 id="-字符扩展-1"><code>*</code> 字符扩展
 </h2><p><code>*</code>字符代表<strong>文件路径里面的任意数量的任意字符</strong>，<strong>包括零个字符</strong>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -570,7 +570,7 @@
 <li>并且<strong>递归展开（仅一层）所有子目录的内容</strong>（即列出每个子目录里的文件和文件夹）。</li>
 </ul>
 <hr>
-<h2 id="5方括号扩展">5.方括号扩展
+<h2 id="方括号扩展">方括号扩展
 </h2><p>方括号扩展的形式是<code>[...]</code>，只有文件确实存在的前提下才会扩展。如果文件不存在，就会原样输出。<strong><code>[...]</code>会匹配括号之中的任意一个字符</strong>。比如，<code>[aeiou]</code>可以匹配五个元音字母中的任意一个。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -623,7 +623,7 @@
 </div><p>上面命令中，<code>[!a]</code>表示文件名第二个字符不是<code>a</code>的文件名，所以返回了<code>aba</code>和<code>bbb</code>两个文件。</p>
 <p>注意，如果需要匹配<code>[</code>字符，可以放在方括号内，比如<code>[[aeiou]</code>。如果需要匹配连字号<code>-</code>，只能放在方括号内部的开头或结尾，比如<code>[-aeiou]</code>或<code>[aeiou-]</code>。</p>
 <hr>
-<h2 id="6start-end-扩展">6.[start-end] 扩展
+<h2 id="start-end-扩展">[start-end] 扩展
 </h2><p>方括号扩展有一个简写形式**<code>[start-end]</code>，表示匹配一个连续的范围**。比如，<code>[a-c]</code>等同于<code>[abc]</code>，<code>[0-9]</code>匹配<code>[0123456789]</code>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -677,7 +677,7 @@
 </div>
 </div><p>上面代码中，<code>[!1-3]</code>表示排除1、2和3。</p>
 <hr>
-<h2 id="7大括号扩展">7.大括号扩展
+<h2 id="大括号扩展">大括号扩展
 </h2><p><strong>大括号扩展<code>{...}</code>表示分别扩展成大括号里面的所有值，各个值之间使用逗号分隔</strong>。比如，<code>{1,2,3}</code>扩展成<code>1 2 3</code>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -811,7 +811,7 @@
 </div>
 </div><p>上面例子中，如果不存在<code>a.txt</code>和<code>b.txt</code>，那么<code>[ab].txt</code>就会变成一个普通的文件名，而<code>{a,b}.txt</code>可以照样扩展。</p>
 <hr>
-<h2 id="8startend-扩展">8.{start..end} 扩展
+<h2 id="startend-扩展">{start..end} 扩展
 </h2><p>大括号扩展有一个简写形式<code>{start..end}</code>，<strong>表示扩展成一个连续序列</strong>。比如，<code>{a..z}</code>可以扩展成26个小写英文字母。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -947,7 +947,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><hr>
-<h2 id="9变量扩展"><strong>9.变量扩展</strong>
+<h2 id="变量扩展"><strong>变量扩展</strong>
 </h2><p>Bash <strong>将美元符号<code>$</code>开头的词元视为变量，将其扩展成变量值</strong>，详见《Bash 变量》一章。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -988,7 +988,7 @@
 </div>
 </div><p>上面例子中，<code>${!S*}</code>扩展成所有以<code>S</code>开头的变量名。</p>
 <hr>
-<h2 id="10子命令扩展">10.子命令扩展
+<h2 id="子命令扩展">子命令扩展
 </h2><p><strong><code>$(...)</code>可以扩展成另一个命令的运行结果，该命令的所有输出都会作为返回值</strong>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1013,7 +1013,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>$(...)</code>可以嵌套，比如<code>$(ls $(pwd))</code>。</p>
-<h2 id="11算术扩展">11.算术扩展
+<h2 id="算术扩展">算术扩展
 </h2><p><code>$((...))</code>可以扩展成整数运算的结果，详见《Bash 的算术运算》一章。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1025,7 +1025,7 @@
 </span></span><span class="line"><span class="cl"><span class="m">4</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="12字符类">12.字符类
+</div><h2 id="字符类">字符类
 </h2><p><code>[[:class:]]</code>表示一个字符类，扩展成某一类特定字符之中的一个。常用的字符类如下。</p>
 <ul>
 <li><code>[[:alnum:]]</code>：匹配任意英文字母与数字</li>
@@ -1075,7 +1075,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>上面例子中，由于没有可匹配的文件，字符类就原样输出了。</p>
-<h2 id="13使用注意点">13.使用注意点
+<h2 id="使用注意点">使用注意点
 </h2><p>通配符有一些使用注意点，不可不知。</p>
 <p><strong>（1）通配符是先解释，再执行。</strong></p>
 <p>Bash 接收到命令以后，发现里面有通配符，会进行通配符扩展，然后再执行命令。</p>
@@ -1144,7 +1144,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>上面代码创建了一个<code>fo*</code>文件，这时<code>*</code>就是文件名的一部分。</p>
-<h2 id="14量词语法">14.量词语法
+<h2 id="量词语法">量词语法
 </h2><p>量词语法用来控制模式匹配的次数。它只有在 Bash 的<code>extglob</code>参数打开的情况下才能使用，不过一般是默认打开的。下面的命令可以查询。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1242,7 +1242,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>上面例子中，由于没有可匹配的文件，<code>abc?(def)</code>就原样输出，导致<code>ls</code>命令报错。</p>
-<h2 id="15shopt-命令">15.shopt 命令
+<h2 id="shopt-命令">shopt 命令
 </h2><p><code>shopt</code>命令可以调整 Bash 的行为。它有好几个参数跟通配符扩展有关。</p>
 <p><code>shopt</code>命令的使用方法如下。</p>
 <div class="highlight"><div class="chroma">
@@ -1723,7 +1723,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.02491b20957ce34c6cbaef143130153bbb70fa8c594c64eb104a00e20fbf9273.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
