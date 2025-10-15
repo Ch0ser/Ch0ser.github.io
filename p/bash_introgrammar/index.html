@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 学习参考的教程为Bash 脚本教程 - 网道，非常感谢开源工作者的贡献！\n如使用到该教程，可随意使用但请标明出处\nBash简介\rBash 简介 - Bash 脚本教程 - 网道\n该部分详见上述网站，都是些基本性的概念\n">
+<title>Bash_intro&amp;grammar</title>
+
+<link rel='canonical' href='https://ch0ser.github.io/p/bash_introgrammar/'>
+
+<link rel="stylesheet" href="/scss/style.min.48ce54e3e307e3741d61de84a9b7fd091d2b70c905a608c90a1db85a009feb1b.css"><meta property='og:title' content="Bash_intro&grammar">
+<meta property='og:description' content=" 学习参考的教程为Bash 脚本教程 - 网道，非常感谢开源工作者的贡献！\n如使用到该教程，可随意使用但请标明出处\nBash简介\rBash 简介 - Bash 脚本教程 - 网道\n该部分详见上述网站，都是些基本性的概念\n">
+<meta property='og:url' content='https://ch0ser.github.io/p/bash_introgrammar/'>
+<meta property='og:site_name' content='Choser&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Bash' /><meta property='article:published_time' content='2025-10-15T16:10:33&#43;08:00'/><meta property='article:modified_time' content='2025-10-15T16:10:33&#43;08:00'/><meta property='og:image' content='https://ch0ser.github.io/images/Cloud.png' />
+<meta name="twitter:title" content="Bash_intro&grammar">
+<meta name="twitter:description" content=" 学习参考的教程为Bash 脚本教程 - 网道，非常感谢开源工作者的贡献！\n如使用到该教程，可随意使用但请标明出处\nBash简介\rBash 简介 - Bash 脚本教程 - 网道\n该部分详见上述网站，都是些基本性的概念\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ch0ser.github.io/images/Cloud.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu1777375556697644536.png" width="300"
+                            height="158" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Choser&#39;s Blog</a></h1>
+            <h2 class="site-description">进一寸有进一寸的欢喜</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Ch0ser'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:ch0ser@qq.com'
+                        target="_blank"
+                        title="✉️ Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1760270206847" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5175" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M858.656 192 165.344 192C109.472 192 64 237.44 64 293.312l0 469.376C64 818.56 109.472 864 165.344 864l693.312 0C914.528 864 960 818.56 960 762.688L960 293.312C960 237.44 914.528 192 858.656 192zM858.656 800 165.344 800C144.736 800 128 783.264 128 762.688L128 293.312C128 272.736 144.736 256 165.344 256l684.544 0-307.488 279.808c-14.592 14.56-38.272 14.528-54.752-1.792l-244.256-206.752C229.856 315.84 209.664 317.504 198.272 331.008c-11.424 13.472-9.76 33.664 3.744 45.088l242.304 204.96c19.904 19.904 46.048 29.792 72.032 29.792 25.632 0 51.136-9.632 70.176-28.736L896 300.544l0 462.144C896 783.264 879.264 800 858.656 800z" fill="#5D646F" p-id="5176"></path></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于我</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://ch0ser.github.io/en/" >English</option>
+                                
+                                    <option value="https://ch0ser.github.io/" selected>中文</option>
+                                
+                                    <option value="https://ch0ser.github.io/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#bash简介">Bash简介</a></li>
+    <li><a href="#bash的基本语法">Bash的基本语法</a>
+      <ol>
+        <li><a href="#1echo命令"><strong>1.echo命令</strong></a>
+          <ol>
+            <li><a href="#11--n参数"><strong>1.1 -n参数</strong></a></li>
+            <li><a href="#12-e参数">1.2<code>-e</code>参数</a></li>
+          </ol>
+        </li>
+        <li><a href="#2命令格式">2.命令格式</a></li>
+        <li><a href="#3空格">3.空格</a></li>
+        <li><a href="#4分号">4.分号</a></li>
+        <li><a href="#5命令的组合符和">5.命令的组合符<code>&amp;&amp;</code>和<code>||</code></a></li>
+        <li><a href="#6type-命令">6.type 命令</a></li>
+        <li><a href="#7快捷键">7.快捷键</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/bash_introgrammar/">
+                
+                    <img src="/images/Cloud.png" loading="lazy" alt="Featured image of post Bash_intro&amp;grammar" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" >
+                计算机基础
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/bash_introgrammar/">Bash_intro&amp;grammar</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 15, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <blockquote>
+<p>学习参考的教程为<a class="link" href="https://wangdoc.com/bash/"  target="_blank" rel="noopener"
+    >Bash 脚本教程 - 网道</a>，非常感谢开源工作者的贡献！</p>
+<p>如使用到该教程，可随意使用但请标明出处</p>
+</blockquote>
+<h2 id="bash简介">Bash简介
+</h2><blockquote>
+<p><a class="link" href="https://wangdoc.com/bash/intro"  target="_blank" rel="noopener"
+    >Bash 简介 - Bash 脚本教程 - 网道</a></p>
+<p>该部分详见上述网站，都是些基本性的概念</p>
+</blockquote>
+<h2 id="bash的基本语法">Bash的基本语法
+</h2><h3 id="1echo命令"><strong>1.echo命令</strong>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># echo命令的作用是在屏幕输出一行文本，可以将该命令的参数原样输出。</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> hello world
+</span></span><span class="line"><span class="cl">hello world
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果想要输出的是多行文本，即包括换行符。这时就需要把多行文本放在引号里面。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="s2">&#34;&lt;HTML&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;HEAD&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">          &lt;TITLE&gt;Page Title&lt;/TITLE&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;/HEAD&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;BODY&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">          Page body.
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;/BODY&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;/HTML&gt;&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，<code>echo</code>可以原样输出多行文本。</p>
+<p>但是，其实不好用，因为除非你一口气全部复制进命令行，不然你一回车就会被截断。</p>
+<p>所以输出多行更推荐用<code>cat</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># cat &lt;&lt;&#39;EOF&#39; 表示从下一行开始读取内容，直到遇到单独一行的 EOF。</span>
+</span></span><span class="line"><span class="cl">cat <span class="s">&lt;&lt;&#39;EOF&#39; 
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;HTML&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;HEAD&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">          &lt;TITLE&gt;Page Title&lt;/TITLE&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;/HEAD&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;BODY&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">          Page body.
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;/BODY&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;/HTML&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span> <span class="c1">#结束符号</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="11--n参数"><strong>1.1 -n参数</strong>
+</h4><p>默认情况下，<code>echo</code>输出的文本末尾会有一个回车符。<code>-n</code>参数可以取消末尾的回车符，使得下一个提示符紧跟在输出内容的后面。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">echo</span> -n hello world
+</span></span><span class="line"><span class="cl">hello world$
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，<code>world</code>后面直接就是下一行的提示符<code>$</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">echo</span> a<span class="p">;</span><span class="nb">echo</span> b
+</span></span><span class="line"><span class="cl">a
+</span></span><span class="line"><span class="cl">b
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> -n a<span class="p">;</span><span class="nb">echo</span> b
+</span></span><span class="line"><span class="cl">ab
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，<code>-n</code>参数可以让两个<code>echo</code>命令的输出连在一起，出现在同一行。</p>
+<h4 id="12-e参数">1.2<code>-e</code>参数
+</h4><p><code>-e</code>参数会解释引号（双引号和单引号）里面的特殊字符（比如换行符<code>\n</code>）。如果不使用<code>-e</code>参数，即默认情况下，引号会让特殊字符变成普通字符，<code>echo</code>不解释它们，原样输出。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="s2">&#34;Hello\nWorld&#34;</span>
+</span></span><span class="line"><span class="cl">Hello<span class="se">\n</span>World
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 双引号的情况</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> -e <span class="s2">&#34;Hello\nWorld&#34;</span>
+</span></span><span class="line"><span class="cl">Hello
+</span></span><span class="line"><span class="cl">World
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 单引号的情况</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> -e <span class="s1">&#39;Hello\nWorld&#39;</span>
+</span></span><span class="line"><span class="cl">Hello
+</span></span><span class="line"><span class="cl">World
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>-e</code>参数使得<code>\n</code>解释为换行符，导致输出内容里面出现换行。</p>
+<h3 id="2命令格式">2.命令格式
+</h3><p>命令行环境中，主要通过使用 Shell 命令，进行各种操作。Shell 命令基本都是下面的格式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">command</span> <span class="o">[</span> arg1 ... <span class="o">[</span> argN <span class="o">]]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>command</code>是具体的命令或者一个可执行文件，<code>arg1 ... argN</code>是传递给命令的参数，它们是可选的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ls -l
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面这个命令中，<code>ls</code>是命令，<code>-l</code>是参数。</p>
+<p>有些参数是命令的配置项，这些配置项一般都以一个连词线开头，比如上面的<code>-l</code>。<strong>同一个配置项往往有长和短两种形式</strong>，比如<code>-l</code>是短形式，<code>--list</code>是长形式，它们的作用完全相同。<strong>短形式便于手动输入，长形式一般用在脚本之中</strong>，可读性更好，利于解释自身的含义。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 短形式</span>
+</span></span><span class="line"><span class="cl">$ ls -r
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 长形式</span>
+</span></span><span class="line"><span class="cl">$ ls --reverse
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面命令中，<code>-r</code>是短形式，<code>--reverse</code>是长形式，作用完全一样。前者便于输入，后者便于理解。</p>
+<p>Bash 单个命令一般都是一行，用户按下回车键，就开始执行。有些命令比较长，写成多行会有利于阅读和编辑，这时可以在每一行的结尾加上反斜杠，Bash 就会将下一行跟当前行放在一起解释。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">echo</span> foo bar
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 等同于</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> foo <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>bar
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3空格">3.空格
+</h3><p>Bash 使用空格（或 Tab 键）区分不同的参数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">command</span> foo bar
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面命令中，<code>foo</code>和<code>bar</code>之间有一个空格，所以 Bash 认为它们是两个参数。</p>
+<p><strong>如果参数之间有多个空格，Bash 会自动忽略多余的空格。</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">echo</span> this is a     <span class="nb">test</span>
+</span></span><span class="line"><span class="cl">this is a <span class="nb">test</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面命令中，<code>a</code>和<code>test</code>之间有多个空格，Bash 会忽略多余的空格。</p>
+<h3 id="4分号">4.分号
+</h3><p>分号（<code>;</code>）是命令的<strong>结束符</strong>，使得一行可以放置多个命令，上一个命令执行结束后，再执行第二个命令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ clear<span class="p">;</span> ls
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，Bash 先执行<code>clear</code>命令，执行完成后，再执行<code>ls</code>命令。</p>
+<p>注意，使用分号时，第二个命令总是接着第一个命令执行，不管第一个命令执行成功或失败。</p>
+<h3 id="5命令的组合符和">5.命令的组合符<code>&amp;&amp;</code>和<code>||</code>
+</h3><p>除了分号，Bash 还提供两个命令组合符<code>&amp;&amp;</code>和<code>||</code>，允许更好地控制多个命令之间的继发关系。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 肯定先继</span>
+</span></span><span class="line"><span class="cl">Command1 <span class="o">&amp;&amp;</span> Command2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面命令的意思是，如果<code>Command1</code>命令运行成功，则继续运行<code>Command2</code>命令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 否定先继</span>
+</span></span><span class="line"><span class="cl">Command1 <span class="o">||</span> Command2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面命令的意思是，如果<code>Command1</code>命令运行失败，则继续运行<code>Command2</code>命令。</p>
+<p>下面是一些例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ cat filelist.txt <span class="p">;</span> ls -l filelist.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，只要<code>cat</code>命令执行结束，不管成功或失败，都会继续执行<code>ls</code>命令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ cat filelist.txt <span class="o">&amp;&amp;</span> ls -l filelist.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，只有<code>cat</code>命令执行成功，才会继续执行<code>ls</code>命令。如果<code>cat</code>执行失败（比如不存在文件<code>flielist.txt</code>），那么<code>ls</code>命令就不会执行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ mkdir foo <span class="o">||</span> mkdir bar
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，只有<code>mkdir foo</code>命令执行失败（比如<code>foo</code>目录已经存在），才会继续执行<code>mkdir bar</code>命令。如果<code>mkdir foo</code>命令执行成功，就不会创建<code>bar</code>目录了。</p>
+<h3 id="6type-命令">6.type 命令
+</h3><p>Bash 本身内置了很多命令，同时也可以执行外部程序。怎么知道一个命令是内置命令，还是外部程序呢？</p>
+<p><code>type</code>命令用来<strong>判断命令的来源</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">type</span> <span class="nb">echo</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> is a shell <span class="nb">builtin</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">type</span> ls
+</span></span><span class="line"><span class="cl">ls is hashed <span class="o">(</span>/bin/ls<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>type</code>命令告诉我们，<code>echo</code>是内部命令，<code>ls</code>是外部程序（<code>/bin/ls</code>）。</p>
+<p><code>type</code>命令本身也是内置命令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">type</span> <span class="nb">type</span>
+</span></span><span class="line"><span class="cl"><span class="nb">type</span> is a shell <span class="nb">builtin</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果要查看一个命令的<strong>所有定义</strong>，可以使用<code>type</code>命令的<code>-a</code>参数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">type</span> -a <span class="nb">echo</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> is shell <span class="nb">builtin</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> is /usr/bin/echo
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> is /bin/echo
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码表示，<code>echo</code>命令既是内置命令，也有对应的外部程序。</p>
+<p><code>type</code>命令的**<code>-t</code>参数**，可以<strong>返回一个命令的类型</strong>：别名（alias），关键词（keyword），函数（function），内置命令（builtin）和文件（file）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">type</span> -t bash
+</span></span><span class="line"><span class="cl">file
+</span></span><span class="line"><span class="cl">$ <span class="nb">type</span> -t <span class="k">if</span>
+</span></span><span class="line"><span class="cl">keyword
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，<code>bash</code>是文件，<code>if</code>是关键词。</p>
+<h3 id="7快捷键">7.快捷键
+</h3><p>Bash 提供很多快捷键，可以大大方便操作。下面是一些最常用的快捷键，完整的介绍参见《行操作》一章。</p>
+<ul>
+<li><strong><code>Ctrl + L</code></strong>：清除屏幕并将当前行移到页面顶部。</li>
+<li><strong><code>Ctrl + C</code></strong>：中止当前正在执行的命令。</li>
+<li><code>Shift + PageUp</code>：向上滚动。</li>
+<li><code>Shift + PageDown</code>：向下滚动。</li>
+<li><code>Ctrl + U</code>：从光标位置删除到行首。</li>
+<li><code>Ctrl + K</code>：从光标位置删除到行尾。</li>
+<li><code>Ctrl + W</code>：删除光标位置前一个单词。</li>
+<li><code>Ctrl + D</code>：关闭 Shell 会话。</li>
+<li><strong><code>↑</code>，<code>↓</code></strong>：浏览已执行命令的历史记录。</li>
+</ul>
+<p>除了上面的快捷键，Bash 还具有<strong>自动补全</strong>功能。命令输入到一半的时候，可以按下 Tab 键，Bash 会自动完成剩下的部分。比如，输入<code>tou</code>，然后按一下 Tab 键，Bash 会自动补上<code>ch</code>。</p>
+<p>除了命令的自动补全，Bash 还支持路径的自动补全。有时，需要输入很长的路径，这时只需要输入前面的部分，然后按下 Tab 键，就会自动补全后面的部分。如果有多个可能的选择，按两次 Tab 键，Bash 会显示所有选项，让你选择。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/bash/">Bash</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/bash/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cat&amp;Tree.png" loading="lazy" data-key="" data-hash="/images/Cat&amp;Tree.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/docker-commands/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/TrippyWave.png" loading="lazy" data-key="" data-hash="/images/TrippyWave.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Docker Commands</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/quick-git/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/PacificRim_02.PNG" loading="lazy" data-key="" data-hash="/images/PacificRim_02.PNG"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Quick Git</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/quick-java/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Lover.PNG" loading="lazy" data-key="" data-hash="/images/Lover.PNG"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Quick Java</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/typora/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/PacificRim_01.jpg" loading="lazy" data-key="" data-hash="/images/PacificRim_01.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Typora</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-cn"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2025 Ch0ser
+    </section>
+    
+    <section class="powerby">
+        
+            © 2023-2025 Ch0ser. All Rights Reserved. <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
