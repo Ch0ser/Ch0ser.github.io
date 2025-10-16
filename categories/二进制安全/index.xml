@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>二进制安全 on Choser&#39;s Blog</title>
-        <link>http://localhost:1313/categories/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/</link>
+        <link>https://ch0ser.github.io/categories/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/</link>
         <description>Recent content in 二进制安全 on Choser&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Ch0ser</copyright>
-        <lastBuildDate>Tue, 14 Oct 2025 14:59:29 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 14 Oct 2025 14:59:29 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/categories/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Beacon&amp;WindRanger</title>
-        <link>http://localhost:1313/p/beaconwindranger/</link>
+        <link>https://ch0ser.github.io/p/beaconwindranger/</link>
         <pubDate>Tue, 14 Oct 2025 14:59:29 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/beaconwindranger/</guid>
-        <description>&lt;img src="http://localhost:1313/images/ChillOcean.png" alt="Featured image of post Beacon&amp;WindRanger" /&gt;&lt;h1 id=&#34;windrangerbeaconfuzz&#34;&gt;WindRanger&amp;amp;BeaconFuzz
+        <guid>https://ch0ser.github.io/p/beaconwindranger/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/ChillOcean.png" alt="Featured image of post Beacon&amp;WindRanger" /&gt;&lt;h1 id=&#34;windrangerbeaconfuzz&#34;&gt;WindRanger&amp;amp;BeaconFuzz
 &lt;/h1&gt;&lt;p&gt;WindRanger 是一个&lt;strong&gt;基于 BeaconFuzz 算法的定向模糊测试工具&lt;/strong&gt;，发表于 &lt;strong&gt;ICSE 2022&lt;/strong&gt;，旨在高效引导模糊测试到达目标代码（如漏洞触发点）。其核心创新是 &lt;strong&gt;BeaconFuzz 策略&lt;/strong&gt;，通过动态识别关键代码块（Beacon）来优化路径探索。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;1-windranger-概述&#34;&gt;&lt;strong&gt;1. WindRanger 概述&lt;/strong&gt;
@@ -140,11 +140,11 @@
         </item>
         <item>
         <title>DGF Tool Energy Allocation Strategies</title>
-        <link>http://localhost:1313/p/dgf-tool-energy-allocation-strategies/</link>
+        <link>https://ch0ser.github.io/p/dgf-tool-energy-allocation-strategies/</link>
         <pubDate>Tue, 14 Oct 2025 14:47:25 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/dgf-tool-energy-allocation-strategies/</guid>
-        <description>&lt;img src="http://localhost:1313/images/RiverInTrees.png" alt="Featured image of post DGF Tool Energy Allocation Strategies" /&gt;&lt;h1 id=&#34;dgf-tool-energy-allocation-strategies&#34;&gt;DGF Tool Energy Allocation Strategies
+        <guid>https://ch0ser.github.io/p/dgf-tool-energy-allocation-strategies/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/RiverInTrees.png" alt="Featured image of post DGF Tool Energy Allocation Strategies" /&gt;&lt;h1 id=&#34;dgf-tool-energy-allocation-strategies&#34;&gt;DGF Tool Energy Allocation Strategies
 &lt;/h1&gt;&lt;p&gt;DGF工具能量分配策略一览&lt;/p&gt;
 &lt;h2 id=&#34;afl&#34;&gt;AFL
 &lt;/h2&gt;&lt;p&gt;本节聚焦AFL 及其衍生工具在 seed fuzzing 过程中的&lt;strong&gt;能量分配策略&lt;/strong&gt;（power schedule），即决定“从某个种子输入生成多少额外测试用例”的算法。以 AFLFast 提供的六种策略为基准，给出简明对比和使用建议。&lt;/p&gt;
@@ -584,11 +584,11 @@
         </item>
         <item>
         <title>Quick_fuzz</title>
-        <link>http://localhost:1313/p/quick_fuzz/</link>
+        <link>https://ch0ser.github.io/p/quick_fuzz/</link>
         <pubDate>Tue, 14 Oct 2025 14:40:02 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/quick_fuzz/</guid>
-        <description>&lt;img src="http://localhost:1313/images/greenland.png" alt="Featured image of post Quick_fuzz" /&gt;&lt;h1 id=&#34;quickfuzz&#34;&gt;QuickFuzz
+        <guid>https://ch0ser.github.io/p/quick_fuzz/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/greenland.png" alt="Featured image of post Quick_fuzz" /&gt;&lt;h1 id=&#34;quickfuzz&#34;&gt;QuickFuzz
 &lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;Fuzz入门，学习参考：&lt;a class=&#34;link&#34; href=&#34;https://lidaxian121.github.io/posts/fuzz/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Baby Fuzz · Home&lt;/a&gt;，BV1ZM4m1R7gZ&lt;/p&gt;
@@ -1171,7 +1171,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;在创建了相关目录和种子文件后，命令运行成功就能在终端看见如下结果了：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/fuzzing.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/fuzzing.png&#34;
 	
 	
 	
@@ -1380,11 +1380,11 @@
         </item>
         <item>
         <title>DGF Overview</title>
-        <link>http://localhost:1313/p/dgf-overview/</link>
+        <link>https://ch0ser.github.io/p/dgf-overview/</link>
         <pubDate>Mon, 13 Oct 2025 23:51:05 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/dgf-overview/</guid>
-        <description>&lt;img src="http://localhost:1313/images/EarlyMorningForest.png" alt="Featured image of post DGF Overview" /&gt;&lt;h1 id=&#34;dgf-overview&#34;&gt;DGF Overview
+        <guid>https://ch0ser.github.io/p/dgf-overview/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/EarlyMorningForest.png" alt="Featured image of post DGF Overview" /&gt;&lt;h1 id=&#34;dgf-overview&#34;&gt;DGF Overview
 &lt;/h1&gt;&lt;p&gt;定向灰盒测试相关技术 核心策略 时间顺序梳理 速览&lt;/p&gt;
 &lt;h2 id=&#34;aflamerican-fuzzy-lop-2014&#34;&gt;AFL(American Fuzzy Lop 2014)
 &lt;/h2&gt;&lt;p&gt;传统灰盒：全图覆盖，无定向&lt;/p&gt;

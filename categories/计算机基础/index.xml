@@ -2,23 +2,523 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>计算机基础 on Choser&#39;s Blog</title>
-        <link>http://localhost:1313/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</link>
+        <link>https://ch0ser.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</link>
         <description>Recent content in 计算机基础 on Choser&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Ch0ser</copyright>
-        <lastBuildDate>Wed, 15 Oct 2025 20:44:53 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Bash_variable</title>
-        <link>http://localhost:1313/p/bash_variable/</link>
-        <pubDate>Wed, 15 Oct 2025 20:44:53 +0800</pubDate>
+        <lastBuildDate>Thu, 16 Oct 2025 11:30:56 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Bash_string</title>
+        <link>https://ch0ser.github.io/p/bash_string/</link>
+        <pubDate>Thu, 16 Oct 2025 11:30:56 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_variable/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_variable" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_string/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_string" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;字符串操作&#34;&gt;字符串操作
+&lt;/h1&gt;&lt;p&gt;本章介绍 Bash 字符串操作的语法。&lt;/p&gt;
+&lt;h2 id=&#34;字符串的长度&#34;&gt;字符串的长度
+&lt;/h2&gt;&lt;p&gt;获取字符串长度的语法如下。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;si&#34;&gt;${#&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;varname&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;下面是一个例子。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;myPath&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/cam/book/long.file.name
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${#&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;myPath&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;m&#34;&gt;29&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;大括号&lt;code&gt;{}&lt;/code&gt;是必需的&lt;/strong&gt;，否则 Bash 会将&lt;code&gt;$#&lt;/code&gt;理解成脚本的参数个数，将变量名理解成文本。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$#&lt;/span&gt;myvar
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;0myvar
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面例子中，Bash 将&lt;code&gt;$#&lt;/code&gt;和&lt;code&gt;myvar&lt;/code&gt;分开解释了。&lt;/p&gt;
+&lt;h2 id=&#34;子字符串&#34;&gt;子字符串
+&lt;/h2&gt;&lt;p&gt;字符串&lt;strong&gt;提取子串&lt;/strong&gt;的语法如下。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;varname&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面语法的含义是返回变量&lt;code&gt;$varname&lt;/code&gt;的子字符串，从位置&lt;code&gt;offset&lt;/code&gt;开始（从&lt;code&gt;0&lt;/code&gt;开始计算），长度为&lt;code&gt;length&lt;/code&gt;。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;frogfootman
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;foot
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面例子返回字符串&lt;code&gt;frogfootman&lt;/code&gt;从4号位置开始的长度为4的子字符串&lt;code&gt;foot&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;这种语法&lt;strong&gt;不能直接操作字符串，只能通过变量来读取字符串，并且不会改变原始字符串&lt;/strong&gt;。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 报错&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;hello&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面例子中，&lt;code&gt;&amp;quot;hello&amp;quot;&lt;/code&gt;不是变量名，导致 Bash 报错。&lt;/p&gt;
+&lt;p&gt;如果省略&lt;code&gt;length&lt;/code&gt;，则从位置&lt;code&gt;offset&lt;/code&gt;开始，一直返回到字符串的结尾。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;frogfootman
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;footman
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面例子是返回变量&lt;code&gt;count&lt;/code&gt;从4号位置一直到结尾的子字符串。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;如果&lt;code&gt;offset&lt;/code&gt;为负值，表示从字符串的末尾开始算起&lt;/strong&gt;。注意，&lt;strong&gt;负数前面必须有一个空格&lt;/strong&gt;， 以防止与&lt;code&gt;${variable:-word}&lt;/code&gt;的变量的设置默认值语法混淆。这时还可以指定&lt;code&gt;length&lt;/code&gt;，&lt;code&gt;length&lt;/code&gt;可以是正值，也可以是负值（负值不能超过&lt;code&gt;offset&lt;/code&gt;的长度）。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;foo&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;This string is long.&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;foo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;: -5&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;long.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;foo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;: -5:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;lo
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;foo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;: -5&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;:-&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;lon
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面例子中，&lt;code&gt;offset&lt;/code&gt;为&lt;code&gt;-5&lt;/code&gt;，表示从倒数第5个字符开始截取，所以返回&lt;code&gt;long.&lt;/code&gt;。如果指定长度&lt;code&gt;length&lt;/code&gt;为&lt;code&gt;2&lt;/code&gt;，则返回&lt;code&gt;lo&lt;/code&gt;；如果&lt;code&gt;length&lt;/code&gt;为&lt;code&gt;-2&lt;/code&gt;，表示要排除从字符串末尾开始的2个字符，所以返回&lt;code&gt;lon&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;搜索和替换&#34;&gt;搜索和替换
+&lt;/h2&gt;&lt;p&gt;Bash 提供字符串搜索和替换的多种方法。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（1）字符串头部的模式匹配。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;以下两种语法可以&lt;strong&gt;检查字符串开头&lt;/strong&gt;，是否匹配给定的模式。如果匹配成功，就删除匹配的部分，返回剩下的部分。原始变量不会发生变化。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 如果 pattern 匹配变量 variable 的开头，&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 删除最短匹配（非贪婪匹配）的部分，返回剩余部分&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;variable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;#pattern&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 如果 pattern 匹配变量 variable 的开头，&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 删除最长匹配（贪婪匹配）的部分，返回剩余部分&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;variable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;##pattern&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面两种语法会删除变量字符串开头的匹配部分（将其替换为空），返回剩下的部分。区别是一个是最短匹配（又称非贪婪匹配），另一个是最长匹配（又称贪婪匹配）。&lt;/p&gt;
+&lt;p&gt;匹配模式&lt;code&gt;pattern&lt;/code&gt;可以使用&lt;code&gt;*&lt;/code&gt;、&lt;code&gt;?&lt;/code&gt;、&lt;code&gt;[]&lt;/code&gt;等通配符。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;myPath&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/cam/book/long.file.name
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;myPath&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;#/*/&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cam/book/long.file.name
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;myPath&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;##/*/&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;long.file.name
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面例子中，匹配的模式是&lt;code&gt;/*/&lt;/code&gt;，其中&lt;code&gt;*&lt;/code&gt;可以匹配任意数量的字符，所以最短匹配是&lt;code&gt;/home/&lt;/code&gt;，最长匹配是&lt;code&gt;/home/cam/book/&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;下面写法可以删除文件路径的目录部分，只留下文件名。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/cam/book/long.file.name
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;##*/&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;long.file.name
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面例子中，模式&lt;code&gt;*/&lt;/code&gt;匹配目录部分，所以只返回文件名。&lt;/p&gt;
+&lt;p&gt;下面再看一个例子。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;phone&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;555-456-1414&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;phone&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;#*-&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;456-1414
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;phone&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;##*-&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;m&#34;&gt;1414&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;如果匹配不成功，则返回原始字符串&lt;/strong&gt;。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;phone&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;555-456-1414&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;phone&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;#444&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;555-456-1414
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面例子中，原始字符串里面无法匹配模式&lt;code&gt;444&lt;/code&gt;，所以原样返回。&lt;/p&gt;
+&lt;p&gt;如果要将头部匹配的部分，替换成其他内容，采用下面的写法。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 模式必须出现在字符串的开头（#前多加了/）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 会把匹配的pattern替换成string&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;variable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/#pattern/string&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 示例&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;foo&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;JPG.JPG
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;foo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/#JPG/jpg&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;jpg.JPG
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面例子中，被替换的&lt;code&gt;JPG&lt;/code&gt;&lt;strong&gt;必须出现在字符串头部&lt;/strong&gt;，所以返回&lt;code&gt;jpg.JPG&lt;/code&gt;。不匹配就不会替换而是原样输出。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（2）字符串尾部的模式匹配。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;以下两种语法可以检查字符串结尾，是否匹配给定的模式。如果匹配成功，就删除匹配的部分，返回剩下的部分。原始变量不会发生变化。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 如果 pattern 匹配变量 variable 的结尾，&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 删除最短匹配（非贪婪匹配）的部分，返回剩余部分&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;variable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;%pattern&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 如果 pattern 匹配变量 variable 的结尾，&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 删除最长匹配（贪婪匹配）的部分，返回剩余部分&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;variable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;%%pattern&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面两种语法会删除变量字符串结尾的匹配部分（将其替换为空），返回剩下的部分。区别是一个是最短匹配（又称非贪婪匹配），另一个是最长匹配（又称贪婪匹配）。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/cam/book/long.file.name
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;%.*&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/home/cam/book/long.file
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;%%.*&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/home/cam/book/long
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面例子中，匹配模式是&lt;code&gt;.*&lt;/code&gt;，其中&lt;code&gt;*&lt;/code&gt;可以匹配任意数量的字符，所以最短匹配是&lt;code&gt;.name&lt;/code&gt;，最长匹配是&lt;code&gt;.file.name&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;下面写法可以删除路径的文件名部分，只留下目录部分。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/cam/book/long.file.name
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;%/*&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/home/cam/book
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面例子中，模式&lt;code&gt;/*&lt;/code&gt;匹配文件名部分，所以只返回目录部分。&lt;/p&gt;
+&lt;p&gt;下面的写法可以替换文件的后缀名。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;file&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;foo.png
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;file&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;%.png&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;.jpg
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;foo.jpg
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面的例子将文件的后缀名，从&lt;code&gt;.png&lt;/code&gt;改成了&lt;code&gt;.jpg&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;下面再看一个例子。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;phone&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;555-456-1414&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;phone&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;%-*&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;555-456
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;phone&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;%%-*&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;m&#34;&gt;555&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如果匹配不成功，则返回原始字符串。&lt;/p&gt;
+&lt;p&gt;如果要将尾部匹配的部分，替换成其他内容，采用下面的写法。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 模式必须出现在字符串的结尾&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;variable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/%pattern/string&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 示例&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;foo&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;JPG.JPG
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;foo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/%JPG/jpg&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;JPG.jpg
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面例子中，被替换的&lt;code&gt;JPG&lt;/code&gt;必须出现在字符串尾部，所以返回&lt;code&gt;JPG.jpg&lt;/code&gt;。同#一样，尾部不匹配就不会替换，原样输出。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（3）任意位置的模式匹配。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;以下两种语法可以检查字符串内部，是否匹配给定的模式。如果匹配成功，就删除匹配的部分，换成其他的字符串返回。原始变量不会发生变化。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 如果 pattern 匹配变量 variable 的一部分，&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 最长匹配（贪婪匹配）的那部分被 string 替换，但仅替换第一个匹配（从前往后）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;variable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/pattern/string&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 如果 pattern 匹配变量 variable 的一部分，&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 最长匹配（贪婪匹配）的那部分被 string 替换，所有匹配都替换&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;variable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;//pattern/string&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面两种语法&lt;strong&gt;都是最长匹配（贪婪匹配）&lt;strong&gt;下的替换，区别是&lt;/strong&gt;前一个语法仅仅替换第一个匹配，后一个语法替换所有匹配。&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/cam/foo/foo.name
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/foo/bar&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/home/cam/bar/foo.name
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;//foo/bar&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/home/cam/bar/bar.name
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面例子中，前一个命令只替换了第一个&lt;code&gt;foo&lt;/code&gt;，后一个命令将两个&lt;code&gt;foo&lt;/code&gt;都替换了。&lt;/p&gt;
+&lt;p&gt;下面的例子将分隔符从&lt;code&gt;:&lt;/code&gt;换成换行符。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -e &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;PATH&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;//:/&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;\n&amp;#39;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/usr/local/bin
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/usr/bin
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/bin
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面例子中，&lt;code&gt;echo&lt;/code&gt;命令的&lt;code&gt;-e&lt;/code&gt;参数，表示将替换后的字符串的&lt;code&gt;\n&lt;/code&gt;字符，解释为换行符。&lt;/p&gt;
+&lt;p&gt;模式部分可以使用通配符。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;phone&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;555-456-1414&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;phone&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/5?4/-&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;55-56-1414
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面的例子将&lt;code&gt;5-4&lt;/code&gt;替换成&lt;code&gt;-&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;如果&lt;strong&gt;省略了&lt;code&gt;string&lt;/code&gt;部分&lt;/strong&gt;，那么就相当于匹配的部分替换成空字符串，即&lt;strong&gt;删除匹配的部分&lt;/strong&gt;。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/cam/foo/foo.name
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/.*/&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/home/cam/foo/foo
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面例子中，第二个斜杠后面的&lt;code&gt;string&lt;/code&gt;部分省略了，所以模式&lt;code&gt;.*&lt;/code&gt;匹配的部分&lt;code&gt;.name&lt;/code&gt;被删除后返回。&lt;/p&gt;
+&lt;p&gt;前面提到过，这个语法还有两种扩展形式（都是最短匹配）。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 模式必须出现在字符串的开头&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;variable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/#pattern/string&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 模式必须出现在字符串的结尾&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;variable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/%pattern/string&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;改变大小写&#34;&gt;改变大小写
+&lt;/h2&gt;&lt;p&gt;下面的语法可以改变变量的大小写。（&lt;strong&gt;注意是变量&lt;/strong&gt;）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 转为大写&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;varname&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;^^&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 转为小写&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;varname&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,,&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;下面是一个例子。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nv&#34;&gt;foo&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;heLLo
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;foo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;^^&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;HELLO
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;foo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,,&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hello
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        </item>
+        <item>
+        <title>Bash_variable</title>
+        <link>https://ch0ser.github.io/p/bash_variable/</link>
+        <pubDate>Wed, 15 Oct 2025 20:44:53 +0800</pubDate>
+        
+        <guid>https://ch0ser.github.io/p/bash_variable/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_variable" /&gt;&lt;blockquote&gt;
+&lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
+&lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;bash-变量&#34;&gt;Bash 变量
 &lt;/h1&gt;&lt;h2 id=&#34;简介&#34;&gt;简介
@@ -754,16 +1254,16 @@
         </item>
         <item>
         <title>Bash_quotation</title>
-        <link>http://localhost:1313/p/bash_quotation/</link>
+        <link>https://ch0ser.github.io/p/bash_quotation/</link>
         <pubDate>Wed, 15 Oct 2025 19:08:35 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_quotation/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_quotation" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_quotation/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_quotation" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;引号和转义&#34;&gt;引号和转义
 &lt;/h1&gt;&lt;p&gt;**Bash 只有一种数据类型，就是字符串。**不管用户输入什么数据，Bash 都视为字符串。因此，字符串相关的引号和转义，对 Bash 来说就非常重要。&lt;/p&gt;
@@ -1245,16 +1745,16 @@
         </item>
         <item>
         <title>Bash_expansion</title>
-        <link>http://localhost:1313/p/bash_expansion/</link>
+        <link>https://ch0ser.github.io/p/bash_expansion/</link>
         <pubDate>Wed, 15 Oct 2025 16:38:58 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_expansion/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_expansion" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_expansion/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_expansion" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;bash的模式拓展&#34;&gt;Bash的模式拓展
 &lt;/h1&gt;&lt;h2 id=&#34;简介&#34;&gt;简介
@@ -2349,16 +2849,16 @@
         </item>
         <item>
         <title>Bash_intro&amp;grammar</title>
-        <link>http://localhost:1313/p/bash_introgrammar/</link>
+        <link>https://ch0ser.github.io/p/bash_introgrammar/</link>
         <pubDate>Wed, 15 Oct 2025 16:10:33 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_introgrammar/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_intro&amp;grammar" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_introgrammar/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_intro&amp;grammar" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;bash简介&#34;&gt;Bash简介
 &lt;/h2&gt;&lt;blockquote&gt;
@@ -2719,31 +3219,32 @@
         </item>
         <item>
         <title>Bash</title>
-        <link>http://localhost:1313/p/bash/</link>
+        <link>https://ch0ser.github.io/p/bash/</link>
         <pubDate>Wed, 15 Oct 2025 16:02:47 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cat&amp;Tree.png" alt="Featured image of post Bash" /&gt;&lt;p&gt;本文是本人学习 Linux 命令行 Bash 的基本用法和脚本编程的笔记汇总。&lt;/p&gt;
+        <guid>https://ch0ser.github.io/p/bash/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cat&amp;Tree.png" alt="Featured image of post Bash" /&gt;&lt;p&gt;本文是本人学习 Linux 命令行 Bash 的基本用法和脚本编程的笔记汇总。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;核心参考教程：&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;这是一个互联网开源文档，非常感谢开源创作者的贡献。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_introgrammar/&#34; &gt;Bash 介绍和基本语法&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_expansion/&#34; &gt;Bash 模式扩展&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_quotation/&#34; &gt;Bash 引号和转义&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_variable/&#34; &gt;Bash 变量&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_introgrammar/&#34; &gt;Bash 介绍和基本语法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_expansion/&#34; &gt;Bash 模式扩展&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_quotation/&#34; &gt;Bash 引号和转义&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_variable/&#34; &gt;Bash 变量&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_string/&#34; &gt;Bash 字符串操作&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 </description>
         </item>
         <item>
         <title>Docker Commands</title>
-        <link>http://localhost:1313/p/docker-commands/</link>
+        <link>https://ch0ser.github.io/p/docker-commands/</link>
         <pubDate>Mon, 06 Oct 2025 21:56:04 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/docker-commands/</guid>
-        <description>&lt;img src="http://localhost:1313/images/TrippyWave.png" alt="Featured image of post Docker Commands" /&gt;&lt;h1 id=&#34;docker命令&#34;&gt;Docker命令
+        <guid>https://ch0ser.github.io/p/docker-commands/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/TrippyWave.png" alt="Featured image of post Docker Commands" /&gt;&lt;h1 id=&#34;docker命令&#34;&gt;Docker命令
 &lt;/h1&gt;&lt;h2 id=&#34;docker-镜像构建&#34;&gt;Docker 镜像构建
 &lt;/h2&gt;&lt;p&gt;&lt;code&gt;docker build&lt;/code&gt;命令是 Docker 引擎的核心命令之一，用于根据 &lt;code&gt;Dockerfile&lt;/code&gt;中的指令自动构建 Docker 镜像。&lt;/p&gt;
 &lt;h3 id=&#34;核心概念与基础语法&#34;&gt;&lt;strong&gt;核心概念与基础语法&lt;/strong&gt;
@@ -3335,11 +3836,11 @@
         </item>
         <item>
         <title>Quick Git</title>
-        <link>http://localhost:1313/p/quick-git/</link>
+        <link>https://ch0ser.github.io/p/quick-git/</link>
         <pubDate>Fri, 21 Feb 2025 20:58:54 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/quick-git/</guid>
-        <description>&lt;img src="http://localhost:1313/images/PacificRim_02.PNG" alt="Featured image of post Quick Git" /&gt;&lt;h1 id=&#34;git使用教程&#34;&gt;Git使用教程
+        <guid>https://ch0ser.github.io/p/quick-git/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/PacificRim_02.PNG" alt="Featured image of post Quick Git" /&gt;&lt;h1 id=&#34;git使用教程&#34;&gt;Git使用教程
 &lt;/h1&gt;&lt;h2 id=&#34;安装&#34;&gt;安装
 &lt;/h2&gt;&lt;p&gt;官网下载安装即可，安装配置基本默认。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -3849,11 +4350,11 @@
         </item>
         <item>
         <title>Quick Java</title>
-        <link>http://localhost:1313/p/quick-java/</link>
+        <link>https://ch0ser.github.io/p/quick-java/</link>
         <pubDate>Mon, 16 Dec 2024 16:04:20 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/quick-java/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Lover.PNG" alt="Featured image of post Quick Java" /&gt;&lt;h2 id=&#34;1-java背景知识&#34;&gt;1 Java背景知识
+        <guid>https://ch0ser.github.io/p/quick-java/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Lover.PNG" alt="Featured image of post Quick Java" /&gt;&lt;h2 id=&#34;1-java背景知识&#34;&gt;1 Java背景知识
 &lt;/h2&gt;&lt;h3 id=&#34;11-jdk-jre-jvm&#34;&gt;1.1 JDK JRE JVM
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;JDK(开发工具包)&lt;/li&gt;
@@ -5784,17 +6285,17 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
         </item>
         <item>
         <title>Typora</title>
-        <link>http://localhost:1313/p/typora/</link>
+        <link>https://ch0ser.github.io/p/typora/</link>
         <pubDate>Sat, 23 Nov 2024 21:45:04 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/typora/</guid>
-        <description>&lt;img src="http://localhost:1313/images/PacificRim_01.jpg" alt="Featured image of post Typora" /&gt;&lt;h1 id=&#34;typora教程&#34;&gt;Typora教程
+        <guid>https://ch0ser.github.io/p/typora/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/PacificRim_01.jpg" alt="Featured image of post Typora" /&gt;&lt;h1 id=&#34;typora教程&#34;&gt;Typora教程
 &lt;/h1&gt;&lt;h2 id=&#34;typora的安装&#34;&gt;Typora的安装
 &lt;/h2&gt;&lt;p&gt;这是b站up主 &lt;strong&gt;格格分享集&lt;/strong&gt; 提供的1.9.5版本及绕过激活方法，在此鸣谢。&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&amp;amp;vd_source=94c6a60e88fb8109fcdee4173a2a7281&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&amp;vd_source=94c6a60e88fb8109fcdee4173a2a7281&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;不想看视频的可以往下看。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/Typora1.9.5zip.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/Typora1.9.5zip.png&#34;
 	
 	
 	
@@ -5805,7 +6306,7 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;解压 &lt;strong&gt;Typora1.9.5.zip&lt;/strong&gt;后，文件结构如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/Typora02.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/Typora02.png&#34;
 	
 	
 	
@@ -5816,7 +6317,7 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
 &lt;p&gt;先运行安装程序安装&lt;strong&gt;typora1.9.5&lt;/strong&gt;；&lt;/p&gt;
 &lt;p&gt;然后解压&lt;strong&gt;河蟹.zip&lt;/strong&gt;,将其中的配置文件&lt;strong&gt;winmm.dll&lt;/strong&gt;复制到&lt;strong&gt;typora所在文件夹&lt;/strong&gt;(右键点击typora快捷方式即可)；&lt;/p&gt;
 &lt;p&gt;最后打开typora，点击侧边栏中的帮助，再点击关于激活即可。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/Typora03.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/Typora03.png&#34;
 	
 	
 	
@@ -5942,7 +6443,7 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
 &lt;li&gt;然后中括号里面写属性文本&lt;/li&gt;
 &lt;li&gt;小括号里面写图片地址，后可接标题&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/&#34;
 	
 	
 	
