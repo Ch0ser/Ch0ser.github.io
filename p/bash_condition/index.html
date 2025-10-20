@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 学习参考的教程为Bash 脚本教程 - 网道，非常感谢开源工作者的贡献！\n如使用到该教程，可随意使用，但请标明出处（Bash 脚本教程 - 网道）。\n笔记汇总在Bash中。\n">
+<title>Bash_condition</title>
+
+<link rel='canonical' href='https://ch0ser.github.io/p/bash_condition/'>
+
+<link rel="stylesheet" href="/scss/style.min.48ce54e3e307e3741d61de84a9b7fd091d2b70c905a608c90a1db85a009feb1b.css"><meta property='og:title' content="Bash_condition">
+<meta property='og:description' content=" 学习参考的教程为Bash 脚本教程 - 网道，非常感谢开源工作者的贡献！\n如使用到该教程，可随意使用，但请标明出处（Bash 脚本教程 - 网道）。\n笔记汇总在Bash中。\n">
+<meta property='og:url' content='https://ch0ser.github.io/p/bash_condition/'>
+<meta property='og:site_name' content='Choser&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Bash' /><meta property='article:published_time' content='2025-10-20T15:42:22&#43;08:00'/><meta property='article:modified_time' content='2025-10-20T15:42:22&#43;08:00'/><meta property='og:image' content='https://ch0ser.github.io/images/Cloud.png' />
+<meta name="twitter:title" content="Bash_condition">
+<meta name="twitter:description" content=" 学习参考的教程为Bash 脚本教程 - 网道，非常感谢开源工作者的贡献！\n如使用到该教程，可随意使用，但请标明出处（Bash 脚本教程 - 网道）。\n笔记汇总在Bash中。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ch0ser.github.io/images/Cloud.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu1777375556697644536.png" width="300"
+                            height="158" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Choser&#39;s Blog</a></h1>
+            <h2 class="site-description">进一寸有进一寸的欢喜</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Ch0ser'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:ch0ser@qq.com'
+                        target="_blank"
+                        title="✉️ Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1760270206847" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5175" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M858.656 192 165.344 192C109.472 192 64 237.44 64 293.312l0 469.376C64 818.56 109.472 864 165.344 864l693.312 0C914.528 864 960 818.56 960 762.688L960 293.312C960 237.44 914.528 192 858.656 192zM858.656 800 165.344 800C144.736 800 128 783.264 128 762.688L128 293.312C128 272.736 144.736 256 165.344 256l684.544 0-307.488 279.808c-14.592 14.56-38.272 14.528-54.752-1.792l-244.256-206.752C229.856 315.84 209.664 317.504 198.272 331.008c-11.424 13.472-9.76 33.664 3.744 45.088l242.304 204.96c19.904 19.904 46.048 29.792 72.032 29.792 25.632 0 51.136-9.632 70.176-28.736L896 300.544l0 462.144C896 783.264 879.264 800 858.656 800z" fill="#5D646F" p-id="5176"></path></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于我</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://ch0ser.github.io/en/" >English</option>
+                                
+                                    <option value="https://ch0ser.github.io/" selected>中文</option>
+                                
+                                    <option value="https://ch0ser.github.io/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#if-结构">if 结构</a></li>
+    <li><a href="#test-命令">test 命令</a></li>
+    <li><a href="#判断表达式">判断表达式</a>
+      <ol>
+        <li><a href="#文件判断">文件判断</a></li>
+        <li><a href="#字符串判断">字符串判断</a></li>
+        <li><a href="#整数判断">整数判断</a></li>
+        <li><a href="#正则判断">正则判断</a></li>
+        <li><a href="#test-判断的逻辑运算">test 判断的逻辑运算</a></li>
+        <li><a href="#算术判断">算术判断</a></li>
+        <li><a href="#普通命令的逻辑运算">普通命令的逻辑运算</a></li>
+      </ol>
+    </li>
+    <li><a href="#case-结构">case 结构</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/bash_condition/">
+                
+                    <img src="/images/Cloud.png" loading="lazy" alt="Featured image of post Bash_condition" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" >
+                计算机基础
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/bash_condition/">Bash_condition</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 20, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 14 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <blockquote>
+<p>学习参考的教程为<a class="link" href="https://wangdoc.com/bash/"  target="_blank" rel="noopener"
+    >Bash 脚本教程 - 网道</a>，非常感谢开源工作者的贡献！</p>
+<p>如使用到该教程，可随意使用，但请标明出处（<a class="link" href="https://wangdoc.com/bash/"  target="_blank" rel="noopener"
+    >Bash 脚本教程 - 网道</a>）。</p>
+<p>笔记汇总在<a class="link" href="/p/bash/" >Bash</a>中。</p>
+</blockquote>
+<h1 id="条件判断">条件判断
+</h1><p>本章介绍 Bash 脚本的条件判断语法。</p>
+<h2 id="if-结构">if 结构
+</h2><p><code>if</code>是最常用的条件判断结构，只有符合给定条件时，才会执行指定的命令。它的语法如下。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">if</span> commands<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  commands
+</span></span><span class="line"><span class="cl"><span class="o">[</span><span class="k">elif</span> commands<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  commands...<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span><span class="k">else</span>
+</span></span><span class="line"><span class="cl">  commands<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个命令分成三个部分：<code>if</code>、<code>elif</code>和<code>else</code>。其中，后两个部分是可选的。</p>
+<p><code>if</code>关键字后面是主要的判断条件，<code>elif</code>用来添加在主条件不成立时的其他判断条件，<code>else</code>则是所有条件都不成立时要执行的部分。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">if</span> <span class="nb">test</span> <span class="nv">$USER</span> <span class="o">=</span> <span class="s2">&#34;foo&#34;</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;Hello foo.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;You are not foo.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的例子中，判断条件是环境变量<code>$USER</code>是否等于<code>foo</code>，如果等于就输出<code>Hello foo.</code>，否则输出其他内容。</p>
+<p><code>if</code>和<code>then</code>写在同一行时，需要分号分隔。<strong>分号是 Bash 的命令分隔符</strong>。它们也可以写成两行，这时不需要分号。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">if</span> <span class="nb">true</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s1">&#39;hello world&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nb">false</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s1">&#39;it is false&#39;</span> <span class="c1"># 本行不会执行</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的例子中，<code>true</code>和<code>false</code>是两个特殊命令，前者代表操作成功，后者代表操作失败。<code>if true</code>意味着命令部分总是会执行，<code>if false</code>意味着命令部分永远不会执行。</p>
+<p>除了多行的写法，<code>if</code>结构也可以写成单行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="k">if</span> true<span class="p">;</span> <span class="k">then</span> <span class="nb">echo</span> <span class="s1">&#39;hello world&#39;</span><span class="p">;</span> <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">hello world
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ <span class="k">if</span> false<span class="p">;</span> <span class="k">then</span> <span class="nb">echo</span> <span class="s2">&#34;It&#39;s true.&#34;</span><span class="p">;</span> <span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意，<code>if</code><strong>关键字后面也可以是一条命令，该条命令执行成功（返回值<code>0</code>），就意味着判断条件成立</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="k">if</span> <span class="nb">echo</span> <span class="s1">&#39;hi&#39;</span><span class="p">;</span> <span class="k">then</span> <span class="nb">echo</span> <span class="s1">&#39;hello world&#39;</span><span class="p">;</span> <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">hi
+</span></span><span class="line"><span class="cl">hello world
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面命令中，<code>if</code>后面是一条命令<code>echo 'hi'</code>。该命令会执行，如果返回值是<code>0</code>，则执行<code>then</code>的部分。</p>
+<p><code>if</code>后面可以跟任意数量的命令。这时，所有命令都会执行，但是<strong>判断真伪只看最后一个命令</strong>，即使前面所有命令都失败，只要最后一个命令返回<code>0</code>，就会执行<code>then</code>的部分。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="k">if</span> false<span class="p">;</span> true<span class="p">;</span> <span class="k">then</span> <span class="nb">echo</span> <span class="s1">&#39;hello world&#39;</span><span class="p">;</span> <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">hello world
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，<code>if</code>后面有两条命令（<code>false;true;</code>），第二条命令（<code>true</code>）决定了<code>then</code>的部分是否会执行。</p>
+<p><code>elif</code>部分可以有多个。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -n <span class="s2">&#34;输入一个1到3之间的数字（包含两端）&gt; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">read</span> character
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$character</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;1&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$character</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;2&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$character</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;3&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> 输入不符合要求
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，如果用户输入<code>3</code>，就会连续判断3次。</p>
+<h2 id="test-命令">test 命令
+</h2><p><code>if</code>结构的<strong>判断条件，一般使用<code>test</code>命令</strong>，有三种形式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 写法一</span>
+</span></span><span class="line"><span class="cl"><span class="nb">test</span> expression
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 写法二</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span> expression <span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 写法三</span>
+</span></span><span class="line"><span class="cl"><span class="o">[[</span> expression <span class="o">]]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面三种形式是等价的，但是第三种形式还支持正则判断，前两种不支持。</p>
+<p>上面的<code>expression</code>是一个表达式。这个表达式为真，<code>test</code>命令执行成功（返回值为<code>0</code>）；表达式为伪，<code>test</code>命令执行失败（返回值为<code>1</code>）。<strong>注意，第二种和第三种写法，<code>[</code>和<code>]</code>与内部的表达式之间必须有空格。</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">test</span> -f /etc/hosts
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="nv">$?</span>
+</span></span><span class="line"><span class="cl"><span class="m">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ <span class="o">[</span> -f /etc/hosts <span class="o">]</span>
+</span></span><span class="line"><span class="cl">$  <span class="nb">echo</span> <span class="nv">$?</span>
+</span></span><span class="line"><span class="cl"><span class="m">0</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的例子中，<code>test</code>命令采用两种写法，判断<code>/etc/hosts</code>文件是否存在，这两种写法是等价的。命令执行后，返回值为<code>0</code>，表示该文件确实存在。</p>
+<p>实际上，<code>[</code>这个字符是<code>test</code>命令的一种简写形式，可以看作是一个独立的命令，这解释了为什么它后面必须有空格。</p>
+<p>下面把<code>test</code>命令的三种形式，用在<code>if</code>结构中，判断一个文件是否存在。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 写法一</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nb">test</span> -e /tmp/foo.txt <span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;Found foo.txt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 写法二</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -e /tmp/foo.txt <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;Found foo.txt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 写法三</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[[</span> -e /tmp/foo.txt <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;Found foo.txt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="判断表达式">判断表达式
+</h2><p><code>if</code>关键字后面，跟的是一个命令。这个命令可以是<code>test</code>命令，也可以是其他命令。命令的返回值为<code>0</code>表示判断成立，否则表示不成立。因为这些命令主要是为了得到返回值，所以可以视为表达式。</p>
+<p>常用的判断表达式有下面这些。</p>
+<h3 id="文件判断">文件判断
+</h3><p>以下表达式用来判断文件状态。</p>
+<p>常用的有：</p>
+<ul>
+<li>
+<p><code>[ -e file ]</code>：如果 file 存在（<strong>任何类型</strong>），则为<code>true</code>。</p>
+</li>
+<li>
+<p><code>[ -d file ]</code>：如果 file 存在并且是一个目录，则为<code>true</code>。</p>
+</li>
+<li>
+<p><code>[ -f file ]</code>：如果 file 存在并且是一个普通文件，则为<code>true</code>。</p>
+</li>
+<li>
+<p><code>[ -r file ]</code>：如果 file 存在并且可读（当前用户有可读权限），则为<code>true</code>。</p>
+</li>
+<li>
+<p><code>[ -w file ]</code>：如果 file 存在并且可写（当前用户拥有可写权限），则为<code>true</code>。</p>
+</li>
+<li>
+<p><code>[ -x file ]</code>：如果 file 存在并且可执行（有效用户有执行／搜索权限），则为<code>true</code>。</p>
+</li>
+<li>
+<p><code>[ -s file ]</code>：如果 file 存在且其长度大于零，则为<code>true</code>。</p>
+</li>
+<li>
+<p><code>[ -L file ]</code>：如果 file 存在并且是一个符号链接，则为<code>true</code>。</p>
+</li>
+<li>
+<p><code>[ -h file ]</code>：如果 file 存在并且是符号链接，则为<code>true</code>。</p>
+</li>
+</ul>
+<p>其余的有：</p>
+<ul>
+<li><code>[ -b file ]</code>：如果 file 存在并且是一个块（设备）文件，则为<code>true</code>。</li>
+<li><code>[ -c file ]</code>：如果 file 存在并且是一个字符（设备）文件，则为<code>true</code>。</li>
+<li><code>[ -g file ]</code>：如果 file 存在并且设置了组 ID，则为<code>true</code>。</li>
+<li><code>[ -G file ]</code>：如果 file 存在并且属于有效的组 ID，则为<code>true</code>。</li>
+<li><code>[ -k file ]</code>：如果 file 存在并且设置了它的“sticky bit”，则为<code>true</code>。</li>
+<li><code>[ -N file ]</code>：如果 file 存在并且自上次读取后已被修改，则为<code>true</code>。</li>
+<li><code>[ -O file ]</code>：如果 file 存在并且属于有效的用户 ID，则为<code>true</code>。</li>
+<li><code>[ -p file ]</code>：如果 file 存在并且是一个命名管道，则为<code>true</code>。</li>
+<li><code>[ -S file ]</code>：如果 file 存在且是一个网络 socket，则为<code>true</code>。</li>
+<li><code>[ -t fd ]</code>：如果 fd 是一个文件描述符，并且重定向到终端，则为<code>true</code>。 这可以用来判断是否重定向了标准输入／输出／错误。</li>
+<li><code>[ -u file ]</code>：如果 file 存在并且设置了 setuid 位，则为<code>true</code>。</li>
+<li><code>[ FILE1 -nt FILE2 ]</code>：如果 FILE1 比 FILE2 的更新时间更近，或者 FILE1 存在而 FILE2 不存在，则为<code>true</code>。</li>
+<li><code>[ FILE1 -ot FILE2 ]</code>：如果 FILE1 比 FILE2 的更新时间更旧，或者 FILE2 存在而 FILE1 不存在，则为<code>true</code>。</li>
+<li><code>[ FILE1 -ef FILE2 ]</code>：如果 FILE1 和 FILE2 引用相同的设备和 inode 编号，则为<code>true</code>。</li>
+</ul>
+<p>普通文件说明：</p>
+<p>在 Linux/Unix 中，<strong>“普通文件”（regular file）</strong> 是指：</p>
+<ul>
+<li><strong>不是目录</strong></li>
+<li><strong>不是设备文件</strong>（如 <code>/dev/sda</code>）</li>
+<li><strong>不是符号链接</strong></li>
+<li><strong>不是管道、socket、FIFO 等特殊文件</strong></li>
+</ul>
+<p>而是我们日常接触最多的文件类型，例如：</p>
+<ul>
+<li>文本文件：<code>notes.txt</code></li>
+<li>脚本文件：<code>script.sh</code></li>
+<li>二进制程序：<code>/bin/ls</code></li>
+<li>图片、视频、压缩包等</li>
+</ul>
+<p>用 <code>ls -l</code> 查看时，普通文件的权限行<strong>第一个字符是 <code>-</code></strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ls -l /etc/passwd
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root <span class="m">2345</span> Jun <span class="m">10</span> 10:00 /etc/passwd
+</span></span><span class="line"><span class="cl"><span class="c1"># ↑ 开头是 &#34;-&#34;，说明是普通文件</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>而目录是 <code>d</code>，符号链接是 <code>l</code>，设备文件是 <code>b</code> 或 <code>c</code>，等等。</p>
+<p>符号链接说明：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th><strong>只是一个路径引用</strong></th>
+          <th>符号链接文件的内容就是目标文件的路径（可以是相对路径或绝对路径）</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>可以跨文件系统</strong></td>
+          <td>源文件和目标文件可以在不同的磁盘或分区上</td>
+      </tr>
+      <tr>
+          <td><strong>目标可以不存在</strong></td>
+          <td>创建符号链接时，目标文件甚至可以不存在（称为“悬空链接”）</td>
+      </tr>
+      <tr>
+          <td><strong>删除符号链接不影响原文件</strong></td>
+          <td>删除软链接只是删了“快捷方式”，原文件完好无损</td>
+      </tr>
+      <tr>
+          <td><strong>删除原文件会导致链接失效</strong></td>
+          <td>原文件没了，符号链接就变成“坏链接”（dangling symlink）</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>下面是一个示例。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">FILE</span><span class="o">=</span>~/.bashrc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -e <span class="s2">&#34;</span><span class="nv">$FILE</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&#34;</span><span class="nv">$FILE</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$FILE</span><span class="s2"> is a regular file.&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> -d <span class="s2">&#34;</span><span class="nv">$FILE</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$FILE</span><span class="s2"> is a directory.&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> -r <span class="s2">&#34;</span><span class="nv">$FILE</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$FILE</span><span class="s2"> is readable.&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> -w <span class="s2">&#34;</span><span class="nv">$FILE</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$FILE</span><span class="s2"> is writable.&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> -x <span class="s2">&#34;</span><span class="nv">$FILE</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$FILE</span><span class="s2"> is executable/searchable.&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$FILE</span><span class="s2"> does not exist&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>$FILE</code><strong>要放在双引号之中</strong>，这样可以防止变量<code>$FILE</code>为空，从而出错。因为<code>$FILE</code>如果为空，这时<code>[ -e $FILE ]</code>就变成<code>[ -e ]</code>，这会被判断为真。而<code>$FILE</code>放在双引号之中，<code>[ -e &quot;$FILE&quot; ]</code>就变成<code>[ -e &quot;&quot; ]</code>，这会被判断为伪。</p>
+<h3 id="字符串判断">字符串判断
+</h3><p>以下表达式用来判断字符串。</p>
+<ul>
+<li><code>[ string ]</code>：如果<code>string</code><strong>不为空</strong>（长度大于0），则<strong>判断为真</strong>。</li>
+<li><code>[ -n string ]</code>：如果字符串<code>string</code>的长度大于零，则判断为真。</li>
+<li><code>[ -z string ]</code>：如果字符串<code>string</code>的<strong>长度为零</strong>，则<strong>判断为真</strong>。</li>
+<li><code>[ string1 = string2 ]</code>：如果<code>string1</code>和<code>string2</code>相同，则判断为真。</li>
+<li><code>[ string1 == string2 ]</code> <strong>等同于<code>[ string1 = string2 ]</code></strong>。</li>
+<li><code>[ string1 != string2 ]</code>：如果<code>string1</code>和<code>string2</code>不相同，则判断为真。</li>
+<li><code>[ string1 '&gt;' string2 ]</code>：如果<strong>按照字典顺序</strong><code>string1</code>排列在<code>string2</code><strong>之后</strong>，则判断为真。</li>
+<li><code>[ string1 '&lt;' string2 ]</code>：如果按照字典顺序<code>string1</code>排列在<code>string2</code>之前，则判断为真。</li>
+</ul>
+<p>注意，<code>test</code>命令内部的<code>&gt;</code>和<code>&lt;</code>，<strong>必须用引号引起来</strong>（或者是<strong>用反斜杠转义</strong>）。否则，它们会被 shell 解释为重定向操作符。</p>
+<p>下面是一个示例。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">ANSWER</span><span class="o">=</span>maybe
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$ANSWER</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;There is no answer.&#34;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$ANSWER</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;yes&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;The answer is YES.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$ANSWER</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;no&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;The answer is NO.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$ANSWER</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;maybe&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;The answer is MAYBE.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;The answer is UNKNOWN.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，首先确定<code>$ANSWER</code>字符串是否为空。如果为空，就终止脚本，并把退出状态设为<code>1</code>。注意，这里的<code>echo</code>命令把错误信息<code>There is no answer.</code>重定向到标准错误，这是处理错误信息的常用方法。如果<code>$ANSWER</code>字符串不为空，就判断它的值是否等于<code>yes</code>、<code>no</code>或者<code>maybe</code>。</p>
+<p>注意，<strong>字符串判断时，变量要放在双引号之中</strong>，比如<code>[ -n &quot;$COUNT&quot; ]</code>，否则变量替换成字符串以后，<code>test</code>命令可能会报错，提示参数过多。另外，如果不放在双引号之中，变量为空时，命令会变成<code>[ -n ]</code>，这时会判断为真。如果放在双引号之中，<code>[ -n &quot;&quot; ]</code>就判断为伪。</p>
+<h3 id="整数判断">整数判断
+</h3><p>下面的表达式用于判断整数。</p>
+<ul>
+<li><code>[ integer1 -eq integer2 ]</code>：如果<code>integer1</code><strong>等于</strong><code>integer2</code>，则为<code>true</code>。</li>
+<li><code>[ integer1 -ne integer2 ]</code>：如果<code>integer1</code><strong>不等于</strong><code>integer2</code>，则为<code>true</code>。</li>
+<li><code>[ integer1 -le integer2 ]</code>：如果<code>integer1</code><strong>小于或等于</strong><code>integer2</code>，则为<code>true</code>。</li>
+<li><code>[ integer1 -lt integer2 ]</code>：如果<code>integer1</code><strong>小于</strong><code>integer2</code>，则为<code>true</code>。</li>
+<li><code>[ integer1 -ge integer2 ]</code>：如果<code>integer1</code><strong>大于或等于</strong><code>integer2</code>，则为<code>true</code>。</li>
+<li><code>[ integer1 -gt integer2 ]</code>：如果<code>integer1</code><strong>大于</strong><code>integer2</code>，则为<code>true</code>。</li>
+</ul>
+<p>下面是一个用法的例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">INT</span><span class="o">=</span>-5
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$INT</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;INT is empty.&#34;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$INT</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;INT is zero.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> <span class="nv">$INT</span> -lt <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;INT is negative.&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;INT is positive.&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> <span class="k">$((</span>INT <span class="o">%</span> <span class="m">2</span><span class="k">))</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;INT is even.&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;INT is odd.&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，先判断变量<code>$INT</code>是否为空，然后判断是否为<code>0</code>，接着判断正负，最后通过求余数判断奇偶。</p>
+<p>如果不好记，想用数学符号，可以用<code>(( ))</code>包含数学表达式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">a</span><span class="o">=</span><span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="nv">b</span><span class="o">=</span><span class="m">10</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">((</span> a &lt; b <span class="o">))</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;a &lt; b 成立&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">((</span> <span class="nv">a</span> <span class="o">==</span> b <span class="o">))</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;相等&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">((</span> a !<span class="o">=</span> b <span class="o">))</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;不等&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意整数相等是双等号，字符串相等是单等号。</p>
+<h3 id="正则判断">正则判断
+</h3><p><code>[[ expression ]]</code>这种判断形式，支持正则表达式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[[</span> <span class="nv">string1</span> <span class="o">=</span>~ regex <span class="o">]]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的语法中，<code>regex</code>是一个正则表示式，<strong><code>=~</code>是正则比较运算符</strong>。</p>
+<p>下面是一个例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">INT</span><span class="o">=</span>-5
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[[</span> <span class="s2">&#34;</span><span class="nv">$INT</span><span class="s2">&#34;</span> <span class="o">=</span>~ ^-?<span class="o">[</span>0-9<span class="o">]</span>+$ <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;INT is an integer.&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">exit</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;INT is not an integer.&#34;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，先判断变量<code>INT</code>的字符串形式，是否满足<code>^-?[0-9]+$</code>的正则模式，如果满足就表明它是一个整数。</p>
+<h3 id="test-判断的逻辑运算">test 判断的逻辑运算
+</h3><p>通过逻辑运算，可以把多个<code>test</code>判断表达式结合起来，创造更复杂的判断。三种逻辑运算<code>AND</code>，<code>OR</code>，和<code>NOT</code>，都有自己的专用符号。</p>
+<ul>
+<li><code>AND</code>运算：符号<code>&amp;&amp;</code>，也可使用参数<code>-a</code>。</li>
+<li><code>OR</code>运算：符号<code>||</code>，也可使用参数<code>-o</code>。</li>
+<li><code>NOT</code>运算：符号<code>!</code>。</li>
+</ul>
+<p>下面是一个<code>AND</code>的例子，判断整数是否在某个范围之内。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">MIN_VAL</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">MAX_VAL</span><span class="o">=</span><span class="m">100</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">INT</span><span class="o">=</span><span class="m">50</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[[</span> <span class="s2">&#34;</span><span class="nv">$INT</span><span class="s2">&#34;</span> <span class="o">=</span>~ ^-?<span class="o">[</span>0-9<span class="o">]</span>+$ <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[[</span> <span class="nv">$INT</span> -ge <span class="nv">$MIN_VAL</span> <span class="o">&amp;&amp;</span> <span class="nv">$INT</span> -le <span class="nv">$MAX_VAL</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$INT</span><span class="s2"> is within </span><span class="nv">$MIN_VAL</span><span class="s2"> to </span><span class="nv">$MAX_VAL</span><span class="s2">.&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$INT</span><span class="s2"> is out of range.&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;INT is not an integer.&#34;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，<code>&amp;&amp;</code>用来连接两个判断条件：大于等于<code>$MIN_VAL</code>，并且小于等于<code>$MAX_VAL</code>。</p>
+<p>使用否定操作符<code>!</code>时，最好<strong>用圆括号确定转义的范围</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> ! <span class="se">\(</span> <span class="nv">$INT</span> -ge <span class="nv">$MIN_VAL</span> -a <span class="nv">$INT</span> -le <span class="nv">$MAX_VAL</span> <span class="se">\)</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$INT</span><span class="s2"> is outside </span><span class="nv">$MIN_VAL</span><span class="s2"> to </span><span class="nv">$MAX_VAL</span><span class="s2">.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$INT</span><span class="s2"> is in range.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，<code>test</code>命令内部使用的圆括号，必须使用引号或者转义，否则会被 Bash 解释。</p>
+<p>使用<code>-a</code>连接两个判断条件不太直观，一般推荐使用<code>&amp;&amp;</code>代替，上面的脚本可以改写成下面这样。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">if</span> !<span class="o">([</span> <span class="nv">$INT</span> -ge <span class="nv">$MIN_VAL</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="nv">$INT</span> -le <span class="nv">$MAX_VAL</span> <span class="o">])</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$INT</span><span class="s2"> is outside </span><span class="nv">$MIN_VAL</span><span class="s2"> to </span><span class="nv">$MAX_VAL</span><span class="s2">.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$INT</span><span class="s2"> is in range.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="算术判断">算术判断
+</h3><p>Bash 还提供了<code>((...))</code>作为算术条件，进行算术运算的判断。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">if</span> <span class="o">((</span><span class="m">3</span> &gt; 2<span class="o">))</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码执行后，会打印出<code>true</code>。</p>
+<p>注意，算术判断不需要使用<code>test</code>命令，而是直接使用<code>((...))</code>结构。这个结构的返回值，决定了判断的真伪。</p>
+<p><strong>如果算术计算的结果是非零值，则表示判断成立</strong>。这一点<strong>跟命令的返回值正好相反</strong>，需要小心。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="k">if</span> <span class="o">((</span>1<span class="o">))</span><span class="p">;</span> <span class="k">then</span> <span class="nb">echo</span> <span class="s2">&#34;It is true.&#34;</span><span class="p">;</span> <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">It is true.
+</span></span><span class="line"><span class="cl">$ <span class="k">if</span> <span class="o">((</span>0<span class="o">))</span><span class="p">;</span> <span class="k">then</span> <span class="nb">echo</span> <span class="s2">&#34;It is true.&#34;</span><span class="p">;</span> <span class="k">else</span> <span class="nb">echo</span> <span class="s2">&#34;it is false.&#34;</span><span class="p">;</span> <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">It is false.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，<code>((1))</code>表示判断成立，<code>((0))</code>表示判断不成立。</p>
+<p>算术条件<code>((...))</code>也可以<strong>用于变量赋值</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="k">if</span> <span class="o">((</span> <span class="nv">foo</span> <span class="o">=</span> <span class="m">5</span> <span class="o">))</span><span class="p">;</span><span class="k">then</span> <span class="nb">echo</span> <span class="s2">&#34;foo is </span><span class="nv">$foo</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">foo is <span class="m">5</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，<code>(( foo = 5 ))</code>完成了两件事情。首先把<code>5</code>赋值给变量<code>foo</code>，然后根据返回值<code>5</code>，判断条件为真。</p>
+<p>注意，赋值语句返回等号右边的值，如果返回的是<code>0</code>，则判断为假。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="k">if</span> <span class="o">((</span> <span class="nv">foo</span> <span class="o">=</span> <span class="m">0</span> <span class="o">))</span><span class="p">;</span><span class="k">then</span> <span class="nb">echo</span> <span class="s2">&#34;It is true.&#34;</span><span class="p">;</span><span class="k">else</span> <span class="nb">echo</span> <span class="s2">&#34;It is false.&#34;</span><span class="p">;</span> <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">It is false.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面是用算术条件改写的数值判断脚本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">INT</span><span class="o">=</span>-5
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[[</span> <span class="s2">&#34;</span><span class="nv">$INT</span><span class="s2">&#34;</span> <span class="o">=</span>~ ^-?<span class="o">[</span>0-9<span class="o">]</span>+$ <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">((</span><span class="nv">INT</span> <span class="o">==</span> 0<span class="o">))</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;INT is zero.&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">((</span>INT &lt; 0<span class="o">))</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">echo</span> <span class="s2">&#34;INT is negative.&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">echo</span> <span class="s2">&#34;INT is positive.&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">((</span> <span class="o">((</span>INT % 2<span class="o">))</span> <span class="o">==</span> 0<span class="o">))</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">echo</span> <span class="s2">&#34;INT is even.&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">echo</span> <span class="s2">&#34;INT is odd.&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;INT is not an integer.&#34;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>只要是算术表达式，都能用于<code>((...))</code>语法，详见《Bash 的算术运算》一章。</p>
+<h3 id="普通命令的逻辑运算">普通命令的逻辑运算
+</h3><p>如果<code>if</code>结构使用的不是<code>test</code>命令，而是普通命令，比如上一节的<code>((...))</code>算术运算，或者<code>test</code>命令与普通命令混用，那么可以使用 Bash 的命令控制操作符<code>&amp;&amp;</code>（AND）和<code>||</code>（OR），进行多个命令的逻辑运算。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ command1 <span class="o">&amp;&amp;</span> command2
+</span></span><span class="line"><span class="cl">$ command1 <span class="o">||</span> command2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对于<code>&amp;&amp;</code>操作符，先执行<code>command1</code>，只有<code>command1</code>执行成功后， 才会执行<code>command2</code>。对于<code>||</code>操作符，先执行<code>command1</code>，只有<code>command1</code>执行失败后， 才会执行<code>command2</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ mkdir temp <span class="o">&amp;&amp;</span> <span class="nb">cd</span> temp
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的命令会创建一个名为<code>temp</code>的目录，执行成功后，才会执行第二个命令，进入这个目录。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="o">[</span> -d temp <span class="o">]</span> <span class="o">||</span> mkdir temp
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的命令会测试目录<code>temp</code>是否存在，如果不存在，就会执行第二个命令，创建这个目录。这种写法非常有助于在脚本中处理错误。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span> ! -d temp <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">exit</span> <span class="m">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的命令中，如果<code>temp</code>子目录不存在，脚本会终止，并且返回值为<code>1</code>。</p>
+<p>下面就是<code>if</code>与<code>&amp;&amp;</code>结合使用的写法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> condition <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> condition <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">command</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面是一个示例。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#! /bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">filename</span><span class="o">=</span><span class="nv">$1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">word1</span><span class="o">=</span><span class="nv">$2</span>
+</span></span><span class="line"><span class="cl"><span class="nv">word2</span><span class="o">=</span><span class="nv">$3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> grep <span class="nv">$word1</span> <span class="nv">$filename</span> <span class="o">&amp;&amp;</span> grep <span class="nv">$word2</span> <span class="nv">$filename</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$word1</span><span class="s2"> and </span><span class="nv">$word2</span><span class="s2"> are both in </span><span class="nv">$filename</span><span class="s2">.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的例子只有在指定文件里面，同时存在搜索词<code>word1</code>和<code>word2</code>，就会执行<code>if</code>的命令部分。</p>
+<p>下面的示例演示如何将一个<code>&amp;&amp;</code>判断表达式，改写成对应的<code>if</code>结构。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[[</span> -d <span class="s2">&#34;</span><span class="nv">$dir_name</span><span class="s2">&#34;</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="s2">&#34;</span><span class="nv">$dir_name</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> rm *
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 等同于</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[[</span> ! -d <span class="s2">&#34;</span><span class="nv">$dir_name</span><span class="s2">&#34;</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;No such directory: &#39;</span><span class="nv">$dir_name</span><span class="s2">&#39;&#34;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> ! <span class="nb">cd</span> <span class="s2">&#34;</span><span class="nv">$dir_name</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;Cannot cd to &#39;</span><span class="nv">$dir_name</span><span class="s2">&#39;&#34;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> ! rm *<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;File deletion failed. Check results&#34;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="case-结构">case 结构
+</h2><p><code>case</code>结构用于多值判断，可以为每个值指定对应的命令，跟包含多个<code>elif</code>的<code>if</code>结构等价，但是语义更好。它的语法如下。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">case</span> expression in
+</span></span><span class="line"><span class="cl">  pattern <span class="o">)</span>
+</span></span><span class="line"><span class="cl">    commands <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">  pattern <span class="o">)</span>
+</span></span><span class="line"><span class="cl">    commands <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">  ...
+</span></span><span class="line"><span class="cl"><span class="k">esac</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>expression</code>是一个表达式，<code>pattern</code>是表达式的值或者一个模式，可以有多条，用来匹配多个值，每条以两个分号（<code>;</code>）结尾。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -n <span class="s2">&#34;输入一个1到3之间的数字（包含两端）&gt; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">read</span> character
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="nv">$character</span> in
+</span></span><span class="line"><span class="cl">  <span class="m">1</span> <span class="o">)</span> <span class="nb">echo</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">  <span class="m">2</span> <span class="o">)</span> <span class="nb">echo</span> <span class="m">2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">  <span class="m">3</span> <span class="o">)</span> <span class="nb">echo</span> <span class="m">3</span>
+</span></span><span class="line"><span class="cl">    <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">  * <span class="o">)</span> <span class="nb">echo</span> 输入不符合要求
+</span></span><span class="line"><span class="cl"><span class="k">esac</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，最后一条匹配语句的模式是<code>*</code>，这个通配符可以匹配其他字符和没有输入字符的情况，类似<code>if</code>的<code>else</code>部分。</p>
+<p>下面是另一个例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">OS</span><span class="o">=</span><span class="k">$(</span>uname -s<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="s2">&#34;</span><span class="nv">$OS</span><span class="s2">&#34;</span> in
+</span></span><span class="line"><span class="cl">  FreeBSD<span class="o">)</span> <span class="nb">echo</span> <span class="s2">&#34;This is FreeBSD&#34;</span> <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">  Darwin<span class="o">)</span> <span class="nb">echo</span> <span class="s2">&#34;This is Mac OSX&#34;</span> <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">  AIX<span class="o">)</span> <span class="nb">echo</span> <span class="s2">&#34;This is AIX&#34;</span> <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">  Minix<span class="o">)</span> <span class="nb">echo</span> <span class="s2">&#34;This is Minix&#34;</span> <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">  Linux<span class="o">)</span> <span class="nb">echo</span> <span class="s2">&#34;This is Linux&#34;</span> <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">  *<span class="o">)</span> <span class="nb">echo</span> <span class="s2">&#34;Failed to identify this OS&#34;</span> <span class="p">;;</span>
+</span></span><span class="line"><span class="cl"><span class="k">esac</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的例子判断当前是什么操作系统。</p>
+<p><code>case</code>的匹配模式可以使用各种通配符，下面是一些例子。</p>
+<ul>
+<li><code>a)</code>：匹配<code>a</code>。</li>
+<li><code>a|b)</code>：匹配<code>a</code>或<code>b</code>。</li>
+<li><code>[[:alpha:]])</code>：匹配单个字母。</li>
+<li><code>???)</code>：匹配3个字符的单词。</li>
+<li><code>*.txt)</code>：匹配<code>.txt</code>结尾。</li>
+<li><code>*)</code>：匹配任意输入，通常作为<code>case</code>结构的最后一个模式。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -n <span class="s2">&#34;输入一个字母或数字 &gt; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">read</span> character
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="nv">$character</span> in
+</span></span><span class="line"><span class="cl">  <span class="o">[[</span>:lower:<span class="o">]]</span> <span class="p">|</span> <span class="o">[[</span>:upper:<span class="o">]]</span> <span class="o">)</span> <span class="nb">echo</span> <span class="s2">&#34;输入了字母 </span><span class="nv">$character</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">                              <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">[</span>0-9<span class="o">]</span> <span class="o">)</span>                     <span class="nb">echo</span> <span class="s2">&#34;输入了数字 </span><span class="nv">$character</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">                              <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">  * <span class="o">)</span>                         <span class="nb">echo</span> <span class="s2">&#34;输入不符合要求&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">esac</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，使用通配符<code>[[:lower:]] | [[:upper:]]</code>匹配字母，<code>[0-9]</code>匹配数字。</p>
+<p>Bash 4.0之前，<code>case</code>结构只能匹配一个条件，然后就会退出<code>case</code>结构。Bash 4.0之后，允许匹配多个条件，这时可以<strong>用<code>;;&amp;</code>终止每个条件块</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1"># test.sh</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">read</span> -n <span class="m">1</span> -p <span class="s2">&#34;Type a character &gt; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="nv">$REPLY</span> in
+</span></span><span class="line"><span class="cl">  <span class="o">[[</span>:upper:<span class="o">]])</span>    <span class="nb">echo</span> <span class="s2">&#34;&#39;</span><span class="nv">$REPLY</span><span class="s2">&#39; is upper case.&#34;</span> <span class="p">;;&amp;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">[[</span>:lower:<span class="o">]])</span>    <span class="nb">echo</span> <span class="s2">&#34;&#39;</span><span class="nv">$REPLY</span><span class="s2">&#39; is lower case.&#34;</span> <span class="p">;;&amp;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">[[</span>:alpha:<span class="o">]])</span>    <span class="nb">echo</span> <span class="s2">&#34;&#39;</span><span class="nv">$REPLY</span><span class="s2">&#39; is alphabetic.&#34;</span> <span class="p">;;&amp;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">[[</span>:digit:<span class="o">]])</span>    <span class="nb">echo</span> <span class="s2">&#34;&#39;</span><span class="nv">$REPLY</span><span class="s2">&#39; is a digit.&#34;</span> <span class="p">;;&amp;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">[[</span>:graph:<span class="o">]])</span>    <span class="nb">echo</span> <span class="s2">&#34;&#39;</span><span class="nv">$REPLY</span><span class="s2">&#39; is a visible character.&#34;</span> <span class="p">;;&amp;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">[[</span>:punct:<span class="o">]])</span>    <span class="nb">echo</span> <span class="s2">&#34;&#39;</span><span class="nv">$REPLY</span><span class="s2">&#39; is a punctuation symbol.&#34;</span> <span class="p">;;&amp;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">[[</span>:space:<span class="o">]])</span>    <span class="nb">echo</span> <span class="s2">&#34;&#39;</span><span class="nv">$REPLY</span><span class="s2">&#39; is a whitespace character.&#34;</span> <span class="p">;;&amp;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">[[</span>:xdigit:<span class="o">]])</span>   <span class="nb">echo</span> <span class="s2">&#34;&#39;</span><span class="nv">$REPLY</span><span class="s2">&#39; is a hexadecimal digit.&#34;</span> <span class="p">;;&amp;</span>
+</span></span><span class="line"><span class="cl"><span class="k">esac</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行上面的脚本，会得到下面的结果。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ test.sh
+</span></span><span class="line"><span class="cl">Type a character &gt; a
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;a&#39;</span> is lower <span class="k">case</span>.
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;a&#39;</span> is alphabetic.
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;a&#39;</span> is a visible character.
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;a&#39;</span> is a hexadecimal digit.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到条件语句结尾添加了<code>;;&amp;</code>以后，在匹配一个条件之后，并没有退出<code>case</code>结构，而是<strong>继续判断下一个条件</strong>。</p>
+<h2 id="参考链接">参考链接
+</h2><ul>
+<li><a class="link" href="http://linuxcommand.org/tlcl.php"  target="_blank" rel="noopener"
+    >The Linux Command Line</a>, William Shotts</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/bash/">Bash</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/bash_prompt/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_prompt</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/bash_startup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_startup</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/bash_mktemptrap/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_mktemp&amp;trap</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/bash_debug/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_debug</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/bash_setshopt/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_set&amp;shopt</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-cn"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2025 Ch0ser
+    </section>
+    
+    <section class="powerby">
+        
+            © 2023-2025 Ch0ser. All Rights Reserved. <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

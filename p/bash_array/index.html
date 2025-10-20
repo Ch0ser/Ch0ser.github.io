@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 学习参考的教程为Bash 脚本教程 - 网道，非常感谢开源工作者的贡献！\n如使用到该教程，可随意使用，但请标明出处（Bash 脚本教程 - 网道）。\n笔记汇总在Bash中。\n">
+<title>Bash_array</title>
+
+<link rel='canonical' href='https://ch0ser.github.io/p/bash_array/'>
+
+<link rel="stylesheet" href="/scss/style.min.48ce54e3e307e3741d61de84a9b7fd091d2b70c905a608c90a1db85a009feb1b.css"><meta property='og:title' content="Bash_array">
+<meta property='og:description' content=" 学习参考的教程为Bash 脚本教程 - 网道，非常感谢开源工作者的贡献！\n如使用到该教程，可随意使用，但请标明出处（Bash 脚本教程 - 网道）。\n笔记汇总在Bash中。\n">
+<meta property='og:url' content='https://ch0ser.github.io/p/bash_array/'>
+<meta property='og:site_name' content='Choser&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Bash' /><meta property='article:published_time' content='2025-10-20T15:45:08&#43;08:00'/><meta property='article:modified_time' content='2025-10-20T15:45:08&#43;08:00'/><meta property='og:image' content='https://ch0ser.github.io/images/Cloud.png' />
+<meta name="twitter:title" content="Bash_array">
+<meta name="twitter:description" content=" 学习参考的教程为Bash 脚本教程 - 网道，非常感谢开源工作者的贡献！\n如使用到该教程，可随意使用，但请标明出处（Bash 脚本教程 - 网道）。\n笔记汇总在Bash中。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ch0ser.github.io/images/Cloud.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu1777375556697644536.png" width="300"
+                            height="158" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Choser&#39;s Blog</a></h1>
+            <h2 class="site-description">进一寸有进一寸的欢喜</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Ch0ser'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:ch0ser@qq.com'
+                        target="_blank"
+                        title="✉️ Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1760270206847" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5175" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M858.656 192 165.344 192C109.472 192 64 237.44 64 293.312l0 469.376C64 818.56 109.472 864 165.344 864l693.312 0C914.528 864 960 818.56 960 762.688L960 293.312C960 237.44 914.528 192 858.656 192zM858.656 800 165.344 800C144.736 800 128 783.264 128 762.688L128 293.312C128 272.736 144.736 256 165.344 256l684.544 0-307.488 279.808c-14.592 14.56-38.272 14.528-54.752-1.792l-244.256-206.752C229.856 315.84 209.664 317.504 198.272 331.008c-11.424 13.472-9.76 33.664 3.744 45.088l242.304 204.96c19.904 19.904 46.048 29.792 72.032 29.792 25.632 0 51.136-9.632 70.176-28.736L896 300.544l0 462.144C896 783.264 879.264 800 858.656 800z" fill="#5D646F" p-id="5176"></path></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于我</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://ch0ser.github.io/en/" >English</option>
+                                
+                                    <option value="https://ch0ser.github.io/" selected>中文</option>
+                                
+                                    <option value="https://ch0ser.github.io/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#创建数组">创建数组</a></li>
+    <li><a href="#读取数组">读取数组</a>
+      <ol>
+        <li><a href="#读取单个元素">读取单个元素</a></li>
+        <li><a href="#读取所有成员">读取所有成员</a></li>
+        <li><a href="#默认位置">默认位置</a></li>
+      </ol>
+    </li>
+    <li><a href="#数组的长度">数组的长度</a></li>
+    <li><a href="#提取数组序号">提取数组序号</a></li>
+    <li><a href="#提取数组成员">提取数组成员</a></li>
+    <li><a href="#追加数组成员">追加数组成员</a></li>
+    <li><a href="#删除数组">删除数组</a></li>
+    <li><a href="#关联数组">关联数组</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/bash_array/">
+                
+                    <img src="/images/Cloud.png" loading="lazy" alt="Featured image of post Bash_array" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" >
+                计算机基础
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/bash_array/">Bash_array</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 20, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 6 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <blockquote>
+<p>学习参考的教程为<a class="link" href="https://wangdoc.com/bash/"  target="_blank" rel="noopener"
+    >Bash 脚本教程 - 网道</a>，非常感谢开源工作者的贡献！</p>
+<p>如使用到该教程，可随意使用，但请标明出处（<a class="link" href="https://wangdoc.com/bash/"  target="_blank" rel="noopener"
+    >Bash 脚本教程 - 网道</a>）。</p>
+<p>笔记汇总在<a class="link" href="/p/bash/" >Bash</a>中。</p>
+</blockquote>
+<h1 id="数组">数组
+</h1><p>数组（array）是一个包含多个值的变量。成员的编号从0开始，数量没有上限，也没有要求成员被连续索引。</p>
+<h2 id="创建数组">创建数组
+</h2><p>数组可以采用逐个赋值的方法创建。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ARRAY<span class="o">[</span>INDEX<span class="o">]=</span>value
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面语法中，<code>ARRAY</code>是数组的名字，可以是任意合法的变量名。<code>INDEX</code>是一个大于或等于零的整数，也可以是算术表达式。注意数组第一个元素的下标是0， 而不是1。</p>
+<p>下面创建一个三个成员的数组。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ array<span class="o">[</span>0<span class="o">]=</span>val
+</span></span><span class="line"><span class="cl">$ array<span class="o">[</span>1<span class="o">]=</span>val
+</span></span><span class="line"><span class="cl">$ array<span class="o">[</span>2<span class="o">]=</span>val
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>数组也可以采用一次性赋值的方式创建。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 无逗号空格相连</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ARRAY</span><span class="o">=(</span>value1 value2 ... valueN<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 等同于</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">ARRAY</span><span class="o">=(</span>
+</span></span><span class="line"><span class="cl">  value1
+</span></span><span class="line"><span class="cl">  value2
+</span></span><span class="line"><span class="cl">  value3
+</span></span><span class="line"><span class="cl"><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>采用上面方式创建数组时，可以按照默认顺序赋值，也可以在每个值前面指定位置。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">array</span><span class="o">=(</span>a b c<span class="o">)</span>
+</span></span><span class="line"><span class="cl">$ <span class="nv">array</span><span class="o">=([</span>2<span class="o">]=</span>c <span class="o">[</span>0<span class="o">]=</span>a <span class="o">[</span>1<span class="o">]=</span>b<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ <span class="nv">days</span><span class="o">=(</span>Sun Mon Tue Wed Thu Fri Sat<span class="o">)</span>
+</span></span><span class="line"><span class="cl">$ <span class="nv">days</span><span class="o">=([</span>0<span class="o">]=</span>Sun <span class="o">[</span>1<span class="o">]=</span>Mon <span class="o">[</span>2<span class="o">]=</span>Tue <span class="o">[</span>3<span class="o">]=</span>Wed <span class="o">[</span>4<span class="o">]=</span>Thu <span class="o">[</span>5<span class="o">]=</span>Fri <span class="o">[</span>6<span class="o">]=</span>Sat<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>只为某些值指定位置，也是可以的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">names</span><span class="o">=(</span>hatter <span class="o">[</span>5<span class="o">]=</span>duchess alice<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，<code>hatter</code>是数组的0号位置，<code>duchess</code>是5号位置，<code>alice</code>是6号位置。</p>
+<p><strong>没有赋值的数组元素的默认值是空字符串</strong>。</p>
+<p>定义数组的时候，可以<strong>使用通配符</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">mp3s</span><span class="o">=(</span> *.mp3 <span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，将当前目录的所有 MP3 文件，放进一个数组。</p>
+<p>先用<code>declare -a</code>命令声明一个数组，也是可以的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">declare</span> -a ARRAYNAME
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>read -a</code>命令则是将用户的命令行输入，存入一个数组。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">read</span> -a dice
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面命令将用户的命令行输入，存入数组<code>dice</code>。</p>
+<h2 id="读取数组">读取数组
+</h2><h3 id="读取单个元素">读取单个元素
+</h3><p>读取数组指定位置的成员，要使用下面的语法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">array</span><span class="p">[i]</span><span class="si">}</span>     <span class="c1"># i 是索引</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面语法里面的<strong>大括号是必不可少</strong>的，否则 Bash 会把索引部分<code>[i]</code>按照原样输出。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ array<span class="o">[</span>0<span class="o">]=</span>a
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">array</span><span class="p">[0]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">a
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="nv">$array</span><span class="o">[</span>0<span class="o">]</span>
+</span></span><span class="line"><span class="cl">a<span class="o">[</span>0<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，数组的第一个元素是<code>a</code>。如果不加大括号，Bash 会直接读取<code>$array</code>首成员的值，然后将<code>[0]</code>按照原样输出。</p>
+<h3 id="读取所有成员">读取所有成员
+</h3><p><code>@</code>和<code>*</code>是数组的特殊索引，表示返回数组的所有成员。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">foo</span><span class="o">=(</span>a b c d e f<span class="o">)</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">foo</span><span class="p">[@]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">a b c d e f
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这两个特殊索引配合<code>for</code>循环，就可以用来遍历数组。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">for</span> i in <span class="s2">&#34;</span><span class="si">${</span><span class="nv">names</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="nv">$i</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>@</code>和<code>*</code>放不放在双引号之中，是有差别的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">activities</span><span class="o">=(</span> swimming <span class="s2">&#34;water skiing&#34;</span> canoeing <span class="s2">&#34;white-water rafting&#34;</span> surfing <span class="o">)</span>
+</span></span><span class="line"><span class="cl">$ <span class="k">for</span> act in <span class="si">${</span><span class="nv">activities</span><span class="p">[@]</span><span class="si">}</span><span class="p">;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="k">do</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="nb">echo</span> <span class="s2">&#34;Activity: </span><span class="nv">$act</span><span class="s2">&#34;</span><span class="p">;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Activity: swimming
+</span></span><span class="line"><span class="cl">Activity: water
+</span></span><span class="line"><span class="cl">Activity: skiing
+</span></span><span class="line"><span class="cl">Activity: canoeing
+</span></span><span class="line"><span class="cl">Activity: white-water
+</span></span><span class="line"><span class="cl">Activity: rafting
+</span></span><span class="line"><span class="cl">Activity: surfing
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的例子中，数组<code>activities</code>实际包含5个成员，但是<code>for...in</code>循环直接遍历<code>${activities[@]}</code>，导致返回7个结果。为了避免这种情况，一般把<code>${activities[@]}</code>放在双引号之中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="k">for</span> act in <span class="s2">&#34;</span><span class="si">${</span><span class="nv">activities</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="k">do</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="nb">echo</span> <span class="s2">&#34;Activity: </span><span class="nv">$act</span><span class="s2">&#34;</span><span class="p">;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Activity: swimming
+</span></span><span class="line"><span class="cl">Activity: water skiing
+</span></span><span class="line"><span class="cl">Activity: canoeing
+</span></span><span class="line"><span class="cl">Activity: white-water rafting
+</span></span><span class="line"><span class="cl">Activity: surfing
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，<code>${activities[@]}</code>放在双引号之中，遍历就会返回正确的结果。</p>
+<p><code>${activities[*]}</code>不放在双引号之中，跟<code>${activities[@]}</code>不放在双引号之中是一样的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="k">for</span> act in <span class="si">${</span><span class="nv">activities</span><span class="p">[*]</span><span class="si">}</span><span class="p">;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="k">do</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="nb">echo</span> <span class="s2">&#34;Activity: </span><span class="nv">$act</span><span class="s2">&#34;</span><span class="p">;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Activity: swimming
+</span></span><span class="line"><span class="cl">Activity: water
+</span></span><span class="line"><span class="cl">Activity: skiing
+</span></span><span class="line"><span class="cl">Activity: canoeing
+</span></span><span class="line"><span class="cl">Activity: white-water
+</span></span><span class="line"><span class="cl">Activity: rafting
+</span></span><span class="line"><span class="cl">Activity: surfing
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>${activities[*]}</code>放在双引号之中，所有成员就会变成单个字符串返回。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="k">for</span> act in <span class="s2">&#34;</span><span class="si">${</span><span class="nv">activities</span><span class="p">[*]</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="k">do</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="nb">echo</span> <span class="s2">&#34;Activity: </span><span class="nv">$act</span><span class="s2">&#34;</span><span class="p">;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Activity: swimming water skiing canoeing white-water rafting surfing
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>所以，<strong>拷贝一个数组</strong>的最方便方法，就是写成下面这样。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">hobbies</span><span class="o">=(</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">activities</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，数组<code>activities</code>被拷贝给了另一个数组<code>hobbies</code>。</p>
+<p>这种写法也可以用来为新数组添加成员。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">hobbies</span><span class="o">=(</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">activities</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&#34;</span> diving <span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，新数组<code>hobbies</code>在数组<code>activities</code>的所有成员之后，又添加了一个成员。</p>
+<h3 id="默认位置">默认位置
+</h3><p>如果读取数组成员时，没有读取指定哪一个位置的成员，<strong>默认使用<code>0</code>号位置</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">declare</span> -a foo
+</span></span><span class="line"><span class="cl">$ <span class="nv">foo</span><span class="o">=</span>A
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">foo</span><span class="p">[0]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">A
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，<code>foo</code>是一个数组，赋值的时候不指定位置，实际上是给<code>foo[0]</code>赋值。</p>
+<p>引用一个不带下标的数组变量，则引用的是<code>0</code>号位置的数组元素。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">foo</span><span class="o">=(</span>a b c d e f<span class="o">)</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">foo</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">a
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="nv">$foo</span>
+</span></span><span class="line"><span class="cl">a
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，引用数组元素的时候，没有指定位置，结果返回的是<code>0</code>号位置。</p>
+<h2 id="数组的长度">数组的长度
+</h2><p>要想知道数组的长度（即一共包含多少成员），可以使用下面两种语法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="si">${#</span><span class="nv">array</span><span class="p">[*]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="si">${#</span><span class="nv">array</span><span class="p">[@]</span><span class="si">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面是一个例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ a<span class="o">[</span>100<span class="o">]=</span>foo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${#</span><span class="nv">a</span><span class="p">[*]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${#</span><span class="nv">a</span><span class="p">[@]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="m">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，把字符串赋值给<code>100</code>位置的数组元素，这时的数组只有一个元素。</p>
+<p>注意，<strong>如果用这种语法去读取具体的数组成员，就会返回该成员的字符串长度</strong>。这一点必须小心。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ a<span class="o">[</span>100<span class="o">]=</span>foo
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${#</span><span class="nv">a</span><span class="p">[100]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="m">3</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，<code>${#a[100]}</code>实际上是返回数组第100号成员<code>a[100]</code>的值（<code>foo</code>）的字符串长度。</p>
+<h2 id="提取数组序号">提取数组序号
+</h2><p><code>${!array[@]}</code>或<code>${!array[*]}</code>，可以返回数组的成员序号，即<strong>哪些位置是有值的</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">arr</span><span class="o">=([</span>5<span class="o">]=</span>a <span class="o">[</span>9<span class="o">]=</span>b <span class="o">[</span>23<span class="o">]=</span>c<span class="o">)</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="p">!arr[@]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="m">5</span> <span class="m">9</span> <span class="m">23</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="p">!arr[*]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="m">5</span> <span class="m">9</span> <span class="m">23</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，数组的5、9、23号位置有值。</p>
+<p>利用这个语法，也可以通过<code>for</code>循环遍历数组。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">arr</span><span class="o">=(</span>a b c d<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> i in <span class="si">${</span><span class="p">!arr[@]</span><span class="si">}</span><span class="p">;</span><span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="si">${</span><span class="nv">arr</span><span class="p">[i]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="提取数组成员">提取数组成员
+</h2><p><code>${array[@]:position:length}</code>的语法可以提取数组成员。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">food</span><span class="o">=(</span> apples bananas cucumbers dates eggs fajitas grapes <span class="o">)</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">food</span><span class="p">[@]:</span><span class="nv">1</span><span class="p">:</span><span class="nv">1</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">bananas
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">food</span><span class="p">[@]:</span><span class="nv">1</span><span class="p">:</span><span class="nv">3</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">bananas cucumbers dates
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，<code>${food[@]:1:1}</code>返回从数组1号位置开始的1个成员，<code>${food[@]:1:3}</code>返回从1号位置开始的3个成员。</p>
+<p>如果<strong>省略长度参数</strong><code>length</code>，则<strong>返回从指定位置开始的所有成员</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">food</span><span class="p">[@]:</span><span class="nv">4</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">eggs fajitas grapes
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子返回从4号位置开始到结束的所有成员。</p>
+<h2 id="追加数组成员">追加数组成员
+</h2><p>数组末尾追加成员，可以使用<code>+=</code>赋值运算符。它能够<strong>自动地把值追加到数组末尾</strong>。否则，就需要知道数组的最大序号，比较麻烦。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">foo</span><span class="o">=(</span>a b c<span class="o">)</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">foo</span><span class="p">[@]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">a b c
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ <span class="nv">foo</span><span class="o">+=(</span>d e f<span class="o">)</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">foo</span><span class="p">[@]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">a b c d e f
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="删除数组">删除数组
+</h2><p>删除一个数组成员，使用<code>unset</code>命令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">foo</span><span class="o">=(</span>a b c d e f<span class="o">)</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">foo</span><span class="p">[@]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">a b c d e f
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ <span class="nb">unset</span> foo<span class="o">[</span>2<span class="o">]</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">foo</span><span class="p">[@]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">a b d e f
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，删除了数组中的第三个元素，下标为2。</p>
+<p>将某个成员设为空值，可以从返回值中“隐藏”这个成员。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">foo</span><span class="o">=(</span>a b c d e f<span class="o">)</span>
+</span></span><span class="line"><span class="cl">$ foo<span class="o">[</span>1<span class="o">]=</span><span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">foo</span><span class="p">[@]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">a c d e f
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，将数组的第二个成员设为空字符串，数组的返回值中，这个成员就“隐藏”了。</p>
+<p>注意，<strong>这里是“隐藏”，而不是删除</strong>，因为这个成员仍然存在，只是值变成了空值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">foo</span><span class="o">=(</span>a b c d e f<span class="o">)</span>
+</span></span><span class="line"><span class="cl">$ foo<span class="o">[</span>1<span class="o">]=</span><span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${#</span><span class="nv">foo</span><span class="p">[@]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="m">6</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="p">!foo[@]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="m">0</span> <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，第二个成员设为空值后，数组仍然包含6个成员。</p>
+<p>由于空值就是空字符串，所以下面这样写也有隐藏效果，但是不建议这种写法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ foo<span class="o">[</span>1<span class="o">]=</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的写法也相当于“隐藏”了数组的第二个成员。</p>
+<p>直接将数组变量赋值为空字符串，相当于“隐藏”数组的第一个成员。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">foo</span><span class="o">=(</span>a b c d e f<span class="o">)</span>
+</span></span><span class="line"><span class="cl">$ <span class="nv">foo</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">foo</span><span class="p">[@]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">b c d e f
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的写法相当于“隐藏”了数组的第一个成员。</p>
+<p><code>unset ArrayName</code>可以<strong>清空整个数组</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">unset</span> ARRAY
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">ARRAY</span><span class="p">[*]</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">&lt;--no output--&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="关联数组">关联数组
+</h2><p>Bash 的新版本支持关联数组。关联数组<strong>使用字符串而不是整数作为数组索引</strong>。</p>
+<p><code>declare -A</code>可以<strong>声明关联数组</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">declare</span> -A colors
+</span></span><span class="line"><span class="cl">colors<span class="o">[</span><span class="s2">&#34;red&#34;</span><span class="o">]=</span><span class="s2">&#34;#ff0000&#34;</span>
+</span></span><span class="line"><span class="cl">colors<span class="o">[</span><span class="s2">&#34;green&#34;</span><span class="o">]=</span><span class="s2">&#34;#00ff00&#34;</span>
+</span></span><span class="line"><span class="cl">colors<span class="o">[</span><span class="s2">&#34;blue&#34;</span><span class="o">]=</span><span class="s2">&#34;#0000ff&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>关联数组必须用带有<code>-A</code>选项的<code>declare</code>命令声明创建。相比之下，整数索引的数组，可以直接使用变量名创建数组，关联数组就不行。</p>
+<p>访问关联数组成员的方式，几乎与整数索引数组相同。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="si">${</span><span class="nv">colors</span><span class="p">[</span><span class="s2">&#34;blue&#34;</span><span class="p">]</span><span class="si">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/bash/">Bash</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/bash_prompt/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_prompt</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/bash_startup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_startup</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/bash_mktemptrap/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_mktemp&amp;trap</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/bash_debug/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_debug</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/bash_setshopt/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_set&amp;shopt</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-cn"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2025 Ch0ser
+    </section>
+    
+    <section class="powerby">
+        
+            © 2023-2025 Ch0ser. All Rights Reserved. <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

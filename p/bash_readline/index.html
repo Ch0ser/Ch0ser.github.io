@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 学习参考的教程为Bash 脚本教程 - 网道，非常感谢开源工作者的贡献！\n如使用到该教程，可随意使用，但请标明出处（Bash 脚本教程 - 网道）。\n笔记汇总在Bash中。\n">
+<title>Bash_readline</title>
+
+<link rel='canonical' href='https://ch0ser.github.io/p/bash_readline/'>
+
+<link rel="stylesheet" href="/scss/style.min.48ce54e3e307e3741d61de84a9b7fd091d2b70c905a608c90a1db85a009feb1b.css"><meta property='og:title' content="Bash_readline">
+<meta property='og:description' content=" 学习参考的教程为Bash 脚本教程 - 网道，非常感谢开源工作者的贡献！\n如使用到该教程，可随意使用，但请标明出处（Bash 脚本教程 - 网道）。\n笔记汇总在Bash中。\n">
+<meta property='og:url' content='https://ch0ser.github.io/p/bash_readline/'>
+<meta property='og:site_name' content='Choser&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Bash' /><meta property='article:published_time' content='2025-10-20T15:35:44&#43;08:00'/><meta property='article:modified_time' content='2025-10-20T15:35:44&#43;08:00'/><meta property='og:image' content='https://ch0ser.github.io/images/Cloud.png' />
+<meta name="twitter:title" content="Bash_readline">
+<meta name="twitter:description" content=" 学习参考的教程为Bash 脚本教程 - 网道，非常感谢开源工作者的贡献！\n如使用到该教程，可随意使用，但请标明出处（Bash 脚本教程 - 网道）。\n笔记汇总在Bash中。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ch0ser.github.io/images/Cloud.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu1777375556697644536.png" width="300"
+                            height="158" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Choser&#39;s Blog</a></h1>
+            <h2 class="site-description">进一寸有进一寸的欢喜</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Ch0ser'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:ch0ser@qq.com'
+                        target="_blank"
+                        title="✉️ Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1760270206847" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5175" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M858.656 192 165.344 192C109.472 192 64 237.44 64 293.312l0 469.376C64 818.56 109.472 864 165.344 864l693.312 0C914.528 864 960 818.56 960 762.688L960 293.312C960 237.44 914.528 192 858.656 192zM858.656 800 165.344 800C144.736 800 128 783.264 128 762.688L128 293.312C128 272.736 144.736 256 165.344 256l684.544 0-307.488 279.808c-14.592 14.56-38.272 14.528-54.752-1.792l-244.256-206.752C229.856 315.84 209.664 317.504 198.272 331.008c-11.424 13.472-9.76 33.664 3.744 45.088l242.304 204.96c19.904 19.904 46.048 29.792 72.032 29.792 25.632 0 51.136-9.632 70.176-28.736L896 300.544l0 462.144C896 783.264 879.264 800 858.656 800z" fill="#5D646F" p-id="5176"></path></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于我</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://ch0ser.github.io/en/" >English</option>
+                                
+                                    <option value="https://ch0ser.github.io/" selected>中文</option>
+                                
+                                    <option value="https://ch0ser.github.io/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#光标移动">光标移动</a></li>
+    <li><a href="#清除屏幕">清除屏幕</a></li>
+    <li><a href="#编辑操作">编辑操作</a></li>
+    <li><a href="#自动补全">自动补全</a></li>
+    <li><a href="#其他快捷键">其他快捷键</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/bash_readline/">
+                
+                    <img src="/images/Cloud.png" loading="lazy" alt="Featured image of post Bash_readline" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" >
+                计算机基础
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/bash_readline/">Bash_readline</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 20, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <blockquote>
+<p>学习参考的教程为<a class="link" href="https://wangdoc.com/bash/"  target="_blank" rel="noopener"
+    >Bash 脚本教程 - 网道</a>，非常感谢开源工作者的贡献！</p>
+<p>如使用到该教程，可随意使用，但请标明出处（<a class="link" href="https://wangdoc.com/bash/"  target="_blank" rel="noopener"
+    >Bash 脚本教程 - 网道</a>）。</p>
+<p>笔记汇总在<a class="link" href="/p/bash/" >Bash</a>中。</p>
+</blockquote>
+<h1 id="bash-行操作">Bash 行操作
+</h1><h2 id="简介">简介
+</h2><p>Bash 内置了 Readline 库，具有这个库提供的很多“行操作”功能，比如命令的自动补全，可以大大加快操作速度。</p>
+<p>这个库默认采用 Emacs 快捷键，也可以改成 Vi 快捷键。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">set</span> -o vi
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面的命令可以改回 Emacs 快捷键。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">set</span> -o emacs
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果想永久性更改编辑模式（Emacs / Vi），可以将命令写在<code>~/.inputrc</code>文件，这个文件是 Readline 的配置文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">set</span> editing-mode vi
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>本章介绍的快捷键都属于 Emacs 模式。Vi 模式的快捷键，读者可以参考 Vi 编辑器的教程。</p>
+<p>Bash 默认开启这个库，但是允许关闭。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ bash --noediting
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面命令中，<code>--noediting</code>参数关闭了 Readline 库，启动的 Bash 就不带有行操作功能。</p>
+<h2 id="光标移动">光标移动
+</h2><p>Readline 提供快速移动光标的快捷键。</p>
+<ul>
+<li><code>Ctrl + a</code>：<strong>移到行首</strong>。</li>
+<li><code>Ctrl + b</code>：向行首移动一个字符，与左箭头作用相同。</li>
+<li><code>Ctrl + e</code>：<strong>移到行尾</strong>。</li>
+<li><code>Ctrl + f</code>：向行尾移动一个字符，与右箭头作用相同。</li>
+<li><code>Alt + f</code>：移动到当前单词的词尾。</li>
+<li><code>Alt + b</code>：移动到当前单词的词首。</li>
+</ul>
+<p>上面快捷键的 Alt 键，也可以用 ESC 键代替。</p>
+<h2 id="清除屏幕">清除屏幕
+</h2><p><code>Ctrl + l</code>快捷键可以<strong>清除屏幕</strong>，即将当前行移到屏幕的第一行，与<code>clear</code>命令作用相同。</p>
+<h2 id="编辑操作">编辑操作
+</h2><p>下面的快捷键可以编辑命令行内容。</p>
+<ul>
+<li><code>Ctrl + d</code>：删除光标位置的字符（delete）。</li>
+<li><code>Ctrl + w</code>：删除光标前面的单词。</li>
+<li><code>Ctrl + t</code>：光标位置的字符与它前面一位的字符交换位置（transpose）。</li>
+<li><code>Alt + t</code>：光标位置的词与它前面一位的词交换位置（transpose）。</li>
+<li><code>Alt + l</code>：将光标位置至词尾转为小写（lowercase）。</li>
+<li><code>Alt + u</code>：将光标位置至词尾转为大写（uppercase）。</li>
+</ul>
+<p>使用<code>Ctrl + d</code>的时候，如果当前行没有任何字符，会导致退出当前 Shell，所以要小心。</p>
+<p>剪切和粘贴快捷键如下。</p>
+<ul>
+<li><code>Ctrl + k</code>：剪切光标位置到行尾的文本。</li>
+<li><code>Ctrl + u</code>：剪切光标位置到行首的文本。</li>
+<li><code>Alt + d</code>：剪切光标位置到词尾的文本。</li>
+<li><code>Alt + Backspace</code>：剪切光标位置到词首的文本。</li>
+<li><code>Ctrl + y</code>：在光标位置粘贴文本。</li>
+</ul>
+<p>同样地，Alt 键可以用 Esc 键代替。</p>
+<h2 id="自动补全">自动补全
+</h2><p>命令输入到一半的时候，可以按一下 Tab 键，Readline 会自动补全命令或路径。比如，输入<code>cle</code>，再按下 Tab 键，Bash 会自动将这个命令补全为<code>clear</code>。</p>
+<p>如果符合条件的命令或路径有多个，就需要连续按两次 Tab 键，Bash 会提示所有符合条件的命令或路径。</p>
+<p>除了命令或路径，Tab 还可以补全其他值。如果一个值以<code>$</code>开头，则按下 Tab 键会补全变量；如果以<code>~</code>开头，则补全用户名；如果以<code>@</code>开头，则补全主机名（hostname），主机名以列在<code>/etc/hosts</code>文件里面的主机为准。</p>
+<p>自动补全相关的快捷键如下。</p>
+<ul>
+<li>Tab：完成自动补全。</li>
+<li><code>Alt + ?</code>：列出可能的补全，与连按两次 Tab 键作用相同。</li>
+<li><code>Alt + /</code>：尝试文件路径补全。</li>
+<li><code>Ctrl + x /</code>：先按<code>Ctrl + x</code>，再按<code>/</code>，等同于<code>Alt + ?</code>，列出可能的文件路径补全。</li>
+<li><code>Alt + !</code>：命令补全。</li>
+<li><code>Ctrl + x !</code>：先按<code>Ctrl + x</code>，再按<code>!</code>，等同于<code>Alt + !</code>，命令补全。</li>
+<li><code>Alt + ~</code>：用户名补全。</li>
+<li><code>Ctrl + x ~</code>：先按<code>Ctrl + x</code>，再按<code>~</code>，等同于<code>Alt + ~</code>，用户名补全。</li>
+<li><code>Alt + $</code>：变量名补全。</li>
+<li><code>Ctrl + x $</code>：先按<code>Ctrl + x</code>，再按<code>$</code>，等同于<code>Alt + $</code>，变量名补全。</li>
+<li><code>Alt + @</code>：主机名补全。</li>
+<li><code>Ctrl + x @</code>：先按<code>Ctrl + x</code>，再按<code>@</code>，等同于<code>Alt + @</code>，主机名补全。</li>
+<li><code>Alt + *</code>：在命令行一次性插入所有可能的补全。</li>
+<li><code>Alt + Tab</code>：尝试用<code>.bash_history</code>里面以前执行命令，进行补全。</li>
+</ul>
+<p>上面的<code>Alt</code>键也可以用 ESC 键代替。</p>
+<h2 id="其他快捷键">其他快捷键
+</h2><ul>
+<li><code>Ctrl + j</code>：等同于回车键（LINEFEED）。</li>
+<li><code>Ctrl + m</code>：等同于回车键（CARRIAGE RETURN）。</li>
+<li><code>Ctrl + o</code>：等同于回车键，并展示操作历史的下一个命令。 </li>
+<li><code>Ctrl + v</code>：将下一个输入的特殊字符变成字面量，比如回车变成<code>^M</code>。</li>
+<li><code>Ctrl + [</code>：<strong>等同于 ESC</strong>。 </li>
+<li><code>Alt + .</code>：<strong>插入上一个命令的最后一个词</strong>。</li>
+<li><code>Alt + _</code>：等同于<code>Alt + .</code>。</li>
+</ul>
+<p>上面的<code>Alt + .</code>快捷键，对于<strong>很长的文件路径</strong>，有时会非常方便。因为 Unix 命令的最后一个参数通常是文件路径。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ mkdir foo_bar
+</span></span><span class="line"><span class="cl">$ <span class="nb">cd</span> <span class="c1">#按下 Alt + .</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，在<code>cd</code>命令后按下<code>Alt + .</code>，就会自动插入<code>foo_bar</code>。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/bash/">Bash</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/bash_prompt/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_prompt</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/bash_startup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_startup</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/bash_mktemptrap/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_mktemp&amp;trap</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/bash_debug/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_debug</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/bash_setshopt/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_set&amp;shopt</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-cn"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2025 Ch0ser
+    </section>
+    
+    <section class="powerby">
+        
+            © 2023-2025 Ch0ser. All Rights Reserved. <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
