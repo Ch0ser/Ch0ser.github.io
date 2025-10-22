@@ -2,23 +2,759 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Posts on Choser&#39;s Blog</title>
-        <link>https://ch0ser.github.io/post/</link>
+        <link>http://localhost:1313/post/</link>
         <description>Recent content in Posts on Choser&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Ch0ser</copyright>
-        <lastBuildDate>Mon, 20 Oct 2025 19:16:32 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Openjpeg_01:CVE-2017-14164</title>
-        <link>https://ch0ser.github.io/p/openjpeg_01cve-2017-14164/</link>
+        <lastBuildDate>Wed, 22 Oct 2025 08:41:06 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>openjpeg_03:CVE-2016-9118</title>
+        <link>http://localhost:1313/p/openjpeg_03cve-2016-9118/</link>
+        <pubDate>Wed, 22 Oct 2025 08:41:06 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/openjpeg_03cve-2016-9118/</guid>
+        <description>&lt;img src="http://localhost:1313/images/SekiroDragon.png" alt="Featured image of post openjpeg_03:CVE-2016-9118" /&gt;&lt;h1 id=&#34;cve-2016-9118&#34;&gt;CVE-2016-9118
+&lt;/h1&gt;&lt;p&gt;本文将介绍&lt;strong&gt;CVE-2016-9118&lt;/strong&gt;这一漏洞的背景、原理和复现方式，仅为个人学习笔记，供大家学习参考。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;申明：本工作是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;A.S.E (AI Code Generation Security Evaluation)&lt;/a&gt;开源项目的一部分，很荣幸能作为contributor参与这一开源项目，为大模型的安全评估做出贡献；&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;漏洞卡片&#34;&gt;漏洞卡片
+&lt;/h2&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;字段&lt;/th&gt;
+          &lt;th&gt;内容&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CVE-ID&lt;/td&gt;
+          &lt;td&gt;CVE-2016-9118&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CWE-ID&lt;/td&gt;
+          &lt;td&gt;CWE-119:Memory Buffer Overflow&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;NVD公开日期&lt;/td&gt;
+          &lt;td&gt;2016-10-30&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;评分&lt;/td&gt;
+          &lt;td&gt;5.3 MEDIUM (CVSS v3)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;影响组件&lt;/td&gt;
+          &lt;td&gt;OpenJPEG (openjp2) ≤ 2.2.0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;受影响模块&lt;/td&gt;
+          &lt;td&gt;openjp2（JPEG2000 编码器）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;漏洞类型&lt;/td&gt;
+          &lt;td&gt;整数溢出 → 堆缓冲区溢出&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;利用后果&lt;/td&gt;
+          &lt;td&gt;远程代码执行 / DoS&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;补丁 Commit&lt;/td&gt;
+          &lt;td&gt;c22cbd8bdf8ff2ae372f94391a4be2d322b36b41 (openjpeg)&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;背景介绍&#34;&gt;背景介绍
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;OpenJPEG（openjp2）是 JPEG 2000（ISO/IEC 15444）的一种开源实现，包含编解码器与命令行工具（opj_compress、opj_decompress 等），广泛用于图像查看器、PDF 渲染器与医疗影像等领域。&lt;/li&gt;
+&lt;li&gt;漏洞位于 PNM（PBM/PGM/PPM）输入处理链，攻击者通过构造异常大的 PNM 尺寸字段诱导整数溢出，从而触发后续像素写入时的堆缓冲区越界。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;漏洞原理分析&#34;&gt;漏洞原理分析
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;触发点（观察到的行为）
+&lt;ul&gt;
+&lt;li&gt;工具函数 pnmtoimage（src/bin/jp2/convert.c）会读取 PNM 文件头并将宽度/高度解析为整型（现有实现使用非安全的 atoi/类似逻辑）。解析后会调用 opj_image_create 分配 image 组件的像素缓冲区。&lt;/li&gt;
+&lt;li&gt;在 PNM 的一种二进制单比特格式（format == 4，PBM binary）中，代码按位读取像素并写入 image-&amp;gt;comps[0].data[i]，但没有在写前对 i 做有效范围检查。&lt;/li&gt;
+&lt;li&gt;若 width 和 height 被解析为非常大的值（或溢出到接近 INT_MAX），则 comp-&amp;gt;w * comp-&amp;gt;h 在计算时会发生整数溢出（在缺乏 size_t 使用或缺乏溢出检查时），导致 opj_calloc 分配的字节数远小于实际像素数。随后 pnmtoimage 对像素的写入会越界，触发 heap-buffer-overflow。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;根本原因（两类问题共同导致）
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;不安全的头部数字解析&lt;/strong&gt;和&lt;strong&gt;缺乏范围/合理上限校验&lt;/strong&gt;：使用 atoi/简单 skip 逻辑会在遇到超长数字时产生溢出或得到不可靠的值；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在分配时没有对乘法（width * height）做无符号/更大类型的溢出检查&lt;/strong&gt;：乘法在有符号整型或窄类型下会 wrap，使得按“像素数”分配的内存明显不足。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;如何被利用（攻击面）
+&lt;ul&gt;
+&lt;li&gt;攻击者构造一个 PNM/PBM 文件，将 width/height 字段设置为极大（例如由许多数字组成的字符串），通过触发解析溢出导致程序分配过小缓冲区，然后在像素读取循环中写出越界数据。越界写可以被利用为 DoS，或在特定条件下触发控制流破坏，导致任意代码执行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;漏洞复现&#34;&gt;漏洞复现
+&lt;/h2&gt;&lt;h3 id=&#34;环境准备&#34;&gt;环境准备
+&lt;/h3&gt;&lt;p&gt;本次复现是在&lt;strong&gt;docker容器环境&lt;/strong&gt;下进行的，保证了环境的精确、纯粹，我们可以随意指定依赖版本，而不会被主机的环境干扰。&lt;/p&gt;
+&lt;p&gt;首先，拉取openjpeg官方github仓库。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone https://github.com/uclouvain/openjpeg.git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后，根据编译所需相关依赖创建docker镜像，注意依赖要尽量贴合当年的环境，以下是dockerfile。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-dockerfile&#34; data-lang=&#34;dockerfile&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;s&#34;&gt; ubuntu:16.04&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 设置非交互式安装&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ENV&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;DEBIAN_FRONTEND&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;noninteractive
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# 安装基础依赖&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;RUN&lt;/span&gt; apt-get update &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get install -y &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    build-essential &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    cmake &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    git &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    clang &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    gcc &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    g++ &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    libc6-dev &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    libtiff5-dev &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    libpng-dev &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    libjpeg-dev &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    zlib1g-dev &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    libssl-dev &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    pkg-config &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    wget &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    vim &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; rm -rf /var/lib/apt/lists/*&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 安装 AddressSanitizer（ASan）支持的编译器（clang）&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;RUN&lt;/span&gt; apt-get update &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get install -y &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    clang-3.8 &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; rm -rf /var/lib/apt/lists/*&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 设置默认编译器为 clang（用于 ASan）&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ENV&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CC&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;clang-3.8&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ENV&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CXX&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;clang++-3.8&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 设置工作目录&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;WORKDIR&lt;/span&gt;&lt;span class=&#34;s&#34;&gt; /workspace&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 保持容器运行&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;CMD&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;tail&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;-f&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;/dev/null&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;根据dockerfile，我们创建镜像。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 在dockerfile所在目录下执行&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker build -t openjpeg_cve-2016-9118 .
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 检查是否创建成功&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker images
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 返回的images中含openjpeg_cve-2016-9118即创建完成&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;REPOSITORY                       TAG       IMAGE ID       CREATED        SIZE
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;openjpeg_cve-2016-9118          latest    07ad62f9e5e6   &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; weeks ago    800MB
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;至此环境准备就完成了。&lt;/p&gt;
+&lt;h3 id=&#34;编译触发&#34;&gt;编译/触发
+&lt;/h3&gt;&lt;p&gt;首先，使用先前创建的镜像启动容器，建议使用docker容器&lt;strong&gt;挂载宿主机目录&lt;/strong&gt;，方便进行文件的观测和修改。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 挂载目录替换成自己宿主机的实际路径，保证openjpeg项目文件夹也在其下&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -it --rm --name openjpeg_cve-2016-9118 &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -v /mnt/d/A.S.E/benchmark-project/openjpeg:/workspace &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  openjpeg_cve-2016-9118   /bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# -rm 选项表示容器退出后自动删除&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# --name 指定容器名字&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /bin/bash 指定命令行环境&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;宿主机目录会被挂载到容器的&lt;code&gt;/workspace&lt;/code&gt;目录下，注意所有改变也会同步到宿主机目录上。&lt;/p&gt;
+&lt;p&gt;进入容器后，我们先将项目切换到修复前版本。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; openjpeg
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 切换到修复前一个commit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git checkout c22cbd8bdf8ff2ae372f94391a4be2d322b36b41^
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;接着我们编译出供漏洞复现使用的组件，注意需要启用 ASan 与 debug 编译标志以获得清晰崩溃信息，以下是我撰写使用的编译脚本setup.sh。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/usr/bin/env bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -e
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /workspace/openjpeg
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;BUILD_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;build_ASan&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 1. 完全清理&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rm -rf &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BUILD_DIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BUILD_DIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2. 强制 clang + ASan 渗透到所有阶段&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CC&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;clang
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CXX&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;clang++
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CFLAGS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;-fsanitize=address -fno-omit-frame-pointer -g -O0&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CXXFLAGS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CFLAGS&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;LDFLAGS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;-fsanitize=address&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 3. 配置 + 编译&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BUILD_DIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cmake .. &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_BUILD_TYPE&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Debug &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_C_COMPILER&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CC&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_CXX_COMPILER&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CXX&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_C_FLAGS&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CFLAGS&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_CXX_FLAGS&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CXXFLAGS&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_EXE_LINKER_FLAGS&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$LDFLAGS&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DBUILD_SHARED_LIBS&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;OFF &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DBUILD_THIRDPARTY&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;ON
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cmake --build . -- -j&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;nproc&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;=== Build finished ===&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Executable: &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/bin/opj_compress&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2016-9118_01.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;编译成功&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;执行完毕后，需要用到的编码器组件&lt;code&gt;opj_compress&lt;/code&gt;应当在以下路径。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 检查opj_compress是否存在&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;root@1877c59a83ec:/workspace# ls /workspace/openjpeg/build_ASan/bin/opj_compress
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/workspace/openjpeg/build_ASan/bin/opj_compress
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;接下来就可以结合poc触发文件，参考bug_report的中的漏洞触发方式进行漏洞复现。&lt;/p&gt;
+&lt;p&gt;在report中，触发命令格式如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# opj_compress 编码器路径&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# $FILE poc文件路径&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# null.j2k 编码输出文件路径&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/workspace/openjpeg/build_ASan/bin/opj_compress -i /workspace/poc/2016-9118.pgm -o /tmp/null.j2k 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;我使用的poc文件链接附上：&lt;a class=&#34;link&#34; href=&#34;https://github.com/Ch0ser/CVE-POC/blob/main/openjpeg/2016-9118.pgm&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;2016-9118.pgm&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;调整路径并执行后成功触发漏洞，显著标志为 &lt;code&gt;heap-buffer-overflow&lt;/code&gt;，具体结果如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2016-9118_02.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;触发漏洞&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;46
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;47
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;48
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;49
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;50
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;51
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;52
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;53
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;54
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;root@2ec9c0b46681:/workspace# /workspace/openjpeg/build_ASan/bin/opj_compress -i /workspace/poc/2016-9118.pgm -o /tmp/null.j2k 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;=================================================================&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;1843&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60200000eff4 at pc 0x000000515457 bp 0x7fff32741530 sp 0x7fff32741528
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;WRITE of size &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; at 0x60200000eff4 thread T0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#0 0x515456  (/workspace/openjpeg/build_ASan/bin/opj_compress+0x515456)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#1 0x4f9cf3  (/workspace/openjpeg/build_ASan/bin/opj_compress+0x4f9cf3)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#2 0x79a0bcdf183f  (/lib/x86_64-linux-gnu/libc.so.6+0x2083f)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#3 0x427788  (/workspace/openjpeg/build_ASan/bin/opj_compress+0x427788)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;0x60200000eff4 is located &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; bytes to the right of 4-byte region &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;0x60200000eff0,0x60200000eff4&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;allocated by thread T0 here:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#0 0x4c7a40  (/workspace/openjpeg/build_ASan/bin/opj_compress+0x4c7a40)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#1 0x79a0bde8248f  (/workspace/openjpeg/build_ASan/bin/libopenjp2.so.7+0x19f48f)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#2 0x79a0bdd1ad42  (/workspace/openjpeg/build_ASan/bin/libopenjp2.so.7+0x37d42)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#3 0x51433b  (/workspace/openjpeg/build_ASan/bin/opj_compress+0x51433b)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#4 0x4f9cf3  (/workspace/openjpeg/build_ASan/bin/opj_compress+0x4f9cf3)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#5 0x79a0bcdf183f  (/lib/x86_64-linux-gnu/libc.so.6+0x2083f)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;SUMMARY: AddressSanitizer: heap-buffer-overflow &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;/workspace/openjpeg/build_ASan/bin/opj_compress+0x515456&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Shadow bytes around the buggy address:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  0x0c047fff9da0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  0x0c047fff9db0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  0x0c047fff9dc0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  0x0c047fff9dd0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  0x0c047fff9de0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa &lt;span class=&#34;nv&#34;&gt;fa&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&amp;gt;0x0c047fff9df0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;04&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;fa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  0x0c047fff9e00: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  0x0c047fff9e10: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  0x0c047fff9e20: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  0x0c047fff9e30: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  0x0c047fff9e40: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Shadow byte legend &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;one shadow byte represents &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; application bytes&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Addressable:           &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Partially addressable: &lt;span class=&#34;m&#34;&gt;01&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;02&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;03&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;04&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;05&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;06&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;07&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Heap left redzone:       fa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Heap right redzone:      fb
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Freed heap region:       fd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Stack left redzone:      f1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Stack mid redzone:       f2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Stack right redzone:     f3
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Stack partial redzone:   f4
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Stack after &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;:      f5
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Stack use after scope:   f8
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Global redzone:          f9
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Global init order:       f6
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Poisoned by user:        f7
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Container overflow:      &lt;span class=&#34;nb&#34;&gt;fc&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Array cookie:            ac
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Intra object redzone:    bb
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  ASan internal:           fe
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Left alloca redzone:     ca
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Right alloca redzone:    &lt;span class=&#34;nv&#34;&gt;cb&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;1843&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;ABORTING
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;当我们切换到修复后版本尝试漏洞复现：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; openjpeg
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git checkout c22cbd8bdf8ff2ae372f94391a4be2d322b36b41
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ..
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./setup.sh &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; /workspace/openjpeg/build_ASan/bin/opj_compress -i /workspace/poc/2016-9118.pgm -o /tmp/null.j2k 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这次就被补丁提前拦截了，检测到缓冲区空间不足，并没有再进行强行分配。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2016-9118_03.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;补丁生效&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;===&lt;/span&gt; Build &lt;span class=&#34;nv&#34;&gt;finished&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;===&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Executable: /workspace/openjpeg/build_ASan/bin/opj_compress
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pnmtoimage:Image 2147483647x2147483647 too big!
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Unable to load pnm file
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;小结：&lt;/p&gt;
+&lt;p&gt;在修复前版本：opj_compress 加载含恶意尺寸字段的 PNM，会出现 AddressSanitizer 报告的 heap-buffer-overflow（详见你在笔记中已有的 ASan 输出截取）；&lt;/p&gt;
+&lt;p&gt;在修复后版本，修补逻辑会在更早阶段拒绝载入该 PNM，给出 &amp;ldquo;pnmtoimage:Image %dx%d too big!&amp;rdquo; 并返回错误。&lt;/p&gt;
+&lt;h3 id=&#34;poc分析&#34;&gt;PoC分析
+&lt;/h3&gt;&lt;p&gt;我们来分析一下PoC文件是如何触发漏洞的：&lt;/p&gt;
+&lt;p&gt;结合前文的原理分析，我们知道：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;PoC 的关键是 &lt;strong&gt;PNM 文件头中宽度/高度字段含有极长数字&lt;/strong&gt;（例如 &amp;ldquo;555555555544\n&amp;rdquo; 之类），导致用于存储宽/高的整型被设置为接近 INT_MAX（或解析行为在实现上产生类似结果）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在 convert.c 的 format == 4 分支中（PBM binary），代码示例如下（来源于 issue 中的片段）：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;format&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kt&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;uc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;bit&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;uc&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bit&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;n&#34;&gt;bit&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;n&#34;&gt;uc&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;getc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;image&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;comps&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;].&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;uc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;?&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;255&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;问题在于没有在写入前检查 i 是否小于实际分配的元素数（即 comp-&amp;gt;w * comp-&amp;gt;h）；如果 comp-&amp;gt;w * comp-&amp;gt;h 溢出并返回小值，就会写越界。&lt;/li&gt;
+&lt;li&gt;在 PoC 的 ASan 输出中可以看到：宽和高都为 2147483647（0x7fffffff），乘法在 32-bit 上溢出导致分配不正确，从而导致之后的写越界。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;补丁分析&#34;&gt;补丁分析
+&lt;/h2&gt;&lt;p&gt;修复commit详见: &lt;a class=&#34;link&#34; href=&#34;https://github.com/uclouvain/openjpeg/commit/c22cbd8bdf8ff2ae372f94391a4be2d322b36b41&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/uclouvain/openjpeg/commit/c22cbd8bdf8ff2ae372f94391a4be2d322b36b41&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;主要改动&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;src/bin/jp2/convert.c
+&lt;ul&gt;
+&lt;li&gt;新增包含 limits.h。&lt;/li&gt;
+&lt;li&gt;在解析完 PNM 头并得到 header_info.width/height 后，增加检查：
+&lt;ul&gt;
+&lt;li&gt;if (header_info.height != 0 &amp;amp;&amp;amp; header_info.width &amp;gt; INT_MAX / header_info.height) { fprintf(stderr, &amp;ldquo;pnmtoimage:Image %dx%d too big!\n&amp;rdquo;, &amp;hellip;); fclose(fp); return NULL; }&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;这会在 header 的宽高导致乘法可能溢出到 int 范围时提前拒绝载入。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;src/lib/openjp2/image.c
+&lt;ul&gt;
+&lt;li&gt;在 opj_image_create 中，分配 comp-&amp;gt;data 之前增加保护：
+&lt;ul&gt;
+&lt;li&gt;if (comp-&amp;gt;h != 0 &amp;amp;&amp;amp; (OPJ_SIZE_T)comp-&amp;gt;w &amp;gt; SIZE_MAX / comp-&amp;gt;h) { opj_image_destroy(image); return NULL; }&lt;/li&gt;
+&lt;li&gt;之后再用 (OPJ_SIZE_T)comp-&amp;gt;w * comp-&amp;gt;h 作为 calloc 的第一个参数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;这可防止在尺寸乘积发生无符号整数溢出（size_t）时进行错误分配。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;为什么能修复问题&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一处（convert.c）&lt;strong&gt;在更早阶段拒绝载入会导致乘法溢出的问题样本&lt;/strong&gt;，不再进入后续内存分配/像素写入阶段。&lt;/li&gt;
+&lt;li&gt;第二处（image.c）通过&lt;strong&gt;在分配前做乘法溢出检测&lt;/strong&gt;，堵住了如果有其它路径绕过前述检查时仍然发生溢出分配的可能性；并&lt;strong&gt;把乘法用更宽的无符号类型计算&lt;/strong&gt;，避免类型窄化时的 wrap。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;补丁的局限与建议&lt;/p&gt;
+&lt;p&gt;补丁使用了 INT_MAX 检查并打印 stderr，这能快速阻断攻击样本，但：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;注释中提到“此限制可以通过使用 size_t 消除”——更稳健的做法是统一使用 size_t/OPJ_SIZE_T 做所有尺寸与空间计算，并在解析阶段做严格的范围检查。&lt;/li&gt;
+&lt;li&gt;当前补丁在遇到错误时用 fprintf(stderr, &amp;hellip;) 和返回 NULL；更规范的做法是走项目的事件管理（event manager）/错误回调路径以统一错误处理（commit 中也保留了 TODO）。&lt;/li&gt;
+&lt;li&gt;还应当在头部解析阶段使用更安全的解析函数（strtol/strtoull）并检查 ERANGE，以避免依赖 atoi 行为。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;复现镜像&#34;&gt;复现镜像
+&lt;/h2&gt;&lt;p&gt;以上复现过程已打包为docker镜像，可通过以下命令拉取：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker pull choser/openjpeg_cve-2016-9118:latest
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;内含：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;openjpeg（项目文件夹）&lt;/li&gt;
+&lt;li&gt;setup.sh&lt;/li&gt;
+&lt;li&gt;image_status_check.sh&lt;/li&gt;
+&lt;li&gt;test_case.sh&lt;/li&gt;
+&lt;li&gt;poc.sh&lt;/li&gt;
+&lt;li&gt;poc文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;首先进入项目文件夹，按需切换到修复前/后版本：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; openjpeg
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 切换到修复前一个commit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git checkout c22cbd8bdf8ff2ae372f94391a4be2d322b36b41^
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 切换到修复commit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git checkout c22cbd8bdf8ff2ae372f94391a4be2d322b36b41
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后按顺序执行四个脚本，即可复现和验证漏洞，预期结果为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 在修复前/后两个版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./setup.sh &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; ./image_status_check.sh &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; ./test_case.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 都应成功编译，并且可执行文件通过基本功能验证&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;===&lt;/span&gt; Build &lt;span class=&#34;nv&#34;&gt;finished&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;===&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Executable: /workspace/openjpeg/build_ASan/bin/opj_compress
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;A.S.E&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; image startup successfully
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;A.S.E&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;case&lt;/span&gt; passed
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 在修复前/后版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./poc.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 修复前版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;A.S.E&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; vulnerability found
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 修复后版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;A.S.E&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; vulnerability not found
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;总结和启示&#34;&gt;总结和启示
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;本漏洞是“整数溢出→错误内存分配→写越界”的经典链式问题实例。防御要点是：
+&lt;ul&gt;
+&lt;li&gt;在所有外部输入（文本头字段、文件元数据）进行更严格的解析与范围校验；&lt;/li&gt;
+&lt;li&gt;在做内存分配前用合适的宽类型（size_t）和溢出检查（例如 a &amp;gt; SIZE_MAX / b）验证乘法安全；&lt;/li&gt;
+&lt;li&gt;在实际写入内存前再次检查索引是否在已分配的范围内（“防御性编程”），并在读取操作上做好 EOF/错误检查；&lt;/li&gt;
+&lt;li&gt;统一和改进错误报告机制，避免直接 fprintf 导致库用户行为异常。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;修补这类问题通常需要“多层防护”：既在输入解析阶段拒绝非法尺寸，也在分配阶段做最终防护。commit 做了这两处阻断，因此修复是合理且有效的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;参考链接&#34;&gt;参考链接
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;NVD: &lt;a class=&#34;link&#34; href=&#34;https://nvd.nist.gov/vuln/detail/CVE-2016-9118&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;NVD - CVE-2016-9118&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Issue: &lt;a class=&#34;link&#34; href=&#34;https://github.com/uclouvain/openjpeg/issues/861&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;uclouvain/openjpeg#861&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix commit: &lt;a class=&#34;link&#34; href=&#34;https://github.com/uclouvain/openjpeg/commit/c22cbd8bdf8ff2ae372f94391a4be2d322b36b41&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/uclouvain/openjpeg/commit/c22cbd8bdf8ff2ae372f94391a4be2d322b36b41&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;项目主页: &lt;a class=&#34;link&#34; href=&#34;https://github.com/uclouvain/openjpeg&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/uclouvain/openjpeg&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>openjpeg_01:CVE-2017-14164</title>
+        <link>http://localhost:1313/p/openjpeg_01cve-2017-14164/</link>
         <pubDate>Mon, 20 Oct 2025 19:16:32 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/openjpeg_01cve-2017-14164/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/SekiroDragon.png" alt="Featured image of post Openjpeg_01:CVE-2017-14164" /&gt;&lt;h1 id=&#34;cve-2017-14164&#34;&gt;CVE-2017-14164
+        <guid>http://localhost:1313/p/openjpeg_01cve-2017-14164/</guid>
+        <description>&lt;img src="http://localhost:1313/images/SekiroDragon.png" alt="Featured image of post openjpeg_01:CVE-2017-14164" /&gt;&lt;h1 id=&#34;cve-2017-14164&#34;&gt;CVE-2017-14164
 &lt;/h1&gt;&lt;p&gt;本文将介绍&lt;strong&gt;CVE-2017-14164&lt;/strong&gt;这一漏洞的背景、原理和复现方式，仅为个人学习笔记，供大家学习参考。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;申明：本工作是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;A.S.E (AI Code Generation Security Evaluation)&lt;/a&gt;开源项目的一部分，很荣幸能作为contributor参与这一开源项目，为大模型的安全评估做出贡献；&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;漏洞卡片&#34;&gt;漏洞卡片
@@ -325,7 +1061,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Executable: &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/bin/opj_compress&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2017-14164_01.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2017-14164_01.png&#34;
 	
 	
 	
@@ -367,7 +1103,7 @@
 &lt;/div&gt;&lt;p&gt;我使用的poc文件链接附上：&lt;a class=&#34;link&#34; href=&#34;https://github.com/Ch0ser/CVE-POC/tree/d9832a2b456fe8b02e7fb0b64f9a71d34f3f521f/openjpeg&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;2017-14164.tif&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;调整路径并执行后成功触发漏洞，显著标志为 &lt;code&gt;heap-buffer-overflow&lt;/code&gt;，具体结果如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2017-14164_02.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2017-14164_02.png&#34;
 	
 	
 	
@@ -704,20 +1440,571 @@
 </description>
         </item>
         <item>
-        <title>Openjpeg_02:CVE-2016-7445</title>
-        <link>https://ch0ser.github.io/p/openjpeg_02cve-2016-7445/</link>
+        <title>openjpeg_02:CVE-2016-7445</title>
+        <link>http://localhost:1313/p/openjpeg_02cve-2016-7445/</link>
         <pubDate>Mon, 20 Oct 2025 19:10:06 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/openjpeg_02cve-2016-7445/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/SekiroDragon.png" alt="Featured image of post Openjpeg_02:CVE-2016-7445" /&gt;</description>
+        <guid>http://localhost:1313/p/openjpeg_02cve-2016-7445/</guid>
+        <description>&lt;img src="http://localhost:1313/images/SekiroDragon.png" alt="Featured image of post openjpeg_02:CVE-2016-7445" /&gt;&lt;h1 id=&#34;cve-2016-7445&#34;&gt;CVE-2016-7445
+&lt;/h1&gt;&lt;p&gt;本文将介绍&lt;strong&gt;CVE-2016-7445&lt;/strong&gt;这一漏洞的背景、原理和复现方式，仅为个人学习笔记，供大家学习参考。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;申明：本工作是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;A.S.E (AI Code Generation Security Evaluation)&lt;/a&gt;开源项目的一部分，很荣幸能作为contributor参与这一开源项目，为大模型的安全评估做出贡献；&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;漏洞卡片&#34;&gt;漏洞卡片
+&lt;/h2&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;字段&lt;/th&gt;
+          &lt;th&gt;内容&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CVE-ID&lt;/td&gt;
+          &lt;td&gt;CVE-2016-7445&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CWE-ID&lt;/td&gt;
+          &lt;td&gt;CWE-476:NULL Pointer Dereference&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;NVD公开日期&lt;/td&gt;
+          &lt;td&gt;2016-10-03&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;评分&lt;/td&gt;
+          &lt;td&gt;7.5 HIGH (CVSS v3)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;影响组件&lt;/td&gt;
+          &lt;td&gt;OpenJPEG (openjp2) ≤ 2.2.0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;受影响模块&lt;/td&gt;
+          &lt;td&gt;PNM/PPM 文件读取相关代码（命令行工具中的 src/bin/jp2/convert.c）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;漏洞类型&lt;/td&gt;
+          &lt;td&gt;未做充分校验导致的 NULL 指针解引用&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;利用后果&lt;/td&gt;
+          &lt;td&gt;崩溃（拒绝服务），在图像处理管道上可被恶意或畸形图片触发&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;补丁 Commit&lt;/td&gt;
+          &lt;td&gt;f053508f6fc26aa95839f747bc7cbf257bd43996 (openjpeg)&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;背景介绍&#34;&gt;背景介绍
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;OpenJPEG（openjp2）是 JPEG 2000（ISO/IEC 15444）的一种开源实现，包含编解码器与命令行工具（opj_compress、opj_decompress 等），广泛用于图像查看器、PDF 渲染器与医疗影像等领域。&lt;/li&gt;
+&lt;li&gt;PNM/PPM 的文本头部需要按顺序解析宽、高、最大值（depth）等字段；处理这些文本字段时的健壮性直接关系到对畸形输入的安全性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;漏洞原理分析&#34;&gt;漏洞原理分析
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;触发点（观察到的行为）
+&lt;ul&gt;
+&lt;li&gt;在用 opj_compress 读取畸形的 PPM/PNM 文件头时，解析函数在调用 skip_int / skip_white 之类的 辅助函数 进行跳过空白和解析整数后，没有对返回结果进行充分校验。报告与 ASan 输出显示崩溃发生在 convert.c 的 skip_white（原 issue 报告定位为 convert.c:1331），即对空指针进行了读取从而触发 SEGV。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;根本原因
+&lt;ul&gt;
+&lt;li&gt;根本原因是 PNM/PPM 头部解析流程&lt;strong&gt;对中间返回值&lt;/strong&gt;（指向解析缓冲区当前位置的 char*）&lt;strong&gt;的信任&lt;/strong&gt;：当 skip_int 解析失败或到达输入末尾时，返回的指针可能为 NULL 或不再有效，而后续代码没有检测这一情况，继续在该指针上调用 skip_white/再次 skip_int 等操作，导致 NULL 指针解引用（CWE-476）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;如何被利用（攻击面）
+&lt;ul&gt;
+&lt;li&gt;攻击者只需提供一个特制/畸形的 PPM（PNM） 文件并诱使目标程序（使用受影响的 openjpeg/opj_compress）去读取该文件，即可触发崩溃（拒绝服务）。因此攻击面是所有接受或处理不受信任 PNM/PPM 输入的场景（命令行工具、图像处理服务、批量转换管道等）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;漏洞复现&#34;&gt;漏洞复现
+&lt;/h2&gt;&lt;h3 id=&#34;环境准备&#34;&gt;环境准备
+&lt;/h3&gt;&lt;p&gt;本次复现是在&lt;strong&gt;docker容器环境&lt;/strong&gt;下进行的，保证了环境的精确、纯粹，我们可以随意指定依赖版本，而不会被主机的环境干扰。&lt;/p&gt;
+&lt;p&gt;首先，拉取openjpeg官方github仓库。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone https://github.com/uclouvain/openjpeg.git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后，根据编译所需相关依赖创建docker镜像，注意依赖要尽量贴合当年的环境，以下是我使用的dockerfile内容。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-dockerfile&#34; data-lang=&#34;dockerfile&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;#!/usr/bin/env bash&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -e&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /workspace/openjpeg&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;BUILD_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;build_ASan&amp;#34;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 1. 完全清理&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;rm -rf &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BUILD_DIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;mkdir &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BUILD_DIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 2. 强制 clang + ASan 渗透到所有阶段&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CC&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;clang&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CXX&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;clang++&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CFLAGS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;-fsanitize=address -fno-omit-frame-pointer -g -O0&amp;#34;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CXXFLAGS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CFLAGS&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;LDFLAGS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;-fsanitize=address&amp;#34;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 3. 配置 + 编译&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BUILD_DIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;cmake .. &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_BUILD_TYPE&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Debug &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_C_COMPILER&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CC&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_CXX_COMPILER&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CXX&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_C_FLAGS&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CFLAGS&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_CXX_FLAGS&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CXXFLAGS&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_EXE_LINKER_FLAGS&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$LDFLAGS&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DBUILD_SHARED_LIBS&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;OFF &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DBUILD_THIRDPARTY&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;ON&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;cmake --build . -- -j&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;nproc&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;=== Build finished ===&amp;#34;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Executable: &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/bin/opj_compress&amp;#34;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;根据dockerfile，我们创建镜像。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 在dockerfile所在目录下执行&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker build -t openjpeg_cve-2016-7445 .
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 检查是否创建成功&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker images
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 返回的images中含openjpeg_cve-2016-7445即创建完成&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;REPOSITORY                       TAG       IMAGE ID       CREATED        SIZE
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;openjpeg_cve-2016-7445          latest    07ad62f9e5e6   &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; weeks ago    800MB
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;至此环境准备就完成了。&lt;/p&gt;
+&lt;h3 id=&#34;编译触发&#34;&gt;编译/触发
+&lt;/h3&gt;&lt;p&gt;首先，使用先前创建的镜像启动容器，建议使用docker容器&lt;strong&gt;挂载宿主机目录&lt;/strong&gt;，方便进行文件的观测和修改。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 挂载目录替换成自己宿主机的实际路径，保证openjpeg项目文件夹也在其下&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -it --rm --name openjpeg_cve-2016-7445 &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -v /mnt/d/A.S.E/benchmark-project/openjpeg:/workspace &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  openjpeg_cve-2016-7445   /bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# -rm 选项表示容器退出后自动删除&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# --name 指定容器名字&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /bin/bash 指定命令行环境&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;宿主机目录会被挂载到容器的&lt;code&gt;/workspace&lt;/code&gt;目录下，注意所有改变也会同步到宿主机目录上。&lt;/p&gt;
+&lt;p&gt;进入容器后，我们先将项目切换到修复前版本。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; openjpeg
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 切换到修复前一个commit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git checkout f053508f6fc26aa95839f747bc7cbf257bd43996^
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;接着我们编译出供漏洞复现使用的组件，注意需要启用 ASan 与 debug 编译标志以获得清晰崩溃信息，以下是我撰写使用的编译脚本setup.sh。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/usr/bin/env bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -e
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /workspace/openjpeg
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;BUILD_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;build_ASan&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 1. 完全清理&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rm -rf &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BUILD_DIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BUILD_DIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2. 强制 clang + ASan 渗透到所有阶段&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CC&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;clang
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CXX&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;clang++
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CFLAGS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;-fsanitize=address -fno-omit-frame-pointer -g -O0&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CXXFLAGS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CFLAGS&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;LDFLAGS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;-fsanitize=address&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 3. 配置 + 编译&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BUILD_DIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cmake .. &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_BUILD_TYPE&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Debug &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_C_COMPILER&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CC&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_CXX_COMPILER&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CXX&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_C_FLAGS&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CFLAGS&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_CXX_FLAGS&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CXXFLAGS&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DCMAKE_EXE_LINKER_FLAGS&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$LDFLAGS&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DBUILD_SHARED_LIBS&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;OFF &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DBUILD_THIRDPARTY&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;ON
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cmake --build . -- -j&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;nproc&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;=== Build finished ===&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Executable: &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/bin/opj_compress&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2016-7445_01.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;编译成功&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;执行完毕后，需要用到的编码器组件&lt;code&gt;opj_compress&lt;/code&gt;应当在以下路径。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 检查opj_compress是否存在&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;root@1877c59a83ec:/workspace# ls /workspace/openjpeg/build_ASan/bin/opj_compress
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/workspace/openjpeg/build_ASan/bin/opj_compress
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;接下来就可以结合poc触发文件，参考bug_report的中的漏洞触发方式进行漏洞复现。&lt;/p&gt;
+&lt;p&gt;在report中，触发命令格式如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# $OPJ_COMPRESS 编码器路径&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# $POC_RAW poc文件路径&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# $OUT_FILE 编码输出文件路径&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$OPJ_COMPRESS&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; -i &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$POC_RAW&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; -o &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$OUT_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/workspace/openjpeg/build_ASan/bin/opj_compress -i /workspace/poc/2016-7445.ppm -o /tmp/null.j2k 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;我使用的poc文件链接附上：&lt;a class=&#34;link&#34; href=&#34;https://github.com/Ch0ser/CVE-POC/blob/main/openjpeg/2016-7445.ppm&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;2016-7445.ppm&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;调整路径并执行后成功触发漏洞，显著标志为 &lt;code&gt;SEGV on unknown address&lt;/code&gt;，具体结果如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2016-7445_02.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;触发漏洞&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;root@89dfa8253bd0:/workspace# /workspace/openjpeg/build_ASan/bin/opj_compress -i /workspace/poc/2016-7445.ppm -o /tmp/null.j2k
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ASAN:DEADLYSIGNAL
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;=================================================================&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;1646&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;pc 0x00000052079f bp 0x7ffce9c5c120 sp 0x7ffce9c5c0b0 T0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#0 0x52079e  (/workspace/openjpeg/build_ASan/bin/opj_compress+0x52079e)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#1 0x520457  (/workspace/openjpeg/build_ASan/bin/opj_compress+0x520457)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#2 0x518b25  (/workspace/openjpeg/build_ASan/bin/opj_compress+0x518b25)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#3 0x5161c4  (/workspace/openjpeg/build_ASan/bin/opj_compress+0x5161c4)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#4 0x4fc3a3  (/workspace/openjpeg/build_ASan/bin/opj_compress+0x4fc3a3)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#5 0x7685dc91e83f  (/lib/x86_64-linux-gnu/libc.so.6+0x2083f)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#6 0x429e38  (/workspace/openjpeg/build_ASan/bin/opj_compress+0x429e38)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;AddressSanitizer can not provide additional info.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;SUMMARY: AddressSanitizer: SEGV &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;/workspace/openjpeg/build_ASan/bin/opj_compress+0x52079e&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;1646&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;ABORTING
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;当我们切换到修复后版本尝试漏洞复现：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; openjpeg
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git checkout f053508f6fc26aa95839f747bc7cbf257bd43996
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ..
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./setup.sh &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; /workspace/openjpeg/build_ASan/bin/opj_compress -i /workspace/poc/2016-7445.ppm -o /tmp/null.j2k 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这次就被补丁提前拦截了。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;===&lt;/span&gt; Build &lt;span class=&#34;nv&#34;&gt;finished&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;===&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Executable: /workspace/openjpeg/build_ASan/bin/opj_compress
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Unable to load pnm file
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;poc分析&#34;&gt;PoC分析
+&lt;/h3&gt;&lt;p&gt;我们来分析一下PoC文件是如何触发漏洞的，已知该漏洞的原理是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PoC 通过构造一个&lt;strong&gt;在 PPM 文本头中缺失或畸形的字段&lt;/strong&gt;（例如使得在解析宽度/高度/最大色深时，skip_int 或者后续的 skip_white 在某一步失败）来触发路径：第一次 skip_int/skip_white 可能&lt;strong&gt;使内部指针变为 NULL 或指向缓冲区末尾&lt;/strong&gt;，随后代码&lt;strong&gt;未检测便继续使用&lt;/strong&gt;该指针，从而&lt;strong&gt;触发 NULL 解引用&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们使用&lt;code&gt;xxd -g 1 -l 512 2016-7445.ppm&lt;/code&gt;来对poc文件进行具体分析：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;文件确实是 P6（二进制 PPM），尺寸为 256 x 149，maxval 是 255；&lt;/li&gt;
+&lt;li&gt;头部包含注释 &amp;ldquo;# OpenJPEG-2.0.0&amp;rdquo;（从 offset 0x03 起可见）。&lt;/li&gt;
+&lt;li&gt;在注释文字之后、宽高数字 &amp;ldquo;256 149&amp;rdquo; 之前出现了一个非 ASCII 字节 0x8A（见 00000010 行），即注释并未以常见的换行（0x0a）结束，而是被 0x8A 字节分隔，导致解析器无法按预期识别下一个数字 token。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;那么为什么这会触发漏洞呢？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PNM/PPM 解析器通常的逻辑：读取 magic (&amp;ldquo;P6&amp;rdquo;)，跳过注释到换行，跳过空白（skip_white），再用 skip_int 读取 width、height、maxval 等。&lt;/li&gt;
+&lt;li&gt;而PoC 的头部有一个非标准字节 0x8A 放在注释末尾和宽度字段之间：这会导致解析器不能发现预期的换行或空白分隔，从而使 skip_int/skip_white 在寻找下一个数字时失败（到达缓冲末尾或遇到非法字符），返回 NULL 或不可用的指针。&lt;/li&gt;
+&lt;li&gt;代码在后续没有对 skip_int/skip_white 的返回值做严格检查（issue 指出 convert.c 的某些行在调用后未检查变量 s），于是继续在 NULL 指针上操作，最终在 skip_white（convert.c:1331）处解引用 NULL，触发 SIGSEGV。这与前文的 ASan 报告完全一致。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;汇总可验证事实：issue 中 ASan 栈回溯指向 convert.c 的 skip_white，报告分析指出 convert.c 的若干行（在调用 skip_int 后）没有检查变量 s 的值；上述PoC 文件能稳定触发该崩溃。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;补丁分析&#34;&gt;补丁分析
+&lt;/h2&gt;&lt;p&gt;修复commit详见：&lt;a class=&#34;link&#34; href=&#34;https://github.com/uclouvain/openjpeg/commit/f053508f6fc26aa95839f747bc7cbf257bd43996&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Fix PNM file reading (#847) · uclouvain/openjpeg@f053508&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;主要改动
+&lt;ul&gt;
+&lt;li&gt;对 PNM/PPM 读取逻辑增加了对 skip_int/skip_white 等返回值的检查：在解析 width/height/depth 等字段后会&lt;strong&gt;判断解析是否成功&lt;/strong&gt;，&lt;strong&gt;若失败则不会继续使用返回的指针而是返回错误。&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;在读到图像尺寸和深度后加入了&lt;strong&gt;合法性校验&lt;/strong&gt;（例如检查宽高是否为 0 或非法值），并在不合法时返回加载错误。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;将解析失败或不合法输入的路径改为返回失败&lt;/strong&gt;（并由上层打印如 &amp;ldquo;Unable to load pnm file&amp;rdquo; 的提示），避免继续进入会触发 NULL 解引用的代码路径。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;为什么能修复问题
+&lt;ul&gt;
+&lt;li&gt;补丁通过在关键点（skip_int/skip_white 返回后）&lt;strong&gt;添加空指针/返回值检查&lt;/strong&gt;，阻止后续对可能为 NULL 的指针进行解引用，从根本上消除了导致 SEGV 的未检查 NULL 使用路径。修复后的行为是在&lt;strong&gt;发现解析异常时尽早中止并返回错误，从而避免崩溃&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;补丁的局限与建议
+&lt;ul&gt;
+&lt;li&gt;局限：补丁修复了 PNM/PPM 读取路径中已发现的未检查返回值问题，但并不能替代对所有输入解析路径统一的防御性编程策略。类似的未检查返回值在项目中其他解析代码处仍有可能存在。&lt;/li&gt;
+&lt;li&gt;建议：
+&lt;ul&gt;
+&lt;li&gt;在所有格式解析函数处统一进行返回值与边界检查（防御式编程）。&lt;/li&gt;
+&lt;li&gt;为畸形/恶意 PNM/PPM 输入添加回归测试（将触发该问题的 PoC 纳入 CI），以防回归。&lt;/li&gt;
+&lt;li&gt;对外部库接口在出错时返回可检测的错误码，避免工具端直接崩溃或不可预测行为。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;复现镜像&#34;&gt;复现镜像
+&lt;/h2&gt;&lt;p&gt;以上复现过程已打包为docker镜像，可通过以下命令拉取：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker pull choser/openjpeg_cve-2016-7445:latest
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;内含：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;openjpeg（项目文件夹）&lt;/li&gt;
+&lt;li&gt;setup.sh&lt;/li&gt;
+&lt;li&gt;image_status_check.sh&lt;/li&gt;
+&lt;li&gt;test_case.sh&lt;/li&gt;
+&lt;li&gt;poc.sh&lt;/li&gt;
+&lt;li&gt;poc文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;首先进入项目文件夹，按需切换到修复前/后版本：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; openjpeg
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 切换到修复前一个commit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git checkout f053508f6fc26aa95839f747bc7cbf257bd43996^
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 切换到修复commit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git checkout f053508f6fc26aa95839f747bc7cbf257bd43996
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后按顺序执行四个脚本，即可复现和验证漏洞，预期结果为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 在修复前/后两个版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./setup.sh &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; ./image_status_check.sh &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; ./test_case.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 都应成功编译，并且可执行文件通过基本功能验证&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;===&lt;/span&gt; Build &lt;span class=&#34;nv&#34;&gt;finished&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;===&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Executable: /workspace/openjpeg/build_ASan/bin/opj_compress
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;A.S.E&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; image startup successfully
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;A.S.E&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;case&lt;/span&gt; passed
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 在修复前/后版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./poc.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 修复前版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;A.S.E&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; vulnerability found
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 修复后版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;A.S.E&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; vulnerability not found
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;总结和启示&#34;&gt;总结和启示
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;总结和启示：对任何来自不受信任源（文件、网络等）的输入都必须进行严格的返回值与边界检查；一次对解析函数返回值的忽视即可导致 NULL 指针解引用和服务拒绝。&lt;/li&gt;
+&lt;li&gt;实践建议：尽快升级到包含 commit f053508f6&amp;hellip; 的版本；在代码库中系统地审计其他类似文本/流解析逻辑并增加畸形输入的回归测试。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;参考链接&#34;&gt;参考链接
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://nvd.nist.gov/vuln/detail/cve-2016-7445&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;NVD - cve-2016-7445&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/uclouvain/openjpeg/issues/843&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;null ptr dereference in convert.c:1331 · Issue #843 · uclouvain/openjpeg&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/uclouvain/openjpeg/commit/f053508f6fc26aa95839f747bc7cbf257bd43996&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Fix PNM file reading (#847) · uclouvain/openjpeg@f053508&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
         </item>
         <item>
         <title>CVE_Binary_Reproduction</title>
-        <link>https://ch0ser.github.io/p/cve_binary_reproduction/</link>
+        <link>http://localhost:1313/p/cve_binary_reproduction/</link>
         <pubDate>Mon, 20 Oct 2025 16:54:45 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/cve_binary_reproduction/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Genichiro.png" alt="Featured image of post CVE_Binary_Reproduction" /&gt;&lt;p&gt;本文是对此博客二进制场景下的所有CVE复现笔记的汇总。&lt;/p&gt;
+        <guid>http://localhost:1313/p/cve_binary_reproduction/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Genichiro.png" alt="Featured image of post CVE_Binary_Reproduction" /&gt;&lt;p&gt;本文是对此博客二进制场景下的所有CVE复现笔记的汇总。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;以及申明：以下工作都是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;A.S.E (AI Code Generation Security Evaluation)&lt;/a&gt;开源项目的一部分；&lt;/p&gt;
@@ -725,23 +2012,23 @@
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;openjpeg&#34;&gt;openjpeg
 &lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_01cve-2017-14164/&#34; &gt;CVE-2017-14164&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_02cve-2016-7445/&#34; &gt;CVE-2016-7445&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/openjpeg_01cve-2017-14164/&#34; &gt;CVE-2017-14164&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/openjpeg_02cve-2016-7445/&#34; &gt;CVE-2016-7445&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         </item>
         <item>
         <title>Bash_prompt</title>
-        <link>https://ch0ser.github.io/p/bash_prompt/</link>
+        <link>http://localhost:1313/p/bash_prompt/</link>
         <pubDate>Mon, 20 Oct 2025 15:51:58 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_prompt/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_prompt" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_prompt/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_prompt" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;命令提示符&#34;&gt;命令提示符
 &lt;/h1&gt;&lt;p&gt;用户进入 Bash 以后，Bash 会显示一个命令提示符，用来提示用户在该位置后面输入命令。&lt;/p&gt;
@@ -919,16 +2206,16 @@
         </item>
         <item>
         <title>Bash_startup</title>
-        <link>https://ch0ser.github.io/p/bash_startup/</link>
+        <link>http://localhost:1313/p/bash_startup/</link>
         <pubDate>Mon, 20 Oct 2025 15:50:43 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_startup/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_startup" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_startup/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_startup" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;bash-启动环境&#34;&gt;Bash 启动环境
 &lt;/h1&gt;&lt;h2 id=&#34;session&#34;&gt;Session
@@ -1066,16 +2353,16 @@
         </item>
         <item>
         <title>Bash_mktemp&amp;trap</title>
-        <link>https://ch0ser.github.io/p/bash_mktemptrap/</link>
+        <link>http://localhost:1313/p/bash_mktemptrap/</link>
         <pubDate>Mon, 20 Oct 2025 15:49:38 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_mktemptrap/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_mktemp&amp;trap" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_mktemptrap/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_mktemp&amp;trap" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;mktemp-命令trap-命令&#34;&gt;mktemp 命令，trap 命令
 &lt;/h1&gt;&lt;p&gt;Bash 脚本有时需要创建临时文件或临时目录。常见的做法是，在&lt;code&gt;/tmp&lt;/code&gt;目录里面创建文件或目录，这样做有很多弊端，使用&lt;code&gt;mktemp&lt;/code&gt;命令是最安全的做法。&lt;/p&gt;
@@ -1338,16 +2625,16 @@
         </item>
         <item>
         <title>Bash_debug</title>
-        <link>https://ch0ser.github.io/p/bash_debug/</link>
+        <link>http://localhost:1313/p/bash_debug/</link>
         <pubDate>Mon, 20 Oct 2025 15:47:12 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_debug/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_debug" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_debug/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_debug" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;脚本除错&#34;&gt;脚本除错
 &lt;/h1&gt;&lt;p&gt;本章介绍如何对 Shell 脚本除错。&lt;/p&gt;
@@ -1766,16 +3053,16 @@
         </item>
         <item>
         <title>Bash_set&amp;shopt</title>
-        <link>https://ch0ser.github.io/p/bash_setshopt/</link>
+        <link>http://localhost:1313/p/bash_setshopt/</link>
         <pubDate>Mon, 20 Oct 2025 15:46:02 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_setshopt/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_set&amp;shopt" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_setshopt/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_set&amp;shopt" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;set-命令shopt-命令&#34;&gt;set 命令，shopt 命令
 &lt;/h1&gt;&lt;p&gt;&lt;code&gt;set&lt;/code&gt;命令是 Bash 脚本的重要环节，却常常被忽视，导致脚本的安全性和可维护性出问题。本章介绍&lt;code&gt;set&lt;/code&gt;的基本用法，帮助你写出更安全的 Bash 脚本。&lt;/p&gt;
@@ -2382,16 +3669,16 @@
         </item>
         <item>
         <title>Bash_array</title>
-        <link>https://ch0ser.github.io/p/bash_array/</link>
+        <link>http://localhost:1313/p/bash_array/</link>
         <pubDate>Mon, 20 Oct 2025 15:45:08 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_array/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_array" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_array/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_array" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;数组&#34;&gt;数组
 &lt;/h1&gt;&lt;p&gt;数组（array）是一个包含多个值的变量。成员的编号从0开始，数量没有上限，也没有要求成员被连续索引。&lt;/p&gt;
@@ -2997,16 +4284,16 @@
         </item>
         <item>
         <title>Bash_function</title>
-        <link>https://ch0ser.github.io/p/bash_function/</link>
+        <link>http://localhost:1313/p/bash_function/</link>
         <pubDate>Mon, 20 Oct 2025 15:44:20 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_function/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_function" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_function/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_function" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;bash-函数&#34;&gt;Bash 函数
 &lt;/h1&gt;&lt;p&gt;本章介绍 Bash 函数的用法。&lt;/p&gt;
@@ -3353,16 +4640,16 @@
         </item>
         <item>
         <title>Bash_loop</title>
-        <link>https://ch0ser.github.io/p/bash_loop/</link>
+        <link>http://localhost:1313/p/bash_loop/</link>
         <pubDate>Mon, 20 Oct 2025 15:43:28 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_loop/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_loop" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_loop/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_loop" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;循环&#34;&gt;循环
 &lt;/h1&gt;&lt;p&gt;Bash 提供三种循环语法&lt;code&gt;for&lt;/code&gt;、&lt;code&gt;while&lt;/code&gt;和&lt;code&gt;until&lt;/code&gt;。&lt;/p&gt;
@@ -3909,16 +5196,16 @@
         </item>
         <item>
         <title>Bash_condition</title>
-        <link>https://ch0ser.github.io/p/bash_condition/</link>
+        <link>http://localhost:1313/p/bash_condition/</link>
         <pubDate>Mon, 20 Oct 2025 15:42:22 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_condition/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_condition" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_condition/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_condition" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;条件判断&#34;&gt;条件判断
 &lt;/h1&gt;&lt;p&gt;本章介绍 Bash 脚本的条件判断语法。&lt;/p&gt;
@@ -5011,16 +6298,16 @@
         </item>
         <item>
         <title>Bash_read</title>
-        <link>https://ch0ser.github.io/p/bash_read/</link>
+        <link>http://localhost:1313/p/bash_read/</link>
         <pubDate>Mon, 20 Oct 2025 15:40:37 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_read/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_read" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_read/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_read" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;read-命令&#34;&gt;read 命令
 &lt;/h1&gt;&lt;h2 id=&#34;用法&#34;&gt;用法
@@ -5342,16 +6629,16 @@
         </item>
         <item>
         <title>Bash_script</title>
-        <link>https://ch0ser.github.io/p/bash_script/</link>
+        <link>http://localhost:1313/p/bash_script/</link>
         <pubDate>Mon, 20 Oct 2025 15:39:00 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_script/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_script" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_script/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_script" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;bash-脚本入门&#34;&gt;Bash 脚本入门
 &lt;/h1&gt;&lt;p&gt;脚本（script）就是&lt;strong&gt;包含一系列命令的一个文本文件&lt;/strong&gt;。Shell 读取这个文件，&lt;strong&gt;依次执行里面的所有命令，就好像这些命令直接输入到命令行一样&lt;/strong&gt;。所有能够在命令行完成的任务，都能够用脚本完成。&lt;/p&gt;
@@ -6037,16 +7324,16 @@
         </item>
         <item>
         <title>Bash_stack</title>
-        <link>https://ch0ser.github.io/p/bash_stack/</link>
+        <link>http://localhost:1313/p/bash_stack/</link>
         <pubDate>Mon, 20 Oct 2025 15:37:40 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_stack/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_stack" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_stack/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_stack" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;目录堆栈&#34;&gt;目录堆栈
 &lt;/h1&gt;&lt;p&gt;为了方便用户在不同目录之间切换，Bash 提供了目录堆栈功能。&lt;/p&gt;
@@ -6214,16 +7501,16 @@
         </item>
         <item>
         <title>Bash_readline</title>
-        <link>https://ch0ser.github.io/p/bash_readline/</link>
+        <link>http://localhost:1313/p/bash_readline/</link>
         <pubDate>Mon, 20 Oct 2025 15:35:44 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_readline/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_readline" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_readline/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_readline" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;bash-行操作&#34;&gt;Bash 行操作
 &lt;/h1&gt;&lt;h2 id=&#34;简介&#34;&gt;简介
@@ -6347,16 +7634,16 @@
         </item>
         <item>
         <title>Bash_history</title>
-        <link>https://ch0ser.github.io/p/bash_history/</link>
+        <link>http://localhost:1313/p/bash_history/</link>
         <pubDate>Mon, 20 Oct 2025 15:33:46 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_history/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_history" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_history/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_history" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;操作历史&#34;&gt;操作历史
 &lt;/h1&gt;&lt;h2 id=&#34;简介&#34;&gt;简介
@@ -6786,16 +8073,16 @@
         </item>
         <item>
         <title>Bash_arithmetic</title>
-        <link>https://ch0ser.github.io/p/bash_arithmetic/</link>
+        <link>http://localhost:1313/p/bash_arithmetic/</link>
         <pubDate>Mon, 20 Oct 2025 15:29:39 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_arithmetic/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_arithmetic" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_arithmetic/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_arithmetic" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;bash-的算术运算&#34;&gt;Bash 的算术运算
 &lt;/h1&gt;&lt;h2 id=&#34;算术表达式&#34;&gt;算术表达式
@@ -7278,16 +8565,16 @@
         </item>
         <item>
         <title>Bash_string</title>
-        <link>https://ch0ser.github.io/p/bash_string/</link>
+        <link>http://localhost:1313/p/bash_string/</link>
         <pubDate>Thu, 16 Oct 2025 11:30:56 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_string/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_string" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_string/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_string" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;字符串操作&#34;&gt;字符串操作
 &lt;/h1&gt;&lt;p&gt;本章介绍 Bash 字符串操作的语法。&lt;/p&gt;
@@ -7778,16 +9065,16 @@
         </item>
         <item>
         <title>Bash_variable</title>
-        <link>https://ch0ser.github.io/p/bash_variable/</link>
+        <link>http://localhost:1313/p/bash_variable/</link>
         <pubDate>Wed, 15 Oct 2025 20:44:53 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_variable/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_variable" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_variable/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_variable" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;bash-变量&#34;&gt;Bash 变量
 &lt;/h1&gt;&lt;h2 id=&#34;简介&#34;&gt;简介
@@ -8523,16 +9810,16 @@
         </item>
         <item>
         <title>Bash_quotation</title>
-        <link>https://ch0ser.github.io/p/bash_quotation/</link>
+        <link>http://localhost:1313/p/bash_quotation/</link>
         <pubDate>Wed, 15 Oct 2025 19:08:35 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_quotation/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_quotation" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_quotation/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_quotation" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;引号和转义&#34;&gt;引号和转义
 &lt;/h1&gt;&lt;p&gt;**Bash 只有一种数据类型，就是字符串。**不管用户输入什么数据，Bash 都视为字符串。因此，字符串相关的引号和转义，对 Bash 来说就非常重要。&lt;/p&gt;
@@ -9014,16 +10301,16 @@
         </item>
         <item>
         <title>Bash_expansion</title>
-        <link>https://ch0ser.github.io/p/bash_expansion/</link>
+        <link>http://localhost:1313/p/bash_expansion/</link>
         <pubDate>Wed, 15 Oct 2025 16:38:58 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_expansion/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_expansion" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_expansion/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_expansion" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;bash的模式拓展&#34;&gt;Bash的模式拓展
 &lt;/h1&gt;&lt;h2 id=&#34;简介&#34;&gt;简介
@@ -10118,16 +11405,16 @@
         </item>
         <item>
         <title>Bash_intro&amp;grammar</title>
-        <link>https://ch0ser.github.io/p/bash_introgrammar/</link>
+        <link>http://localhost:1313/p/bash_introgrammar/</link>
         <pubDate>Wed, 15 Oct 2025 16:10:33 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash_introgrammar/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_intro&amp;grammar" /&gt;&lt;blockquote&gt;
+        <guid>http://localhost:1313/p/bash_introgrammar/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_intro&amp;grammar" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;bash简介&#34;&gt;Bash简介
 &lt;/h2&gt;&lt;blockquote&gt;
@@ -10488,47 +11775,47 @@
         </item>
         <item>
         <title>Bash</title>
-        <link>https://ch0ser.github.io/p/bash/</link>
+        <link>http://localhost:1313/p/bash/</link>
         <pubDate>Wed, 15 Oct 2025 16:02:47 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/bash/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Cat&amp;Tree.png" alt="Featured image of post Bash" /&gt;&lt;p&gt;本文是本人学习 Linux 命令行 Bash 的基本用法和脚本编程的笔记汇总。&lt;/p&gt;
+        <guid>http://localhost:1313/p/bash/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Cat&amp;Tree.png" alt="Featured image of post Bash" /&gt;&lt;p&gt;本文是本人学习 Linux 命令行 Bash 的基本用法和脚本编程的笔记汇总。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;核心参考教程：&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;这是一个互联网开源文档，非常感谢开源创作者的贡献。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_introgrammar/&#34; &gt;Bash 介绍和基本语法&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_expansion/&#34; &gt;Bash 模式扩展&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_quotation/&#34; &gt;Bash 引号和转义&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_variable/&#34; &gt;Bash 变量&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_string/&#34; &gt;Bash 字符串操作&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_arithmetic/&#34; &gt;Bash 算术运算&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_history/&#34; &gt;Bash 历史命令&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_readline/&#34; &gt;Bash 行操作&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_stack/&#34; &gt;Bash 目录堆栈&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_script/&#34; &gt;Bash 脚本&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_read/&#34; &gt;Bash read命令&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_condition/&#34; &gt;Bash 条件判断&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_loop/&#34; &gt;Bash 循环&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_function/&#34; &gt;Bash 函数&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_array/&#34; &gt;Bash 数组&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_setshopt/&#34; &gt;Bash set&amp;amp;shopt&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_debug/&#34; &gt;Bash 调试除错&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_mktemptrap/&#34; &gt;Bash mktemp&amp;amp;trap&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_startup/&#34; &gt;Bash 启动环境&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_prompt/&#34; &gt;Bash 命令提示符&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_introgrammar/&#34; &gt;Bash 介绍和基本语法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_expansion/&#34; &gt;Bash 模式扩展&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_quotation/&#34; &gt;Bash 引号和转义&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_variable/&#34; &gt;Bash 变量&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_string/&#34; &gt;Bash 字符串操作&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_arithmetic/&#34; &gt;Bash 算术运算&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_history/&#34; &gt;Bash 历史命令&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_readline/&#34; &gt;Bash 行操作&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_stack/&#34; &gt;Bash 目录堆栈&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_script/&#34; &gt;Bash 脚本&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_read/&#34; &gt;Bash read命令&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_condition/&#34; &gt;Bash 条件判断&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_loop/&#34; &gt;Bash 循环&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_function/&#34; &gt;Bash 函数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_array/&#34; &gt;Bash 数组&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_setshopt/&#34; &gt;Bash set&amp;amp;shopt&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_debug/&#34; &gt;Bash 调试除错&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_mktemptrap/&#34; &gt;Bash mktemp&amp;amp;trap&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_startup/&#34; &gt;Bash 启动环境&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_prompt/&#34; &gt;Bash 命令提示符&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 </description>
         </item>
         <item>
         <title>Beacon&amp;WindRanger</title>
-        <link>https://ch0ser.github.io/p/beaconwindranger/</link>
+        <link>http://localhost:1313/p/beaconwindranger/</link>
         <pubDate>Tue, 14 Oct 2025 14:59:29 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/beaconwindranger/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/ChillOcean.png" alt="Featured image of post Beacon&amp;WindRanger" /&gt;&lt;h1 id=&#34;windrangerbeaconfuzz&#34;&gt;WindRanger&amp;amp;BeaconFuzz
+        <guid>http://localhost:1313/p/beaconwindranger/</guid>
+        <description>&lt;img src="http://localhost:1313/images/ChillOcean.png" alt="Featured image of post Beacon&amp;WindRanger" /&gt;&lt;h1 id=&#34;windrangerbeaconfuzz&#34;&gt;WindRanger&amp;amp;BeaconFuzz
 &lt;/h1&gt;&lt;p&gt;WindRanger 是一个&lt;strong&gt;基于 BeaconFuzz 算法的定向模糊测试工具&lt;/strong&gt;，发表于 &lt;strong&gt;ICSE 2022&lt;/strong&gt;，旨在高效引导模糊测试到达目标代码（如漏洞触发点）。其核心创新是 &lt;strong&gt;BeaconFuzz 策略&lt;/strong&gt;，通过动态识别关键代码块（Beacon）来优化路径探索。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;1-windranger-概述&#34;&gt;&lt;strong&gt;1. WindRanger 概述&lt;/strong&gt;
@@ -10655,11 +11942,11 @@
         </item>
         <item>
         <title>DGF Tool Energy Allocation Strategies</title>
-        <link>https://ch0ser.github.io/p/dgf-tool-energy-allocation-strategies/</link>
+        <link>http://localhost:1313/p/dgf-tool-energy-allocation-strategies/</link>
         <pubDate>Tue, 14 Oct 2025 14:47:25 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/dgf-tool-energy-allocation-strategies/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/RiverInTrees.png" alt="Featured image of post DGF Tool Energy Allocation Strategies" /&gt;&lt;h1 id=&#34;dgf-tool-energy-allocation-strategies&#34;&gt;DGF Tool Energy Allocation Strategies
+        <guid>http://localhost:1313/p/dgf-tool-energy-allocation-strategies/</guid>
+        <description>&lt;img src="http://localhost:1313/images/RiverInTrees.png" alt="Featured image of post DGF Tool Energy Allocation Strategies" /&gt;&lt;h1 id=&#34;dgf-tool-energy-allocation-strategies&#34;&gt;DGF Tool Energy Allocation Strategies
 &lt;/h1&gt;&lt;p&gt;DGF工具能量分配策略一览&lt;/p&gt;
 &lt;h2 id=&#34;afl&#34;&gt;AFL
 &lt;/h2&gt;&lt;p&gt;本节聚焦AFL 及其衍生工具在 seed fuzzing 过程中的&lt;strong&gt;能量分配策略&lt;/strong&gt;（power schedule），即决定“从某个种子输入生成多少额外测试用例”的算法。以 AFLFast 提供的六种策略为基准，给出简明对比和使用建议。&lt;/p&gt;
@@ -11099,11 +12386,11 @@
         </item>
         <item>
         <title>Quick_fuzz</title>
-        <link>https://ch0ser.github.io/p/quick_fuzz/</link>
+        <link>http://localhost:1313/p/quick_fuzz/</link>
         <pubDate>Tue, 14 Oct 2025 14:40:02 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/quick_fuzz/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/greenland.png" alt="Featured image of post Quick_fuzz" /&gt;&lt;h1 id=&#34;quickfuzz&#34;&gt;QuickFuzz
+        <guid>http://localhost:1313/p/quick_fuzz/</guid>
+        <description>&lt;img src="http://localhost:1313/images/greenland.png" alt="Featured image of post Quick_fuzz" /&gt;&lt;h1 id=&#34;quickfuzz&#34;&gt;QuickFuzz
 &lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;Fuzz入门，学习参考：&lt;a class=&#34;link&#34; href=&#34;https://lidaxian121.github.io/posts/fuzz/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Baby Fuzz · Home&lt;/a&gt;，BV1ZM4m1R7gZ&lt;/p&gt;
@@ -11686,7 +12973,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;在创建了相关目录和种子文件后，命令运行成功就能在终端看见如下结果了：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/fuzzing.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/fuzzing.png&#34;
 	
 	
 	
@@ -11895,11 +13182,11 @@
         </item>
         <item>
         <title>DGF Overview</title>
-        <link>https://ch0ser.github.io/p/dgf-overview/</link>
+        <link>http://localhost:1313/p/dgf-overview/</link>
         <pubDate>Mon, 13 Oct 2025 23:51:05 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/dgf-overview/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/EarlyMorningForest.png" alt="Featured image of post DGF Overview" /&gt;&lt;h1 id=&#34;dgf-overview&#34;&gt;DGF Overview
+        <guid>http://localhost:1313/p/dgf-overview/</guid>
+        <description>&lt;img src="http://localhost:1313/images/EarlyMorningForest.png" alt="Featured image of post DGF Overview" /&gt;&lt;h1 id=&#34;dgf-overview&#34;&gt;DGF Overview
 &lt;/h1&gt;&lt;p&gt;定向灰盒测试相关技术 核心策略 时间顺序梳理 速览&lt;/p&gt;
 &lt;h2 id=&#34;aflamerican-fuzzy-lop-2014&#34;&gt;AFL(American Fuzzy Lop 2014)
 &lt;/h2&gt;&lt;p&gt;传统灰盒：全图覆盖，无定向&lt;/p&gt;
@@ -12012,11 +13299,11 @@
         </item>
         <item>
         <title>Docker Commands</title>
-        <link>https://ch0ser.github.io/p/docker-commands/</link>
+        <link>http://localhost:1313/p/docker-commands/</link>
         <pubDate>Mon, 06 Oct 2025 21:56:04 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/docker-commands/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/TrippyWave.png" alt="Featured image of post Docker Commands" /&gt;&lt;h1 id=&#34;docker命令&#34;&gt;Docker命令
+        <guid>http://localhost:1313/p/docker-commands/</guid>
+        <description>&lt;img src="http://localhost:1313/images/TrippyWave.png" alt="Featured image of post Docker Commands" /&gt;&lt;h1 id=&#34;docker命令&#34;&gt;Docker命令
 &lt;/h1&gt;&lt;h2 id=&#34;docker-镜像构建&#34;&gt;Docker 镜像构建
 &lt;/h2&gt;&lt;p&gt;&lt;code&gt;docker build&lt;/code&gt;命令是 Docker 引擎的核心命令之一，用于根据 &lt;code&gt;Dockerfile&lt;/code&gt;中的指令自动构建 Docker 镜像。&lt;/p&gt;
 &lt;h3 id=&#34;核心概念与基础语法&#34;&gt;&lt;strong&gt;核心概念与基础语法&lt;/strong&gt;
@@ -12608,11 +13895,11 @@
         </item>
         <item>
         <title>Quick Git</title>
-        <link>https://ch0ser.github.io/p/quick-git/</link>
+        <link>http://localhost:1313/p/quick-git/</link>
         <pubDate>Fri, 21 Feb 2025 20:58:54 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/quick-git/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/PacificRim_02.PNG" alt="Featured image of post Quick Git" /&gt;&lt;h1 id=&#34;git使用教程&#34;&gt;Git使用教程
+        <guid>http://localhost:1313/p/quick-git/</guid>
+        <description>&lt;img src="http://localhost:1313/images/PacificRim_02.PNG" alt="Featured image of post Quick Git" /&gt;&lt;h1 id=&#34;git使用教程&#34;&gt;Git使用教程
 &lt;/h1&gt;&lt;h2 id=&#34;安装&#34;&gt;安装
 &lt;/h2&gt;&lt;p&gt;官网下载安装即可，安装配置基本默认。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -13122,11 +14409,11 @@
         </item>
         <item>
         <title>Quick Java</title>
-        <link>https://ch0ser.github.io/p/quick-java/</link>
+        <link>http://localhost:1313/p/quick-java/</link>
         <pubDate>Mon, 16 Dec 2024 16:04:20 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/quick-java/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Lover.PNG" alt="Featured image of post Quick Java" /&gt;&lt;h2 id=&#34;1-java背景知识&#34;&gt;1 Java背景知识
+        <guid>http://localhost:1313/p/quick-java/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Lover.PNG" alt="Featured image of post Quick Java" /&gt;&lt;h2 id=&#34;1-java背景知识&#34;&gt;1 Java背景知识
 &lt;/h2&gt;&lt;h3 id=&#34;11-jdk-jre-jvm&#34;&gt;1.1 JDK JRE JVM
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;JDK(开发工具包)&lt;/li&gt;
@@ -15057,11 +16344,11 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
         </item>
         <item>
         <title>Do Users Write More Insecure Code with AI Assistants?</title>
-        <link>https://ch0ser.github.io/p/do-users-write-more-insecure-code-with-ai-assistants/</link>
+        <link>http://localhost:1313/p/do-users-write-more-insecure-code-with-ai-assistants/</link>
         <pubDate>Sat, 23 Nov 2024 21:45:04 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/do-users-write-more-insecure-code-with-ai-assistants/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Tiger.JPG" alt="Featured image of post Do Users Write More Insecure Code with AI Assistants?" /&gt;&lt;h1 id=&#34;span-stylecolor-rgb25-60-71span-stylebackground-color-rgb238-249-2532023-11-15-do-users-write-more-insecure-code-with-ai-assistantsspanspan&#34;&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(238, 249, 253)&#34;&gt;(2023-11-15) Do Users Write More Insecure Code with AI Assistants?&lt;/span&gt;&lt;/span&gt;
+        <guid>http://localhost:1313/p/do-users-write-more-insecure-code-with-ai-assistants/</guid>
+        <description>&lt;img src="http://localhost:1313/images/Tiger.JPG" alt="Featured image of post Do Users Write More Insecure Code with AI Assistants?" /&gt;&lt;h1 id=&#34;span-stylecolor-rgb25-60-71span-stylebackground-color-rgb238-249-2532023-11-15-do-users-write-more-insecure-code-with-ai-assistantsspanspan&#34;&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(238, 249, 253)&#34;&gt;(2023-11-15) Do Users Write More Insecure Code with AI Assistants?&lt;/span&gt;&lt;/span&gt;
 &lt;/h1&gt;&lt;table&gt;
   &lt;thead&gt;
       &lt;tr&gt;
@@ -15214,17 +16501,17 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
         </item>
         <item>
         <title>Typora</title>
-        <link>https://ch0ser.github.io/p/typora/</link>
+        <link>http://localhost:1313/p/typora/</link>
         <pubDate>Sat, 23 Nov 2024 21:45:04 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/typora/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/PacificRim_01.jpg" alt="Featured image of post Typora" /&gt;&lt;h1 id=&#34;typora教程&#34;&gt;Typora教程
+        <guid>http://localhost:1313/p/typora/</guid>
+        <description>&lt;img src="http://localhost:1313/images/PacificRim_01.jpg" alt="Featured image of post Typora" /&gt;&lt;h1 id=&#34;typora教程&#34;&gt;Typora教程
 &lt;/h1&gt;&lt;h2 id=&#34;typora的安装&#34;&gt;Typora的安装
 &lt;/h2&gt;&lt;p&gt;这是b站up主 &lt;strong&gt;格格分享集&lt;/strong&gt; 提供的1.9.5版本及绕过激活方法，在此鸣谢。&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&amp;amp;vd_source=94c6a60e88fb8109fcdee4173a2a7281&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&amp;vd_source=94c6a60e88fb8109fcdee4173a2a7281&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;不想看视频的可以往下看。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/Typora1.9.5zip.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/Typora1.9.5zip.png&#34;
 	
 	
 	
@@ -15235,7 +16522,7 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;解压 &lt;strong&gt;Typora1.9.5.zip&lt;/strong&gt;后，文件结构如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/Typora02.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/Typora02.png&#34;
 	
 	
 	
@@ -15246,7 +16533,7 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
 &lt;p&gt;先运行安装程序安装&lt;strong&gt;typora1.9.5&lt;/strong&gt;；&lt;/p&gt;
 &lt;p&gt;然后解压&lt;strong&gt;河蟹.zip&lt;/strong&gt;,将其中的配置文件&lt;strong&gt;winmm.dll&lt;/strong&gt;复制到&lt;strong&gt;typora所在文件夹&lt;/strong&gt;(右键点击typora快捷方式即可)；&lt;/p&gt;
 &lt;p&gt;最后打开typora，点击侧边栏中的帮助，再点击关于激活即可。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/Typora03.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/Typora03.png&#34;
 	
 	
 	
@@ -15372,7 +16659,7 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
 &lt;li&gt;然后中括号里面写属性文本&lt;/li&gt;
 &lt;li&gt;小括号里面写图片地址，后可接标题&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/&#34;
 	
 	
 	
