@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta name="google-site-verification" content="_dAX7uDJJKRVjb0t7Il5zqA-h6sCbbvn9ktsHN2jbBE" />
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="DAFL实验复现\r论文官网：DAFL: Directed Grey-box Fuzzing guided by Data Dependency | USENIX\n实验代码：https://github.com/prosyslab/DAFL-artifact.git\n2025.7.5-7.11\n项目环境部署\r仓库不大，拉取下来之后，试着配置环境，\n">
+<title>DAFL Reproduce</title>
+
+<link rel='canonical' href='http://localhost:1313/p/dafl-reproduce/'>
+
+<link rel="stylesheet" href="/scss/style.min.48ce54e3e307e3741d61de84a9b7fd091d2b70c905a608c90a1db85a009feb1b.css"><meta property='og:title' content="DAFL Reproduce">
+<meta property='og:description' content="DAFL实验复现\r论文官网：DAFL: Directed Grey-box Fuzzing guided by Data Dependency | USENIX\n实验代码：https://github.com/prosyslab/DAFL-artifact.git\n2025.7.5-7.11\n项目环境部署\r仓库不大，拉取下来之后，试着配置环境，\n">
+<meta property='og:url' content='http://localhost:1313/p/dafl-reproduce/'>
+<meta property='og:site_name' content='Choser&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Fuzz' /><meta property='article:published_time' content='2025-10-24T19:27:41&#43;08:00'/><meta property='article:modified_time' content='2025-10-24T19:27:41&#43;08:00'/><meta property='og:image' content='http://localhost:1313/images/FullMoon.png' />
+<meta name="twitter:title" content="DAFL Reproduce">
+<meta name="twitter:description" content="DAFL实验复现\r论文官网：DAFL: Directed Grey-box Fuzzing guided by Data Dependency | USENIX\n实验代码：https://github.com/prosyslab/DAFL-artifact.git\n2025.7.5-7.11\n项目环境部署\r仓库不大，拉取下来之后，试着配置环境，\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/images/FullMoon.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu1777375556697644536.png" width="300"
+                            height="158" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Choser&#39;s Blog</a></h1>
+            <h2 class="site-description">进一寸有进一寸的欢喜</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Ch0ser'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:ch0ser@qq.com'
+                        target="_blank"
+                        title="✉️ Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1760270206847" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5175" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M858.656 192 165.344 192C109.472 192 64 237.44 64 293.312l0 469.376C64 818.56 109.472 864 165.344 864l693.312 0C914.528 864 960 818.56 960 762.688L960 293.312C960 237.44 914.528 192 858.656 192zM858.656 800 165.344 800C144.736 800 128 783.264 128 762.688L128 293.312C128 272.736 144.736 256 165.344 256l684.544 0-307.488 279.808c-14.592 14.56-38.272 14.528-54.752-1.792l-244.256-206.752C229.856 315.84 209.664 317.504 198.272 331.008c-11.424 13.472-9.76 33.664 3.744 45.088l242.304 204.96c19.904 19.904 46.048 29.792 72.032 29.792 25.632 0 51.136-9.632 70.176-28.736L896 300.544l0 462.144C896 783.264 879.264 800 858.656 800z" fill="#5D646F" p-id="5176"></path></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于我</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#项目环境部署">项目环境部署</a>
+      <ol>
+        <li><a href="#尝试配置国内镜像加速器">尝试配置国内镜像加速器</a></li>
+        <li><a href="#修复dns解析问题">修复DNS解析问题</a></li>
+        <li><a href="#尝试完全绕过域名">尝试<strong>完全绕过域名</strong></a></li>
+        <li><a href="#尝试社区分享镜像站">尝试社区分享镜像站</a>
+          <ol>
+            <li><a href="#问题排查">问题排查</a></li>
+          </ol>
+        </li>
+        <li><a href="#尝试windows下拉取再迁移">尝试Windows下拉取再迁移</a></li>
+        <li><a href="#拉取成功">拉取成功</a></li>
+        <li><a href="#在容器内修改后提交为新镜像"><strong>在容器内修改后提交为新镜像</strong></a></li>
+      </ol>
+    </li>
+    <li><a href="#运行成功">运行成功</a>
+      <ol>
+        <li><a href="#运行状态解析"><strong>运行状态解析</strong></a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/dafl-reproduce/">
+                
+                    <img src="/images/FullMoon.png" loading="lazy" alt="Featured image of post DAFL Reproduce" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/" >
+                二进制安全
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/dafl-reproduce/">DAFL Reproduce</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 24, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="dafl实验复现">DAFL实验复现
+</h1><p>论文官网：<a class="link" href="https://www.usenix.org/conference/usenixsecurity23/presentation/kim-tae-eun"  target="_blank" rel="noopener"
+    >DAFL: Directed Grey-box Fuzzing guided by Data Dependency | USENIX</a></p>
+<p>实验代码：https://github.com/prosyslab/DAFL-artifact.git</p>
+<blockquote>
+<p>2025.7.5-7.11</p>
+</blockquote>
+<h2 id="项目环境部署">项目环境部署
+</h2><p>仓库不大，拉取下来之后，试着配置环境，</p>
+<ul>
+<li>Ubuntu 20.04</li>
+<li>Docker</li>
+<li>python 3.8+</li>
+<li>pip3</li>
+</ul>
+<p>在项目文件夹下，用docker命令拉取镜像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker pull prosyslab/dafl-artifact
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>多次拉取失败，拉取请求超时，dockerhub ping不通，试着寻求解决办法。</p>
+<h3 id="尝试配置国内镜像加速器">尝试配置国内镜像加速器
+</h3><p>1.编辑配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /etc/docker/daemon.json
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>把配置文件改成如下内容，添加了些国内镜像站</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;registry-mirrors&#34;</span>: <span class="o">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;https://docker.mirrors.ustc.edu.cn&#34;</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;https://hub-mirror.c.163.com&#34;</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;https://mirror.baidubce.com&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后按 <code>Ctrl + O</code>保存文件，按 <code>Enter</code>确认文件名（默认就是 <code>/etc/docker/daemon.json</code>），再按 <code>Ctrl + X</code>退出编辑器。</p>
+<p>2.重启Docker服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl daemon-reload
+</span></span><span class="line"><span class="cl">sudo systemctl restart docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>验证配置是否生效</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker info | grep &#34;Registry Mirrors&#34; -A 2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>3.再尝试拉取</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">choser@Demian:/mnt/d/DAFL_lab$ docker pull hello-world
+</span></span><span class="line"><span class="cl">Using default tag: latest
+</span></span><span class="line"><span class="cl">Error response from daemon: Get <span class="s2">&#34;https://registry-1.docker.io/v2/&#34;</span>: context deadline exceeded <span class="o">(</span>Client.Timeout exceeded <span class="k">while</span> awaiting headers<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>4.依旧失败，查看一下错误日志信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ journalctl -u docker --no-pager -n <span class="m">20</span> <span class="p">|</span> grep -i <span class="s2">&#34;mirror\|pull&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#结果如下</span>
+</span></span><span class="line"><span class="cl">warning <span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;Error getting v2 registry: Get \&#34;https://docker.mirrors.ustc.edu.cn/v2/\&#34;: dial tcp: lookup docker.mirrors.ustc.edu.cn on 10.255.255.254:53: no such host&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>报错说明，问题出在 <strong>DNS解析失败</strong>，Docker无法解析镜像站域名 <code>docker.mirrors.ustc.edu.cn</code>，导致回退到默认的 <code>registry-1.docker.io</code>也超时。</p>
+<h3 id="修复dns解析问题">修复DNS解析问题
+</h3><p>尝试修改Docker的DNS配置</p>
+<p>编辑Docker配置文件，指定公共DNS（如Google的<code>8.8.8.8</code>或阿里云的<code>223.5.5.5</code>）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo nano /etc/docker/daemon.json
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改为以下内容（保留镜像站并添加DNS设置）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;registry-mirrors&#34;: [&#34;https://docker.mirrors.ustc.edu.cn/&#34;],
+</span></span><span class="line"><span class="cl">  &#34;dns&#34;: [&#34;8.8.8.8&#34;, &#34;223.5.5.5&#34;]
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>保存后重启Docker：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo systemctl restart docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>尝试拉取，依旧失败</p>
+<p>后续使用网易镜像站（https://hub-mirror.c.163.com）依旧无法解析域名</p>
+<p>尝试<strong>彻底修改 DNS</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo nano /etc/systemd/resolved.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改了以下内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[Resolve]
+</span></span><span class="line"><span class="cl">DNS=8.8.8.8 223.5.5.5
+</span></span><span class="line"><span class="cl">FallbackDNS=1.1.1.1
+</span></span><span class="line"><span class="cl">Domains=~.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>保存后重启：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo systemctl restart systemd-resolved
+</span></span><span class="line"><span class="cl">sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>依旧无法解析域名，拉取失败。</p>
+<h3 id="尝试完全绕过域名">尝试<strong>完全绕过域名</strong>
+</h3><p>既然域名解析有问题，就试着完全绕过域名（使用官方仓库 IP）。</p>
+<p>在windows下查找 <code>registry-1.docker.io</code>的 IP：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">nslookup registry-1.docker.io 8.8.8.8
+</span></span><span class="line"><span class="cl">得到198.44.185.131
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>linux下直接拉取：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker pull 198.44.185.131/library/hello-world
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>依旧失败，因为直接使用 IP 会被 Docker 视为不安全仓库，需修改配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo nano /etc/docker/daemon.json
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加以下内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;insecure-registries&#34;: [&#34;198.44.185.131&#34;]
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>保存后重启 Docker：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo systemctl restart docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>再次尝试拉取</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker pull 198.44.185.131/library/hello-world
+</span></span><span class="line"><span class="cl">docker run 198.44.185.131/library/hello-world  # 验证是否运行成功
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>依旧失败，无奈了。</p>
+<h3 id="尝试社区分享镜像站">尝试社区分享镜像站
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker pull docker.1ms.run/prosyslab/dafl-artifact <span class="c1">#不行</span>
+</span></span><span class="line"><span class="cl">docker pull docker.domys.cc/prosyslab/dafl-artifact <span class="c1">#不行</span>
+</span></span><span class="line"><span class="cl">docker pull docker.imgdb.de/prosyslab/dafl-artifact <span class="c1">#不行</span>
+</span></span><span class="line"><span class="cl">docker pull docker-0.unsee.tech/prosyslab/dafl-artifact  <span class="c1">#可以</span>
+</span></span><span class="line"><span class="cl">docker pull docker.hlmirror.com/prosyslab/dafl-artifact
+</span></span><span class="line"><span class="cl">docker pull cjie.eu.org/prosyslab/dafl-artifact
+</span></span><span class="line"><span class="cl">docker pull docker.m.daocloud.io/prosyslab/dafl-artifact
+</span></span><span class="line"><span class="cl">docker pull hub.rat.dev/prosyslab/dafl-artifact
+</span></span><span class="line"><span class="cl">docker pull docker.1panel.live/prosyslab/dafl-artifact
+</span></span><span class="line"><span class="cl">docker pull docker.rainbond.cc/prosyslab/dafl-artifact
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在尝试了好几个镜像站后，终于拉取成功了，但是每次拉取了一个小时左右ubuntu会崩溃，反复很多次，报错信息只显示ubuntu异常关闭。</p>
+<h4 id="问题排查">问题排查
+</h4><p><strong>内存问题？</strong></p>
+<p>wsl2和windows共享内存，内存显然足够。</p>
+<p><strong>查看错误日志</strong></p>
+<p>日志中未见 OOM Killer 记录：排除内存耗尽导致崩溃的可能性。</p>
+<p>但是注意到</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Jul 12 01:18:32 dockerd[229]: level=error &#34;received unexpected HTTP status: 503 Service Unavailable&#34;
+</span></span><span class="line"><span class="cl">Jul 12 01:18:49 dockerd[229]: level=error &#34;tls: failed to verify certificate: x509: certificate is not valid&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>503 错误</strong>：镜像站服务不可用（可能是镜像站宕机或网络拦截）。</li>
+<li><strong>TLS 证书错误</strong>：尝试拉取镜像时因证书无效被拒绝（<code>docker.domys.cc</code>域名证书配置错误）。</li>
+</ul>
+<blockquote>
+<p>7.13</p>
+</blockquote>
+<h3 id="尝试windows下拉取再迁移">尝试Windows下拉取再迁移
+</h3><p>试着在Windows下拉取docker镜像再迁移到虚拟机上。</p>
+<p>下载了docker desktop，自定义安装目录，避免塞爆系统盘。</p>
+<p>然后发现docker desktop下载的镜像是包含在一个磁盘映像文件里的，没法直接迁移过来，失败。</p>
+<h3 id="拉取成功">拉取成功
+</h3><p>再试了下直接拉取官网，这次居然成功了。</p>
+<p>但是发现容器内并没有所有依赖，需要手动补充一些常见依赖。</p>
+<h3 id="在容器内修改后提交为新镜像"><strong>在容器内修改后提交为新镜像</strong>
+</h3><p><strong>操作步骤（在宿主机执行）</strong></p>
+<ol>
+<li>
+<p><strong>启动临时容器并安装依赖</strong>：</p>
+<p>这里挂载了宿主机的一些文件目录到容器中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">it</span> \
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">sock</span><span class="p">:</span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">sock</span> \
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">docker</span><span class="p">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">docker</span> \
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">d</span><span class="o">/</span><span class="n">DAFL_lab</span><span class="p">:</span><span class="o">/</span><span class="n">DAFL_lab</span> \
+</span></span><span class="line"><span class="cl">  <span class="o">--</span><span class="n">name</span> <span class="n">temp</span><span class="o">-</span><span class="n">dafl</span> \
+</span></span><span class="line"><span class="cl">  <span class="n">prosyslab</span><span class="o">/</span><span class="n">dafl</span><span class="o">-</span><span class="n">artifact</span> <span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>在容器内运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">apt-get update &amp;&amp; apt-get install -y python3-pip
+</span></span><span class="line"><span class="cl">pip3 install pandas numpy matplotlib
+</span></span><span class="line"><span class="cl">exit  # 退出容器
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+<li>
+<p><strong>提交修改为新镜像</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker commit temp-dafl dafl-with-deps
+</span></span><span class="line"><span class="cl">docker rm temp-dafl  # 删除临时容器
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>后续使用新镜像运行实验</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">it</span> \
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">sock</span><span class="p">:</span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">sock</span> \
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">d</span><span class="o">/</span><span class="n">DAFL_lab</span><span class="p">:</span><span class="o">/</span><span class="n">DAFL_lab</span> \
+</span></span><span class="line"><span class="cl">  <span class="n">dafl</span><span class="o">-</span><span class="n">with</span><span class="o">-</span><span class="n">deps</span> \
+</span></span><span class="line"><span class="cl">  <span class="n">python3</span> <span class="o">/</span><span class="n">DAFL_lab</span><span class="o">/</span><span class="n">DAFL</span><span class="o">-</span><span class="n">artifact</span><span class="o">-</span><span class="n">main</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">reproduce</span><span class="o">.</span><span class="n">py</span> <span class="n">run</span> <span class="n">tbl2</span><span class="o">-</span><span class="n">minimal</span> <span class="mi">86400</span> <span class="mi">10</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>需要注意的是，运行前要查看一下硬件配置，适当的调整一下参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-PYTHON" data-lang="PYTHON"><span class="line"><span class="cl"><span class="n">MAX_INSTANCE_NUM</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># 建议值 ≤ CPU 核心数（宿主机有 20 核，可适当调高）</span>
+</span></span><span class="line"><span class="cl"><span class="n">MEM_PER_INSTANCE</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># 每个实例的内存（GB）</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h2 id="运行成功">运行成功
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">root@Demian:/mnt/d/DAFL_lab# docker run -it <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v /var/run/docker.sock:/var/run/docker.sock <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v /usr/bin/docker:/usr/bin/docker <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v /mnt/d/DAFL_lab:/DAFL_lab <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  dafl-with-deps <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  python3 /DAFL_lab/DAFL-artifact-main/scripts/reproduce.py run tbl2-minimal <span class="m">86400</span> <span class="m">10</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Executing: nproc
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Executing: docker run --tmpfs /box:exec --rm -m<span class="o">=</span>4g --cpuset-cpus<span class="o">=</span><span class="m">0</span> -it -d --name swftophp-4.8-2018-11225-iter-0 prosyslab/dafl-artifact
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Executing: docker run --tmpfs /box:exec --rm -m<span class="o">=</span>4g --cpuset-cpus<span class="o">=</span><span class="m">1</span> -it -d --name swftophp-4.8-2018-11225-iter-1 prosyslab/dafl-artifact
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Executing: docker run --tmpfs /box:exec --rm -m<span class="o">=</span>4g --cpuset-cpus<span class="o">=</span><span class="m">2</span> -it -d --name swftophp-4.8-2018-11225-iter-2 prosyslab/dafl-artifact
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Executing: docker run --tmpfs /box:exec --rm -m<span class="o">=</span>4g --cpuset-cpus<span class="o">=</span><span class="m">3</span> -it -d --name swftophp-4.8-2018-11225-iter-3 prosyslab/dafl-artifact
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/tool-script/run_AFL.sh swftophp-4.8-2018-11225 &#34;@@&#34; file 86400&#39;</span> in container swftophp-4.8-2018-11225-iter-0
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/tool-script/run_AFL.sh swftophp-4.8-2018-11225 &#34;@@&#34; file 86400&#39;</span> in container swftophp-4.8-2018-11225-iter-1
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/tool-script/run_AFL.sh swftophp-4.8-2018-11225 &#34;@@&#34; file 86400&#39;</span> in container swftophp-4.8-2018-11225-iter-2
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/tool-script/run_AFL.sh swftophp-4.8-2018-11225 &#34;@@&#34; file 86400&#39;</span> in container swftophp-4.8-2018-11225-iter-3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="运行状态解析"><strong>运行状态解析</strong>
+</h3><ol>
+<li>
+<p><strong>并行启动容器</strong></p>
+<ul>
+<li>脚本已启动 4 个 Docker 容器（<code>swftophp-4.8-2018-11225-iter-0</code>到 <code>iter-3</code>），每个容器绑定到不同的 CPU 核心（<code>--cpuset-cpus=0~3</code>）。</li>
+</ul>
+</li>
+<li>
+<p><strong>执行 fuzzing 任务</strong></p>
+<p>每个容器正在运行 AFL 模糊测试：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">/</span><span class="k">tool</span><span class="o">-</span><span class="n">script</span><span class="o">/</span><span class="n">run_AFL</span><span class="o">.</span><span class="n">sh</span> <span class="n">swftophp</span><span class="o">-</span><span class="mf">4.8</span><span class="o">-</span><span class="mi">2018</span><span class="o">-</span><span class="mi">11225</span> <span class="s2">&#34;@@&#34;</span> <span class="n">file</span> <span class="mi">86400</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>目标程序</strong>: <code>swftophp-4.8-2018-11225</code></li>
+<li><strong>超时时间</strong>: 86400 秒（24 小时）</li>
+<li><strong>并行度</strong>: 4 个实例（由 <code>MAX_INSTANCE_NUM</code>控制）</li>
+<li><strong>时间预估</strong>
+<ul>
+<li><code>tbl2-minimal</code>约需 4 天完成（10 次迭代 × 24 小时）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>如需中断实验</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 停止所有容器</span>
+</span></span><span class="line"><span class="cl">docker stop <span class="k">$(</span>docker ps -aq<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 清理残留</span>
+</span></span><span class="line"><span class="cl">docker rm <span class="k">$(</span>docker ps -aq<span class="k">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/fuzz/">Fuzz</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/beaconwindranger/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/ChillOcean.png" loading="lazy" data-key="" data-hash="/images/ChillOcean.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Beacon&amp;WindRanger</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/dgf-tool-energy-allocation-strategies/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/RiverInTrees.png" loading="lazy" data-key="" data-hash="/images/RiverInTrees.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">DGF Tool Energy Allocation Strategies</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/quick_fuzz/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/greenland.png" loading="lazy" data-key="" data-hash="/images/greenland.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Quick_fuzz</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/dgf-overview/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/EarlyMorningForest.png" loading="lazy" data-key="" data-hash="/images/EarlyMorningForest.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">DGF Overview</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/openjpeg_09cve-2020-27814/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/SekiroDragon.png" loading="lazy" data-key="" data-hash="/images/SekiroDragon.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">openjpeg_09:CVE-2020-27814</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-cn"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2025 Ch0ser
+    </section>
+    
+    <section class="powerby">
+        
+            © 2023-2025 Ch0ser. All Rights Reserved. <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.02491b20957ce34c6cbaef143130153bbb70fa8c594c64eb104a00e20fbf9273.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

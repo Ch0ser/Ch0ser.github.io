@@ -1,5 +1,1 @@
 User-agent: *
-
-Allow: /
-
-Sitemap: https://ch0ser.github.io/sitemap.xml
