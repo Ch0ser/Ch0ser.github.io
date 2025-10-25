@@ -60,12 +60,12 @@
 &lt;/ul&gt;
 &lt;h3 id=&#34;gpac10&#34;&gt;gpac（10）
 &lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;gpac_01:CVE-2024-0321(CWE-787)&lt;/li&gt;
-&lt;li&gt;gpac_02:CVE-2023-4756(CWE-787)&lt;/li&gt;
-&lt;li&gt;gpac_03:CVE-2023-4754(CWE-787)&lt;/li&gt;
-&lt;li&gt;gpac_04:CVE-2023-0770(CWE-787)&lt;/li&gt;
-&lt;li&gt;gpac_05:CVE-2021-29279(CWE-787)&lt;/li&gt;
-&lt;li&gt;gpac_06:CVE-2020-24829(CWE-787)&lt;/li&gt;
+&lt;li&gt;gpac_01:CVE-2024-0321&lt;/li&gt;
+&lt;li&gt;gpac_02:CVE-2023-4756&lt;/li&gt;
+&lt;li&gt;gpac_03:CVE-2023-4754&lt;/li&gt;
+&lt;li&gt;gpac_04:CVE-2023-0770&lt;/li&gt;
+&lt;li&gt;gpac_05:CVE-2021-29279&lt;/li&gt;
+&lt;li&gt;gpac_06:CVE-2020-24829&lt;/li&gt;
 &lt;li&gt;gpac_07:CVE-2020-23267&lt;/li&gt;
 &lt;li&gt;gpac_08:CVE-2020-23266&lt;/li&gt;
 &lt;li&gt;gpac_09:CVE-2019-20208&lt;/li&gt;
