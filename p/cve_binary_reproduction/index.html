@@ -2,18 +2,18 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta name="google-site-verification" content="_dAX7uDJJKRVjb0t7Il5zqA-h6sCbbvn9ktsHN2jbBE" />
 <meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本文是对此博客二进制场景下的所有CVE复现笔记的汇总。\n以及申明：以下工作都是A.S.E (AI Code Generation Security Evaluation)开源项目的一部分；\n本人是这部分工作的contributor，很荣幸能够参与该开源项目，为大模型的安全评估做出贡献。\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本文是对此博客二进制场景下的所有CVE（共计36个）复现笔记的汇总，权供学习参考。\n未有引用的CVE代表笔记暂时还未完成，笔者闲暇时也许会补上（），如果有想法想交流或者想纠正笔误，欢迎发信至ch0ser@std.uestc.edu.cn或choser@qq.com。\n">
 <title>CVE_Binary_Reproduction</title>
 
 <link rel='canonical' href='https://ch0ser.github.io/p/cve_binary_reproduction/'>
 
 <link rel="stylesheet" href="/scss/style.min.48ce54e3e307e3741d61de84a9b7fd091d2b70c905a608c90a1db85a009feb1b.css"><meta property='og:title' content="CVE_Binary_Reproduction">
-<meta property='og:description' content="本文是对此博客二进制场景下的所有CVE复现笔记的汇总。\n以及申明：以下工作都是A.S.E (AI Code Generation Security Evaluation)开源项目的一部分；\n本人是这部分工作的contributor，很荣幸能够参与该开源项目，为大模型的安全评估做出贡献。\n">
+<meta property='og:description' content="本文是对此博客二进制场景下的所有CVE（共计36个）复现笔记的汇总，权供学习参考。\n未有引用的CVE代表笔记暂时还未完成，笔者闲暇时也许会补上（），如果有想法想交流或者想纠正笔误，欢迎发信至ch0ser@std.uestc.edu.cn或choser@qq.com。\n">
 <meta property='og:url' content='https://ch0ser.github.io/p/cve_binary_reproduction/'>
 <meta property='og:site_name' content='Choser&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='CVE' /><meta property='article:published_time' content='2025-10-20T16:54:45&#43;08:00'/><meta property='article:modified_time' content='2025-10-20T16:54:45&#43;08:00'/><meta property='og:image' content='https://ch0ser.github.io/images/Genichiro.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='CVE' /><meta property='article:published_time' content='2025-10-25T19:54:45&#43;08:00'/><meta property='article:modified_time' content='2025-10-25T19:54:45&#43;08:00'/><meta property='og:image' content='https://ch0ser.github.io/images/Genichiro.png' />
 <meta name="twitter:title" content="CVE_Binary_Reproduction">
-<meta name="twitter:description" content="本文是对此博客二进制场景下的所有CVE复现笔记的汇总。\n以及申明：以下工作都是A.S.E (AI Code Generation Security Evaluation)开源项目的一部分；\n本人是这部分工作的contributor，很荣幸能够参与该开源项目，为大模型的安全评估做出贡献。\n"><meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="本文是对此博客二进制场景下的所有CVE（共计36个）复现笔记的汇总，权供学习参考。\n未有引用的CVE代表笔记暂时还未完成，笔者闲暇时也许会补上（），如果有想法想交流或者想纠正笔误，欢迎发信至ch0ser@std.uestc.edu.cn或choser@qq.com。\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://ch0ser.github.io/images/Genichiro.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
@@ -231,7 +231,13 @@
     <li>
       <ol>
         <li><a href="#openjpeg9">openjpeg(9)</a></li>
-        <li><a href="#libjpeg">libjpeg</a></li>
+        <li><a href="#libjpeg8">libjpeg（8）</a></li>
+        <li><a href="#libxml24">libxml2（4）</a></li>
+        <li><a href="#binutils-1">binutils (1)</a></li>
+        <li><a href="#lrzip1">lrzip（1）</a></li>
+        <li><a href="#gpac10">gpac（10）</a></li>
+        <li><a href="#imagemagick1">ImageMagick（1）</a></li>
+        <li><a href="#libexpat2"><strong>libexpat（2）</strong></a></li>
       </ol>
     </li>
   </ol>
@@ -291,7 +297,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Oct 20, 2025</time>
+                <time class="article-time--published">Oct 25, 2025</time>
             </div>
         
 
@@ -321,27 +327,72 @@
     <section class="article-content">
     
     
-    <p>本文是对此博客二进制场景下的所有CVE复现笔记的汇总。</p>
+    <p>本文是对此博客二进制场景下的所有CVE（共计36个）复现笔记的汇总，权供学习参考。</p>
+<p>未有引用的CVE代表笔记暂时还未完成，笔者闲暇时也许会补上（），如果有想法想交流或者想纠正笔误，欢迎发信至ch0ser@std.uestc.edu.cn或choser@qq.com。</p>
 <blockquote>
 <p>以及申明：以下工作都是<a class="link" href="https://github.com/Tencent/AICGSecEval"  target="_blank" rel="noopener"
     >A.S.E (AI Code Generation Security Evaluation)</a>开源项目的一部分；</p>
-<p>本人是这部分工作的contributor，很荣幸能够参与该开源项目，为大模型的安全评估做出贡献。</p>
+<p>笔者是这部分工作的contributor，很荣幸能够参与该开源项目，为大模型的安全评估做出贡献。</p>
 </blockquote>
 <h3 id="openjpeg9">openjpeg(9)
 </h3><ul>
-<li><a class="link" href="/p/openjpeg_01cve-2017-14164/" >CVE-2017-14164</a></li>
-<li><a class="link" href="/p/openjpeg_02cve-2016-7445/" >CVE-2016-7445</a></li>
-<li><a class="link" href="/p/openjpeg_03cve-2016-9118/" >CVE-2016-9118</a></li>
-<li><a class="link" href="/p/openjpeg_04cve-2016-10504/" >CVE-2016-10504</a></li>
-<li><a class="link" href="/p/openjpeg_05cve-2018-5785/" >CVE-2018-5785</a></li>
-<li><a class="link" href="/p/openjpeg_06cve-2018-6616/" >CVE-2018-6616</a></li>
-<li><a class="link" href="/p/openjpeg_07cve-2018-5727/" >CVE-2018-5727</a></li>
-<li><a class="link" href="/p/openjpeg_08cve-2018-18088/" >CVE-2018-18088</a></li>
-<li><a class="link" href="/p/openjpeg_09cve-2020-27814/" >CVE-2020-27814</a></li>
+<li>openjpeg_01: <a class="link" href="/p/openjpeg_01cve-2017-14164/" >CVE-2017-14164</a></li>
+<li>openjpeg_02: <a class="link" href="/p/openjpeg_02cve-2016-7445/" >CVE-2016-7445</a></li>
+<li>openjpeg_03: <a class="link" href="/p/openjpeg_03cve-2016-9118/" >CVE-2016-9118</a></li>
+<li>openjpeg_04: <a class="link" href="/p/openjpeg_04cve-2016-10504/" >CVE-2016-10504</a></li>
+<li>openjpeg_05: <a class="link" href="/p/openjpeg_05cve-2018-5785/" >CVE-2018-5785</a></li>
+<li>openjpeg_06: <a class="link" href="/p/openjpeg_06cve-2018-6616/" >CVE-2018-6616</a></li>
+<li>openjpeg_07: <a class="link" href="/p/openjpeg_07cve-2018-5727/" >CVE-2018-5727</a></li>
+<li>openjpeg_08: <a class="link" href="/p/openjpeg_08cve-2018-18088/" >CVE-2018-18088</a></li>
+<li>openjpeg_09: <a class="link" href="/p/openjpeg_09cve-2020-27814/" >CVE-2020-27814</a></li>
 </ul>
-<h3 id="libjpeg">libjpeg
+<h3 id="libjpeg8">libjpeg（8）
 </h3><ul>
-<li><a class="link" href="/p/libjpeg_01cve-2020-13790/" >CVE-2020-13790</a></li>
+<li>libjpeg_01: <a class="link" href="/p/libjpeg_01cve-2020-13790/" >CVE-2020-13790</a></li>
+<li>libjpeg_02: <a class="link" href="/p/libjpeg_02cve-2018-14498/" >CVE-2018-14498</a></li>
+<li>libjpeg_03:CVE-2018-20330</li>
+<li>libjpeg_04:CVE-2018-19664</li>
+<li>libjpeg_05:CVE-2018-11813</li>
+<li>libjpeg_06:CVE-2019-2201</li>
+<li>libjpeg_07:CVE-2021-37972</li>
+<li>libjpeg_08:CVE-2021-20205</li>
+</ul>
+<h3 id="libxml24">libxml2（4）
+</h3><ul>
+<li>libxml2_01：CVE-2017-5969</li>
+<li>libxml2_02：CVE-2017-9047</li>
+<li>libxml2_03：CVE-2017-9048</li>
+<li>libxml2_04：CVE-2018-9251</li>
+</ul>
+<h3 id="binutils-1">binutils (1)
+</h3><ul>
+<li>binutils_01：CVE-2017-7303</li>
+</ul>
+<h3 id="lrzip1">lrzip（1）
+</h3><ul>
+<li>lrzip_01:CVE-2018-5786</li>
+</ul>
+<h3 id="gpac10">gpac（10）
+</h3><ul>
+<li>gpac_01:CVE-2024-0321(CWE-787)</li>
+<li>gpac_02:CVE-2023-4756(CWE-787)</li>
+<li>gpac_03:CVE-2023-4754(CWE-787)</li>
+<li>gpac_04:CVE-2023-0770(CWE-787)</li>
+<li>gpac_05:CVE-2021-29279(CWE-787)</li>
+<li>gpac_06:CVE-2020-24829(CWE-787)</li>
+<li>gpac_07:CVE-2020-23267</li>
+<li>gpac_08:CVE-2020-23266</li>
+<li>gpac_09:CVE-2019-20208</li>
+<li>gpac_10:CVE-2019-20162</li>
+</ul>
+<h3 id="imagemagick1">ImageMagick（1）
+</h3><ul>
+<li>ImageMagick_01:CVE-2020-10251</li>
+</ul>
+<h3 id="libexpat2"><strong>libexpat（2）</strong>
+</h3><ul>
+<li>libexpat_01：CVE-2024-28757</li>
+<li>libexpat_02：CVE-2019-15903</li>
 </ul>
 
 </section>

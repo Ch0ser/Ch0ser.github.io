@@ -7,7 +7,82 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Ch0ser</copyright>
-        <lastBuildDate>Sat, 25 Oct 2025 17:28:42 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/tags/cve/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 25 Oct 2025 19:54:45 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/tags/cve/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>CVE_Binary_Reproduction</title>
+        <link>https://ch0ser.github.io/p/cve_binary_reproduction/</link>
+        <pubDate>Sat, 25 Oct 2025 19:54:45 +0800</pubDate>
+        
+        <guid>https://ch0ser.github.io/p/cve_binary_reproduction/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Genichiro.png" alt="Featured image of post CVE_Binary_Reproduction" /&gt;&lt;p&gt;本文是对此博客二进制场景下的所有CVE（共计36个）复现笔记的汇总，权供学习参考。&lt;/p&gt;
+&lt;p&gt;未有引用的CVE代表笔记暂时还未完成，笔者闲暇时也许会补上（），如果有想法想交流或者想纠正笔误，欢迎发信至ch0ser@std.uestc.edu.cn或choser@qq.com。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;以及申明：以下工作都是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;A.S.E (AI Code Generation Security Evaluation)&lt;/a&gt;开源项目的一部分；&lt;/p&gt;
+&lt;p&gt;笔者是这部分工作的contributor，很荣幸能够参与该开源项目，为大模型的安全评估做出贡献。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;openjpeg9&#34;&gt;openjpeg(9)
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;openjpeg_01: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_01cve-2017-14164/&#34; &gt;CVE-2017-14164&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openjpeg_02: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_02cve-2016-7445/&#34; &gt;CVE-2016-7445&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openjpeg_03: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_03cve-2016-9118/&#34; &gt;CVE-2016-9118&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openjpeg_04: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_04cve-2016-10504/&#34; &gt;CVE-2016-10504&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openjpeg_05: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_05cve-2018-5785/&#34; &gt;CVE-2018-5785&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openjpeg_06: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_06cve-2018-6616/&#34; &gt;CVE-2018-6616&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openjpeg_07: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_07cve-2018-5727/&#34; &gt;CVE-2018-5727&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openjpeg_08: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_08cve-2018-18088/&#34; &gt;CVE-2018-18088&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openjpeg_09: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_09cve-2020-27814/&#34; &gt;CVE-2020-27814&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;libjpeg8&#34;&gt;libjpeg（8）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;libjpeg_01: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/libjpeg_01cve-2020-13790/&#34; &gt;CVE-2020-13790&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;libjpeg_02: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/libjpeg_02cve-2018-14498/&#34; &gt;CVE-2018-14498&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;libjpeg_03:CVE-2018-20330&lt;/li&gt;
+&lt;li&gt;libjpeg_04:CVE-2018-19664&lt;/li&gt;
+&lt;li&gt;libjpeg_05:CVE-2018-11813&lt;/li&gt;
+&lt;li&gt;libjpeg_06:CVE-2019-2201&lt;/li&gt;
+&lt;li&gt;libjpeg_07:CVE-2021-37972&lt;/li&gt;
+&lt;li&gt;libjpeg_08:CVE-2021-20205&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;libxml24&#34;&gt;libxml2（4）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;libxml2_01：CVE-2017-5969&lt;/li&gt;
+&lt;li&gt;libxml2_02：CVE-2017-9047&lt;/li&gt;
+&lt;li&gt;libxml2_03：CVE-2017-9048&lt;/li&gt;
+&lt;li&gt;libxml2_04：CVE-2018-9251&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;binutils-1&#34;&gt;binutils (1)
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;binutils_01：CVE-2017-7303&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;lrzip1&#34;&gt;lrzip（1）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;lrzip_01:CVE-2018-5786&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;gpac10&#34;&gt;gpac（10）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;gpac_01:CVE-2024-0321(CWE-787)&lt;/li&gt;
+&lt;li&gt;gpac_02:CVE-2023-4756(CWE-787)&lt;/li&gt;
+&lt;li&gt;gpac_03:CVE-2023-4754(CWE-787)&lt;/li&gt;
+&lt;li&gt;gpac_04:CVE-2023-0770(CWE-787)&lt;/li&gt;
+&lt;li&gt;gpac_05:CVE-2021-29279(CWE-787)&lt;/li&gt;
+&lt;li&gt;gpac_06:CVE-2020-24829(CWE-787)&lt;/li&gt;
+&lt;li&gt;gpac_07:CVE-2020-23267&lt;/li&gt;
+&lt;li&gt;gpac_08:CVE-2020-23266&lt;/li&gt;
+&lt;li&gt;gpac_09:CVE-2019-20208&lt;/li&gt;
+&lt;li&gt;gpac_10:CVE-2019-20162&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;imagemagick1&#34;&gt;ImageMagick（1）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;ImageMagick_01:CVE-2020-10251&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;libexpat2&#34;&gt;&lt;strong&gt;libexpat（2）&lt;/strong&gt;
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;libexpat_01：CVE-2024-28757&lt;/li&gt;
+&lt;li&gt;libexpat_02：CVE-2019-15903&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>libjpeg_02:CVE-2018-14498</title>
         <link>https://ch0ser.github.io/p/libjpeg_02cve-2018-14498/</link>
         <pubDate>Sat, 25 Oct 2025 17:28:42 +0800</pubDate>
@@ -6966,36 +7041,6 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
     &gt;null ptr dereference in convert.c:1331 · Issue #843 · uclouvain/openjpeg&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/uclouvain/openjpeg/commit/f053508f6fc26aa95839f747bc7cbf257bd43996&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Fix PNM file reading (#847) · uclouvain/openjpeg@f053508&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        </item>
-        <item>
-        <title>CVE_Binary_Reproduction</title>
-        <link>https://ch0ser.github.io/p/cve_binary_reproduction/</link>
-        <pubDate>Mon, 20 Oct 2025 16:54:45 +0800</pubDate>
-        
-        <guid>https://ch0ser.github.io/p/cve_binary_reproduction/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/Genichiro.png" alt="Featured image of post CVE_Binary_Reproduction" /&gt;&lt;p&gt;本文是对此博客二进制场景下的所有CVE复现笔记的汇总。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;以及申明：以下工作都是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;A.S.E (AI Code Generation Security Evaluation)&lt;/a&gt;开源项目的一部分；&lt;/p&gt;
-&lt;p&gt;本人是这部分工作的contributor，很荣幸能够参与该开源项目，为大模型的安全评估做出贡献。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;openjpeg9&#34;&gt;openjpeg(9)
-&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_01cve-2017-14164/&#34; &gt;CVE-2017-14164&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_02cve-2016-7445/&#34; &gt;CVE-2016-7445&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_03cve-2016-9118/&#34; &gt;CVE-2016-9118&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_04cve-2016-10504/&#34; &gt;CVE-2016-10504&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_05cve-2018-5785/&#34; &gt;CVE-2018-5785&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_06cve-2018-6616/&#34; &gt;CVE-2018-6616&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_07cve-2018-5727/&#34; &gt;CVE-2018-5727&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_08cve-2018-18088/&#34; &gt;CVE-2018-18088&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_09cve-2020-27814/&#34; &gt;CVE-2020-27814&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;libjpeg&#34;&gt;libjpeg
-&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/libjpeg_01cve-2020-13790/&#34; &gt;CVE-2020-13790&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         </item>
