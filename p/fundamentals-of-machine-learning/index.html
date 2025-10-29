@@ -2,18 +2,18 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta name="google-site-verification" content="_dAX7uDJJKRVjb0t7Il5zqA-h6sCbbvn9ktsHN2jbBE" />
 <meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="机器学习概述\r基本概念\r机器学习是一门在没有明确编程的情况下让计算机学习的科学，已成长为人工智能的子领域，研究能使机器模拟人类根据经验学习的算法。\n主要算法类型\r监督学习（Supervised Learning）：通过给定输入与对应正确输出标签（输入 - 输出对），让算法学习输入到输出的映射关系，最终能对全新输入给出合理准确的预测。 非监督学习（Unsupervised Learning）：仅使用无标签的输入数据，算法需自行从数据中发现结构或模式。 强化学习（Reinforcement Learning）：智能体（Agent）以试错方式学习，通过与环境交互获得奖赏指导行为，目标是使智能体获得最大奖赏，无需预先给定数据，依赖环境对动作的奖励反馈更新模型参数。 监督学习（Supervised Learning）\r核心逻辑\r映射关系：学习输入（x）到输出（y）的映射（x→y），通过输入示例与对应正确答案（标签）训练模型，最终对新输入产生适当输出。 典型应用：垃圾邮件识别、销售预测、机器翻译等。 两大核心任务\r回归（Regression）\r定义：预测连续的数值型输出，可能的输出有无限多个。\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考\n机器学习概述\r基本概念\r机器学习是一门在没有明确编程的情况下让计算机学习的科学，已成长为人工智能的子领域，研究能使机器模拟人类根据经验学习的算法。\n">
 <title>Fundamentals of Machine Learning Ⅰ</title>
 
 <link rel='canonical' href='https://ch0ser.github.io/p/fundamentals-of-machine-learning/'>
 
 <link rel="stylesheet" href="/scss/style.min.48ce54e3e307e3741d61de84a9b7fd091d2b70c905a608c90a1db85a009feb1b.css"><meta property='og:title' content="Fundamentals of Machine Learning Ⅰ">
-<meta property='og:description' content="机器学习概述\r基本概念\r机器学习是一门在没有明确编程的情况下让计算机学习的科学，已成长为人工智能的子领域，研究能使机器模拟人类根据经验学习的算法。\n主要算法类型\r监督学习（Supervised Learning）：通过给定输入与对应正确输出标签（输入 - 输出对），让算法学习输入到输出的映射关系，最终能对全新输入给出合理准确的预测。 非监督学习（Unsupervised Learning）：仅使用无标签的输入数据，算法需自行从数据中发现结构或模式。 强化学习（Reinforcement Learning）：智能体（Agent）以试错方式学习，通过与环境交互获得奖赏指导行为，目标是使智能体获得最大奖赏，无需预先给定数据，依赖环境对动作的奖励反馈更新模型参数。 监督学习（Supervised Learning）\r核心逻辑\r映射关系：学习输入（x）到输出（y）的映射（x→y），通过输入示例与对应正确答案（标签）训练模型，最终对新输入产生适当输出。 典型应用：垃圾邮件识别、销售预测、机器翻译等。 两大核心任务\r回归（Regression）\r定义：预测连续的数值型输出，可能的输出有无限多个。\n">
+<meta property='og:description' content=" 本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考\n机器学习概述\r基本概念\r机器学习是一门在没有明确编程的情况下让计算机学习的科学，已成长为人工智能的子领域，研究能使机器模拟人类根据经验学习的算法。\n">
 <meta property='og:url' content='https://ch0ser.github.io/p/fundamentals-of-machine-learning/'>
 <meta property='og:site_name' content='Choser&#39;s Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Machine Learning' /><meta property='article:published_time' content='2025-10-29T15:27:35&#43;08:00'/><meta property='article:modified_time' content='2025-10-29T15:27:35&#43;08:00'/><meta property='og:image' content='https://ch0ser.github.io/images/SunsetGlow.png' />
 <meta name="twitter:title" content="Fundamentals of Machine Learning Ⅰ">
-<meta name="twitter:description" content="机器学习概述\r基本概念\r机器学习是一门在没有明确编程的情况下让计算机学习的科学，已成长为人工智能的子领域，研究能使机器模拟人类根据经验学习的算法。\n主要算法类型\r监督学习（Supervised Learning）：通过给定输入与对应正确输出标签（输入 - 输出对），让算法学习输入到输出的映射关系，最终能对全新输入给出合理准确的预测。 非监督学习（Unsupervised Learning）：仅使用无标签的输入数据，算法需自行从数据中发现结构或模式。 强化学习（Reinforcement Learning）：智能体（Agent）以试错方式学习，通过与环境交互获得奖赏指导行为，目标是使智能体获得最大奖赏，无需预先给定数据，依赖环境对动作的奖励反馈更新模型参数。 监督学习（Supervised Learning）\r核心逻辑\r映射关系：学习输入（x）到输出（y）的映射（x→y），通过输入示例与对应正确答案（标签）训练模型，最终对新输入产生适当输出。 典型应用：垃圾邮件识别、销售预测、机器翻译等。 两大核心任务\r回归（Regression）\r定义：预测连续的数值型输出，可能的输出有无限多个。\n"><meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content=" 本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考\n机器学习概述\r基本概念\r机器学习是一门在没有明确编程的情况下让计算机学习的科学，已成长为人工智能的子领域，研究能使机器模拟人类根据经验学习的算法。\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://ch0ser.github.io/images/SunsetGlow.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
@@ -397,7 +397,10 @@
     <section class="article-content">
     
     
-    <h2 id="机器学习概述">机器学习概述
+    <blockquote>
+<p>本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考</p>
+</blockquote>
+<h2 id="机器学习概述">机器学习概述
 </h2><h3 id="基本概念">基本概念
 </h3><p>机器学习是一门在没有明确编程的情况下让计算机学习的科学，已成长为人工智能的子领域，研究能使机器模拟人类根据经验学习的算法。</p>
 <h3 id="主要算法类型">主要算法类型

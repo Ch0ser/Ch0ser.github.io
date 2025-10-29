@@ -13,7 +13,10 @@
         <pubDate>Wed, 29 Oct 2025 15:27:35 +0800</pubDate>
         
         <guid>https://ch0ser.github.io/p/fundamentals-of-machine-learning/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/SunsetGlow.png" alt="Featured image of post Fundamentals of Machine Learning Ⅰ" /&gt;&lt;h2 id=&#34;机器学习概述&#34;&gt;机器学习概述
+        <description>&lt;img src="https://ch0ser.github.io/images/SunsetGlow.png" alt="Featured image of post Fundamentals of Machine Learning Ⅰ" /&gt;&lt;blockquote&gt;
+&lt;p&gt;本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;机器学习概述&#34;&gt;机器学习概述
 &lt;/h2&gt;&lt;h3 id=&#34;基本概念&#34;&gt;基本概念
 &lt;/h3&gt;&lt;p&gt;机器学习是一门在没有明确编程的情况下让计算机学习的科学，已成长为人工智能的子领域，研究能使机器模拟人类根据经验学习的算法。&lt;/p&gt;
 &lt;h3 id=&#34;主要算法类型&#34;&gt;主要算法类型
