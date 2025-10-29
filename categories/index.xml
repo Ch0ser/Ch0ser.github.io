@@ -7,7 +7,15 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Ch0ser</copyright>
-        <lastBuildDate>Sat, 25 Oct 2025 19:54:45 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 29 Oct 2025 15:27:35 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>机器学习</title>
+        <link>https://ch0ser.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</link>
+        <pubDate>Wed, 29 Oct 2025 15:27:35 +0800</pubDate>
+        
+        <guid>https://ch0ser.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>二进制安全</title>
         <link>https://ch0ser.github.io/categories/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/</link>
         <pubDate>Sat, 25 Oct 2025 19:54:45 +0800</pubDate>

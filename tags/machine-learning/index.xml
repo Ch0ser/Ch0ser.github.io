@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Machine Learning on Choser&#39;s Blog</title>
+        <link>https://ch0ser.github.io/tags/machine-learning/</link>
+        <description>Recent content in Machine Learning on Choser&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Ch0ser</copyright>
+        <lastBuildDate>Wed, 29 Oct 2025 15:27:35 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Fundamentals of Machine Learning Ⅰ</title>
+        <link>https://ch0ser.github.io/p/fundamentals-of-machine-learning/</link>
+        <pubDate>Wed, 29 Oct 2025 15:27:35 +0800</pubDate>
+        
+        <guid>https://ch0ser.github.io/p/fundamentals-of-machine-learning/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SunsetGlow.png" alt="Featured image of post Fundamentals of Machine Learning Ⅰ" /&gt;&lt;h2 id=&#34;机器学习概述&#34;&gt;机器学习概述
+&lt;/h2&gt;&lt;h3 id=&#34;基本概念&#34;&gt;基本概念
+&lt;/h3&gt;&lt;p&gt;机器学习是一门在没有明确编程的情况下让计算机学习的科学，已成长为人工智能的子领域，研究能使机器模拟人类根据经验学习的算法。&lt;/p&gt;
+&lt;h3 id=&#34;主要算法类型&#34;&gt;主要算法类型
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;监督学习（Supervised Learning）&lt;/strong&gt;：通过给定输入与对应正确输出标签（输入 - 输出对），让算法学习输入到输出的映射关系，最终能对全新输入给出合理准确的预测。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;非监督学习（Unsupervised Learning）&lt;/strong&gt;：仅使用无标签的输入数据，算法需自行从数据中发现结构或模式。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;强化学习（Reinforcement Learning）&lt;/strong&gt;：智能体（Agent）以试错方式学习，通过与环境交互获得奖赏指导行为，目标是使智能体获得最大奖赏，无需预先给定数据，依赖环境对动作的奖励反馈更新模型参数。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;监督学习supervised-learning&#34;&gt;监督学习（Supervised Learning）
+&lt;/h2&gt;&lt;h3 id=&#34;核心逻辑&#34;&gt;核心逻辑
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;映射关系&lt;/strong&gt;：学习输入（x）到输出（y）的映射（x→y），通过输入示例与对应正确答案（标签）训练模型，最终对新输入产生适当输出。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;典型应用&lt;/strong&gt;：垃圾邮件识别、销售预测、机器翻译等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;两大核心任务&#34;&gt;两大核心任务
+&lt;/h3&gt;&lt;h5 id=&#34;回归regression&#34;&gt;回归（Regression）
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt;：预测连续的数值型输出，可能的输出有无限多个。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;示例&lt;/strong&gt;：房屋价格预测&lt;/p&gt;
+&lt;p&gt;通过房屋面积（输入 x，单位：平方英尺）预测房屋价格（输出 y，单位：千美元），通过直线拟合数据建立模型，例如预测某 750 平方英尺的房屋价格可能为 150,000 美元。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;数据示例&lt;/strong&gt;：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;房屋面积（平方英尺）&lt;/th&gt;
+          &lt;th&gt;价格（千美元）&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;2104&lt;/td&gt;
+          &lt;td&gt;400&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;1416&lt;/td&gt;
+          &lt;td&gt;232&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;1534&lt;/td&gt;
+          &lt;td&gt;315&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;852&lt;/td&gt;
+          &lt;td&gt;178&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;3210&lt;/td&gt;
+          &lt;td&gt;870&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/ML_01.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;线性回归&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h5 id=&#34;分类classification&#34;&gt;分类（Classification）
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt;：预测离散的类别型输出，可能的输出是&lt;strong&gt;有限的小集合&lt;/strong&gt;（如 0、1、2 等）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;示例&lt;/strong&gt;：乳腺癌检测&lt;/p&gt;
+&lt;p&gt;输入肿瘤直径、患者年龄、细胞形状均匀度、边界特征等，预测肿瘤为良性（benign，如标签 0）或恶性（malignant，如标签 1 或 2），通过拟合边界线区分不同类别。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;多输入情形&lt;/strong&gt;：实际问题中常存在多个输入特征，例如通过 “年龄（Age）+ 肿瘤大小（Tumor size）” 共同预测肿瘤良恶性，是机器学习的常态。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;监督学习小结&#34;&gt;监督学习小结
+&lt;/h3&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;任务类型&lt;/th&gt;
+          &lt;th&gt;输出特点&lt;/th&gt;
+          &lt;th&gt;核心目标&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;回归&lt;/td&gt;
+          &lt;td&gt;连续数值，无限多个可能输出&lt;/td&gt;
+          &lt;td&gt;预测准确的数值结果&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;分类&lt;/td&gt;
+          &lt;td&gt;离散类别，有限个可能输出&lt;/td&gt;
+          &lt;td&gt;预测正确的类别归属&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;非监督学习unsupervised-learning&#34;&gt;非监督学习（Unsupervised Learning）
+&lt;/h2&gt;&lt;h3 id=&#34;核心逻辑-1&#34;&gt;核心逻辑
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;仅使用&lt;strong&gt;无标签的输入数据&lt;/strong&gt;（仅 x，无 y），算法&lt;strong&gt;自主挖掘数据中的结构或模式&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;与监督学习的关键区别：无需预先给定 “正确答案”（标签），从无标签数据中学习。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;典型任务&#34;&gt;典型任务
+&lt;/h3&gt;&lt;h5 id=&#34;聚类clustering&#34;&gt;聚类（Clustering）
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt;：将无标签数据自动分组到不同簇（clusters），相似数据点归为同一簇。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;示例&lt;/strong&gt;：Google 新闻分类&lt;/p&gt;
+&lt;p&gt;通过新闻关键词自动将当天新闻划分为不同主题（如 “体育”“科技”“财经”）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;降维dimensionality-reduction&#34;&gt;降维（Dimensionality Reduction）
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;：将高维大数据集压缩为低维数据集，同时尽可能减少信息丢失，便于数据可视化或后续处理。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;异常检测anomaly-detection&#34;&gt;异常检测（Anomaly Detection）
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;：从数据中找出不寻常的数据点（异常值），例如信用卡欺诈交易检测、设备故障检测等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;机器学习术语machine-learning-terminology&#34;&gt;机器学习术语（Machine Learning Terminology）
+&lt;/h2&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;术语&lt;/th&gt;
+          &lt;th&gt;定义&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;输入变量（x）&lt;/td&gt;
+          &lt;td&gt;用于预测的特征（如房屋面积、肿瘤大小），也叫 “特征（Feature）”&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;输出变量（y）&lt;/td&gt;
+          &lt;td&gt;待预测的结果（如房屋价格、肿瘤良恶性），也叫 “目标变量（Target）”&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;训练集（Training Set）&lt;/td&gt;
+          &lt;td&gt;用于训练模型的数据集合，包含多个训练样本&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;训练样本数（m）&lt;/td&gt;
+          &lt;td&gt;训练集中样本的总数（如 m=47 表示有 47 个训练样本）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;单个训练样本（x⁽ⁱ⁾, y⁽ⁱ⁾）&lt;/td&gt;
+          &lt;td&gt;第 i 个训练样本的输入（x⁽ⁱ⁾）与对应输出（y⁽ⁱ⁾），如 (x⁽¹⁾, y⁽¹⁾)=(2104, 400)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;特征数（n）&lt;/td&gt;
+          &lt;td&gt;每个训练样本包含的特征数量（如房屋预测中 “面积 + 卧室数 + 楼层”，n=3）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;模型（f）&lt;/td&gt;
+          &lt;td&gt;输入到输出的映射函数，也叫 “假设（Hypothesis）”，如 f (x)=wx+b&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;预测值 ŷ&lt;/td&gt;
+          &lt;td&gt;模型根据给定输入推测的预测值&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;线性回归模型linear-regression-model&#34;&gt;线性回归模型（Linear Regression Model）
+&lt;/h2&gt;&lt;h3 id=&#34;基本定义&#34;&gt;基本定义
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;监督学习中的回归任务模型，通过拟合一条直线（或高维空间中的超平面）建立输入与输出的线性关系，用于预测连续数值。&lt;/li&gt;
+&lt;li&gt;注意：线性回归是回归模型的一种，所有能预测数值的监督学习模型都可解决回归问题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;模型表达式&#34;&gt;模型表达式
+&lt;/h3&gt;&lt;h5 id=&#34;一元线性回归单特征&#34;&gt;一元线性回归（单特征）
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;仅含一个输入特征（x），模型公式：$f_{w,b}(x) = wx + b$&lt;/p&gt;
+&lt;p&gt;其中，&lt;code&gt;w&lt;/code&gt; 为权重（weight），&lt;code&gt;b&lt;/code&gt; 为偏置（bias），$f_{w,b}(x)$ 也记为 &lt;code&gt;ŷ&lt;/code&gt;（预测值），&lt;code&gt;y&lt;/code&gt; 为训练集中的真实值。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;多元线性回归多特征&#34;&gt;多元线性回归（多特征）
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;含多个输入特征$（x_1, x_2, &amp;hellip;, x_n）$，模型公式：$f_{\vec{w}, b}(\vec{x}) = w_1x_1 + w_2x_2 + &amp;hellip; + w_nx_n + b$&lt;/p&gt;
+&lt;p&gt;其中，$\vec{w} = [w_1, w_2, &amp;hellip;, w_n]$ 为权重向量，$\vec{x} = [x_1, x_2, &amp;hellip;, x_n] $为特征向量，可通过向量点积简化为：$f_{\vec{w}, b}(\vec{x}) = \vec{w} \cdot \vec{x} + b$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;多特征数据示例&lt;/strong&gt;：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;房屋面积（x₁）&lt;/th&gt;
+          &lt;th&gt;卧室数（x₂）&lt;/th&gt;
+          &lt;th&gt;楼层数（x₃）&lt;/th&gt;
+          &lt;th&gt;房龄（x₄）&lt;/th&gt;
+          &lt;th&gt;价格（千美元）&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;2104&lt;/td&gt;
+          &lt;td&gt;5&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+          &lt;td&gt;45&lt;/td&gt;
+          &lt;td&gt;460&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;1416&lt;/td&gt;
+          &lt;td&gt;3&lt;/td&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;40&lt;/td&gt;
+          &lt;td&gt;232&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;1534&lt;/td&gt;
+          &lt;td&gt;3&lt;/td&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;30&lt;/td&gt;
+          &lt;td&gt;315&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;852&lt;/td&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+          &lt;td&gt;36&lt;/td&gt;
+          &lt;td&gt;178&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h5 id=&#34;向量化vectorization&#34;&gt;向量化（Vectorization）
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;作用&lt;/strong&gt;：减少代码量，利用 NumPy 等工具调用并行硬件，大幅提升计算速度，尤其适用于大规模数据集。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;无向量化（循环计算）：&lt;/p&gt;
+&lt;p&gt;$f = w[0]x[0] + w[1]x[1] + w[2]x[2] + b$&lt;/p&gt;
+&lt;p&gt;向量化（直接点积）：&lt;/p&gt;
+&lt;p&gt;$f = np.dot(w, x) + b$&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;代价函数cost-function&#34;&gt;代价函数（Cost Function）
+&lt;/h2&gt;&lt;h3 id=&#34;核心作用&#34;&gt;核心作用
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;衡量模型预测值$\hat{y} = f_{w,b}(x)）$与，真实值$（y）$的差异即模型对训练数据的拟合程度。&lt;/li&gt;
+&lt;li&gt;目标：找到最优的 $w $和 $b$，使代价函数值最小。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;常用代价函数平方误差代价函数squared-error-cost-function&#34;&gt;常用代价函数：平方误差代价函数（Squared Error Cost Function）
+&lt;/h3&gt;&lt;h5 id=&#34;公式线性回归&#34;&gt;公式（线性回归）
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;对于 m 个训练样本，&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;代价函数为：&lt;/p&gt;
+&lt;p&gt;$J(w,b) = \frac{1}{2m} \sum_{i=1}^{m} \left( f_{w,b}(x^{(i)}) - y^{(i)} \right)^2$&lt;/p&gt;
+&lt;p&gt;其中，$\frac{1}{2}$是为了后续求导计算简洁，不影响最小值的位置。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;逻辑回归的代价函数&#34;&gt;逻辑回归的代价函数
+&lt;/h3&gt;&lt;h5 id=&#34;直观理解&#34;&gt;直观理解
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;简化场景（固定 b=0，仅分析 w）：&lt;/p&gt;
+&lt;p&gt;当&lt;code&gt;w=1&lt;/code&gt;时，预测值与真实值差异较小，代价函数值较小；当&lt;code&gt;w=0&lt;/code&gt;或&lt;code&gt;w=-0.5&lt;/code&gt;时，差异增大，代价函数值升高。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;三维可视化（含 w 和 b）：以&lt;code&gt;w&lt;/code&gt;和&lt;code&gt;b&lt;/code&gt;为坐标轴，代价函数值&lt;code&gt;J(w,b)&lt;/code&gt;为高度，形成三维曲面，曲面最低点对应最优参数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;等值线图（等高线）：&lt;/p&gt;
+&lt;p&gt;二维平面上，同一等值线的&lt;code&gt;J(w,b)&lt;/code&gt;值相同，中心处值最小，对应最优参数。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251029150513501.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251029150513501&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;逻辑回归的代价函数-1&#34;&gt;逻辑回归的代价函数
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;由于逻辑回归输出为 0-1 概率，平方误差代价函数会导致非凸函数（存在多个局部最小值），故采用&lt;strong&gt;对数损失函数&lt;/strong&gt;（Log Loss）：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;单个样本损失：$L(f_{w,b}(x^{(i)}), y^{(i)}) = \begin{cases} -log(f_{w,b}(x^{(i)})) &amp;amp; \text{if } y^{(i)}=1 \ -log(1-f_{w,b}(x^{(i)})) &amp;amp; \text{if } y^{(i)}=0 \end{cases}$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;整体代价函数：&lt;/p&gt;
+&lt;p&gt;$J(w,b) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y^{(i)}log(f_{w,b}(x^{(i)})) + (1-y^{(i)})log(1-f_{w,b}(x^{(i)})) \right]$&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;特点：凸函数，梯度下降可找到全局最小值。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/ML_02.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;线性回归公式&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;梯度下降gradient-descent&#34;&gt;梯度下降（Gradient Descent）
+&lt;/h2&gt;&lt;h3 id=&#34;基本定义-1&#34;&gt;基本定义
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;一种通用的优化算法，用于最小化任意代价函数（不仅限于线性回归或逻辑回归），广泛应用于机器学习领域。&lt;/li&gt;
+&lt;li&gt;核心思想：从初始参数（如 &lt;em&gt;w&lt;/em&gt;=0,&lt;em&gt;b&lt;/em&gt;=0）出发，通过不断调整参数（&lt;em&gt;w&lt;/em&gt; 和 &lt;em&gt;b&lt;/em&gt;），沿代价函数梯度下降方向减小 &lt;em&gt;J&lt;/em&gt;(&lt;em&gt;w&lt;/em&gt;,&lt;em&gt;b&lt;/em&gt;)，直至收敛到局部最小值（或接近最小值）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;算法步骤&#34;&gt;算法步骤
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;初始化参数：设定初始 &lt;em&gt;w&lt;/em&gt; 和 &lt;em&gt;b&lt;/em&gt;（如均为 0）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;迭代更新：&lt;/p&gt;
+&lt;p&gt;同时更新 &lt;em&gt;w&lt;/em&gt; 和b（关键：不能分步更新），公式为：&lt;/p&gt;
+&lt;p&gt;$tmp_w = w - \alpha \cdot \frac{\partial J(w,b)}{\partial w}$&lt;/p&gt;
+&lt;p&gt;$tmp_b = b - \alpha \cdot \frac{\partial J(w,b)}{\partial b}$&lt;/p&gt;
+&lt;p&gt;$w = tmp_w, \quad b = tmp_b$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;终止条件：当$ J(w,b) $不再明显减小（收敛）时停止。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;关键参数学习率α&#34;&gt;关键参数：学习率（α）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;作用&lt;/strong&gt;：决定每一步更新参数的步幅大小。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;影响&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;α 过小：迭代次数多，收敛慢。&lt;/li&gt;
+&lt;li&gt;α 过大：可能跨越最小值，导致 $J(w,b) $震荡甚至发散（不收敛）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;选择建议&lt;/strong&gt;：尝试 3 倍递增的取值（如 0.001、0.003、0.01、0.03、0.1&amp;hellip;），找到使 &lt;em&gt;J&lt;/em&gt;(&lt;em&gt;w&lt;/em&gt;,&lt;em&gt;b&lt;/em&gt;) 快速下降的合适值。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251029152210815.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251029152210815&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;线性回归的梯度下降&#34;&gt;线性回归的梯度下降
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;偏导数计算（代入平方误差代价函数）：&lt;/p&gt;
+&lt;p&gt;$\frac{\partial J(w,b)}{\partial w} = \frac{1}{m} \sum_{i=1}^{m} \left( f_{w,b}(x^{(i)}) - y^{(i)} \right)x^{(i)}$&lt;/p&gt;
+&lt;p&gt;$\frac{\partial J(w,b)}{\partial b} = \frac{1}{m} \sum_{i=1}^{m} \left( f_{w,b}(x^{(i)}) - y^{(i)} \right)$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;特点：线性回归的代价函数是凸函数，梯度下降一定能找到全局最小值（无局部最小值问题）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;逻辑回归的梯度下降&#34;&gt;逻辑回归的梯度下降
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;偏导数计算（代入对数损失函数）：&lt;/p&gt;
+&lt;p&gt;形式与线性回归相同但 \(f_{w,b}(x) = g(w \cdot x + b)\)（\(g(z)\) 为 sigmoid 函数），故实际计算不同：&lt;/p&gt;
+&lt;p&gt;$\frac{\partial J(w,b)}{\partial w_j} = \frac{1}{m} \sum_{i=1}^{m} \left( f_{w,b}(x^{(i)}) - y^{(i)} \right)x_j^{(i)}$&lt;/p&gt;
+&lt;p&gt;$\frac{\partial J(w,b)}{\partial b} = \frac{1}{m} \sum_{i=1}^{m} \left( f_{w,b}(x^{(i)}) - y^{(i)} \right)$&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;逻辑回归logistic-regression&#34;&gt;逻辑回归（Logistic Regression）
+&lt;/h2&gt;&lt;h3 id=&#34;基本定义-2&#34;&gt;基本定义
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;虽名为 “回归”，但实际是解决&lt;strong&gt;二分类问题&lt;/strong&gt;的算法，输出为样本属于某一类别的概率（0~1 之间）。&lt;/li&gt;
+&lt;li&gt;核心：通过 sigmoid 函数将线性模型的输出（&lt;em&gt;z&lt;/em&gt;=&lt;em&gt;w&lt;/em&gt;⋅&lt;em&gt;x&lt;/em&gt;+&lt;em&gt;b&lt;/em&gt;）映射到 0~1 区间。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;sigmoid-函数逻辑函数&#34;&gt;Sigmoid 函数（逻辑函数）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;公式：$g(z) = \frac{1}{1 + e^{-z}}$&lt;/li&gt;
+&lt;li&gt;性质：
+&lt;ul&gt;
+&lt;li&gt;当 &lt;em&gt;z&lt;/em&gt;≥0 时，&lt;em&gt;g&lt;/em&gt;(&lt;em&gt;z&lt;/em&gt;)≥0.5&lt;/li&gt;
+&lt;li&gt;当 &lt;em&gt;z&lt;/em&gt;&amp;lt;0 时，&lt;em&gt;g&lt;/em&gt;(&lt;em&gt;z&lt;/em&gt;)&amp;lt;0.5&lt;/li&gt;
+&lt;li&gt;输出范围：0&amp;lt;&lt;em&gt;g&lt;/em&gt;(&lt;em&gt;z&lt;/em&gt;)&amp;lt;1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;模型表达式-1&#34;&gt;模型表达式
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;逻辑回归模型：$f_{w,b}(x) = g(w \cdot x + b) = \frac{1}{1 + e^{-(w \cdot x + b)}}$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;输出含义：&lt;/p&gt;
+&lt;p&gt;$=P(y=1∣x;w,b)$&lt;/p&gt;
+&lt;p&gt;，即给定输入 x 和参数 w、b 时，样本属于类别 1（正类）的概率。&lt;/p&gt;
+&lt;p&gt;示例：若$f_{w,b}=0.7$，表示该样本有 70% 概率为正类（如恶性肿瘤），30% 概率为负类（如良性肿瘤）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;决策边界decision-boundary&#34;&gt;决策边界（Decision Boundary）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;：划分正类（y=1）和负类（y=0）的边界，由$ f_{w,b}(x)=0.5$ 推导而来（此时 &lt;em&gt;z&lt;/em&gt;=&lt;em&gt;w&lt;/em&gt;⋅&lt;em&gt;x&lt;/em&gt;+&lt;em&gt;b&lt;/em&gt;=0）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;类型：&lt;/strong&gt;
+&lt;ol&gt;
+&lt;li&gt;线性决策边界：当特征为线性组合时（如$ w_1x_1 + w_2x_2 + b = 0$），边界为直线（二维）或平面（高维）。&lt;/li&gt;
+&lt;li&gt;非线性决策边界：通过特征工程（如添加多项式特征$ x_1^2, x_1x_2 $等），可拟合圆形、椭圆形等非线性边界，适用于复杂数据分布。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;模型优化特征工程与正则化&#34;&gt;模型优化：特征工程与正则化
+&lt;/h2&gt;&lt;h3 id=&#34;特征工程feature-engineering&#34;&gt;特征工程（Feature Engineering）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;：根据问题直觉，通过变换、合并或创建新特征，提升模型预测能力。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;房屋预测中，将 “房屋正面宽度（frontage）” 和 “深度（depth）” 合并为 “面积（area = frontage × depth）”，面积对价格的预测更直接。&lt;/li&gt;
+&lt;li&gt;多项式回归：将特征 &lt;em&gt;x&lt;/em&gt; 扩展为 &lt;em&gt;x&lt;/em&gt;,&lt;em&gt;x&lt;/em&gt;2,&lt;em&gt;x&lt;/em&gt;3 等，拟合非线性数据（需配合特征缩放）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;特征缩放feature-scaling&#34;&gt;特征缩放（Feature Scaling）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;目的&lt;/strong&gt;：使不同取值范围的特征（如 “房屋面积：300&lt;del&gt;2000 平方英尺”“卧室数：0&lt;/del&gt;5”）具有相似的数值范围（通常目标 −1≤&lt;em&gt;x**j&lt;/em&gt;≤1，可接受 −3≤&lt;em&gt;x**j&lt;/em&gt;≤3），加速梯度下降收敛。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;常用方法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;归一化（Normalization）：归一化（Normalization）：&lt;/p&gt;
+&lt;p&gt;$x_j^{scaled} = \frac{x_j - min(x_j)}{max(x_j) - min(x_j)}$&lt;/p&gt;
+&lt;p&gt;将特征缩放到 0~1 区间。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;标准化（Z-score Normalization）：$x_j^{scaled} = \frac{x_j - \mu_j}{\sigma_j}$，&lt;/p&gt;
+&lt;p&gt;其中$ \mu_j$ 为特征j的均值，$\sigma_j $为标准差，使特征均值为 0、标准差为 1。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;正则化regularization&#34;&gt;正则化（Regularization）
+&lt;/h3&gt;&lt;h5 id=&#34;问题背景过拟合overfitting与欠拟合underfitting&#34;&gt;问题背景：过拟合（Overfitting）与欠拟合（Underfitting）
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;欠拟合&lt;/strong&gt;：模型过于简单，无法拟合训练数据（高偏差，high bias），如用直线拟合非线性数据。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;过拟合&lt;/strong&gt;：模型过于复杂，完美拟合训练数据但泛化能力差（高方差，high variance），如用四阶多项式拟合少量线性数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;正则化核心思想&#34;&gt;正则化核心思想
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;通过在代价函数中添加&lt;strong&gt;正则项&lt;/strong&gt;，惩罚过大的参数值（&lt;em&gt;w**j&lt;/em&gt;），使模型参数尽可能小，从而简化模型，避免过拟合（不惩罚 b，影响较小）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;常用正则化方法l2-正则化权重衰减&#34;&gt;常用正则化方法：L2 正则化（权重衰减）
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;线性回归的正则化代价函数&lt;/strong&gt;：$J(w,b) = \frac{1}{2m} \sum_{i=1}^{m} \left( f_{w,b}(x^{(i)}) - y^{(i)} \right)^2 + \frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;逻辑回归的正则化代价函数&lt;/strong&gt;：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$J(w,b) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y^{(i)}log(f_{w,b}(x^{(i)})) + (1-y^{(i)})log(1-f_{w,b}(x^{(i)})) \right] + \frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;正则化参数 λ&lt;/strong&gt;：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;λ=0：无正则化，可能过拟合。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;λ 过大：惩罚过强，参数趋近于 0，模型过于简单，导致欠拟合。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;选择：需通过验证集调整，找到平衡过拟合与欠拟合的最优值。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;正则化的梯度下降更新&#34;&gt;正则化的梯度下降更新
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;线性回归（以\(w_j\)为例）：&lt;/p&gt;
+&lt;p&gt;$w_j = w_j - \alpha \left[ \frac{1}{m} \sum_{i=1}^{m} \left( f_{w,b}(x^{(i)}) - y^{(i)} \right)x_j^{(i)} + \frac{\lambda}{m}w_j \right]$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;其中，$1 - \alpha \cdot \frac{\lambda}{m} $项使\(w_j\)每次更新时 “收缩”，实现权重衰减。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;逻辑回归（更新公式形式与线性回归相同，仅$ f (x) $计算不同）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;过拟合的其他解决方法&#34;&gt;过拟合的其他解决方法
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;收集更多训练数据&lt;/strong&gt;：增加数据量可提升模型泛化能力，是解决过拟合的有效方法（前提是数据质量高）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;减少特征数量&lt;/strong&gt;：通过特征选择（如手动筛选或算法自动选择），剔除无关或冗余特征，简化模型（缺点：可能丢失有用信息）。&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
