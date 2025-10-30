@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta name="google-site-verification" content="_dAX7uDJJKRVjb0t7Il5zqA-h6sCbbvn9ktsHN2jbBE" />
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="FRP 内网穿透部署教程\r部署前提\r公网服务器（VPS）：需具备公网 IP，用于部署 frps（服务端）。 内网服务器：可访问公网，用于部署 frpc（客户端）。 网络权限：VPS 防火墙需开放 frps 监听端口（如 7000）和穿透服务端口（如 10022）。 VPS 部署 frps（服务端）\r下载并解压 FRP\r进入工作目录并下载指定版本的 FRP：\n">
+<title>FRP-Deploy</title>
+
+<link rel='canonical' href='http://localhost:1313/p/frp-deploy/'>
+
+<link rel="stylesheet" href="/scss/style.min.48ce54e3e307e3741d61de84a9b7fd091d2b70c905a608c90a1db85a009feb1b.css"><meta property='og:title' content="FRP-Deploy">
+<meta property='og:description' content="FRP 内网穿透部署教程\r部署前提\r公网服务器（VPS）：需具备公网 IP，用于部署 frps（服务端）。 内网服务器：可访问公网，用于部署 frpc（客户端）。 网络权限：VPS 防火墙需开放 frps 监听端口（如 7000）和穿透服务端口（如 10022）。 VPS 部署 frps（服务端）\r下载并解压 FRP\r进入工作目录并下载指定版本的 FRP：\n">
+<meta property='og:url' content='http://localhost:1313/p/frp-deploy/'>
+<meta property='og:site_name' content='Choser&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='FRP' /><meta property='article:published_time' content='2025-10-30T19:36:23&#43;08:00'/><meta property='article:modified_time' content='2025-10-30T19:36:23&#43;08:00'/><meta property='og:image' content='http://localhost:1313/images/MirrorLake.png' />
+<meta name="twitter:title" content="FRP-Deploy">
+<meta name="twitter:description" content="FRP 内网穿透部署教程\r部署前提\r公网服务器（VPS）：需具备公网 IP，用于部署 frps（服务端）。 内网服务器：可访问公网，用于部署 frpc（客户端）。 网络权限：VPS 防火墙需开放 frps 监听端口（如 7000）和穿透服务端口（如 10022）。 VPS 部署 frps（服务端）\r下载并解压 FRP\r进入工作目录并下载指定版本的 FRP：\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/images/MirrorLake.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu1777375556697644536.png" width="300"
+                            height="158" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Choser&#39;s Blog</a></h1>
+            <h2 class="site-description">进一寸有进一寸的欢喜</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Ch0ser'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:ch0ser@qq.com'
+                        target="_blank"
+                        title="✉️ Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1760270206847" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5175" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M858.656 192 165.344 192C109.472 192 64 237.44 64 293.312l0 469.376C64 818.56 109.472 864 165.344 864l693.312 0C914.528 864 960 818.56 960 762.688L960 293.312C960 237.44 914.528 192 858.656 192zM858.656 800 165.344 800C144.736 800 128 783.264 128 762.688L128 293.312C128 272.736 144.736 256 165.344 256l684.544 0-307.488 279.808c-14.592 14.56-38.272 14.528-54.752-1.792l-244.256-206.752C229.856 315.84 209.664 317.504 198.272 331.008c-11.424 13.472-9.76 33.664 3.744 45.088l242.304 204.96c19.904 19.904 46.048 29.792 72.032 29.792 25.632 0 51.136-9.632 70.176-28.736L896 300.544l0 462.144C896 783.264 879.264 800 858.656 800z" fill="#5D646F" p-id="5176"></path></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于我</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#frp-内网穿透部署教程">FRP 内网穿透部署教程</a>
+      <ol>
+        <li><a href="#部署前提">部署前提</a></li>
+        <li><a href="#vps-部署-frps服务端">VPS 部署 frps（服务端）</a>
+          <ol>
+            <li><a href="#下载并解压-frp">下载并解压 FRP</a></li>
+            <li><a href="#创建服务端配置文件">创建服务端配置文件</a></li>
+            <li><a href="#启动-frps">启动 frps</a></li>
+            <li><a href="#设置开机自启systemd">设置开机自启（systemd）</a></li>
+          </ol>
+        </li>
+        <li><a href="#内网服务器部署-frpc客户端">内网服务器部署 frpc（客户端）</a>
+          <ol>
+            <li><a href="#下载并解压-frp-1">下载并解压 FRP</a></li>
+            <li><a href="#创建客户端配置文件">创建客户端配置文件</a></li>
+            <li><a href="#测试连接">测试连接</a></li>
+            <li><a href="#设置开机自启">设置开机自启</a></li>
+          </ol>
+        </li>
+        <li><a href="#从公网连接内网服务">从公网连接内网服务</a>
+          <ol>
+            <li><a href="#配置-vps-防火墙">配置 VPS 防火墙</a></li>
+            <li><a href="#建立-ssh-连接">建立 SSH 连接</a></li>
+          </ol>
+        </li>
+        <li><a href="#常见问题排查">常见问题排查</a></li>
+        <li><a href="#进阶建议">进阶建议</a></li>
+        <li><a href="#参考资料">参考资料</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/frp-deploy/">
+                
+                    <img src="/images/MirrorLake.png" loading="lazy" alt="Featured image of post FRP-Deploy" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" >
+                计算机基础
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/frp-deploy/">FRP-Deploy</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 30, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="frp-内网穿透部署教程">FRP 内网穿透部署教程
+</h2><h3 id="部署前提">部署前提
+</h3><ul>
+<li>公网服务器（VPS）：需具备公网 IP，用于部署 <code>frps</code>（服务端）。</li>
+<li>内网服务器：可访问公网，用于部署 <code>frpc</code>（客户端）。</li>
+<li>网络权限：VPS 防火墙需开放 <code>frps</code> 监听端口（如 <code>7000</code>）和穿透服务端口（如 <code>10022</code>）。</li>
+</ul>
+<h3 id="vps-部署-frps服务端">VPS 部署 frps（服务端）
+</h3><h4 id="下载并解压-frp">下载并解压 FRP
+</h4><p>进入工作目录并下载指定版本的 FRP：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ~
+</span></span><span class="line"><span class="cl">wget https://github.com/fatedier/frp/releases/download/v0.58.0/frp_0.58.0_linux_amd64.tar.gz
+</span></span><span class="line"><span class="cl">tar -zxvf frp_0.58.0_linux_amd64.tar.gz
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> frp_0.58.0_linux_amd64
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="创建服务端配置文件">创建服务端配置文件
+</h4><p>创建 <code>frps.toml</code> 配置文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; frps.toml <span class="s">&lt;&lt; &#39;EOF&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">bindPort = 7000
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">[auth]
+</span></span></span><span class="line"><span class="cl"><span class="s">token = &#34;your-secret-token-here&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">[webServer]
+</span></span></span><span class="line"><span class="cl"><span class="s">bindAddr = &#34;0.0.0.0&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">port = 7500
+</span></span></span><span class="line"><span class="cl"><span class="s">user = &#34;admin&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">password = &#34;your-web-password&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>bindPort</code>：frpc 连接 frps 的通信端口。</li>
+<li><code>token</code>：认证密钥，需与客户端保持一致。</li>
+<li><code>webServer</code> 部分为可选配置，用于启用管理面板。</li>
+</ul>
+<h4 id="启动-frps">启动 frps
+</h4><p>执行以下命令启动服务端：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./frps -c ./frps.toml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>正常启动后，日志中应包含 <code>frps started successfully</code>。</p>
+<h4 id="设置开机自启systemd">设置开机自启（systemd）
+</h4><p>创建 systemd 服务文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo tee /etc/systemd/system/frps.service <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">[Unit]
+</span></span></span><span class="line"><span class="cl"><span class="s">Description=FRP Server Daemon
+</span></span></span><span class="line"><span class="cl"><span class="s">After=network.target
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">[Service]
+</span></span></span><span class="line"><span class="cl"><span class="s">Type=simple
+</span></span></span><span class="line"><span class="cl"><span class="s">User=your-username
+</span></span></span><span class="line"><span class="cl"><span class="s">WorkingDirectory=/home/your-username/frp_0.58.0_linux_amd64
+</span></span></span><span class="line"><span class="cl"><span class="s">ExecStart=/home/your-username/frp_0.58.0_linux_amd64/frps -c /home/your-username/frp_0.58.0_linux_amd64/frps.toml
+</span></span></span><span class="line"><span class="cl"><span class="s">Restart=on-failure
+</span></span></span><span class="line"><span class="cl"><span class="s">RestartSec=5
+</span></span></span><span class="line"><span class="cl"><span class="s">LimitNOFILE=65536
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">[Install]
+</span></span></span><span class="line"><span class="cl"><span class="s">WantedBy=multi-user.target
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启用并启动服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl daemon-reload
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> frps
+</span></span><span class="line"><span class="cl">sudo systemctl start frps
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看服务状态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl status frps
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>确保状态为 <code>active (running)</code>。</p>
+<h3 id="内网服务器部署-frpc客户端">内网服务器部署 frpc（客户端）
+</h3><h4 id="下载并解压-frp-1">下载并解压 FRP
+</h4><p>在内网服务器上执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ~
+</span></span><span class="line"><span class="cl">wget https://github.com/fatedier/frp/releases/download/v0.58.0/frp_0.58.0_linux_amd64.tar.gz
+</span></span><span class="line"><span class="cl">tar -zxvf frp_0.58.0_linux_amd64.tar.gz
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> frp_0.58.0_linux_amd64
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="创建客户端配置文件">创建客户端配置文件
+</h4><p>创建 <code>frpc.toml</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; frpc.toml <span class="s">&lt;&lt; &#39;EOF&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">serverAddr = &#34;your-vps-public-ip&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">serverPort = 7000
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">auth.token = &#34;your-secret-token-here&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">[[proxies]]
+</span></span></span><span class="line"><span class="cl"><span class="s">name = &#34;ssh-to-internal&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">type = &#34;tcp&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">localIP = &#34;127.0.0.1&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">localPort = 22
+</span></span></span><span class="line"><span class="cl"><span class="s">remotePort = 10022
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>serverAddr</code>：替换为 VPS 的公网 IP。</li>
+<li><code>auth.token</code>：必须与 <code>frps.toml</code> 中的 <code>token</code> 一致。</li>
+<li><code>localPort</code>：根据内网服务实际端口修改（如 SSH 服务为 2255，则此处改为 2255）。</li>
+<li><code>remotePort</code>：VPS 上对外暴露的端口。</li>
+</ul>
+<h4 id="测试连接">测试连接
+</h4><p>运行以下命令测试连接：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./frpc -c ./frpc.toml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>若输出中包含 <code>login to server success</code> 和 <code>start proxy success</code>，则表示连接成功。按 <code>Ctrl+C</code> 退出测试。</p>
+<h4 id="设置开机自启">设置开机自启
+</h4><p>创建 systemd 服务文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo tee /etc/systemd/system/frpc.service <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">[Unit]
+</span></span></span><span class="line"><span class="cl"><span class="s">Description=FRP Client Daemon
+</span></span></span><span class="line"><span class="cl"><span class="s">After=network.target
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">[Service]
+</span></span></span><span class="line"><span class="cl"><span class="s">Type=simple
+</span></span></span><span class="line"><span class="cl"><span class="s">User=your-username
+</span></span></span><span class="line"><span class="cl"><span class="s">WorkingDirectory=/home/your-username/frp_0.58.0_linux_amd64
+</span></span></span><span class="line"><span class="cl"><span class="s">ExecStart=/home/your-username/frp_0.58.0_linux_amd64/frpc -c /home/your-username/frp_0.58.0_linux_amd64/frpc.toml
+</span></span></span><span class="line"><span class="cl"><span class="s">Restart=on-failure
+</span></span></span><span class="line"><span class="cl"><span class="s">RestartSec=5
+</span></span></span><span class="line"><span class="cl"><span class="s">LimitNOFILE=65536
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">[Install]
+</span></span></span><span class="line"><span class="cl"><span class="s">WantedBy=multi-user.target
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启用服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl daemon-reload
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> frpc
+</span></span><span class="line"><span class="cl">sudo systemctl start frpc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>检查状态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl status frpc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="从公网连接内网服务">从公网连接内网服务
+</h3><h4 id="配置-vps-防火墙">配置 VPS 防火墙
+</h4><p>在 VPS 管理控制台添加安全组规则，放行以下端口：</p>
+<ul>
+<li><code>7000</code>：frps 通信端口</li>
+<li><code>10022</code>：SSH 穿透端口（或自定义的 <code>remotePort</code>）</li>
+</ul>
+<h4 id="建立-ssh-连接">建立 SSH 连接
+</h4><p>使用以下命令连接内网服务器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh -p <span class="m">10022</span> your-username@your-vps-public-ip
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>your-username</code>：内网服务器的登录用户名。</li>
+<li><code>your-vps-public-ip</code>：VPS 的公网 IP 地址。</li>
+</ul>
+<h3 id="常见问题排查">常见问题排查
+</h3><ul>
+<li><strong>连接被拒绝（connection refused）</strong>
+检查 VPS 防火墙是否放行 <code>7000</code> 和 <code>remotePort</code>。</li>
+<li><strong>Token 认证失败</strong>
+确保 <code>frps.toml</code> 和 <code>frpc.toml</code> 中的 <code>token</code> 完全一致。</li>
+<li><strong>连接后立即关闭（Connection closed by &hellip;）</strong>
+检查 <code>frpc.toml</code> 中的 <code>localPort</code> 是否正确，以及内网服务是否正在运行。</li>
+<li><strong>端口已被占用</strong>
+若启动 <code>frps</code> 时报错 <code>address already in use</code>，说明端口被占用，可通过 <code>netstat -tuln | grep 7000</code> 查看并终止占用进程。</li>
+</ul>
+<h3 id="进阶建议">进阶建议
+</h3><ul>
+<li><strong>安全加固</strong>
+使用强密码和 SSH 密钥认证，避免使用弱口令。</li>
+<li><strong>高可用性</strong>
+通过 systemd 配置自动重启策略，确保服务异常退出后能自动恢复。</li>
+<li><strong>多服务穿透</strong>
+可在 <code>frpc.toml</code> 中添加多个 <code>[[proxies]]</code> 配置，实现 Web 服务、数据库等多协议穿透。</li>
+<li><strong>状态监控</strong>
+启用 <code>webServer</code> 配置后，可通过浏览器访问 <code>http://&lt;VPS_IP&gt;:7500</code> 查看客户端连接状态和流量信息。</li>
+</ul>
+<h3 id="参考资料">参考资料
+</h3><ul>
+<li>FRP 官方 GitHub：https://github.com/fatedier/frp</li>
+<li>FRP 官方文档：<a class="link" href="https://gofrp.org/"  target="_blank" rel="noopener"
+    >https://gofrp.org</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/frp/">FRP</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/bash_prompt/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_prompt</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/bash_startup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_startup</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/bash_mktemptrap/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_mktemp&amp;trap</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/bash_debug/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_debug</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/bash_setshopt/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/Cloud.png" loading="lazy" data-key="" data-hash="/images/Cloud.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Bash_set&amp;shopt</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-cn"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2025 Ch0ser
+    </section>
+    
+    <section class="powerby">
+        
+            © 2023-2025 Ch0ser. All Rights Reserved. <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c40ef8aa0283b248e5f2bd72e42b764508b5f0eea0ceb6be507c00b95d79fc02.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
