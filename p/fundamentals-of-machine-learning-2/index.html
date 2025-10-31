@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta name="google-site-verification" content="_dAX7uDJJKRVjb0t7Il5zqA-h6sCbbvn9ktsHN2jbBE" />
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考\n神经网络概述\r起源与演变\r神经网络（Neural Networks）是一类试图模仿人脑结构和功能的算法。其灵感来源于生物神经元，后者通过树突接收输入信号，在细胞体中处理，并通过轴突将输出信号传递给其他神经元。\n">
+<title>Fundamentals of Machine Learning 2</title>
+
+<link rel='canonical' href='https://ch0ser.github.io/p/fundamentals-of-machine-learning-2/'>
+
+<link rel="stylesheet" href="/scss/style.min.48ce54e3e307e3741d61de84a9b7fd091d2b70c905a608c90a1db85a009feb1b.css"><meta property='og:title' content="Fundamentals of Machine Learning 2">
+<meta property='og:description' content=" 本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考\n神经网络概述\r起源与演变\r神经网络（Neural Networks）是一类试图模仿人脑结构和功能的算法。其灵感来源于生物神经元，后者通过树突接收输入信号，在细胞体中处理，并通过轴突将输出信号传递给其他神经元。\n">
+<meta property='og:url' content='https://ch0ser.github.io/p/fundamentals-of-machine-learning-2/'>
+<meta property='og:site_name' content='Choser&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Machine Learning' /><meta property='article:published_time' content='2025-10-31T10:53:50&#43;08:00'/><meta property='article:modified_time' content='2025-10-31T10:53:50&#43;08:00'/><meta property='og:image' content='https://ch0ser.github.io/images/SunsetGlow.png' />
+<meta name="twitter:title" content="Fundamentals of Machine Learning 2">
+<meta name="twitter:description" content=" 本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考\n神经网络概述\r起源与演变\r神经网络（Neural Networks）是一类试图模仿人脑结构和功能的算法。其灵感来源于生物神经元，后者通过树突接收输入信号，在细胞体中处理，并通过轴突将输出信号传递给其他神经元。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ch0ser.github.io/images/SunsetGlow.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu1777375556697644536.png" width="300"
+                            height="158" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Choser&#39;s Blog</a></h1>
+            <h2 class="site-description">进一寸有进一寸的欢喜</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Ch0ser'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:ch0ser@qq.com'
+                        target="_blank"
+                        title="✉️ Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1760270206847" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5175" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M858.656 192 165.344 192C109.472 192 64 237.44 64 293.312l0 469.376C64 818.56 109.472 864 165.344 864l693.312 0C914.528 864 960 818.56 960 762.688L960 293.312C960 237.44 914.528 192 858.656 192zM858.656 800 165.344 800C144.736 800 128 783.264 128 762.688L128 293.312C128 272.736 144.736 256 165.344 256l684.544 0-307.488 279.808c-14.592 14.56-38.272 14.528-54.752-1.792l-244.256-206.752C229.856 315.84 209.664 317.504 198.272 331.008c-11.424 13.472-9.76 33.664 3.744 45.088l242.304 204.96c19.904 19.904 46.048 29.792 72.032 29.792 25.632 0 51.136-9.632 70.176-28.736L896 300.544l0 462.144C896 783.264 879.264 800 858.656 800z" fill="#5D646F" p-id="5176"></path></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于我</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://ch0ser.github.io/en/" >English</option>
+                                
+                                    <option value="https://ch0ser.github.io/" selected>中文</option>
+                                
+                                    <option value="https://ch0ser.github.io/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#神经网络概述">神经网络概述</a>
+      <ol>
+        <li><a href="#起源与演变">起源与演变</a></li>
+        <li><a href="#为何现在可行">为何现在可行？</a></li>
+        <li><a href="#核心思想端到端学习">核心思想：端到端学习</a></li>
+      </ol>
+    </li>
+    <li><a href="#神经网络架构">神经网络架构</a>
+      <ol>
+        <li><a href="#基本组成单元神经网络层">基本组成单元：神经网络层</a></li>
+        <li><a href="#数学模型与符号约定">数学模型与符号约定</a></li>
+        <li><a href="#前向传播-forward-propagation">前向传播 (Forward Propagation)</a></li>
+      </ol>
+    </li>
+    <li><a href="#激活函数">激活函数</a>
+      <ol>
+        <li><a href="#常用激活函数">常用激活函数</a></li>
+        <li><a href="#激活函数选择建议">激活函数选择建议</a></li>
+      </ol>
+    </li>
+    <li><a href="#使用-tensorflowkeras-构建与训练">使用 TensorFlow/Keras 构建与训练</a>
+      <ol>
+        <li><a href="#构建模型">构建模型</a></li>
+        <li><a href="#训练模型">训练模型</a></li>
+        <li><a href="#训练细节">训练细节</a></li>
+        <li><a href="#关于数据格式的注意事项">关于数据格式的注意事项</a></li>
+      </ol>
+    </li>
+    <li><a href="#向量化与高效计算">向量化与高效计算</a></li>
+    <li><a href="#agi通用人工智能">AGI通用人工智能</a>
+      <ol>
+        <li><a href="#人工智能的两个层次"><strong>人工智能的两个层次</strong></a></li>
+        <li><a href="#神经网络的生物学基础"><strong>神经网络的生物学基础</strong></a></li>
+        <li><a href="#核心主题神经网络与大脑"><strong>核心主题：神经网络与大脑</strong></a></li>
+      </ol>
+    </li>
+    <li><a href="#多分类问题">多分类问题</a>
+      <ol>
+        <li><a href="#softmax-回归">Softmax 回归</a></li>
+        <li><a href="#数值稳定性">数值稳定性</a></li>
+      </ol>
+    </li>
+    <li><a href="#多标签分类">多标签分类</a></li>
+    <li><a href="#优化算法adam">优化算法：Adam</a></li>
+    <li><a href="#卷积层">卷积层</a></li>
+    <li><a href="#导数与反向传播">导数与反向传播</a>
+      <ol>
+        <li><a href="#导数的直观理解">导数的直观理解</a></li>
+        <li><a href="#反向传播-backpropagation">反向传播 (Backpropagation)</a></li>
+      </ol>
+    </li>
+    <li><a href="#调试与评估机器学习算法">调试与评估机器学习算法</a>
+      <ol>
+        <li><a href="#训练测试集划分">训练/测试集划分</a></li>
+        <li><a href="#交叉验证">交叉验证</a></li>
+        <li><a href="#偏差与方差-biasvariance">偏差与方差 (Bias/Variance)</a></li>
+        <li><a href="#学习曲线">学习曲线</a></li>
+        <li><a href="#调试策略总结">调试策略总结</a></li>
+      </ol>
+    </li>
+    <li><a href="#神经网络与正则化">神经网络与正则化</a>
+      <ol>
+        <li><a href="#网络大小与偏差方差">网络大小与偏差/方差</a></li>
+        <li><a href="#l2-正则化">L2 正则化</a></li>
+      </ol>
+    </li>
+    <li><a href="#迭代式机器学习开发">迭代式机器学习开发</a></li>
+    <li><a href="#误差分析">误差分析</a>
+      <ol>
+        <li><a href="#构建垃圾邮件分类器">构建垃圾邮件分类器</a></li>
+        <li><a href="#手动检查与分类">手动检查与分类</a></li>
+        <li><a href="#决策依据">决策依据</a></li>
+        <li><a href="#偏差方差分析的作用">偏差/方差分析的作用</a></li>
+      </ol>
+    </li>
+    <li><a href="#扩充数据">扩充数据</a>
+      <ol>
+        <li><a href="#数据增强">数据增强</a></li>
+        <li><a href="#数据合成">数据合成</a></li>
+      </ol>
+    </li>
+    <li><a href="#迁移学习">迁移学习</a>
+      <ol>
+        <li><a href="#基本概念">基本概念</a></li>
+        <li><a href="#为什么有效">为什么有效？</a></li>
+      </ol>
+    </li>
+    <li><a href="#评估分类模型">评估分类模型</a>
+      <ol>
+        <li><a href="#精确率与召回率">精确率与召回率</a></li>
+        <li><a href="#f1-分数">F1 分数</a></li>
+        <li><a href="#阈值选择">阈值选择</a></li>
+      </ol>
+    </li>
+    <li><a href="#决策树">决策树</a>
+      <ol>
+        <li><a href="#基本原理">基本原理</a></li>
+        <li><a href="#构建过程">构建过程</a></li>
+        <li><a href="#决策树学习如何构建">决策树学习：如何构建</a>
+          <ol>
+            <li><a href="#如何选择分裂特征">如何选择分裂特征？</a></li>
+            <li><a href="#何时停止分裂">何时停止分裂？</a></li>
+          </ol>
+        </li>
+        <li><a href="#纯度测量">纯度测量</a></li>
+        <li><a href="#信息增益计算">信息增益计算</a></li>
+        <li><a href="#决策树学习流程整理">决策树学习流程整理</a></li>
+        <li><a href="#处理分类特征独热编码">处理分类特征：独热编码</a></li>
+        <li><a href="#处理连续特征">处理连续特征</a></li>
+        <li><a href="#回归树">回归树</a></li>
+      </ol>
+    </li>
+    <li><a href="#集成树tree-ensembles">集成树（tree ensembles）</a>
+      <ol>
+        <li><a href="#放回抽样-sampling-with-replacement">放回抽样 (Sampling with replacement)</a></li>
+        <li><a href="#随机森林-random-forest">随机森林 (Random Forest)</a></li>
+        <li><a href="#提升树-boosted-trees">提升树 (Boosted Trees)</a></li>
+      </ol>
+    </li>
+    <li><a href="#决策树与神经网络的对比">决策树与神经网络的对比</a>
+      <ol>
+        <li><a href="#决策树的优势">决策树的优势</a></li>
+        <li><a href="#神经网络的优势">神经网络的优势</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/fundamentals-of-machine-learning-2/">
+                
+                    <img src="/images/SunsetGlow.png" loading="lazy" alt="Featured image of post Fundamentals of Machine Learning 2" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" >
+                机器学习
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/fundamentals-of-machine-learning-2/">Fundamentals of Machine Learning 2</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 31, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 24 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <blockquote>
+<p>本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考</p>
+</blockquote>
+<h2 id="神经网络概述">神经网络概述
+</h2><h3 id="起源与演变">起源与演变
+</h3><p>神经网络（Neural Networks）是一类试图模仿人脑结构和功能的算法。其灵感来源于生物神经元，后者通过树突接收输入信号，在细胞体中处理，并通过轴突将输出信号传递给其他神经元。</p>
+<ul>
+<li><strong>历史发展</strong>：神经网络在 1980 年代和 1990 年代初曾流行，但在 90 年代末期逐渐失宠。</li>
+<li><strong>现代复兴</strong>：大约从 2005 年开始，神经网络（尤其是深度学习）强势复兴，但<strong>其发展早已偏离了最初“构建模拟大脑软件”的生物启发初衷</strong>。</li>
+</ul>
+<h3 id="为何现在可行">为何现在可行？
+</h3><p>神经网络的复兴主要得益于两大因素：</p>
+<ol>
+<li><strong>计算能力的提升</strong>：特别是 GPU（图形处理器）的发展，使得训练大型神经网络成为可能。</li>
+<li><strong>大数据的出现</strong>：海量数据为训练复杂的神经网络模型提供了充足的“燃料”。</li>
+</ol>
+<h3 id="核心思想端到端学习">核心思想：端到端学习
+</h3><p>神经网络的一个关键优势是它能够<strong>自动进行特征工程</strong>。与传统机器学习方法需要人工设计和提取特征不同，神经网络可以从原始输入（如图像的像素值）开始，通过多层结构自动学习到更高层次、更有意义的特征表示。</p>
+<ul>
+<li><strong>示例 - 人脸识别</strong>：输入是 1000 像素的图像，网络的第一层可能学习到边缘等简单特征，后续层则组合这些简单特征形成更复杂的模式（如眼睛、鼻子），最终输出层给出属于特定人物的概率。</li>
+<li><strong>示例 - 汽车分类</strong>：原理类似，网络能自动学习到足以区分汽车与其他物体的特征。</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030104704681.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030104704681"
+	
+	
+></p>
+<h2 id="神经网络架构">神经网络架构
+</h2><h3 id="基本组成单元神经网络层">基本组成单元：神经网络层
+</h3><p>一个典型的神经网络由多个层（Layer）堆叠而成：</p>
+<ul>
+<li><strong>输入层 (Input Layer)</strong>：接收原始特征向量 $x$。</li>
+<li><strong>隐藏层 (Hidden Layers)</strong>：位于输入层和输出层之间，负责特征的转换和提取。一个网络可以有多个隐藏层。</li>
+<li><strong>输出层 (Output Layer)</strong>：产生最终的预测结果。</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030104834412.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030104834412"
+	
+	
+></p>
+<p><img src="/pics/MachineLearning/image-20251030105019777.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030105019777"
+	
+	
+></p>
+<p><img src="/pics/MachineLearning/image-20251030105043036.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030105043036"
+	
+	
+></p>
+<h3 id="数学模型与符号约定">数学模型与符号约定
+</h3><p>每一层的计算可以看作是对输入应用一个简化的神经元数学模型。</p>
+<ul>
+<li><strong>单个神经元计算</strong>： 对于第 $ l$ 层的第 $ j $ 个神经元，其计算过程为：$z=w⋅a+b$ ,$a=g(z) $</li>
+<li>其中：
+<ul>
+<li>$w$ 和 $b$ 是该神经元的参数（权重和偏置）。</li>
+<li>$a $ 是来自上一层（$l-1$ 层）的激活值（即输出）。</li>
+<li>$g$ 是激活函数（Activation Function）。</li>
+<li>$a$  是该神经元的输出，也称为激活值。</li>
+</ul>
+</li>
+<li><strong>向量化表示</strong>： 为了高效计算，通常将一层中所有神经元的计算向量化。
+<ul>
+<li>$W^{[l]}$：第 $l$ 层的权重矩阵。</li>
+<li>$b^{[l]}$：第 $l$ 层的偏置向量。</li>
+<li>$a^{[l-1]}$：第$ l-1 $层的激活向量（对于输入层，$a^{[0]} = x$）。</li>
+<li>第 $l$ 层的计算为：$z^{[l]} = W^{[l]} a^{[l-1]} + b^{[l]}$，$a^{[l]} = g\big(z^{[l]}\big)$</li>
+</ul>
+</li>
+</ul>
+<h3 id="前向传播-forward-propagation">前向传播 (Forward Propagation)
+</h3><p>前向传播是指从输入层开始，逐层计算直到输出层，得到最终预测值 <code>f(x)</code> 的过程。这是神经网络进行预测（推理）的核心步骤。</p>
+<ul>
+<li>手写数字识别示例：
+<ul>
+<li>输入：一个 28x28 像素的图像，展平为一个包含 784 个元素的向量 <code>x</code>。</li>
+<li>网络架构：例如，一个包含 25 个单元的第一隐藏层、15 个单元的第二隐藏层和 1 个单元的输出层。</li>
+<li>输出：一个介于 0 和 1 之间的概率值，表示输入图像是数字 &lsquo;1&rsquo; 的概率。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030122205246.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030122205246"
+	
+	
+></p>
+<p><img src="/pics/MachineLearning/image-20251030122221336.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030122221336"
+	
+	
+></p>
+<h2 id="激活函数">激活函数
+</h2><p>激活函数是神经网络能够学习和表示复杂非线性关系的关键。<strong>如果没有激活函数（即使用线性激活 $g(z) = z$），无论网络有多少层，其整体效果都等同于一个简单的线性回归模型。</strong></p>
+<h3 id="常用激活函数">常用激活函数
+</h3><ul>
+<li><strong>Sigmoid</strong>:  $g(z) = \frac{1}{1 + e^{-z}}$
+<ul>
+<li>输出范围在 (0, 1) 之间。</li>
+<li>常用于<strong>二元分类</strong>问题的<strong>输出层</strong>，因为其输出可以被解释为<strong>概率</strong>。</li>
+</ul>
+</li>
+<li><strong>ReLU (Rectified Linear Unit)</strong>:  $g(z) = \max(0, z)$
+<ul>
+<li>当 <code>z &gt; 0</code> 时，输出为 <code>z</code>；当 <code>z &lt;= 0</code> 时，输出为 <code>0</code>。</li>
+<li>是<strong>隐藏层</strong>最常用的激活函数，因为它计算简单且能有效缓解梯度消失问题，加速训练。</li>
+</ul>
+</li>
+<li><strong>线性激活 (Linear)</strong>: $g(z) = z$
+<ul>
+<li>输出可以是任意实数。</li>
+<li>通常用于<strong>回归</strong>问题的<strong>输出层</strong>。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030124424243.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030124424243"
+	
+	
+></p>
+<h3 id="激活函数选择建议">激活函数选择建议
+</h3><ul>
+<li>输出层:
+<ul>
+<li>二元分类：<code>sigmoid</code></li>
+<li>回归（输出可为任意实数）：<code>linear</code></li>
+<li>回归（输出非负）：<code>ReLU</code></li>
+</ul>
+</li>
+<li>隐藏层:
+<ul>
+<li>首选 <code>ReLU</code>：梯度更大下降快。</li>
+<li><code>sigmoid</code>梯度较缓下降慢</li>
+<li>纯线性等于没练肯定不用。</li>
+</ul>
+</li>
+</ul>
+<h2 id="使用-tensorflowkeras-构建与训练">使用 TensorFlow/Keras 构建与训练
+</h2><p>现代深度学习框架（如 TensorFlow/Keras）极大地简化了神经网络的构建和训练过程。</p>
+<h3 id="构建模型">构建模型
+</h3><p>可以使用 <code>Sequential</code> API 将各层按顺序堆叠起来。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">Sequential</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 以手写数字分类为例</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>  <span class="c1"># 第一隐藏层</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>  <span class="c1"># 第二隐藏层</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">)</span> <span class="c1"># 输出层</span>
+</span></span><span class="line"><span class="cl"><span class="p">])</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>通常不用显示赋值层，而是在不断训练中自行微调</p>
+</blockquote>
+<p><img src="/pics/MachineLearning/image-20251030122846301.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030122846301"
+	
+	
+></p>
+<p><img src="/pics/MachineLearning/image-20251030122907175.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030122907175"
+	
+	
+></p>
+<p>​      <img src="/pics/MachineLearning/image-20251030122927512.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030122927512"
+	
+	
+></p>
+<h3 id="训练模型">训练模型
+</h3><p>训练过程主要包括三个步骤(可以参考前文图片)：</p>
+<ol>
+<li>
+<p><strong>编译 (Compile)</strong>：指定损失函数和优化器。</p>
+<ul>
+<li>对于二元分类，损失函数通常选择 <code>BinaryCrossentropy</code>。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">tensorflow.keras.losses</span> <span class="kn">import</span> <span class="n">BinaryCrossentropy</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">BinaryCrossentropy</span><span class="p">())</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>拟合 (Fit)</strong>：使用训练数据 <code>(X, Y)</code> 来训练模型。<code>epochs</code> 参数指定了梯度下降的迭代次数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>预测 (Predict)</strong>：使用训练好的模型对新数据进行预测。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_new</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<p><img src="/pics/MachineLearning/image-20251030124757217.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030124757217"
+	
+	
+></p>
+<h3 id="训练细节">训练细节
+</h3><p>一些训练时的细节</p>
+<p><img src="/pics/MachineLearning/image-20251030124910822.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030124910822"
+	
+	
+></p>
+<p>​       <img src="/pics/MachineLearning/image-20251030124932431.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030124932431"
+	
+	
+></p>
+<p><img src="/pics/MachineLearning/image-20251030124949195.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030124949195"
+	
+	
+></p>
+<p><img src="/pics/MachineLearning/image-20251030125005130.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030125005130"
+	
+	
+></p>
+<h3 id="关于数据格式的注意事项">关于数据格式的注意事项
+</h3><p>在使用 NumPy 数组作为输入时，即使只有一个样本，也应将其构造成二维数组（即形状为 <code>(1, n_features)</code>），例如 <code>x = np.array([[200.0, 17.0]])</code>。这有助于框架内部进行高效的批量计算。</p>
+<h2 id="向量化与高效计算">向量化与高效计算
+</h2><p>为了提升计算效率，应尽可能避免在 Python 中使用显式的 for 循环来处理神经网络中的矩阵运算。</p>
+<ul>
+<li>
+<p>向量化 (Vectorization)：利用 NumPy 或 TensorFlow 内置的矩阵乘法（如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">np</span><span class="o">.</span><span class="n">matmul</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者 @</span>
+</span></span><span class="line"><span class="cl"><span class="o">@</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>运算符）一次性完成整层的计算。</p>
+<ul>
+<li><strong>非向量化</strong>：对每个神经元单独计算 <code>z = np.dot(w, x) + b</code>。</li>
+<li><strong>向量化</strong>：对整层计算 <code>Z = np.matmul(A_in, W) + B</code>。</li>
+</ul>
+</li>
+<li>
+<p>另外 <code>A.T</code>代表矩阵<code>A</code>的转置</p>
+</li>
+</ul>
+<p>向量化不仅能显著加快代码运行速度，而且代码也更加简洁清晰。</p>
+<h2 id="agi通用人工智能">AGI通用人工智能
+</h2><h3 id="人工智能的两个层次"><strong>人工智能的两个层次</strong>
+</h3><ul>
+<li><strong>弱人工智能（ANI，Artificial Narrow Intelligence）</strong>：指专门用于完成特定任务的人工智能，如智能音箱。这是目前已经广泛实现的技术。</li>
+<li><strong>通用人工智能（AGI，Artificial General Intelligence）</strong>：指具备像人类一样全面智能的AI，能够理解和学习任何智力任务。这是AI领域的长期目标。</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030123256271.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030123256271"
+	
+	
+></p>
+<h3 id="神经网络的生物学基础"><strong>神经网络的生物学基础</strong>
+</h3><ul>
+<li>PPT展示了<strong>生物神经元</strong>（包含细胞体、树突、轴突等）的结构。</li>
+<li>并给出了一个<strong>简化的神经元数学模型</strong>，将生物神经元的输入（树突）、处理（细胞体）和输出（轴突）过程用数学函数来模拟。这正是人工神经网络的基础单元。</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030123909104.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030123909104"
+	
+	
+></p>
+<h3 id="核心主题神经网络与大脑"><strong>核心主题：神经网络与大脑</strong>
+</h3><ul>
+<li><strong>提出的问题</strong>：我们能否模仿人脑？但幻灯片也诚实地指出，我们（几乎）不知道大脑的具体工作原理。</li>
+<li><strong>关键假说——“单一学习算法”假说</strong>：<strong>假说内容</strong>：智能可能来源于一个通用的、单一的学习算法。大脑的不同部分（如处理视觉、听觉、触觉的区域）可能是在运行同一个基本算法，只是处理的数据来源不同。<strong>证据支持</strong>：幻灯片以人类大脑发育初期的“可塑性”作为证据。例如，大脑中原本负责处理声音的区域，如果被连接到视觉信号，也可以学会“看”。这说明大脑皮层可能具有通用的处理能力。<strong>深远意义</strong>：如果这个假说成立，那么理论上我们可以利用<strong>单一的神经网络算法</strong>，通过提供不同的数据，来解决各种各样的问题（视觉、听觉、语言等），而无需为每个问题专门编写复杂的程序。这正是深度学习所追求的“以不变应万变”的策略。</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030123934920.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030123934920"
+	
+	
+></p>
+<p><img src="/pics/MachineLearning/image-20251030123951662.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030123951662"
+	
+	
+></p>
+<h2 id="多分类问题">多分类问题
+</h2><h3 id="softmax-回归">Softmax 回归
+</h3><p>当目标变量 $y$ 可以取两个以上的可能值时（例如 MNIST 手写数字识别，$y \in {0, 1, &hellip;, 9}$），需要使用 <strong>Softmax 回归</strong>（Softmax Regression）。</p>
+<ul>
+<li>
+<p><strong>模型输出</strong>：对于 $N$ 个类别，模型会为每个类别 $j$ 计算一个未归一化的分数（logit）$z_j$： </p>
+$$z_j = \mathbf{w}_j \cdot \mathbf{x} + b_j$$<p> 其中 $\mathbf{w}_j$ 和 $b_j$ 是第 $j$ 个类别的参数。</p>
+</li>
+<li>
+<p><strong>Softmax 函数</strong>：将 logits 向量 $\mathbf{z} = [z_1, &hellip;, z_N]$ 转换为一个概率分布 $\mathbf{a} = [a_1, &hellip;, a_N]$，其中每个 $a_j$ 表示属于类别 $j$ 的概率： </p>
+$$a_j = P(y=j \mid \mathbf{x}) = \frac{e^{z_j}}{\sum_{k=1}^{N} e^{z_k}}$$<p> 这些概率满足 $\sum_{j=1}^{N} a_j = 1$ 且 $a_j \geq 0$。</p>
+</li>
+<li>
+<p><strong>损失函数</strong>：使用<strong>交叉熵损失</strong>（Cross-Entropy Loss）。对于真实标签 $y$，损失为： </p>
+$$\text{Loss}(\mathbf{a}, y) = -\log(a_y)$$<p> 即只<strong>关注真实类别对应预测概率的负对数。</strong></p>
+</li>
+<li>
+<p><strong>逻辑回归的泛化</strong>：从公式上我们可以看出Softmax其实是二元的逻辑回归的多元泛化。</p>
+<p><img src="/pics/MachineLearning/image-20251030184404741.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030184404741"
+	
+	
+></p>
+</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030184425363.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030184425363"
+	
+	
+></p>
+<h3 id="数值稳定性">数值稳定性
+</h3><p>直接计算 Softmax 可能会因为<strong>指数运算</strong>导致<strong>数值上溢</strong>（overflow）或<strong>下溢</strong>（underflow）。</p>
+<p>举个例子，</p>
+$$a_j = \frac{e^{z_j }}{\sum_{k=1}^{N} e^{z_k  }}$$<p> 中，当分母相对分子过大，即整体趋于0时，损失</p>
+$$\text{Loss}(\mathbf{a}, y) = -\log(a_y)$$<p> ，就会趋于无穷大（主要是分母的和取对数时）。反之趋于1时亦然。</p>
+<p>一个更数值稳定的实现方式是先从 logits 向量 $\mathbf{z}$ 中<strong>减去其最大值</strong> $z_{\text{max}} = \max(\mathbf{z})$，然后再计算： </p>
+$$a_j = \frac{e^{z_j - z_{\text{max}}}}{\sum_{k=1}^{N} e^{z_k - z_{\text{max}}}}$$<p> 这不会改变最终的概率结果，但能有效避免数值问题。因为分母的指数项所有指数项 $e^{z_k−z_{max}}≤1$，因此取对数时不会上溢（相比指数级的大小）。</p>
+<p>在 TensorFlow/Keras 中，可以通过设置 <code>from_logits=True</code> 来利用框架内部的数值稳定实现。此时，模型的最后一层应使用 <code>activation='linear'</code>（即不加 Softmax），而损失函数 <code>SparseCategoricalCrossentropy</code> 会直接在 logits 上进行稳定计算，即自动进行以上的稳定计算算法（从 logits 向量 $\mathbf{z}$ 中<strong>减去其最大值</strong> $z_{\text{max}} = \max(\mathbf{z})$ ）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 数值稳定的 MNIST 模型示例</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span> <span class="c1"># 输出 logits</span>
+</span></span><span class="line"><span class="cl"><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">SparseCategoricalCrossentropy</span><span class="p">(</span><span class="n">from_logits</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="多标签分类">多标签分类
+</h2><p>与多分类（每个样本只属于一个类别）不同，<strong>多标签分类</strong>（Multi-label Classification）允许一个样本同时属于多个类别。</p>
+<ul>
+<li>
+<p><strong>应用场景</strong>：例如，一张图片可能同时包含“汽车”、“公交车”和“行人”。</p>
+</li>
+<li>
+<p><strong>模型架构</strong>：可以训练一个具有多个输出的神经网络，每个输出对应一个类别的二元判断。</p>
+</li>
+<li>
+<p>激活函数与损失：</p>
+<ul>
+<li><strong>输出层激活函数</strong>：每个输出单元使用 <strong>Sigmoid</strong> 激活函数，独立地输出属于该类别的概率（范围在 0 到 1 之间）。</li>
+</ul>
+</li>
+<li>
+<p><strong>损失函数</strong>：对每个输出单元分别计算二元交叉熵损失，然后求和或求平均。</p>
+</li>
+</ul>
+<p><strong>对比</strong>:</p>
+<p><strong>多分类</strong>（Multiclasses）：
+多个输出代表多个可能（概率），输出层使用Softmax激活函数，但<strong>每个样本只有一个确定的类别</strong>；</p>
+<p><strong>多标签分类</strong>（Multi-label Classification）：
+同样是多个输出对应多个可能，但每个样本<strong>有多个类别</strong>，每个类别有是与否的可能，即<strong>输出y是多维的</strong>。</p>
+<h2 id="优化算法adam">优化算法：Adam
+</h2><p>梯度下降法使用一个全局的学习率 $\alpha$ 来更新所有参数。<strong>Adam 算法</strong>（Adaptive Moment Estimation）是一种更先进的优化器，它能为每个参数自适应地调整学习率。</p>
+<ul>
+<li>
+<p><strong>核心思想</strong>：Adam 结合了动量（Momentum）和 RMSprop 的思想，通过计算梯度的一阶矩（均值）和二阶矩（未中心化的方差）的指数移动平均，来动态调整每个参数的学习率。</p>
+</li>
+<li>
+<p><strong>优势</strong>：通常比标准梯度下降收敛更快，且对学习率的初始选择不那么敏感。</p>
+</li>
+<li>
+<p>在 TensorFlow 中的使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">loss</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">SparseCategoricalCrossentropy</span><span class="p">(</span><span class="n">from_logits</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030195526547.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030195526547"
+	
+	
+></p>
+<h2 id="卷积层">卷积层
+</h2><p><strong>卷积层</strong>（Convolutional Layer）是卷积神经网络（CNN）的核心组成部分，尤其适用于处理图像、音频等具有网格结构的数据。</p>
+<ul>
+<li>
+<p>与全连接层的区别：</p>
+<ol>
+<li><strong>局部连接</strong>：卷积层中的每个神经元只与输入数据的一个局部区域（感受野）相连，而不是与所有输入相连。</li>
+<li><strong>参数共享</strong>：用于扫描输入的不同局部区域的是一组相同的权重（称为卷积核或滤波器）。</li>
+</ol>
+</li>
+<li>
+<p>优势：</p>
+<ol>
+<li><strong>计算更快</strong>：由于局部连接和参数共享，参数数量大大减少。</li>
+</ol>
+</li>
+</ul>
+<ol start="2">
+<li><strong>需要更少的训练数据</strong>：参数减少也意味着模型更不容易过拟合。</li>
+</ol>
+<p><img src="/pics/MachineLearning/image-20251030195658287.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030195658287"
+	
+	
+></p>
+<h2 id="导数与反向传播">导数与反向传播
+</h2><h3 id="导数的直观理解">导数的直观理解
+</h3><p>导数 $\frac{dJ}{dw}$ 表示当参数 $w$ 增加一个微小量 $\epsilon$ 时，代价函数 $J(w)$ 的变化量（约为 $\frac{dJ}{dw} \cdot \epsilon$）。在梯度下降中，我们沿导数的反方向更新参数以最小化 $J$。</p>
+<h3 id="反向传播-backpropagation">反向传播 (Backpropagation)
+</h3><p>反向传播是一种高效计算神经网络中所有参数梯度的算法。</p>
+<ul>
+<li><strong>计算图</strong>：将前向传播的计算过程表示为一个有向图，节点代表变量（如 $w, b, z, a, J$），边代表计算操作。</li>
+<li><strong>链式法则</strong>：反向传播从输出（代价 $J$）开始，应用<strong>链式法则</strong>，从右向左（从输出层到输入层）逐层计算梯度。</li>
+<li><strong>高效性</strong>：对于一个有 $N$ 个节点和 $P$ 个参数的网络，反向传播可以在大约 $N + P$ 步内计算出所有梯度，而朴素方法需要 $N \times P$ 步。</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030195752030.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030195752030"
+	
+	
+></p>
+<h2 id="调试与评估机器学习算法">调试与评估机器学习算法
+</h2><h3 id="训练测试集划分">训练/测试集划分
+</h3><p>为了评估模型在未见数据上的泛化能力，需要将数据集划分为：</p>
+<ul>
+<li><strong>训练集 (Training Set)</strong>：用于拟合模型参数（如 70% 或 80% 的数据）。</li>
+<li><strong>测试集 (Test Set)</strong>：用于最终评估模型性能（如 30% 或 20% 的数据）。</li>
+<li><strong>训练误差</strong>：$J_{\text{train}}(\mathbf{w}, b) = \frac{1}{m_{\text{train}}} \sum_{i=1}^{m_{\text{train}}} L(f_{\mathbf{w},b}(\mathbf{x}^{(i)}), y^{(i)})$</li>
+<li><strong>测试误差</strong>：$J_{\text{test}}(\mathbf{w}, b) = \frac{1}{m_{\text{test}}} \sum_{i=1}^{m_{\text{test}}} L(f_{\mathbf{w},b}(\mathbf{x}<em>{\text{test}}^{(i)}), y</em>{\text{test}}^{(i)})$</li>
+</ul>
+<p>对于分类问题，测试误差也可以直接定义为测试集中被错误分类的样本比例。</p>
+<h3 id="交叉验证">交叉验证
+</h3><p>当需要在多个模型（或超参数，如多项式次数 $d$、正则化参数 $\lambda$）之间进行选择时，仅使用训练集和测试集会导致对泛化误差过于乐观的估计，因为模型选择过程已经“窥探”了测试集。</p>
+<ul>
+<li>
+<p>解决方案：引入验证集（Validation Set，也称开发集 Dev Set）:</p>
+<ul>
+<li><strong>训练集</strong>：用于训练每个候选模型。</li>
+<li><strong>验证集</strong>：用于评估和选择表现最好的模型。</li>
+<li><strong>测试集</strong>：仅用于对最终选定的模型进行一次性的、无偏的性能评估。</li>
+</ul>
+</li>
+</ul>
+<p>标准划分比例可以是 60% / 20% / 20% 或 80% / 10% / 10%。</p>
+<p><strong>k折交叉验证：</strong></p>
+<ol>
+<li><strong>基本思想</strong>：将数据集划分为k个大小相似的子集，每次使用其中一个子集作为验证集，其余k-1个子集作为训练集，重复k次，最终取平均性能作为评估结果。</li>
+<li><strong>划分方式</strong>：数据集被分成k个<strong>互不重叠</strong>的子集（通常称为“折”），每个样本在整个过程中<strong>恰好出现一次</strong>在验证集中，其余k-1次在训练集中。</li>
+<li><strong>目的</strong>：通过充分利用所有数据（每个样本既参与训练又参与验证），减少因单次划分带来的偏差，尤其适用于小数据集。</li>
+</ol>
+<h3 id="偏差与方差-biasvariance">偏差与方差 (Bias/Variance)
+</h3><p>这是理解模型性能的核心框架。</p>
+<ul>
+<li><strong>高偏差 (High Bias / Underfitting)</strong>：模型过于简单，无法捕捉数据中的基本模式。表现为<strong>训练误差高</strong>。</li>
+<li><strong>高方差 (High Variance / Overfitting)</strong>：模型过于复杂，过度拟合了训练数据中的噪声。表现为<strong>训练误差低，但验证误差高</strong>。</li>
+</ul>
+<h3 id="学习曲线">学习曲线
+</h3><p>学习曲线是诊断偏差和方差问题的有力工具，它绘制了训练误差和验证误差随训练集大小变化的曲线。</p>
+<ul>
+<li><strong>高方差</strong>（bias）：两条曲线之间存在较大差距，且验证误差远高于训练误差。<strong>增加更多训练数据</strong>通常能有效改善。</li>
+<li><strong>高偏差</strong>（variance）：两条曲线都处于较高水平，且随着数据量增加，两者都趋于一个较高的平台。<strong>增加数据量帮助不大</strong>，应考虑增加模型复杂度（如添加特征、使用更高阶多项式）。</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030200622567.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030200622567"
+	
+	
+></p>
+<p><img src="/pics/MachineLearning/image-20251030200834560.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030200834560"
+	
+	
+></p>
+<p><img src="/pics/MachineLearning/image-20251030200958725.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030200958725"
+	
+	
+></p>
+<h3 id="调试策略总结">调试策略总结
+</h3><p>根据偏差/方差分析，可以采取以下措施：</p>
+<ul>
+<li>
+<p>解决高方差（过拟合）：</p>
+<ul>
+<li>获取更多训练数据。</li>
+<li>尝试减少特征数量。</li>
+<li>增大正则化参数 $\lambda$。</li>
+</ul>
+</li>
+<li>
+<p>解决高偏差（欠拟合）：</p>
+<ul>
+<li>尝试增加特征数量。</li>
+<li>尝试添加多项式特征。</li>
+<li>减小正则化参数 $\lambda$。</li>
+<li>使用更复杂的模型（如更大的神经网络）。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>注意：算法本身导致的高偏差，获得更多数据也没有帮助</p>
+</blockquote>
+<h2 id="神经网络与正则化">神经网络与正则化
+</h2><h3 id="网络大小与偏差方差">网络大小与偏差/方差
+</h3><ul>
+<li><strong>大型神经网络</strong>通常是“低偏差”的机器，因为它们有足够的容量去拟合复杂的函数。</li>
+<li>只要配合合适的正则化（如 L2 正则化、Dropout），大型网络的性能通常等于或优于小型网络。</li>
+<li>如果存在高方差问题，优先考虑<strong>增大网络</strong>并<strong>增加数据量</strong>，而不是使用一个先天受限的小型网络。</li>
+</ul>
+<h3 id="l2-正则化">L2 正则化
+</h3><p>L2 正则化（也称权重衰减）通过在损失函数中添加一个惩罚项来限制权重的大小，从而防止过拟合。 </p>
+$$J_{\text{regularized}}(\mathbf{W}, \mathbf{b}) = J(\mathbf{W}, \mathbf{b}) + \frac{\lambda}{2m} \sum_{l} \sum_{i,j} (W_{ij}^{[l]})^2$$<p> 其中 $\lambda$ 是正则化参数，控制正则化的强度。</p>
+<p>因为参数和$\sum_{l} \sum_{i,j} (W_{ij}^{[l]})^2$ 与 $\lambda$ 是乘积关系， $\lambda$ 制约了参数的增大，避免模型结构过深，陷入过拟合。</p>
+<p>在 Keras 中，可以通过 <code>kernel_regularizer=L2(lambda_value)</code> 为层添加 L2 正则化。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">tensorflow.keras.regularizers</span> <span class="kn">import</span> <span class="n">L2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">layer_1</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&#34;relu&#34;</span><span class="p">,</span> <span class="n">kernel_regularizer</span><span class="o">=</span><span class="n">L2</span><span class="p">(</span><span class="mf">0.01</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="迭代式机器学习开发">迭代式机器学习开发
+</h2><p>构建一个成功的机器学习系统（如垃圾邮件分类器）通常是一个<strong>迭代过程</strong>：</p>
+<ol>
+<li><strong>选择整体架构</strong>：确定模型、数据和评估指标的初步方案。</li>
+<li><strong>训练模型</strong>。</li>
+<li><strong>诊断</strong>：通过偏差/方差分析、误差分析等手段，找出模型的主要瓶颈。</li>
+<li><strong>改进</strong>：根据诊断结果，有针对性地改进模型或数据（如收集更多数据、设计新特征、调整超参数等）。</li>
+<li><strong>重复</strong>：回到步骤 2，直到达到满意的性能。</li>
+</ol>
+<p>这种基于诊断的迭代方法比盲目尝试各种技巧要高效得多。</p>
+<p><img src="/pics/MachineLearning/image-20251030203325395.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030203325395"
+	
+	
+></p>
+<h2 id="误差分析">误差分析
+</h2><h3 id="构建垃圾邮件分类器">构建垃圾邮件分类器
+</h3><p>在开发机器学习系统（如垃圾邮件分类器）时，当模型在交叉验证集上的表现不佳时，需要决定下一步如何改进。</p>
+<ul>
+<li>问题：假设你的分类器在包含 $m_c=500$ 个样本的交叉验证集上错误分类了 100 个样本（20% 错误率）。有哪些可能的改进方向？
+<ul>
+<li>收集更多数据（例如，“蜜罐”项目）。</li>
+<li>开发更复杂的特征（基于邮件路由头、邮件正文）。</li>
+<li>设计算法检测故意拼错的单词（如 <code>w4tches</code>, <code>med1cine</code>）。</li>
+<li>处理嵌入图片中的垃圾邮件。</li>
+</ul>
+</li>
+</ul>
+<h3 id="手动检查与分类">手动检查与分类
+</h3><p>为了高效地确定改进方向，应进行<strong>手动误差分析</strong>：</p>
+<ol>
+<li><strong>收集错误样本</strong>：从交叉验证集中收集被算法错误分类的 100 个样本。</li>
+<li><strong>人工分类</strong>：仔细检查这些错误样本，并根据它们的共同特征或错误类型进行分类（例如，药品广告、钓鱼邮件、故意拼写错误等）。</li>
+<li><strong>统计比例</strong>：计算每种错误类型在总错误中所占的比例。</li>
+</ol>
+<h3 id="决策依据">决策依据
+</h3><p>误差分析的结果可以指导资源分配：</p>
+<ul>
+<li>如果某种错误类型（如“药品广告”）占比很高（例如 40%），那么投入精力解决这个问题很可能显著降低整体错误率。</li>
+<li>如果某种错误类型（如“嵌入图片中的垃圾邮件”）占比很低（例如 5%），即使你完全解决了它，整体性能提升也有限（最多降低 5% 的绝对错误率），因此可能不值得优先投入大量时间。</li>
+</ul>
+<h3 id="偏差方差分析的作用">偏差/方差分析的作用
+</h3><p>回到前面列出的改进列表，<strong>偏差/方差分析</strong>可以帮助判断“收集更多数据”是否是一个有效的策略。</p>
+<ul>
+<li><strong>高方差</strong>（过拟合）：如果模型在训练集上表现很好（低训练误差），但在验证集上表现很差（高验证误差），这表明存在高方差问题。此时，<strong>收集更多数据通常是有效的</strong>，因为它可以帮助模型更好地泛化。</li>
+<li><strong>高偏差</strong>（欠拟合）：如果模型在训练集和验证集上都表现不佳（训练误差和验证误差都很高），这表明存在高偏差问题。此时，<strong>增加数据量帮助不大</strong>，应该优先考虑增加模型复杂度（如添加特征、使用更大的网络）。</li>
+</ul>
+<p>因此，在决定是否要投入巨大成本去收集更多数据之前，先通过偏差/方差分析诊断问题是至关重要的。</p>
+<h2 id="扩充数据">扩充数据
+</h2><h3 id="数据增强">数据增强
+</h3><ul>
+<li><strong>定义</strong>：数据增强（Data Augmentation）是指通过对现有的训练样本进行一系列<strong>有意义的变换</strong>（或“畸变”），来创建新的、略微不同的训练样本。这相当于在不收集新数据的情况下，“制造”更多的数据。</li>
+<li><strong>目的</strong>：增加训练数据的<strong>数量</strong>和<strong>多样性</strong>，使模型能够学习到更鲁棒的特征，提高泛化能力，减少过拟合。</li>
+<li>举例：
+<ol>
+<li>计算机视觉：
+<ul>
+<li>对图像进行几何变换：旋转、翻转（水平/垂直）、缩放、裁剪、平移。</li>
+<li>对图像进行色彩/光照变换：调整亮度、对比度。</li>
+<li>添加噪声：模拟真实世界中的图像缺陷。</li>
+</ul>
+</li>
+<li>语音识别：
+<ul>
+<li>在原始音频中加入背景噪音（如人群、交通、办公室噪音）。</li>
+<li>模拟较差的通信环境（如模拟手机信号差的效果）。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><strong>核心原则</strong>
+<ul>
+<li><strong>变换必须具有代表性</strong>：引入的畸变应该模拟真实世界中可能出现的情况。例如，给语音助手的训练数据加背景噪音是合理的，因为用户确实会在嘈杂环境中使用它。</li>
+<li><strong>避免无意义的噪音</strong>：添加纯粹随机、与实际场景无关的噪音（如椒盐噪声、纯白噪声）通常对模型性能没有帮助，甚至可能损害模型。<strong>重点是“有意义的畸变”</strong>。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030205228921.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030205228921"
+	
+	
+></p>
+<h3 id="数据合成">数据合成
+</h3><ul>
+<li><strong>定义</strong>：“数据合成”（Data Synthesis），这是数据增强的一个更高级形式。它不是对现有数据进行微调，而是从零开始人工创建全新的样本（如用计算机图形生成图像，或用语音合成技术生成音频）。这在真实数据极难获取时非常有用。</li>
+<li><strong>应用场景</strong>：当真实数据极难获取时，可以使用计算机图形学（CG）生成逼真的图像，或使用语音合成技术生成音频。</li>
+<li><strong>优势</strong>：有时，关注数据（Data-centric）而非模型（Model-centric）是提升学习算法性能更高效的方式。</li>
+</ul>
+<blockquote>
+<p>现在的深度学习领域，数据比模型更重要</p>
+</blockquote>
+<p><img src="/pics/MachineLearning/image-20251030205248459.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030205248459"
+	
+	
+></p>
+<h2 id="迁移学习">迁移学习
+</h2><h3 id="基本概念">基本概念
+</h3><p><strong>迁移学习</strong>（Transfer Learning）是指将在一个任务（源任务）上学到的知识，应用到另一个不同但相关的任务（目标任务）上。</p>
+<ul>
+<li><strong>核心思想</strong>：利用预训练模型（通常在大规模数据集如 ImageNet 上训练）的底层特征提取能力（如边缘、角点、基本形状），作为目标任务的起点。</li>
+<li>典型流程：
+<ol>
+<li><strong>预训练</strong>：在一个大型数据集（如包含 100 万张图像、1000 个类别的 ImageNet）上训练一个深度神经网络。</li>
+<li><strong>微调</strong>（Fine-tuning）：
+<ul>
+<li>移除预训练模型的最后一层（或几层）。</li>
+<li>添加新的、适合目标任务的输出层。</li>
+<li>用目标任务的数据集重新训练整个模型或仅训练新添加的层。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="为什么有效">为什么有效？
+</h3><ul>
+<li>深度神经网络的前几层学习到的是通用的低级特征（如边缘、纹理、形状），这些特征在许多视觉任务中都是有用的。</li>
+<li>后几层则学习到更高级、更特定于原始任务的特征。</li>
+<li>通过迁移学习，我们避免了从零开始学习这些通用特征，从而节省了大量计算资源和时间，并且在目标任务数据量有限时也能取得很好的效果。</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030205401748.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030205401748"
+	
+	
+></p>
+<h2 id="评估分类模型">评估分类模型
+</h2><h3 id="精确率与召回率">精确率与召回率
+</h3><p>对于不平衡数据集，即正反数据比例相差过大（如罕见疾病的预测），仅看准确率（Accuracy）可能会产生误导。精确率（Precision）和召回率（Recall）提供了更细致的评估视角。</p>
+<ul>
+<li>
+<p><strong>混淆矩阵</strong>：</p>
+<ul>
+<li><strong>真正例 (True Positive, TP)</strong>：模型正确预测为正类的样本数。</li>
+<li><strong>假正例 (False Positive, FP)</strong>：模型错误地将负类预测为正类的样本数。</li>
+<li><strong>真反例 (True Negative, TN)</strong>：模型正确预测为负类的样本数。</li>
+<li><strong>假反例 (False Negative, FN)</strong>：模型错误地将正类预测为负类的样本数。</li>
+</ul>
+</li>
+<li>
+<p><strong>精确率 (Precision)</strong>：在所有被模型预测为正类的样本中，有多少是真正的正类。</p>
+$$\mathrm{Precision} = \frac{TP}{TP + FP}$$</li>
+<li>
+<p><strong>召回率 (Recall)</strong>：在所有真正的正类样本中，有多少被模型成功找出。</p>
+$$\mathrm{Recall} = \frac{TP}{TP + FN}$$</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030210114075.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030210114075"
+	
+	
+></p>
+<h3 id="f1-分数">F1 分数
+</h3><p>F1 分数是精确率和召回率的调和平均数，提供了一个单一的评估指标来平衡两者。</p>
+$$\mathrm{F1\,Score} = \frac{2\,\mathrm{Precision}\cdot\mathrm{Recall}}{\mathrm{Precision}+\mathrm{Recall}} = \frac{2TP}{2TP + FP + FN}$$<p>调和平均数的特点是更强调较小的值。因此，一个高的 F1 分数要求精确率和召回率都不能太低。</p>
+<h3 id="阈值选择">阈值选择
+</h3><p>在逻辑回归等输出概率的模型中，通常通过设置一个阈值来决定最终的分类（例如，当 $f_{w,b}(x) \ge \text{threshold}$ 时预测为正类）。</p>
+<ul>
+<li>
+<p>权衡：</p>
+<ul>
+<li><strong>高阈值</strong>：模型只在非常有把握时才预测为正类，导致<strong>高精确率、低召回率</strong>（漏诊多）。</li>
+<li><strong>低阈值</strong>：模型倾向于将更多样本预测为正类，导致<strong>低精确率、高召回率</strong>（误诊多）。</li>
+</ul>
+</li>
+<li>
+<p><strong>策略</strong>：根据具体应用需求手动选择阈值。例如，对于罕见疾病的筛查，宁愿误报也不愿漏报，因此会选择较低的阈值以最大化召回率。</p>
+</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030220345711.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030220345711"
+	
+	
+></p>
+<h2 id="决策树">决策树
+</h2><h3 id="基本原理">基本原理
+</h3><p>决策树是一种直观且强大的机器学习模型，它通过一系列“是/否”问题（基于特征）对数据进行递归划分，最终将样本分配到不同的叶节点（类别或值）。</p>
+<p><strong>预测过程</strong>：对于一个新的输入样本，从根节点开始，根据其特征值沿着树的分支向下移动，直到到达一个叶节点，该叶节点的值即为预测结果。</p>
+<h3 id="构建过程">构建过程
+</h3><ul>
+<li><strong>选择分裂特征</strong>： 在每个节点，算法会评估所有可能的特征及其分裂点，选择能够<strong>最大化纯度</strong>（或最小化不纯度）的特征进行分裂。常用的不纯度度量包括基尼不纯度（Gini Impurity）和信息增益（Information Gain）。</li>
+<li><strong>停止分裂</strong>： 当<strong>一个节点中的所有样本都属于同一类别</strong>（纯节点）时，停止分裂。实践中，也可能设置其他停止条件，如树的最大深度、节点的最小样本数等。</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030220545338.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030220545338"
+	
+	
+></p>
+<h3 id="决策树学习如何构建">决策树学习：如何构建
+</h3><p>构建一棵决策树的核心在于回答两个关键问题。</p>
+<h4 id="如何选择分裂特征">如何选择分裂特征？
+</h4><p>在每个内部节点，算法需要决定使用哪个特征来进行分裂。其目标是<strong>最大化子节点的纯度</strong>（或等价地，<strong>最小化不纯度</strong>）。</p>
+<ul>
+<li><strong>纯度</strong>：指一个节点中样本属于同一类别的程度。纯度越高，该节点的预测就越可靠。</li>
+<li>示例：假设我们有 7 个样本，其中 4 个是猫。如果按“耳朵形状”分裂：
+<ul>
+<li>尖耳子节点：3 个样本，全是猫（纯度 100%）。</li>
+<li>非尖耳子节点：4 个样本，1 个是猫（纯度 25%）。 这种分裂显著提高了子节点的纯度，因此是一个好的选择。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030221640573.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030221640573"
+	
+	
+></p>
+<h4 id="何时停止分裂">何时停止分裂？
+</h4><p>为了防止模型过度复杂（过拟合），需要设定停止分裂的标准。常见的停止条件包括：</p>
+<ul>
+<li>当前节点中的所有样本都属于同一类别（即节点是“纯的”）。</li>
+<li>继续分裂会导致树的深度超过预设的最大深度。</li>
+<li>分裂所带来的信息增益（或纯度提升）小于一个给定的阈值。</li>
+<li>当前节点包含的样本数量少于一个预设的最小值。</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251030221703841.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030221703841"
+	
+	
+></p>
+<h3 id="纯度测量">纯度测量
+</h3><p>以熵来衡量不纯度，类似二分类。</p>
+<p><strong>不纯度度量</strong>：通常使用<strong>熵</strong>（Entropy）来量化一个节点的不纯度。对于一个包含正负样本的节点，其熵 $H(p_1)$ 定义为：</p>
+$$H(p_1) = -p_1\log_2 p_1 - (1-p_1)\log_2 (1-p_1)$$<p>其中 $p_1$ 是该节点中正类样本的比例。当 $p_1=0$ 或 $p_1=1$（纯节点）时，熵为 0；当 $p_1=0.5$ 时，熵达到最大值 1。</p>
+<p><img src="/pics/MachineLearning/image-20251030221837588.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251030221837588"
+	
+	
+></p>
+<h3 id="信息增益计算">信息增益计算
+</h3><p>假设在当前节点，使用特征 F<em>F</em> 进行分裂，会产生左子节点（left）和右子节点（right）。</p>
+<ol>
+<li>
+<p>计算当前节点的熵 $H_{\text{parent}}$。</p>
+</li>
+<li>
+<p>计算分裂后两个子节点的加权平均熵：</p>
+$$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{\text{right}}$$<p>其中权重 $w_{\text{left}}$ 和 $w_{\text{right}}$ 分别是左右子节点样本数占总样本数的比例。</p>
+</li>
+<li>
+<p>信息增益为：$ Information  Gain=H_{parent}−H_{children} $算法会选择使信息增益最大的特征进行分裂。</p>
+</li>
+</ol>
+<p>信息增益和熵是两个相对的量，信息增益越大，熵越小，分类效果越好，子集纯度越高。</p>
+<h3 id="决策树学习流程整理">决策树学习流程整理
+</h3><p>综上，决策树的学习是一个递归的过程，从根节点开始，不断将数据集划分为更纯的子集。</p>
+<ol>
+<li><strong>初始化</strong>：将所有训练样本作为根节点。</li>
+<li><strong>递归分裂</strong>：
+<ul>
+<li>对于当前节点，计算所有可用特征的信息增益（Information Gain）。</li>
+<li>选择信息增益最大的特征作为分裂标准。</li>
+<li>根据该特征的不同取值，将当前节点的数据集划分为两个或多个子集，并创建相应的子节点。</li>
+</ul>
+</li>
+<li><strong>停止条件</strong>：当满足以下任一条件时，停止对该节点的分裂：
+<ul>
+<li>当前节点中的所有样本都属于同一个类别（即节点是“纯”的）。</li>
+<li>当前节点中没有剩余的特征可用于分裂。</li>
+<li>达到了预设的最大深度。</li>
+<li>当前节点包含的样本数量少于一个阈值。</li>
+</ul>
+</li>
+<li><strong>重复</strong>：对每个新生成的非叶节点，重复步骤 2 和 3。</li>
+</ol>
+<p><strong>递归分裂过程示例</strong></p>
+<ul>
+<li><strong>初始状态</strong>：根节点包含所有样本（例如，猫和非猫的混合图像）。</li>
+<li><strong>第一次分裂</strong>：根据某个特征（如“耳朵形状”），将样本分为两组。一组是“尖耳”，另一组是“非尖耳”。这形成了两个子节点。</li>
+<li><strong>后续分裂</strong>：对每个子节点继续应用相同的过程。例如，在“尖耳”子节点中，可能根据“脸型”进一步分裂；在“非尖耳”子节点中，可能根据“胡须”进行分裂。</li>
+<li><strong>最终结果</strong>：通过一系列这样的分裂，最终得到一棵完整的决策树，其中每个叶节点都对应一个类别（如“猫”或“非猫”）。</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251031101349930.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251031101349930"
+	
+	
+></p>
+<h3 id="处理分类特征独热编码">处理分类特征：独热编码
+</h3><p>决策树（以及许多其他算法）在处理具有多个可能取值的分类特征时，通常需要进行预处理。</p>
+<ul>
+<li><strong>问题</strong>：一个特征如果有 <em>k</em> 个可能的取值（例如，耳朵形状：尖耳、圆耳、垂耳），直接将其作为单一特征输入模型可能会丢失信息或引入不合理的序数关系。</li>
+<li>**解决方案：独热编码 **(One-Hot Encoding)
+<ul>
+<li>为原始分类特征的每一个可能取值创建一个新的二元（0/1）特征。</li>
+<li>对于一个样本，只有与其实际取值对应的二元特征为 1，其余均为 0。</li>
+</ul>
+</li>
+</ul>
+<p>例如，原始特征“耳朵形状”有三个取值：<code>Pointy</code>, <code>Oval</code>, <code>Floppy</code>。经过独热编码后，会生成三个新特征：</p>
+<ul>
+<li><code>is_pointy_ear</code>: 1 if <code>Pointy</code>, else 0.</li>
+<li><code>is_oval_ear</code>: 1 if <code>Oval</code>, else 0.</li>
+<li><code>is_floppy_ear</code>: 1 if <code>Floppy</code>, else 0.</li>
+</ul>
+<p>这种方法清晰地表示了分类信息，并且适用于包括神经网络在内的各种机器学习模型。</p>
+<p><img src="/pics/MachineLearning/image-20251031102053667.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251031102053667"
+	
+	
+></p>
+<h3 id="处理连续特征">处理连续特征
+</h3><p>对于连续值特征（如房屋面积、价格），决策树通过选择一个<strong>阈值</strong>来进行二元分裂。</p>
+<ul>
+<li><strong>分裂方式</strong>：算法会尝试不同的阈值 $t$，将样本划分为两组：${\mathbf{x}\mid x_i\le t}$ 和 ${\mathbf{x}\mid x_i&gt;t}$。</li>
+<li><strong>选择标准</strong>：选择能使分裂后子节点纯度提升最大的那个阈值 t<em>t</em>。</li>
+</ul>
+<p>这点和多分类的处理是一样的。</p>
+<p><img src="/pics/MachineLearning/image-20251031102147748.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251031102147748"
+	
+	
+></p>
+<h3 id="回归树">回归树
+</h3><p>类似监督学习中的回归问题，回归树的分类结果也不是孤立的的1/0，而是多个连续值。</p>
+<p>下面这个回归树示例，就是根据三个输入特征，把小动物分类到尽量体重相近的分类中。</p>
+<p><img src="/pics/MachineLearning/image-20251031102843963.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251031102843963"
+	
+	
+></p>
+<p><img src="/pics/MachineLearning/image-20251031103256843.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251031103256843"
+	
+	
+></p>
+<h2 id="集成树tree-ensembles">集成树（tree ensembles）
+</h2><p>单一决策树对数据变化高度敏感，所以我们可以构建多个决策树集成学习，再通过投票，综合多棵树的预测结果来做出最终预测。</p>
+<p><img src="/pics/MachineLearning/image-20251031103740469.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251031103740469"
+	
+	
+></p>
+<h3 id="放回抽样-sampling-with-replacement">放回抽样 (Sampling with replacement)
+</h3><p><strong>放回抽样</strong>（Sampling with replacement）是一种从原始数据集中抽取样本的方法。其核心特点是：在每次抽取一个样本后，将该样本<strong>重新放回</strong>原始数据集，因此它<strong>有可能在后续的抽取中被再次选中</strong>。它使得树能很好地适应微小变化。</p>
+<p><strong>区别：</strong></p>
+<ul>
+<li><strong>放回抽样</strong>：允许同一个样本在新的训练集中出现多次。</li>
+<li><strong>不放回抽样</strong>：一旦一个样本被抽出，它就不再存在于原始数据集中，因此不可能被重复选中。</li>
+</ul>
+<h3 id="随机森林-random-forest">随机森林 (Random Forest)
+</h3><p>随机森林是一种基于决策树的集成学习方法，通过引入随机性来构建一组多样化的决策树，并通过投票或平均来得到最终预测。</p>
+<ul>
+<li>
+<p><strong>Bagging (Bootstrap Aggregating)</strong>：为森林中的每棵树，从原始训练集中有放回地抽取一个与原始集大小相同的样本集（称为 bootstrap 样本）。这意味着每棵树都在略有不同的数据上训练。</p>
+</li>
+<li>
+<p><strong>随机特征选择</strong>：在构建每棵树的每个节点时，不是在所有特征中选择最佳分裂特征，而是在一个<strong>随机选取的特征子集</strong>中进行选择。这进一步增加了树之间的多样性。</p>
+</li>
+<li>
+<p>最终预测：</p>
+<ul>
+<li><strong>分类任务</strong>：所有树进行投票，得票最多的类别获胜。</li>
+</ul>
+</li>
+<li>
+<p><strong>回归任务</strong>：取所有树预测值的平均。</p>
+</li>
+</ul>
+<p>随机森林因其高准确性、鲁棒性和对过拟合的良好抵抗力而被广泛应用。</p>
+<p><img src="/pics/MachineLearning/image-20251031104418543.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251031104418543"
+	
+	
+></p>
+<h3 id="提升树-boosted-trees">提升树 (Boosted Trees)
+</h3><p>与随机森林并行训练多棵树不同，提升树采用<strong>顺序训练</strong>的方式。</p>
+<ul>
+<li><strong>核心思想</strong>：每棵新树都专注于学习前序所有树的<strong>组合预测所产生的残差</strong>（即错误），即刻意选择使树分类错误的样例。通过这种方式，模型逐步修正其预测，整体性能得到“提升”（Boosting）。</li>
+<li><strong>代表算法</strong>：<code>XGBoost</code>（eXtreme Gradient Boosting）是提升树算法中最著名和高效的实现之一，在许多机器学习竞赛和工业应用中取得了巨大成功。</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251031104656040.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251031104656040"
+	
+	
+></p>
+<p><img src="/pics/MachineLearning/image-20251031104733968.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251031104733968"
+	
+	
+></p>
+<p><img src="/pics/MachineLearning/image-20251031104752291.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251031104752291"
+	
+	
+></p>
+<h2 id="决策树与神经网络的对比">决策树与神经网络的对比
+</h2><h3 id="决策树的优势">决策树的优势
+</h3><ul>
+<li><strong>适用于结构化数据</strong>：在处理表格数据（Tabular Data）时表现良好。</li>
+<li><strong>易于理解和解释</strong>：其决策过程是透明的，可以被人类轻松解读。</li>
+<li><strong>快速训练和预测</strong>：通常比神经网络更快。</li>
+<li><strong>支持迁移学习</strong>：可以将预训练模型的知识迁移到新任务上。</li>
+</ul>
+<h3 id="神经网络的优势">神经网络的优势
+</h3><ul>
+<li><strong>适用于各种类型的数据</strong>：不仅限于结构化数据，还能有效处理图像、音频、文本等非结构化数据。</li>
+<li><strong>强大的表示能力</strong>：能够学习到非常复杂的非线性关系。</li>
+<li><strong>可组合性</strong>：多个模块化的神经网络可以很容易地连接在一起，构建更复杂的系统。</li>
+</ul>
+<p><img src="/pics/MachineLearning/image-20251031105213918.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251031105213918"
+	
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/machine-learning/">Machine Learning</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/fundamentals-of-machine-learning-1/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/SunsetGlow.png" loading="lazy" data-key="" data-hash="/images/SunsetGlow.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Fundamentals of Machine Learning 1</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-cn"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2025 Ch0ser
+    </section>
+    
+    <section class="powerby">
+        
+            © 2023-2025 Ch0ser. All Rights Reserved. <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

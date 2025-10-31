@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta name="google-site-verification" content="_dAX7uDJJKRVjb0t7Il5zqA-h6sCbbvn9ktsHN2jbBE" />
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考\n机器学习概述\r基本概念\r机器学习是一门在没有明确编程的情况下让计算机学习的科学，已成长为人工智能的子领域，研究能使机器模拟人类根据经验学习的算法。\n">
+<title>Fundamentals of Machine Learning 1</title>
+
+<link rel='canonical' href='https://ch0ser.github.io/p/fundamentals-of-machine-learning-1/'>
+
+<link rel="stylesheet" href="/scss/style.min.48ce54e3e307e3741d61de84a9b7fd091d2b70c905a608c90a1db85a009feb1b.css"><meta property='og:title' content="Fundamentals of Machine Learning 1">
+<meta property='og:description' content=" 本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考\n机器学习概述\r基本概念\r机器学习是一门在没有明确编程的情况下让计算机学习的科学，已成长为人工智能的子领域，研究能使机器模拟人类根据经验学习的算法。\n">
+<meta property='og:url' content='https://ch0ser.github.io/p/fundamentals-of-machine-learning-1/'>
+<meta property='og:site_name' content='Choser&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Machine Learning' /><meta property='article:published_time' content='2025-10-29T15:27:35&#43;08:00'/><meta property='article:modified_time' content='2025-10-29T15:27:35&#43;08:00'/><meta property='og:image' content='https://ch0ser.github.io/images/SunsetGlow.png' />
+<meta name="twitter:title" content="Fundamentals of Machine Learning 1">
+<meta name="twitter:description" content=" 本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考\n机器学习概述\r基本概念\r机器学习是一门在没有明确编程的情况下让计算机学习的科学，已成长为人工智能的子领域，研究能使机器模拟人类根据经验学习的算法。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ch0ser.github.io/images/SunsetGlow.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu1777375556697644536.png" width="300"
+                            height="158" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Choser&#39;s Blog</a></h1>
+            <h2 class="site-description">进一寸有进一寸的欢喜</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Ch0ser'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:ch0ser@qq.com'
+                        target="_blank"
+                        title="✉️ Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1760270206847" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5175" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M858.656 192 165.344 192C109.472 192 64 237.44 64 293.312l0 469.376C64 818.56 109.472 864 165.344 864l693.312 0C914.528 864 960 818.56 960 762.688L960 293.312C960 237.44 914.528 192 858.656 192zM858.656 800 165.344 800C144.736 800 128 783.264 128 762.688L128 293.312C128 272.736 144.736 256 165.344 256l684.544 0-307.488 279.808c-14.592 14.56-38.272 14.528-54.752-1.792l-244.256-206.752C229.856 315.84 209.664 317.504 198.272 331.008c-11.424 13.472-9.76 33.664 3.744 45.088l242.304 204.96c19.904 19.904 46.048 29.792 72.032 29.792 25.632 0 51.136-9.632 70.176-28.736L896 300.544l0 462.144C896 783.264 879.264 800 858.656 800z" fill="#5D646F" p-id="5176"></path></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于我</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://ch0ser.github.io/en/" >English</option>
+                                
+                                    <option value="https://ch0ser.github.io/" selected>中文</option>
+                                
+                                    <option value="https://ch0ser.github.io/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#机器学习概述">机器学习概述</a>
+      <ol>
+        <li><a href="#基本概念">基本概念</a></li>
+        <li><a href="#主要算法类型">主要算法类型</a></li>
+      </ol>
+    </li>
+    <li><a href="#监督学习supervised-learning">监督学习（Supervised Learning）</a>
+      <ol>
+        <li><a href="#核心逻辑">核心逻辑</a></li>
+        <li><a href="#两大核心任务">两大核心任务</a>
+          <ol>
+            <li></li>
+          </ol>
+        </li>
+        <li><a href="#监督学习小结">监督学习小结</a></li>
+      </ol>
+    </li>
+    <li><a href="#非监督学习unsupervised-learning">非监督学习（Unsupervised Learning）</a>
+      <ol>
+        <li><a href="#核心逻辑-1">核心逻辑</a></li>
+        <li><a href="#典型任务">典型任务</a>
+          <ol>
+            <li></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#机器学习术语machine-learning-terminology">机器学习术语（Machine Learning Terminology）</a></li>
+    <li><a href="#线性回归模型linear-regression-model">线性回归模型（Linear Regression Model）</a>
+      <ol>
+        <li><a href="#基本定义">基本定义</a></li>
+        <li><a href="#模型表达式">模型表达式</a>
+          <ol>
+            <li></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#代价函数cost-function">代价函数（Cost Function）</a>
+      <ol>
+        <li><a href="#核心作用">核心作用</a></li>
+        <li><a href="#常用代价函数平方误差代价函数squared-error-cost-function">常用代价函数：平方误差代价函数（Squared Error Cost Function）</a>
+          <ol>
+            <li></li>
+          </ol>
+        </li>
+        <li><a href="#逻辑回归的代价函数">逻辑回归的代价函数</a>
+          <ol>
+            <li></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#梯度下降gradient-descent">梯度下降（Gradient Descent）</a>
+      <ol>
+        <li><a href="#基本定义-1">基本定义</a></li>
+        <li><a href="#算法步骤">算法步骤</a></li>
+        <li><a href="#关键参数学习率α">关键参数：学习率（α）</a></li>
+        <li><a href="#线性回归的梯度下降">线性回归的梯度下降</a></li>
+        <li><a href="#逻辑回归的梯度下降">逻辑回归的梯度下降</a></li>
+      </ol>
+    </li>
+    <li><a href="#逻辑回归logistic-regression">逻辑回归（Logistic Regression）</a>
+      <ol>
+        <li><a href="#基本定义-2">基本定义</a></li>
+        <li><a href="#sigmoid-函数逻辑函数">Sigmoid 函数（逻辑函数）</a></li>
+        <li><a href="#模型表达式-1">模型表达式</a></li>
+        <li><a href="#决策边界decision-boundary">决策边界（Decision Boundary）</a></li>
+      </ol>
+    </li>
+    <li><a href="#模型优化特征工程与正则化">模型优化：特征工程与正则化</a>
+      <ol>
+        <li><a href="#特征工程feature-engineering">特征工程（Feature Engineering）</a></li>
+        <li><a href="#特征缩放feature-scaling">特征缩放（Feature Scaling）</a></li>
+        <li><a href="#正则化regularization">正则化（Regularization）</a>
+          <ol>
+            <li></li>
+          </ol>
+        </li>
+        <li><a href="#过拟合的其他解决方法">过拟合的其他解决方法</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/fundamentals-of-machine-learning-1/">
+                
+                    <img src="/images/SunsetGlow.png" loading="lazy" alt="Featured image of post Fundamentals of Machine Learning 1" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" >
+                机器学习
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/fundamentals-of-machine-learning-1/">Fundamentals of Machine Learning 1</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 29, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 10 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <blockquote>
+<p>本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考</p>
+</blockquote>
+<h2 id="机器学习概述">机器学习概述
+</h2><h3 id="基本概念">基本概念
+</h3><p>机器学习是一门在没有明确编程的情况下让计算机学习的科学，已成长为人工智能的子领域，研究能使机器模拟人类根据经验学习的算法。</p>
+<h3 id="主要算法类型">主要算法类型
+</h3><ol>
+<li><strong>监督学习（Supervised Learning）</strong>：通过给定输入与对应正确输出标签（输入 - 输出对），让算法学习输入到输出的映射关系，最终能对全新输入给出合理准确的预测。</li>
+<li><strong>非监督学习（Unsupervised Learning）</strong>：仅使用无标签的输入数据，算法需自行从数据中发现结构或模式。</li>
+<li><strong>强化学习（Reinforcement Learning）</strong>：智能体（Agent）以试错方式学习，通过与环境交互获得奖赏指导行为，目标是使智能体获得最大奖赏，无需预先给定数据，依赖环境对动作的奖励反馈更新模型参数。</li>
+</ol>
+<h2 id="监督学习supervised-learning">监督学习（Supervised Learning）
+</h2><h3 id="核心逻辑">核心逻辑
+</h3><ul>
+<li><strong>映射关系</strong>：学习输入（x）到输出（y）的映射（x→y），通过输入示例与对应正确答案（标签）训练模型，最终对新输入产生适当输出。</li>
+<li><strong>典型应用</strong>：垃圾邮件识别、销售预测、机器翻译等。</li>
+</ul>
+<h3 id="两大核心任务">两大核心任务
+</h3><h5 id="回归regression">回归（Regression）
+</h5><ul>
+<li>
+<p><strong>定义</strong>：预测连续的数值型输出，可能的输出有无限多个。</p>
+</li>
+<li>
+<p><strong>示例</strong>：房屋价格预测</p>
+<p>通过房屋面积（输入 x，单位：平方英尺）预测房屋价格（输出 y，单位：千美元），通过直线拟合数据建立模型，例如预测某 750 平方英尺的房屋价格可能为 150,000 美元。</p>
+</li>
+<li>
+<p><strong>数据示例</strong>：</p>
+</li>
+</ul>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>房屋面积（平方英尺）</th>
+          <th>价格（千美元）</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>2104</td>
+          <td>400</td>
+      </tr>
+      <tr>
+          <td>1416</td>
+          <td>232</td>
+      </tr>
+      <tr>
+          <td>1534</td>
+          <td>315</td>
+      </tr>
+      <tr>
+          <td>852</td>
+          <td>178</td>
+      </tr>
+      <tr>
+          <td>3210</td>
+          <td>870</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><img src="/pics/MachineLearning/ML_01.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="线性回归"
+	
+	
+></p>
+<h5 id="分类classification">分类（Classification）
+</h5><ul>
+<li>
+<p><strong>定义</strong>：预测离散的类别型输出，可能的输出是<strong>有限的小集合</strong>（如 0、1、2 等）。</p>
+</li>
+<li>
+<p><strong>示例</strong>：乳腺癌检测</p>
+<p>输入肿瘤直径、患者年龄、细胞形状均匀度、边界特征等，预测肿瘤为良性（benign，如标签 0）或恶性（malignant，如标签 1 或 2），通过拟合边界线区分不同类别。</p>
+</li>
+<li>
+<p><strong>多输入情形</strong>：实际问题中常存在多个输入特征，例如通过 “年龄（Age）+ 肿瘤大小（Tumor size）” 共同预测肿瘤良恶性，是机器学习的常态。</p>
+</li>
+</ul>
+<h3 id="监督学习小结">监督学习小结
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>任务类型</th>
+          <th>输出特点</th>
+          <th>核心目标</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>回归</td>
+          <td>连续数值，无限多个可能输出</td>
+          <td>预测准确的数值结果</td>
+      </tr>
+      <tr>
+          <td>分类</td>
+          <td>离散类别，有限个可能输出</td>
+          <td>预测正确的类别归属</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="非监督学习unsupervised-learning">非监督学习（Unsupervised Learning）
+</h2><h3 id="核心逻辑-1">核心逻辑
+</h3><ul>
+<li>仅使用<strong>无标签的输入数据</strong>（仅 x，无 y），算法<strong>自主挖掘数据中的结构或模式</strong>。</li>
+<li>与监督学习的关键区别：无需预先给定 “正确答案”（标签），从无标签数据中学习。</li>
+</ul>
+<h3 id="典型任务">典型任务
+</h3><h5 id="聚类clustering">聚类（Clustering）
+</h5><ul>
+<li>
+<p><strong>定义</strong>：将无标签数据自动分组到不同簇（clusters），相似数据点归为同一簇。</p>
+</li>
+<li>
+<p><strong>示例</strong>：Google 新闻分类</p>
+<p>通过新闻关键词自动将当天新闻划分为不同主题（如 “体育”“科技”“财经”）。</p>
+</li>
+</ul>
+<h5 id="降维dimensionality-reduction">降维（Dimensionality Reduction）
+</h5><ul>
+<li><strong>定义</strong>：将高维大数据集压缩为低维数据集，同时尽可能减少信息丢失，便于数据可视化或后续处理。</li>
+</ul>
+<h5 id="异常检测anomaly-detection">异常检测（Anomaly Detection）
+</h5><ul>
+<li><strong>定义</strong>：从数据中找出不寻常的数据点（异常值），例如信用卡欺诈交易检测、设备故障检测等。</li>
+</ul>
+<h2 id="机器学习术语machine-learning-terminology">机器学习术语（Machine Learning Terminology）
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>术语</th>
+          <th>定义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>输入变量（x）</td>
+          <td>用于预测的特征（如房屋面积、肿瘤大小），也叫 “特征（Feature）”</td>
+      </tr>
+      <tr>
+          <td>输出变量（y）</td>
+          <td>待预测的结果（如房屋价格、肿瘤良恶性），也叫 “目标变量（Target）”</td>
+      </tr>
+      <tr>
+          <td>训练集（Training Set）</td>
+          <td>用于训练模型的数据集合，包含多个训练样本</td>
+      </tr>
+      <tr>
+          <td>训练样本数（m）</td>
+          <td>训练集中样本的总数（如 m=47 表示有 47 个训练样本）</td>
+      </tr>
+      <tr>
+          <td>单个训练样本（x⁽ⁱ⁾, y⁽ⁱ⁾）</td>
+          <td>第 i 个训练样本的输入（x⁽ⁱ⁾）与对应输出（y⁽ⁱ⁾），如 (x⁽¹⁾, y⁽¹⁾)=(2104, 400)</td>
+      </tr>
+      <tr>
+          <td>特征数（n）</td>
+          <td>每个训练样本包含的特征数量（如房屋预测中 “面积 + 卧室数 + 楼层”，n=3）</td>
+      </tr>
+      <tr>
+          <td>模型（f）</td>
+          <td>输入到输出的映射函数，也叫 “假设（Hypothesis）”，如 f (x)=wx+b</td>
+      </tr>
+      <tr>
+          <td>预测值 ŷ</td>
+          <td>模型根据给定输入推测的预测值</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="线性回归模型linear-regression-model">线性回归模型（Linear Regression Model）
+</h2><h3 id="基本定义">基本定义
+</h3><ul>
+<li>监督学习中的回归任务模型，通过拟合一条直线（或高维空间中的超平面）建立输入与输出的线性关系，用于预测连续数值。</li>
+<li>注意：线性回归是回归模型的一种，所有能预测数值的监督学习模型都可解决回归问题。</li>
+</ul>
+<h3 id="模型表达式">模型表达式
+</h3><h5 id="一元线性回归单特征">一元线性回归（单特征）
+</h5><ul>
+<li>
+<p>仅含一个输入特征（x），模型公式：$f_{w,b}(x) = wx + b$</p>
+<p>其中，<code>w</code> 为权重（weight），<code>b</code> 为偏置（bias），$f_{w,b}(x)$ 也记为 <code>ŷ</code>（预测值），<code>y</code> 为训练集中的真实值。</p>
+</li>
+</ul>
+<h5 id="多元线性回归多特征">多元线性回归（多特征）
+</h5><ul>
+<li>
+<p>含多个输入特征$（x_1, x_2, &hellip;, x_n）$，模型公式：$f_{\vec{w}, b}(\vec{x}) = w_1x_1 + w_2x_2 + &hellip; + w_nx_n + b$</p>
+<p>其中，$\vec{w} = [w_1, w_2, &hellip;, w_n]$ 为权重向量，$\vec{x} = [x_1, x_2, &hellip;, x_n] $为特征向量，可通过向量点积简化为：$f_{\vec{w}, b}(\vec{x}) = \vec{w} \cdot \vec{x} + b$</p>
+</li>
+<li>
+<p><strong>多特征数据示例</strong>：</p>
+</li>
+</ul>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>房屋面积（x₁）</th>
+          <th>卧室数（x₂）</th>
+          <th>楼层数（x₃）</th>
+          <th>房龄（x₄）</th>
+          <th>价格（千美元）</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>2104</td>
+          <td>5</td>
+          <td>-</td>
+          <td>45</td>
+          <td>460</td>
+      </tr>
+      <tr>
+          <td>1416</td>
+          <td>3</td>
+          <td>2</td>
+          <td>40</td>
+          <td>232</td>
+      </tr>
+      <tr>
+          <td>1534</td>
+          <td>3</td>
+          <td>2</td>
+          <td>30</td>
+          <td>315</td>
+      </tr>
+      <tr>
+          <td>852</td>
+          <td>2</td>
+          <td>1</td>
+          <td>36</td>
+          <td>178</td>
+      </tr>
+  </tbody>
+</table></div>
+<h5 id="向量化vectorization">向量化（Vectorization）
+</h5><ul>
+<li>
+<p><strong>作用</strong>：减少代码量，利用 NumPy 等工具调用并行硬件，大幅提升计算速度，尤其适用于大规模数据集。</p>
+</li>
+<li>
+<p>示例：</p>
+</li>
+<li>
+<p>无向量化（循环计算）：</p>
+<p>$f = w[0]x[0] + w[1]x[1] + w[2]x[2] + b$</p>
+<p>向量化（直接点积）：</p>
+<p>$f = np.dot(w, x) + b$</p>
+</li>
+</ul>
+<h2 id="代价函数cost-function">代价函数（Cost Function）
+</h2><h3 id="核心作用">核心作用
+</h3><ul>
+<li>衡量模型预测值$\hat{y} = f_{w,b}(x)）$与，真实值$（y）$的差异即模型对训练数据的拟合程度。</li>
+<li>目标：找到最优的 $w $和 $b$，使代价函数值最小。</li>
+</ul>
+<h3 id="常用代价函数平方误差代价函数squared-error-cost-function">常用代价函数：平方误差代价函数（Squared Error Cost Function）
+</h3><h5 id="公式线性回归">公式（线性回归）
+</h5><ul>
+<li>
+<p>对于 m 个训练样本，</p>
+</li>
+<li>
+<p>代价函数为：</p>
+<p>$J(w,b) = \frac{1}{2m} \sum_{i=1}^{m} \left( f_{w,b}(x^{(i)}) - y^{(i)} \right)^2$</p>
+<p>其中，$\frac{1}{2}$是为了后续求导计算简洁，不影响最小值的位置。</p>
+</li>
+</ul>
+<h3 id="逻辑回归的代价函数">逻辑回归的代价函数
+</h3><h5 id="直观理解">直观理解
+</h5><ul>
+<li>
+<p>简化场景（固定 b=0，仅分析 w）：</p>
+<p>当<code>w=1</code>时，预测值与真实值差异较小，代价函数值较小；当<code>w=0</code>或<code>w=-0.5</code>时，差异增大，代价函数值升高。</p>
+</li>
+<li>
+<p>三维可视化（含 w 和 b）：以<code>w</code>和<code>b</code>为坐标轴，代价函数值<code>J(w,b)</code>为高度，形成三维曲面，曲面最低点对应最优参数。</p>
+</li>
+<li>
+<p>等值线图（等高线）：</p>
+<p>二维平面上，同一等值线的<code>J(w,b)</code>值相同，中心处值最小，对应最优参数。</p>
+<p><img src="/pics/MachineLearning/image-20251029150513501.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251029150513501"
+	
+	
+></p>
+</li>
+</ul>
+<h5 id="逻辑回归的代价函数-1">逻辑回归的代价函数
+</h5><ul>
+<li>
+<p>由于逻辑回归输出为 0-1 概率，平方误差代价函数会导致非凸函数（存在多个局部最小值），故采用<strong>对数损失函数</strong>（Log Loss）：</p>
+<ol>
+<li>
+<p>单个样本损失：$L(f_{w,b}(x^{(i)}), y^{(i)}) = \begin{cases} -log(f_{w,b}(x^{(i)})) &amp; \text{if } y^{(i)}=1 \ -log(1-f_{w,b}(x^{(i)})) &amp; \text{if } y^{(i)}=0 \end{cases}$</p>
+</li>
+<li>
+<p>整体代价函数：</p>
+<p>$J(w,b) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y^{(i)}log(f_{w,b}(x^{(i)})) + (1-y^{(i)})log(1-f_{w,b}(x^{(i)})) \right]$</p>
+</li>
+</ol>
+</li>
+<li>
+<p>特点：凸函数，梯度下降可找到全局最小值。</p>
+</li>
+</ul>
+<p><img src="/pics/MachineLearning/ML_02.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="线性回归公式"
+	
+	
+></p>
+<h2 id="梯度下降gradient-descent">梯度下降（Gradient Descent）
+</h2><h3 id="基本定义-1">基本定义
+</h3><ul>
+<li>一种通用的优化算法，用于最小化任意代价函数（不仅限于线性回归或逻辑回归），广泛应用于机器学习领域。</li>
+<li>核心思想：从初始参数（如 <em>w</em>=0,<em>b</em>=0）出发，通过不断调整参数（<em>w</em> 和 <em>b</em>），沿代价函数梯度下降方向减小 <em>J</em>(<em>w</em>,<em>b</em>)，直至收敛到局部最小值（或接近最小值）。</li>
+</ul>
+<h3 id="算法步骤">算法步骤
+</h3><ol>
+<li>
+<p>初始化参数：设定初始 <em>w</em> 和 <em>b</em>（如均为 0）。</p>
+</li>
+<li>
+<p>迭代更新：</p>
+<p>同时更新 <em>w</em> 和b（关键：不能分步更新），公式为：</p>
+<p>$tmp_w = w - \alpha \cdot \frac{\partial J(w,b)}{\partial w}$</p>
+<p>$tmp_b = b - \alpha \cdot \frac{\partial J(w,b)}{\partial b}$</p>
+<p>$w = tmp_w, \quad b = tmp_b$</p>
+</li>
+<li>
+<p>终止条件：当$ J(w,b) $不再明显减小（收敛）时停止。</p>
+</li>
+</ol>
+<h3 id="关键参数学习率α">关键参数：学习率（α）
+</h3><ul>
+<li>
+<p><strong>作用</strong>：决定每一步更新参数的步幅大小。</p>
+</li>
+<li>
+<p><strong>影响</strong>：</p>
+<ul>
+<li>α 过小：迭代次数多，收敛慢。</li>
+<li>α 过大：可能跨越最小值，导致 $J(w,b) $震荡甚至发散（不收敛）。</li>
+</ul>
+</li>
+<li>
+<p><strong>选择建议</strong>：尝试 3 倍递增的取值（如 0.001、0.003、0.01、0.03、0.1&hellip;），找到使 <em>J</em>(<em>w</em>,<em>b</em>) 快速下降的合适值。</p>
+<p><img src="/pics/MachineLearning/image-20251029152210815.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251029152210815"
+	
+	
+></p>
+</li>
+</ul>
+<h3 id="线性回归的梯度下降">线性回归的梯度下降
+</h3><ul>
+<li>
+<p>偏导数计算（代入平方误差代价函数）：</p>
+<p>$\frac{\partial J(w,b)}{\partial w} = \frac{1}{m} \sum_{i=1}^{m} \left( f_{w,b}(x^{(i)}) - y^{(i)} \right)x^{(i)}$</p>
+<p>$\frac{\partial J(w,b)}{\partial b} = \frac{1}{m} \sum_{i=1}^{m} \left( f_{w,b}(x^{(i)}) - y^{(i)} \right)$</p>
+</li>
+<li>
+<p>特点：线性回归的代价函数是凸函数，梯度下降一定能找到全局最小值（无局部最小值问题）。</p>
+</li>
+</ul>
+<h3 id="逻辑回归的梯度下降">逻辑回归的梯度下降
+</h3><ul>
+<li>
+<p>偏导数计算（代入对数损失函数）：</p>
+<p>形式与线性回归相同但 \(f_{w,b}(x) = g(w \cdot x + b)\)（\(g(z)\) 为 sigmoid 函数），故实际计算不同：</p>
+<p>$\frac{\partial J(w,b)}{\partial w_j} = \frac{1}{m} \sum_{i=1}^{m} \left( f_{w,b}(x^{(i)}) - y^{(i)} \right)x_j^{(i)}$</p>
+<p>$\frac{\partial J(w,b)}{\partial b} = \frac{1}{m} \sum_{i=1}^{m} \left( f_{w,b}(x^{(i)}) - y^{(i)} \right)$</p>
+</li>
+</ul>
+<h2 id="逻辑回归logistic-regression">逻辑回归（Logistic Regression）
+</h2><h3 id="基本定义-2">基本定义
+</h3><ul>
+<li>虽名为 “回归”，但实际是解决<strong>二分类问题</strong>的算法，输出为样本属于某一类别的概率（0~1 之间）。</li>
+<li>核心：通过 sigmoid 函数将线性模型的输出（<em>z</em>=<em>w</em>⋅<em>x</em>+<em>b</em>）映射到 0~1 区间。</li>
+</ul>
+<h3 id="sigmoid-函数逻辑函数">Sigmoid 函数（逻辑函数）
+</h3><ul>
+<li>公式：$g(z) = \frac{1}{1 + e^{-z}}$</li>
+<li>性质：
+<ul>
+<li>当 <em>z</em>≥0 时，<em>g</em>(<em>z</em>)≥0.5</li>
+<li>当 <em>z</em>&lt;0 时，<em>g</em>(<em>z</em>)&lt;0.5</li>
+<li>输出范围：0&lt;<em>g</em>(<em>z</em>)&lt;1</li>
+</ul>
+</li>
+</ul>
+<h3 id="模型表达式-1">模型表达式
+</h3><ul>
+<li>
+<p>逻辑回归模型：$f_{w,b}(x) = g(w \cdot x + b) = \frac{1}{1 + e^{-(w \cdot x + b)}}$</p>
+</li>
+<li>
+<p>输出含义：</p>
+<p>$=P(y=1∣x;w,b)$</p>
+<p>，即给定输入 x 和参数 w、b 时，样本属于类别 1（正类）的概率。</p>
+<p>示例：若$f_{w,b}=0.7$，表示该样本有 70% 概率为正类（如恶性肿瘤），30% 概率为负类（如良性肿瘤）。</p>
+</li>
+</ul>
+<h3 id="决策边界decision-boundary">决策边界（Decision Boundary）
+</h3><ul>
+<li><strong>定义</strong>：划分正类（y=1）和负类（y=0）的边界，由$ f_{w,b}(x)=0.5$ 推导而来（此时 <em>z</em>=<em>w</em>⋅<em>x</em>+<em>b</em>=0）。</li>
+<li><strong>类型：</strong>
+<ol>
+<li>线性决策边界：当特征为线性组合时（如$ w_1x_1 + w_2x_2 + b = 0$），边界为直线（二维）或平面（高维）。</li>
+<li>非线性决策边界：通过特征工程（如添加多项式特征$ x_1^2, x_1x_2 $等），可拟合圆形、椭圆形等非线性边界，适用于复杂数据分布。</li>
+</ol>
+</li>
+</ul>
+<h2 id="模型优化特征工程与正则化">模型优化：特征工程与正则化
+</h2><h3 id="特征工程feature-engineering">特征工程（Feature Engineering）
+</h3><ul>
+<li><strong>定义</strong>：根据问题直觉，通过变换、合并或创建新特征，提升模型预测能力。</li>
+<li><strong>示例：</strong>
+<ul>
+<li>房屋预测中，将 “房屋正面宽度（frontage）” 和 “深度（depth）” 合并为 “面积（area = frontage × depth）”，面积对价格的预测更直接。</li>
+<li>多项式回归：将特征 <em>x</em> 扩展为 <em>x</em>,<em>x</em>2,<em>x</em>3 等，拟合非线性数据（需配合特征缩放）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="特征缩放feature-scaling">特征缩放（Feature Scaling）
+</h3><ul>
+<li>
+<p><strong>目的</strong>：使不同取值范围的特征（如 “房屋面积：300<del>2000 平方英尺”“卧室数：0</del>5”）具有相似的数值范围（通常目标 −1≤<em>x**j</em>≤1，可接受 −3≤<em>x**j</em>≤3），加速梯度下降收敛。</p>
+</li>
+<li>
+<p>常用方法：</p>
+<ol>
+<li>
+<p>归一化（Normalization）：归一化（Normalization）：</p>
+<p>$x_j^{scaled} = \frac{x_j - min(x_j)}{max(x_j) - min(x_j)}$</p>
+<p>将特征缩放到 0~1 区间。</p>
+</li>
+<li>
+<p>标准化（Z-score Normalization）：$x_j^{scaled} = \frac{x_j - \mu_j}{\sigma_j}$，</p>
+<p>其中$ \mu_j$ 为特征j的均值，$\sigma_j $为标准差，使特征均值为 0、标准差为 1。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="正则化regularization">正则化（Regularization）
+</h3><h5 id="问题背景过拟合overfitting与欠拟合underfitting">问题背景：过拟合（Overfitting）与欠拟合（Underfitting）
+</h5><ul>
+<li><strong>欠拟合</strong>：模型过于简单，无法拟合训练数据（高偏差，high bias），如用直线拟合非线性数据。</li>
+<li><strong>过拟合</strong>：模型过于复杂，完美拟合训练数据但泛化能力差（高方差，high variance），如用四阶多项式拟合少量线性数据。</li>
+</ul>
+<h5 id="正则化核心思想">正则化核心思想
+</h5><ul>
+<li>通过在代价函数中添加<strong>正则项</strong>，惩罚过大的参数值（<em>w**j</em>），使模型参数尽可能小，从而简化模型，避免过拟合（不惩罚 b，影响较小）。</li>
+</ul>
+<h5 id="常用正则化方法l2-正则化权重衰减">常用正则化方法：L2 正则化（权重衰减）
+</h5><ul>
+<li>
+<p><strong>线性回归的正则化代价函数</strong>：$J(w,b) = \frac{1}{2m} \sum_{i=1}^{m} \left( f_{w,b}(x^{(i)}) - y^{(i)} \right)^2 + \frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2$</p>
+</li>
+<li>
+<p><strong>逻辑回归的正则化代价函数</strong>：</p>
+</li>
+<li>
+<p>$J(w,b) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y^{(i)}log(f_{w,b}(x^{(i)})) + (1-y^{(i)})log(1-f_{w,b}(x^{(i)})) \right] + \frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2$</p>
+</li>
+<li>
+<p><strong>正则化参数 λ</strong>：</p>
+</li>
+<li>
+<p>λ=0：无正则化，可能过拟合。</p>
+<ul>
+<li>λ 过大：惩罚过强，参数趋近于 0，模型过于简单，导致欠拟合。</li>
+</ul>
+</li>
+<li>
+<p>选择：需通过验证集调整，找到平衡过拟合与欠拟合的最优值。</p>
+</li>
+</ul>
+<h5 id="正则化的梯度下降更新">正则化的梯度下降更新
+</h5><ul>
+<li>
+<p>线性回归（以\(w_j\)为例）：</p>
+<p>$w_j = w_j - \alpha \left[ \frac{1}{m} \sum_{i=1}^{m} \left( f_{w,b}(x^{(i)}) - y^{(i)} \right)x_j^{(i)} + \frac{\lambda}{m}w_j \right]$</p>
+</li>
+<li>
+<p>其中，$1 - \alpha \cdot \frac{\lambda}{m} $项使\(w_j\)每次更新时 “收缩”，实现权重衰减。</p>
+</li>
+<li>
+<p>逻辑回归（更新公式形式与线性回归相同，仅$ f (x) $计算不同）。</p>
+</li>
+</ul>
+<h3 id="过拟合的其他解决方法">过拟合的其他解决方法
+</h3><ol>
+<li><strong>收集更多训练数据</strong>：增加数据量可提升模型泛化能力，是解决过拟合的有效方法（前提是数据质量高）。</li>
+<li><strong>减少特征数量</strong>：通过特征选择（如手动筛选或算法自动选择），剔除无关或冗余特征，简化模型（缺点：可能丢失有用信息）。</li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/machine-learning/">Machine Learning</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/fundamentals-of-machine-learning-2/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/images/SunsetGlow.png" loading="lazy" data-key="" data-hash="/images/SunsetGlow.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Fundamentals of Machine Learning 2</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-cn"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2025 Ch0ser
+    </section>
+    
+    <section class="powerby">
+        
+            © 2023-2025 Ch0ser. All Rights Reserved. <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

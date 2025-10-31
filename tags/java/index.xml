@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Java on Choser&#39;s Blog</title>
-        <link>http://localhost:1313/tags/java/</link>
+        <link>https://ch0ser.github.io/tags/java/</link>
         <description>Recent content in Java on Choser&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Ch0ser</copyright>
-        <lastBuildDate>Mon, 16 Dec 2024 16:04:20 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/java/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 16 Dec 2024 16:04:20 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Quick Java</title>
-        <link>http://localhost:1313/p/quick-java/</link>
+        <link>https://ch0ser.github.io/p/quick-java/</link>
         <pubDate>Mon, 16 Dec 2024 16:04:20 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/quick-java/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Lover.PNG" alt="Featured image of post Quick Java" /&gt;&lt;h2 id=&#34;1-java背景知识&#34;&gt;1 Java背景知识
+        <guid>https://ch0ser.github.io/p/quick-java/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Lover.PNG" alt="Featured image of post Quick Java" /&gt;&lt;h2 id=&#34;1-java背景知识&#34;&gt;1 Java背景知识
 &lt;/h2&gt;&lt;h3 id=&#34;11-jdk-jre-jvm&#34;&gt;1.1 JDK JRE JVM
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;JDK(开发工具包)&lt;/li&gt;

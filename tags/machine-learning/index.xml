@@ -2,18 +2,1243 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Machine Learning on Choser&#39;s Blog</title>
-        <link>http://localhost:1313/tags/machine-learning/</link>
+        <link>https://ch0ser.github.io/tags/machine-learning/</link>
         <description>Recent content in Machine Learning on Choser&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Ch0ser</copyright>
-        <lastBuildDate>Wed, 29 Oct 2025 15:27:35 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Fundamentals of Machine Learning Ⅰ</title>
-        <link>http://localhost:1313/p/fundamentals-of-machine-learning/</link>
+        <lastBuildDate>Fri, 31 Oct 2025 10:53:50 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Fundamentals of Machine Learning 2</title>
+        <link>https://ch0ser.github.io/p/fundamentals-of-machine-learning-2/</link>
+        <pubDate>Fri, 31 Oct 2025 10:53:50 +0800</pubDate>
+        
+        <guid>https://ch0ser.github.io/p/fundamentals-of-machine-learning-2/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SunsetGlow.png" alt="Featured image of post Fundamentals of Machine Learning 2" /&gt;&lt;blockquote&gt;
+&lt;p&gt;本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;神经网络概述&#34;&gt;神经网络概述
+&lt;/h2&gt;&lt;h3 id=&#34;起源与演变&#34;&gt;起源与演变
+&lt;/h3&gt;&lt;p&gt;神经网络（Neural Networks）是一类试图模仿人脑结构和功能的算法。其灵感来源于生物神经元，后者通过树突接收输入信号，在细胞体中处理，并通过轴突将输出信号传递给其他神经元。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;历史发展&lt;/strong&gt;：神经网络在 1980 年代和 1990 年代初曾流行，但在 90 年代末期逐渐失宠。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;现代复兴&lt;/strong&gt;：大约从 2005 年开始，神经网络（尤其是深度学习）强势复兴，但&lt;strong&gt;其发展早已偏离了最初“构建模拟大脑软件”的生物启发初衷&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;为何现在可行&#34;&gt;为何现在可行？
+&lt;/h3&gt;&lt;p&gt;神经网络的复兴主要得益于两大因素：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;计算能力的提升&lt;/strong&gt;：特别是 GPU（图形处理器）的发展，使得训练大型神经网络成为可能。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;大数据的出现&lt;/strong&gt;：海量数据为训练复杂的神经网络模型提供了充足的“燃料”。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;核心思想端到端学习&#34;&gt;核心思想：端到端学习
+&lt;/h3&gt;&lt;p&gt;神经网络的一个关键优势是它能够&lt;strong&gt;自动进行特征工程&lt;/strong&gt;。与传统机器学习方法需要人工设计和提取特征不同，神经网络可以从原始输入（如图像的像素值）开始，通过多层结构自动学习到更高层次、更有意义的特征表示。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;示例 - 人脸识别&lt;/strong&gt;：输入是 1000 像素的图像，网络的第一层可能学习到边缘等简单特征，后续层则组合这些简单特征形成更复杂的模式（如眼睛、鼻子），最终输出层给出属于特定人物的概率。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例 - 汽车分类&lt;/strong&gt;：原理类似，网络能自动学习到足以区分汽车与其他物体的特征。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030104704681.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030104704681&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;神经网络架构&#34;&gt;神经网络架构
+&lt;/h2&gt;&lt;h3 id=&#34;基本组成单元神经网络层&#34;&gt;基本组成单元：神经网络层
+&lt;/h3&gt;&lt;p&gt;一个典型的神经网络由多个层（Layer）堆叠而成：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;输入层 (Input Layer)&lt;/strong&gt;：接收原始特征向量 $x$。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;隐藏层 (Hidden Layers)&lt;/strong&gt;：位于输入层和输出层之间，负责特征的转换和提取。一个网络可以有多个隐藏层。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;输出层 (Output Layer)&lt;/strong&gt;：产生最终的预测结果。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030104834412.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030104834412&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030105019777.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030105019777&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030105043036.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030105043036&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;数学模型与符号约定&#34;&gt;数学模型与符号约定
+&lt;/h3&gt;&lt;p&gt;每一层的计算可以看作是对输入应用一个简化的神经元数学模型。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;单个神经元计算&lt;/strong&gt;： 对于第 $ l$ 层的第 $ j $ 个神经元，其计算过程为：$z=w⋅a+b$ ,$a=g(z) $&lt;/li&gt;
+&lt;li&gt;其中：
+&lt;ul&gt;
+&lt;li&gt;$w$ 和 $b$ 是该神经元的参数（权重和偏置）。&lt;/li&gt;
+&lt;li&gt;$a $ 是来自上一层（$l-1$ 层）的激活值（即输出）。&lt;/li&gt;
+&lt;li&gt;$g$ 是激活函数（Activation Function）。&lt;/li&gt;
+&lt;li&gt;$a$  是该神经元的输出，也称为激活值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;向量化表示&lt;/strong&gt;： 为了高效计算，通常将一层中所有神经元的计算向量化。
+&lt;ul&gt;
+&lt;li&gt;$W^{[l]}$：第 $l$ 层的权重矩阵。&lt;/li&gt;
+&lt;li&gt;$b^{[l]}$：第 $l$ 层的偏置向量。&lt;/li&gt;
+&lt;li&gt;$a^{[l-1]}$：第$ l-1 $层的激活向量（对于输入层，$a^{[0]} = x$）。&lt;/li&gt;
+&lt;li&gt;第 $l$ 层的计算为：$z^{[l]} = W^{[l]} a^{[l-1]} + b^{[l]}$，$a^{[l]} = g\big(z^{[l]}\big)$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;前向传播-forward-propagation&#34;&gt;前向传播 (Forward Propagation)
+&lt;/h3&gt;&lt;p&gt;前向传播是指从输入层开始，逐层计算直到输出层，得到最终预测值 &lt;code&gt;f(x)&lt;/code&gt; 的过程。这是神经网络进行预测（推理）的核心步骤。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;手写数字识别示例：
+&lt;ul&gt;
+&lt;li&gt;输入：一个 28x28 像素的图像，展平为一个包含 784 个元素的向量 &lt;code&gt;x&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;网络架构：例如，一个包含 25 个单元的第一隐藏层、15 个单元的第二隐藏层和 1 个单元的输出层。&lt;/li&gt;
+&lt;li&gt;输出：一个介于 0 和 1 之间的概率值，表示输入图像是数字 &amp;lsquo;1&amp;rsquo; 的概率。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030122205246.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030122205246&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030122221336.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030122221336&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;激活函数&#34;&gt;激活函数
+&lt;/h2&gt;&lt;p&gt;激活函数是神经网络能够学习和表示复杂非线性关系的关键。&lt;strong&gt;如果没有激活函数（即使用线性激活 $g(z) = z$），无论网络有多少层，其整体效果都等同于一个简单的线性回归模型。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;常用激活函数&#34;&gt;常用激活函数
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Sigmoid&lt;/strong&gt;:  $g(z) = \frac{1}{1 + e^{-z}}$
+&lt;ul&gt;
+&lt;li&gt;输出范围在 (0, 1) 之间。&lt;/li&gt;
+&lt;li&gt;常用于&lt;strong&gt;二元分类&lt;/strong&gt;问题的&lt;strong&gt;输出层&lt;/strong&gt;，因为其输出可以被解释为&lt;strong&gt;概率&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ReLU (Rectified Linear Unit)&lt;/strong&gt;:  $g(z) = \max(0, z)$
+&lt;ul&gt;
+&lt;li&gt;当 &lt;code&gt;z &amp;gt; 0&lt;/code&gt; 时，输出为 &lt;code&gt;z&lt;/code&gt;；当 &lt;code&gt;z &amp;lt;= 0&lt;/code&gt; 时，输出为 &lt;code&gt;0&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;是&lt;strong&gt;隐藏层&lt;/strong&gt;最常用的激活函数，因为它计算简单且能有效缓解梯度消失问题，加速训练。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;线性激活 (Linear)&lt;/strong&gt;: $g(z) = z$
+&lt;ul&gt;
+&lt;li&gt;输出可以是任意实数。&lt;/li&gt;
+&lt;li&gt;通常用于&lt;strong&gt;回归&lt;/strong&gt;问题的&lt;strong&gt;输出层&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030124424243.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030124424243&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;激活函数选择建议&#34;&gt;激活函数选择建议
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;输出层:
+&lt;ul&gt;
+&lt;li&gt;二元分类：&lt;code&gt;sigmoid&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;回归（输出可为任意实数）：&lt;code&gt;linear&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;回归（输出非负）：&lt;code&gt;ReLU&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;隐藏层:
+&lt;ul&gt;
+&lt;li&gt;首选 &lt;code&gt;ReLU&lt;/code&gt;：梯度更大下降快。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sigmoid&lt;/code&gt;梯度较缓下降慢&lt;/li&gt;
+&lt;li&gt;纯线性等于没练肯定不用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;使用-tensorflowkeras-构建与训练&#34;&gt;使用 TensorFlow/Keras 构建与训练
+&lt;/h2&gt;&lt;p&gt;现代深度学习框架（如 TensorFlow/Keras）极大地简化了神经网络的构建和训练过程。&lt;/p&gt;
+&lt;h3 id=&#34;构建模型&#34;&gt;构建模型
+&lt;/h3&gt;&lt;p&gt;可以使用 &lt;code&gt;Sequential&lt;/code&gt; API 将各层按顺序堆叠起来。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;tensorflow.keras&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Sequential&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;tensorflow.keras.layers&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Dense&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 以手写数字分类为例&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;model&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Sequential&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;Dense&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;units&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;25&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;relu&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 第一隐藏层&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;Dense&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;units&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;relu&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 第二隐藏层&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;Dense&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;units&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;sigmoid&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 输出层&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;通常不用显示赋值层，而是在不断训练中自行微调&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030122846301.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030122846301&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030122907175.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030122907175&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;​      &lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030122927512.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030122927512&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;训练模型&#34;&gt;训练模型
+&lt;/h3&gt;&lt;p&gt;训练过程主要包括三个步骤(可以参考前文图片)：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;编译 (Compile)&lt;/strong&gt;：指定损失函数和优化器。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于二元分类，损失函数通常选择 &lt;code&gt;BinaryCrossentropy&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;tensorflow.keras.losses&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BinaryCrossentropy&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;model&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;compile&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;loss&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BinaryCrossentropy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;拟合 (Fit)&lt;/strong&gt;：使用训练数据 &lt;code&gt;(X, Y)&lt;/code&gt; 来训练模型。&lt;code&gt;epochs&lt;/code&gt; 参数指定了梯度下降的迭代次数。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;model&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;epochs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;预测 (Predict)&lt;/strong&gt;：使用训练好的模型对新数据进行预测。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;predictions&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;model&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;predict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x_new&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030124757217.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030124757217&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;训练细节&#34;&gt;训练细节
+&lt;/h3&gt;&lt;p&gt;一些训练时的细节&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030124910822.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030124910822&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;​       &lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030124932431.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030124932431&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030124949195.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030124949195&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030125005130.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030125005130&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;关于数据格式的注意事项&#34;&gt;关于数据格式的注意事项
+&lt;/h3&gt;&lt;p&gt;在使用 NumPy 数组作为输入时，即使只有一个样本，也应将其构造成二维数组（即形状为 &lt;code&gt;(1, n_features)&lt;/code&gt;），例如 &lt;code&gt;x = np.array([[200.0, 17.0]])&lt;/code&gt;。这有助于框架内部进行高效的批量计算。&lt;/p&gt;
+&lt;h2 id=&#34;向量化与高效计算&#34;&gt;向量化与高效计算
+&lt;/h2&gt;&lt;p&gt;为了提升计算效率，应尽可能避免在 Python 中使用显式的 for 循环来处理神经网络中的矩阵运算。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;向量化 (Vectorization)：利用 NumPy 或 TensorFlow 内置的矩阵乘法（如&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;matmul&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 或者 @&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;运算符）一次性完成整层的计算。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;非向量化&lt;/strong&gt;：对每个神经元单独计算 &lt;code&gt;z = np.dot(w, x) + b&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;向量化&lt;/strong&gt;：对整层计算 &lt;code&gt;Z = np.matmul(A_in, W) + B&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;另外 &lt;code&gt;A.T&lt;/code&gt;代表矩阵&lt;code&gt;A&lt;/code&gt;的转置&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;向量化不仅能显著加快代码运行速度，而且代码也更加简洁清晰。&lt;/p&gt;
+&lt;h2 id=&#34;agi通用人工智能&#34;&gt;AGI通用人工智能
+&lt;/h2&gt;&lt;h3 id=&#34;人工智能的两个层次&#34;&gt;&lt;strong&gt;人工智能的两个层次&lt;/strong&gt;
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;弱人工智能（ANI，Artificial Narrow Intelligence）&lt;/strong&gt;：指专门用于完成特定任务的人工智能，如智能音箱。这是目前已经广泛实现的技术。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;通用人工智能（AGI，Artificial General Intelligence）&lt;/strong&gt;：指具备像人类一样全面智能的AI，能够理解和学习任何智力任务。这是AI领域的长期目标。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030123256271.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030123256271&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;神经网络的生物学基础&#34;&gt;&lt;strong&gt;神经网络的生物学基础&lt;/strong&gt;
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;PPT展示了&lt;strong&gt;生物神经元&lt;/strong&gt;（包含细胞体、树突、轴突等）的结构。&lt;/li&gt;
+&lt;li&gt;并给出了一个&lt;strong&gt;简化的神经元数学模型&lt;/strong&gt;，将生物神经元的输入（树突）、处理（细胞体）和输出（轴突）过程用数学函数来模拟。这正是人工神经网络的基础单元。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030123909104.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030123909104&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;核心主题神经网络与大脑&#34;&gt;&lt;strong&gt;核心主题：神经网络与大脑&lt;/strong&gt;
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;提出的问题&lt;/strong&gt;：我们能否模仿人脑？但幻灯片也诚实地指出，我们（几乎）不知道大脑的具体工作原理。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;关键假说——“单一学习算法”假说&lt;/strong&gt;：&lt;strong&gt;假说内容&lt;/strong&gt;：智能可能来源于一个通用的、单一的学习算法。大脑的不同部分（如处理视觉、听觉、触觉的区域）可能是在运行同一个基本算法，只是处理的数据来源不同。&lt;strong&gt;证据支持&lt;/strong&gt;：幻灯片以人类大脑发育初期的“可塑性”作为证据。例如，大脑中原本负责处理声音的区域，如果被连接到视觉信号，也可以学会“看”。这说明大脑皮层可能具有通用的处理能力。&lt;strong&gt;深远意义&lt;/strong&gt;：如果这个假说成立，那么理论上我们可以利用&lt;strong&gt;单一的神经网络算法&lt;/strong&gt;，通过提供不同的数据，来解决各种各样的问题（视觉、听觉、语言等），而无需为每个问题专门编写复杂的程序。这正是深度学习所追求的“以不变应万变”的策略。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030123934920.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030123934920&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030123951662.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030123951662&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;多分类问题&#34;&gt;多分类问题
+&lt;/h2&gt;&lt;h3 id=&#34;softmax-回归&#34;&gt;Softmax 回归
+&lt;/h3&gt;&lt;p&gt;当目标变量 $y$ 可以取两个以上的可能值时（例如 MNIST 手写数字识别，$y \in {0, 1, &amp;hellip;, 9}$），需要使用 &lt;strong&gt;Softmax 回归&lt;/strong&gt;（Softmax Regression）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;模型输出&lt;/strong&gt;：对于 $N$ 个类别，模型会为每个类别 $j$ 计算一个未归一化的分数（logit）$z_j$： &lt;/p&gt;
+$$z_j = \mathbf{w}_j \cdot \mathbf{x} + b_j$$&lt;p&gt; 其中 $\mathbf{w}_j$ 和 $b_j$ 是第 $j$ 个类别的参数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Softmax 函数&lt;/strong&gt;：将 logits 向量 $\mathbf{z} = [z_1, &amp;hellip;, z_N]$ 转换为一个概率分布 $\mathbf{a} = [a_1, &amp;hellip;, a_N]$，其中每个 $a_j$ 表示属于类别 $j$ 的概率： &lt;/p&gt;
+$$a_j = P(y=j \mid \mathbf{x}) = \frac{e^{z_j}}{\sum_{k=1}^{N} e^{z_k}}$$&lt;p&gt; 这些概率满足 $\sum_{j=1}^{N} a_j = 1$ 且 $a_j \geq 0$。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;损失函数&lt;/strong&gt;：使用&lt;strong&gt;交叉熵损失&lt;/strong&gt;（Cross-Entropy Loss）。对于真实标签 $y$，损失为： &lt;/p&gt;
+$$\text{Loss}(\mathbf{a}, y) = -\log(a_y)$$&lt;p&gt; 即只&lt;strong&gt;关注真实类别对应预测概率的负对数。&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;逻辑回归的泛化&lt;/strong&gt;：从公式上我们可以看出Softmax其实是二元的逻辑回归的多元泛化。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030184404741.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030184404741&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030184425363.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030184425363&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;数值稳定性&#34;&gt;数值稳定性
+&lt;/h3&gt;&lt;p&gt;直接计算 Softmax 可能会因为&lt;strong&gt;指数运算&lt;/strong&gt;导致&lt;strong&gt;数值上溢&lt;/strong&gt;（overflow）或&lt;strong&gt;下溢&lt;/strong&gt;（underflow）。&lt;/p&gt;
+&lt;p&gt;举个例子，&lt;/p&gt;
+$$a_j = \frac{e^{z_j }}{\sum_{k=1}^{N} e^{z_k  }}$$&lt;p&gt; 中，当分母相对分子过大，即整体趋于0时，损失&lt;/p&gt;
+$$\text{Loss}(\mathbf{a}, y) = -\log(a_y)$$&lt;p&gt; ，就会趋于无穷大（主要是分母的和取对数时）。反之趋于1时亦然。&lt;/p&gt;
+&lt;p&gt;一个更数值稳定的实现方式是先从 logits 向量 $\mathbf{z}$ 中&lt;strong&gt;减去其最大值&lt;/strong&gt; $z_{\text{max}} = \max(\mathbf{z})$，然后再计算： &lt;/p&gt;
+$$a_j = \frac{e^{z_j - z_{\text{max}}}}{\sum_{k=1}^{N} e^{z_k - z_{\text{max}}}}$$&lt;p&gt; 这不会改变最终的概率结果，但能有效避免数值问题。因为分母的指数项所有指数项 $e^{z_k−z_{max}}≤1$，因此取对数时不会上溢（相比指数级的大小）。&lt;/p&gt;
+&lt;p&gt;在 TensorFlow/Keras 中，可以通过设置 &lt;code&gt;from_logits=True&lt;/code&gt; 来利用框架内部的数值稳定实现。此时，模型的最后一层应使用 &lt;code&gt;activation=&#39;linear&#39;&lt;/code&gt;（即不加 Softmax），而损失函数 &lt;code&gt;SparseCategoricalCrossentropy&lt;/code&gt; 会直接在 logits 上进行稳定计算，即自动进行以上的稳定计算算法（从 logits 向量 $\mathbf{z}$ 中&lt;strong&gt;减去其最大值&lt;/strong&gt; $z_{\text{max}} = \max(\mathbf{z})$ ）。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 数值稳定的 MNIST 模型示例&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;model&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Sequential&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;Dense&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;units&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;25&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;relu&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;Dense&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;units&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;relu&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;Dense&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;units&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;linear&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 输出 logits&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;model&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;compile&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;loss&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SparseCategoricalCrossentropy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;from_logits&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;多标签分类&#34;&gt;多标签分类
+&lt;/h2&gt;&lt;p&gt;与多分类（每个样本只属于一个类别）不同，&lt;strong&gt;多标签分类&lt;/strong&gt;（Multi-label Classification）允许一个样本同时属于多个类别。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;应用场景&lt;/strong&gt;：例如，一张图片可能同时包含“汽车”、“公交车”和“行人”。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;模型架构&lt;/strong&gt;：可以训练一个具有多个输出的神经网络，每个输出对应一个类别的二元判断。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;激活函数与损失：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;输出层激活函数&lt;/strong&gt;：每个输出单元使用 &lt;strong&gt;Sigmoid&lt;/strong&gt; 激活函数，独立地输出属于该类别的概率（范围在 0 到 1 之间）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;损失函数&lt;/strong&gt;：对每个输出单元分别计算二元交叉熵损失，然后求和或求平均。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;对比&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;多分类&lt;/strong&gt;（Multiclasses）：
+多个输出代表多个可能（概率），输出层使用Softmax激活函数，但&lt;strong&gt;每个样本只有一个确定的类别&lt;/strong&gt;；&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;多标签分类&lt;/strong&gt;（Multi-label Classification）：
+同样是多个输出对应多个可能，但每个样本&lt;strong&gt;有多个类别&lt;/strong&gt;，每个类别有是与否的可能，即&lt;strong&gt;输出y是多维的&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;优化算法adam&#34;&gt;优化算法：Adam
+&lt;/h2&gt;&lt;p&gt;梯度下降法使用一个全局的学习率 $\alpha$ 来更新所有参数。&lt;strong&gt;Adam 算法&lt;/strong&gt;（Adaptive Moment Estimation）是一种更先进的优化器，它能为每个参数自适应地调整学习率。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;核心思想&lt;/strong&gt;：Adam 结合了动量（Momentum）和 RMSprop 的思想，通过计算梯度的一阶矩（均值）和二阶矩（未中心化的方差）的指数移动平均，来动态调整每个参数的学习率。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;优势&lt;/strong&gt;：通常比标准梯度下降收敛更快，且对学习率的初始选择不那么敏感。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在 TensorFlow 中的使用：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;model&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;compile&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;optimizer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;keras&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;optimizers&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Adam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;learning_rate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;1e-3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;loss&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;keras&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;losses&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SparseCategoricalCrossentropy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;from_logits&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030195526547.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030195526547&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;卷积层&#34;&gt;卷积层
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;卷积层&lt;/strong&gt;（Convolutional Layer）是卷积神经网络（CNN）的核心组成部分，尤其适用于处理图像、音频等具有网格结构的数据。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;与全连接层的区别：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;局部连接&lt;/strong&gt;：卷积层中的每个神经元只与输入数据的一个局部区域（感受野）相连，而不是与所有输入相连。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;参数共享&lt;/strong&gt;：用于扫描输入的不同局部区域的是一组相同的权重（称为卷积核或滤波器）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;优势：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;计算更快&lt;/strong&gt;：由于局部连接和参数共享，参数数量大大减少。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;&lt;strong&gt;需要更少的训练数据&lt;/strong&gt;：参数减少也意味着模型更不容易过拟合。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030195658287.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030195658287&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;导数与反向传播&#34;&gt;导数与反向传播
+&lt;/h2&gt;&lt;h3 id=&#34;导数的直观理解&#34;&gt;导数的直观理解
+&lt;/h3&gt;&lt;p&gt;导数 $\frac{dJ}{dw}$ 表示当参数 $w$ 增加一个微小量 $\epsilon$ 时，代价函数 $J(w)$ 的变化量（约为 $\frac{dJ}{dw} \cdot \epsilon$）。在梯度下降中，我们沿导数的反方向更新参数以最小化 $J$。&lt;/p&gt;
+&lt;h3 id=&#34;反向传播-backpropagation&#34;&gt;反向传播 (Backpropagation)
+&lt;/h3&gt;&lt;p&gt;反向传播是一种高效计算神经网络中所有参数梯度的算法。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;计算图&lt;/strong&gt;：将前向传播的计算过程表示为一个有向图，节点代表变量（如 $w, b, z, a, J$），边代表计算操作。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;链式法则&lt;/strong&gt;：反向传播从输出（代价 $J$）开始，应用&lt;strong&gt;链式法则&lt;/strong&gt;，从右向左（从输出层到输入层）逐层计算梯度。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;高效性&lt;/strong&gt;：对于一个有 $N$ 个节点和 $P$ 个参数的网络，反向传播可以在大约 $N + P$ 步内计算出所有梯度，而朴素方法需要 $N \times P$ 步。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030195752030.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030195752030&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;调试与评估机器学习算法&#34;&gt;调试与评估机器学习算法
+&lt;/h2&gt;&lt;h3 id=&#34;训练测试集划分&#34;&gt;训练/测试集划分
+&lt;/h3&gt;&lt;p&gt;为了评估模型在未见数据上的泛化能力，需要将数据集划分为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;训练集 (Training Set)&lt;/strong&gt;：用于拟合模型参数（如 70% 或 80% 的数据）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;测试集 (Test Set)&lt;/strong&gt;：用于最终评估模型性能（如 30% 或 20% 的数据）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;训练误差&lt;/strong&gt;：$J_{\text{train}}(\mathbf{w}, b) = \frac{1}{m_{\text{train}}} \sum_{i=1}^{m_{\text{train}}} L(f_{\mathbf{w},b}(\mathbf{x}^{(i)}), y^{(i)})$&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;测试误差&lt;/strong&gt;：$J_{\text{test}}(\mathbf{w}, b) = \frac{1}{m_{\text{test}}} \sum_{i=1}^{m_{\text{test}}} L(f_{\mathbf{w},b}(\mathbf{x}&lt;em&gt;{\text{test}}^{(i)}), y&lt;/em&gt;{\text{test}}^{(i)})$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对于分类问题，测试误差也可以直接定义为测试集中被错误分类的样本比例。&lt;/p&gt;
+&lt;h3 id=&#34;交叉验证&#34;&gt;交叉验证
+&lt;/h3&gt;&lt;p&gt;当需要在多个模型（或超参数，如多项式次数 $d$、正则化参数 $\lambda$）之间进行选择时，仅使用训练集和测试集会导致对泛化误差过于乐观的估计，因为模型选择过程已经“窥探”了测试集。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;解决方案：引入验证集（Validation Set，也称开发集 Dev Set）:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;训练集&lt;/strong&gt;：用于训练每个候选模型。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;验证集&lt;/strong&gt;：用于评估和选择表现最好的模型。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;测试集&lt;/strong&gt;：仅用于对最终选定的模型进行一次性的、无偏的性能评估。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;标准划分比例可以是 60% / 20% / 20% 或 80% / 10% / 10%。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;k折交叉验证：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;基本思想&lt;/strong&gt;：将数据集划分为k个大小相似的子集，每次使用其中一个子集作为验证集，其余k-1个子集作为训练集，重复k次，最终取平均性能作为评估结果。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;划分方式&lt;/strong&gt;：数据集被分成k个&lt;strong&gt;互不重叠&lt;/strong&gt;的子集（通常称为“折”），每个样本在整个过程中&lt;strong&gt;恰好出现一次&lt;/strong&gt;在验证集中，其余k-1次在训练集中。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;目的&lt;/strong&gt;：通过充分利用所有数据（每个样本既参与训练又参与验证），减少因单次划分带来的偏差，尤其适用于小数据集。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;偏差与方差-biasvariance&#34;&gt;偏差与方差 (Bias/Variance)
+&lt;/h3&gt;&lt;p&gt;这是理解模型性能的核心框架。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;高偏差 (High Bias / Underfitting)&lt;/strong&gt;：模型过于简单，无法捕捉数据中的基本模式。表现为&lt;strong&gt;训练误差高&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;高方差 (High Variance / Overfitting)&lt;/strong&gt;：模型过于复杂，过度拟合了训练数据中的噪声。表现为&lt;strong&gt;训练误差低，但验证误差高&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;学习曲线&#34;&gt;学习曲线
+&lt;/h3&gt;&lt;p&gt;学习曲线是诊断偏差和方差问题的有力工具，它绘制了训练误差和验证误差随训练集大小变化的曲线。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;高方差&lt;/strong&gt;（bias）：两条曲线之间存在较大差距，且验证误差远高于训练误差。&lt;strong&gt;增加更多训练数据&lt;/strong&gt;通常能有效改善。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;高偏差&lt;/strong&gt;（variance）：两条曲线都处于较高水平，且随着数据量增加，两者都趋于一个较高的平台。&lt;strong&gt;增加数据量帮助不大&lt;/strong&gt;，应考虑增加模型复杂度（如添加特征、使用更高阶多项式）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030200622567.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030200622567&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030200834560.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030200834560&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030200958725.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030200958725&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;调试策略总结&#34;&gt;调试策略总结
+&lt;/h3&gt;&lt;p&gt;根据偏差/方差分析，可以采取以下措施：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;解决高方差（过拟合）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;获取更多训练数据。&lt;/li&gt;
+&lt;li&gt;尝试减少特征数量。&lt;/li&gt;
+&lt;li&gt;增大正则化参数 $\lambda$。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;解决高偏差（欠拟合）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;尝试增加特征数量。&lt;/li&gt;
+&lt;li&gt;尝试添加多项式特征。&lt;/li&gt;
+&lt;li&gt;减小正则化参数 $\lambda$。&lt;/li&gt;
+&lt;li&gt;使用更复杂的模型（如更大的神经网络）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意：算法本身导致的高偏差，获得更多数据也没有帮助&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;神经网络与正则化&#34;&gt;神经网络与正则化
+&lt;/h2&gt;&lt;h3 id=&#34;网络大小与偏差方差&#34;&gt;网络大小与偏差/方差
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;大型神经网络&lt;/strong&gt;通常是“低偏差”的机器，因为它们有足够的容量去拟合复杂的函数。&lt;/li&gt;
+&lt;li&gt;只要配合合适的正则化（如 L2 正则化、Dropout），大型网络的性能通常等于或优于小型网络。&lt;/li&gt;
+&lt;li&gt;如果存在高方差问题，优先考虑&lt;strong&gt;增大网络&lt;/strong&gt;并&lt;strong&gt;增加数据量&lt;/strong&gt;，而不是使用一个先天受限的小型网络。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;l2-正则化&#34;&gt;L2 正则化
+&lt;/h3&gt;&lt;p&gt;L2 正则化（也称权重衰减）通过在损失函数中添加一个惩罚项来限制权重的大小，从而防止过拟合。 &lt;/p&gt;
+$$J_{\text{regularized}}(\mathbf{W}, \mathbf{b}) = J(\mathbf{W}, \mathbf{b}) + \frac{\lambda}{2m} \sum_{l} \sum_{i,j} (W_{ij}^{[l]})^2$$&lt;p&gt; 其中 $\lambda$ 是正则化参数，控制正则化的强度。&lt;/p&gt;
+&lt;p&gt;因为参数和$\sum_{l} \sum_{i,j} (W_{ij}^{[l]})^2$ 与 $\lambda$ 是乘积关系， $\lambda$ 制约了参数的增大，避免模型结构过深，陷入过拟合。&lt;/p&gt;
+&lt;p&gt;在 Keras 中，可以通过 &lt;code&gt;kernel_regularizer=L2(lambda_value)&lt;/code&gt; 为层添加 L2 正则化。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;tensorflow.keras.regularizers&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;layer_1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Dense&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;units&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;25&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;relu&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;kernel_regularizer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;L2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.01&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;迭代式机器学习开发&#34;&gt;迭代式机器学习开发
+&lt;/h2&gt;&lt;p&gt;构建一个成功的机器学习系统（如垃圾邮件分类器）通常是一个&lt;strong&gt;迭代过程&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;选择整体架构&lt;/strong&gt;：确定模型、数据和评估指标的初步方案。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;训练模型&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;诊断&lt;/strong&gt;：通过偏差/方差分析、误差分析等手段，找出模型的主要瓶颈。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;改进&lt;/strong&gt;：根据诊断结果，有针对性地改进模型或数据（如收集更多数据、设计新特征、调整超参数等）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;重复&lt;/strong&gt;：回到步骤 2，直到达到满意的性能。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这种基于诊断的迭代方法比盲目尝试各种技巧要高效得多。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030203325395.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030203325395&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;误差分析&#34;&gt;误差分析
+&lt;/h2&gt;&lt;h3 id=&#34;构建垃圾邮件分类器&#34;&gt;构建垃圾邮件分类器
+&lt;/h3&gt;&lt;p&gt;在开发机器学习系统（如垃圾邮件分类器）时，当模型在交叉验证集上的表现不佳时，需要决定下一步如何改进。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;问题：假设你的分类器在包含 $m_c=500$ 个样本的交叉验证集上错误分类了 100 个样本（20% 错误率）。有哪些可能的改进方向？
+&lt;ul&gt;
+&lt;li&gt;收集更多数据（例如，“蜜罐”项目）。&lt;/li&gt;
+&lt;li&gt;开发更复杂的特征（基于邮件路由头、邮件正文）。&lt;/li&gt;
+&lt;li&gt;设计算法检测故意拼错的单词（如 &lt;code&gt;w4tches&lt;/code&gt;, &lt;code&gt;med1cine&lt;/code&gt;）。&lt;/li&gt;
+&lt;li&gt;处理嵌入图片中的垃圾邮件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;手动检查与分类&#34;&gt;手动检查与分类
+&lt;/h3&gt;&lt;p&gt;为了高效地确定改进方向，应进行&lt;strong&gt;手动误差分析&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;收集错误样本&lt;/strong&gt;：从交叉验证集中收集被算法错误分类的 100 个样本。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;人工分类&lt;/strong&gt;：仔细检查这些错误样本，并根据它们的共同特征或错误类型进行分类（例如，药品广告、钓鱼邮件、故意拼写错误等）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;统计比例&lt;/strong&gt;：计算每种错误类型在总错误中所占的比例。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;决策依据&#34;&gt;决策依据
+&lt;/h3&gt;&lt;p&gt;误差分析的结果可以指导资源分配：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果某种错误类型（如“药品广告”）占比很高（例如 40%），那么投入精力解决这个问题很可能显著降低整体错误率。&lt;/li&gt;
+&lt;li&gt;如果某种错误类型（如“嵌入图片中的垃圾邮件”）占比很低（例如 5%），即使你完全解决了它，整体性能提升也有限（最多降低 5% 的绝对错误率），因此可能不值得优先投入大量时间。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;偏差方差分析的作用&#34;&gt;偏差/方差分析的作用
+&lt;/h3&gt;&lt;p&gt;回到前面列出的改进列表，&lt;strong&gt;偏差/方差分析&lt;/strong&gt;可以帮助判断“收集更多数据”是否是一个有效的策略。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;高方差&lt;/strong&gt;（过拟合）：如果模型在训练集上表现很好（低训练误差），但在验证集上表现很差（高验证误差），这表明存在高方差问题。此时，&lt;strong&gt;收集更多数据通常是有效的&lt;/strong&gt;，因为它可以帮助模型更好地泛化。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;高偏差&lt;/strong&gt;（欠拟合）：如果模型在训练集和验证集上都表现不佳（训练误差和验证误差都很高），这表明存在高偏差问题。此时，&lt;strong&gt;增加数据量帮助不大&lt;/strong&gt;，应该优先考虑增加模型复杂度（如添加特征、使用更大的网络）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因此，在决定是否要投入巨大成本去收集更多数据之前，先通过偏差/方差分析诊断问题是至关重要的。&lt;/p&gt;
+&lt;h2 id=&#34;扩充数据&#34;&gt;扩充数据
+&lt;/h2&gt;&lt;h3 id=&#34;数据增强&#34;&gt;数据增强
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;：数据增强（Data Augmentation）是指通过对现有的训练样本进行一系列&lt;strong&gt;有意义的变换&lt;/strong&gt;（或“畸变”），来创建新的、略微不同的训练样本。这相当于在不收集新数据的情况下，“制造”更多的数据。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;目的&lt;/strong&gt;：增加训练数据的&lt;strong&gt;数量&lt;/strong&gt;和&lt;strong&gt;多样性&lt;/strong&gt;，使模型能够学习到更鲁棒的特征，提高泛化能力，减少过拟合。&lt;/li&gt;
+&lt;li&gt;举例：
+&lt;ol&gt;
+&lt;li&gt;计算机视觉：
+&lt;ul&gt;
+&lt;li&gt;对图像进行几何变换：旋转、翻转（水平/垂直）、缩放、裁剪、平移。&lt;/li&gt;
+&lt;li&gt;对图像进行色彩/光照变换：调整亮度、对比度。&lt;/li&gt;
+&lt;li&gt;添加噪声：模拟真实世界中的图像缺陷。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;语音识别：
+&lt;ul&gt;
+&lt;li&gt;在原始音频中加入背景噪音（如人群、交通、办公室噪音）。&lt;/li&gt;
+&lt;li&gt;模拟较差的通信环境（如模拟手机信号差的效果）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;核心原则&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;变换必须具有代表性&lt;/strong&gt;：引入的畸变应该模拟真实世界中可能出现的情况。例如，给语音助手的训练数据加背景噪音是合理的，因为用户确实会在嘈杂环境中使用它。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;避免无意义的噪音&lt;/strong&gt;：添加纯粹随机、与实际场景无关的噪音（如椒盐噪声、纯白噪声）通常对模型性能没有帮助，甚至可能损害模型。&lt;strong&gt;重点是“有意义的畸变”&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030205228921.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030205228921&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;数据合成&#34;&gt;数据合成
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;：“数据合成”（Data Synthesis），这是数据增强的一个更高级形式。它不是对现有数据进行微调，而是从零开始人工创建全新的样本（如用计算机图形生成图像，或用语音合成技术生成音频）。这在真实数据极难获取时非常有用。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;应用场景&lt;/strong&gt;：当真实数据极难获取时，可以使用计算机图形学（CG）生成逼真的图像，或使用语音合成技术生成音频。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优势&lt;/strong&gt;：有时，关注数据（Data-centric）而非模型（Model-centric）是提升学习算法性能更高效的方式。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;现在的深度学习领域，数据比模型更重要&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030205248459.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030205248459&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;迁移学习&#34;&gt;迁移学习
+&lt;/h2&gt;&lt;h3 id=&#34;基本概念&#34;&gt;基本概念
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;迁移学习&lt;/strong&gt;（Transfer Learning）是指将在一个任务（源任务）上学到的知识，应用到另一个不同但相关的任务（目标任务）上。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心思想&lt;/strong&gt;：利用预训练模型（通常在大规模数据集如 ImageNet 上训练）的底层特征提取能力（如边缘、角点、基本形状），作为目标任务的起点。&lt;/li&gt;
+&lt;li&gt;典型流程：
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;预训练&lt;/strong&gt;：在一个大型数据集（如包含 100 万张图像、1000 个类别的 ImageNet）上训练一个深度神经网络。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;微调&lt;/strong&gt;（Fine-tuning）：
+&lt;ul&gt;
+&lt;li&gt;移除预训练模型的最后一层（或几层）。&lt;/li&gt;
+&lt;li&gt;添加新的、适合目标任务的输出层。&lt;/li&gt;
+&lt;li&gt;用目标任务的数据集重新训练整个模型或仅训练新添加的层。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;为什么有效&#34;&gt;为什么有效？
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;深度神经网络的前几层学习到的是通用的低级特征（如边缘、纹理、形状），这些特征在许多视觉任务中都是有用的。&lt;/li&gt;
+&lt;li&gt;后几层则学习到更高级、更特定于原始任务的特征。&lt;/li&gt;
+&lt;li&gt;通过迁移学习，我们避免了从零开始学习这些通用特征，从而节省了大量计算资源和时间，并且在目标任务数据量有限时也能取得很好的效果。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030205401748.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030205401748&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;评估分类模型&#34;&gt;评估分类模型
+&lt;/h2&gt;&lt;h3 id=&#34;精确率与召回率&#34;&gt;精确率与召回率
+&lt;/h3&gt;&lt;p&gt;对于不平衡数据集，即正反数据比例相差过大（如罕见疾病的预测），仅看准确率（Accuracy）可能会产生误导。精确率（Precision）和召回率（Recall）提供了更细致的评估视角。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;混淆矩阵&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;真正例 (True Positive, TP)&lt;/strong&gt;：模型正确预测为正类的样本数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;假正例 (False Positive, FP)&lt;/strong&gt;：模型错误地将负类预测为正类的样本数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;真反例 (True Negative, TN)&lt;/strong&gt;：模型正确预测为负类的样本数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;假反例 (False Negative, FN)&lt;/strong&gt;：模型错误地将正类预测为负类的样本数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;精确率 (Precision)&lt;/strong&gt;：在所有被模型预测为正类的样本中，有多少是真正的正类。&lt;/p&gt;
+$$\mathrm{Precision} = \frac{TP}{TP + FP}$$&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;召回率 (Recall)&lt;/strong&gt;：在所有真正的正类样本中，有多少被模型成功找出。&lt;/p&gt;
+$$\mathrm{Recall} = \frac{TP}{TP + FN}$$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030210114075.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030210114075&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;f1-分数&#34;&gt;F1 分数
+&lt;/h3&gt;&lt;p&gt;F1 分数是精确率和召回率的调和平均数，提供了一个单一的评估指标来平衡两者。&lt;/p&gt;
+$$\mathrm{F1\,Score} = \frac{2\,\mathrm{Precision}\cdot\mathrm{Recall}}{\mathrm{Precision}+\mathrm{Recall}} = \frac{2TP}{2TP + FP + FN}$$&lt;p&gt;调和平均数的特点是更强调较小的值。因此，一个高的 F1 分数要求精确率和召回率都不能太低。&lt;/p&gt;
+&lt;h3 id=&#34;阈值选择&#34;&gt;阈值选择
+&lt;/h3&gt;&lt;p&gt;在逻辑回归等输出概率的模型中，通常通过设置一个阈值来决定最终的分类（例如，当 $f_{w,b}(x) \ge \text{threshold}$ 时预测为正类）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;权衡：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;高阈值&lt;/strong&gt;：模型只在非常有把握时才预测为正类，导致&lt;strong&gt;高精确率、低召回率&lt;/strong&gt;（漏诊多）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;低阈值&lt;/strong&gt;：模型倾向于将更多样本预测为正类，导致&lt;strong&gt;低精确率、高召回率&lt;/strong&gt;（误诊多）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;策略&lt;/strong&gt;：根据具体应用需求手动选择阈值。例如，对于罕见疾病的筛查，宁愿误报也不愿漏报，因此会选择较低的阈值以最大化召回率。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030220345711.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030220345711&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;决策树&#34;&gt;决策树
+&lt;/h2&gt;&lt;h3 id=&#34;基本原理&#34;&gt;基本原理
+&lt;/h3&gt;&lt;p&gt;决策树是一种直观且强大的机器学习模型，它通过一系列“是/否”问题（基于特征）对数据进行递归划分，最终将样本分配到不同的叶节点（类别或值）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;预测过程&lt;/strong&gt;：对于一个新的输入样本，从根节点开始，根据其特征值沿着树的分支向下移动，直到到达一个叶节点，该叶节点的值即为预测结果。&lt;/p&gt;
+&lt;h3 id=&#34;构建过程&#34;&gt;构建过程
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;选择分裂特征&lt;/strong&gt;： 在每个节点，算法会评估所有可能的特征及其分裂点，选择能够&lt;strong&gt;最大化纯度&lt;/strong&gt;（或最小化不纯度）的特征进行分裂。常用的不纯度度量包括基尼不纯度（Gini Impurity）和信息增益（Information Gain）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;停止分裂&lt;/strong&gt;： 当&lt;strong&gt;一个节点中的所有样本都属于同一类别&lt;/strong&gt;（纯节点）时，停止分裂。实践中，也可能设置其他停止条件，如树的最大深度、节点的最小样本数等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030220545338.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030220545338&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;决策树学习如何构建&#34;&gt;决策树学习：如何构建
+&lt;/h3&gt;&lt;p&gt;构建一棵决策树的核心在于回答两个关键问题。&lt;/p&gt;
+&lt;h4 id=&#34;如何选择分裂特征&#34;&gt;如何选择分裂特征？
+&lt;/h4&gt;&lt;p&gt;在每个内部节点，算法需要决定使用哪个特征来进行分裂。其目标是&lt;strong&gt;最大化子节点的纯度&lt;/strong&gt;（或等价地，&lt;strong&gt;最小化不纯度&lt;/strong&gt;）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;纯度&lt;/strong&gt;：指一个节点中样本属于同一类别的程度。纯度越高，该节点的预测就越可靠。&lt;/li&gt;
+&lt;li&gt;示例：假设我们有 7 个样本，其中 4 个是猫。如果按“耳朵形状”分裂：
+&lt;ul&gt;
+&lt;li&gt;尖耳子节点：3 个样本，全是猫（纯度 100%）。&lt;/li&gt;
+&lt;li&gt;非尖耳子节点：4 个样本，1 个是猫（纯度 25%）。 这种分裂显著提高了子节点的纯度，因此是一个好的选择。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030221640573.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030221640573&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;何时停止分裂&#34;&gt;何时停止分裂？
+&lt;/h4&gt;&lt;p&gt;为了防止模型过度复杂（过拟合），需要设定停止分裂的标准。常见的停止条件包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当前节点中的所有样本都属于同一类别（即节点是“纯的”）。&lt;/li&gt;
+&lt;li&gt;继续分裂会导致树的深度超过预设的最大深度。&lt;/li&gt;
+&lt;li&gt;分裂所带来的信息增益（或纯度提升）小于一个给定的阈值。&lt;/li&gt;
+&lt;li&gt;当前节点包含的样本数量少于一个预设的最小值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030221703841.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030221703841&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;纯度测量&#34;&gt;纯度测量
+&lt;/h3&gt;&lt;p&gt;以熵来衡量不纯度，类似二分类。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;不纯度度量&lt;/strong&gt;：通常使用&lt;strong&gt;熵&lt;/strong&gt;（Entropy）来量化一个节点的不纯度。对于一个包含正负样本的节点，其熵 $H(p_1)$ 定义为：&lt;/p&gt;
+$$H(p_1) = -p_1\log_2 p_1 - (1-p_1)\log_2 (1-p_1)$$&lt;p&gt;其中 $p_1$ 是该节点中正类样本的比例。当 $p_1=0$ 或 $p_1=1$（纯节点）时，熵为 0；当 $p_1=0.5$ 时，熵达到最大值 1。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030221837588.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251030221837588&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;信息增益计算&#34;&gt;信息增益计算
+&lt;/h3&gt;&lt;p&gt;假设在当前节点，使用特征 F&lt;em&gt;F&lt;/em&gt; 进行分裂，会产生左子节点（left）和右子节点（right）。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;计算当前节点的熵 $H_{\text{parent}}$。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;计算分裂后两个子节点的加权平均熵：&lt;/p&gt;
+$$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{\text{right}}$$&lt;p&gt;其中权重 $w_{\text{left}}$ 和 $w_{\text{right}}$ 分别是左右子节点样本数占总样本数的比例。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;信息增益为：$ Information  Gain=H_{parent}−H_{children} $算法会选择使信息增益最大的特征进行分裂。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;信息增益和熵是两个相对的量，信息增益越大，熵越小，分类效果越好，子集纯度越高。&lt;/p&gt;
+&lt;h3 id=&#34;决策树学习流程整理&#34;&gt;决策树学习流程整理
+&lt;/h3&gt;&lt;p&gt;综上，决策树的学习是一个递归的过程，从根节点开始，不断将数据集划分为更纯的子集。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;初始化&lt;/strong&gt;：将所有训练样本作为根节点。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;递归分裂&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;对于当前节点，计算所有可用特征的信息增益（Information Gain）。&lt;/li&gt;
+&lt;li&gt;选择信息增益最大的特征作为分裂标准。&lt;/li&gt;
+&lt;li&gt;根据该特征的不同取值，将当前节点的数据集划分为两个或多个子集，并创建相应的子节点。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;停止条件&lt;/strong&gt;：当满足以下任一条件时，停止对该节点的分裂：
+&lt;ul&gt;
+&lt;li&gt;当前节点中的所有样本都属于同一个类别（即节点是“纯”的）。&lt;/li&gt;
+&lt;li&gt;当前节点中没有剩余的特征可用于分裂。&lt;/li&gt;
+&lt;li&gt;达到了预设的最大深度。&lt;/li&gt;
+&lt;li&gt;当前节点包含的样本数量少于一个阈值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;重复&lt;/strong&gt;：对每个新生成的非叶节点，重复步骤 2 和 3。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;递归分裂过程示例&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;初始状态&lt;/strong&gt;：根节点包含所有样本（例如，猫和非猫的混合图像）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;第一次分裂&lt;/strong&gt;：根据某个特征（如“耳朵形状”），将样本分为两组。一组是“尖耳”，另一组是“非尖耳”。这形成了两个子节点。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;后续分裂&lt;/strong&gt;：对每个子节点继续应用相同的过程。例如，在“尖耳”子节点中，可能根据“脸型”进一步分裂；在“非尖耳”子节点中，可能根据“胡须”进行分裂。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;最终结果&lt;/strong&gt;：通过一系列这样的分裂，最终得到一棵完整的决策树，其中每个叶节点都对应一个类别（如“猫”或“非猫”）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031101349930.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251031101349930&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;处理分类特征独热编码&#34;&gt;处理分类特征：独热编码
+&lt;/h3&gt;&lt;p&gt;决策树（以及许多其他算法）在处理具有多个可能取值的分类特征时，通常需要进行预处理。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;问题&lt;/strong&gt;：一个特征如果有 &lt;em&gt;k&lt;/em&gt; 个可能的取值（例如，耳朵形状：尖耳、圆耳、垂耳），直接将其作为单一特征输入模型可能会丢失信息或引入不合理的序数关系。&lt;/li&gt;
+&lt;li&gt;**解决方案：独热编码 **(One-Hot Encoding)
+&lt;ul&gt;
+&lt;li&gt;为原始分类特征的每一个可能取值创建一个新的二元（0/1）特征。&lt;/li&gt;
+&lt;li&gt;对于一个样本，只有与其实际取值对应的二元特征为 1，其余均为 0。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;例如，原始特征“耳朵形状”有三个取值：&lt;code&gt;Pointy&lt;/code&gt;, &lt;code&gt;Oval&lt;/code&gt;, &lt;code&gt;Floppy&lt;/code&gt;。经过独热编码后，会生成三个新特征：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;is_pointy_ear&lt;/code&gt;: 1 if &lt;code&gt;Pointy&lt;/code&gt;, else 0.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;is_oval_ear&lt;/code&gt;: 1 if &lt;code&gt;Oval&lt;/code&gt;, else 0.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;is_floppy_ear&lt;/code&gt;: 1 if &lt;code&gt;Floppy&lt;/code&gt;, else 0.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这种方法清晰地表示了分类信息，并且适用于包括神经网络在内的各种机器学习模型。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031102053667.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251031102053667&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;处理连续特征&#34;&gt;处理连续特征
+&lt;/h3&gt;&lt;p&gt;对于连续值特征（如房屋面积、价格），决策树通过选择一个&lt;strong&gt;阈值&lt;/strong&gt;来进行二元分裂。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;分裂方式&lt;/strong&gt;：算法会尝试不同的阈值 $t$，将样本划分为两组：${\mathbf{x}\mid x_i\le t}$ 和 ${\mathbf{x}\mid x_i&amp;gt;t}$。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;选择标准&lt;/strong&gt;：选择能使分裂后子节点纯度提升最大的那个阈值 t&lt;em&gt;t&lt;/em&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这点和多分类的处理是一样的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031102147748.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251031102147748&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;回归树&#34;&gt;回归树
+&lt;/h3&gt;&lt;p&gt;类似监督学习中的回归问题，回归树的分类结果也不是孤立的的1/0，而是多个连续值。&lt;/p&gt;
+&lt;p&gt;下面这个回归树示例，就是根据三个输入特征，把小动物分类到尽量体重相近的分类中。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031102843963.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251031102843963&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031103256843.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251031103256843&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;集成树tree-ensembles&#34;&gt;集成树（tree ensembles）
+&lt;/h2&gt;&lt;p&gt;单一决策树对数据变化高度敏感，所以我们可以构建多个决策树集成学习，再通过投票，综合多棵树的预测结果来做出最终预测。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031103740469.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251031103740469&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;放回抽样-sampling-with-replacement&#34;&gt;放回抽样 (Sampling with replacement)
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;放回抽样&lt;/strong&gt;（Sampling with replacement）是一种从原始数据集中抽取样本的方法。其核心特点是：在每次抽取一个样本后，将该样本&lt;strong&gt;重新放回&lt;/strong&gt;原始数据集，因此它&lt;strong&gt;有可能在后续的抽取中被再次选中&lt;/strong&gt;。它使得树能很好地适应微小变化。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;区别：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;放回抽样&lt;/strong&gt;：允许同一个样本在新的训练集中出现多次。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;不放回抽样&lt;/strong&gt;：一旦一个样本被抽出，它就不再存在于原始数据集中，因此不可能被重复选中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;随机森林-random-forest&#34;&gt;随机森林 (Random Forest)
+&lt;/h3&gt;&lt;p&gt;随机森林是一种基于决策树的集成学习方法，通过引入随机性来构建一组多样化的决策树，并通过投票或平均来得到最终预测。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Bagging (Bootstrap Aggregating)&lt;/strong&gt;：为森林中的每棵树，从原始训练集中有放回地抽取一个与原始集大小相同的样本集（称为 bootstrap 样本）。这意味着每棵树都在略有不同的数据上训练。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;随机特征选择&lt;/strong&gt;：在构建每棵树的每个节点时，不是在所有特征中选择最佳分裂特征，而是在一个&lt;strong&gt;随机选取的特征子集&lt;/strong&gt;中进行选择。这进一步增加了树之间的多样性。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;最终预测：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;分类任务&lt;/strong&gt;：所有树进行投票，得票最多的类别获胜。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;回归任务&lt;/strong&gt;：取所有树预测值的平均。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;随机森林因其高准确性、鲁棒性和对过拟合的良好抵抗力而被广泛应用。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031104418543.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251031104418543&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;提升树-boosted-trees&#34;&gt;提升树 (Boosted Trees)
+&lt;/h3&gt;&lt;p&gt;与随机森林并行训练多棵树不同，提升树采用&lt;strong&gt;顺序训练&lt;/strong&gt;的方式。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心思想&lt;/strong&gt;：每棵新树都专注于学习前序所有树的&lt;strong&gt;组合预测所产生的残差&lt;/strong&gt;（即错误），即刻意选择使树分类错误的样例。通过这种方式，模型逐步修正其预测，整体性能得到“提升”（Boosting）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;代表算法&lt;/strong&gt;：&lt;code&gt;XGBoost&lt;/code&gt;（eXtreme Gradient Boosting）是提升树算法中最著名和高效的实现之一，在许多机器学习竞赛和工业应用中取得了巨大成功。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031104656040.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251031104656040&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031104733968.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251031104733968&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031104752291.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251031104752291&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;决策树与神经网络的对比&#34;&gt;决策树与神经网络的对比
+&lt;/h2&gt;&lt;h3 id=&#34;决策树的优势&#34;&gt;决策树的优势
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;适用于结构化数据&lt;/strong&gt;：在处理表格数据（Tabular Data）时表现良好。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;易于理解和解释&lt;/strong&gt;：其决策过程是透明的，可以被人类轻松解读。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;快速训练和预测&lt;/strong&gt;：通常比神经网络更快。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;支持迁移学习&lt;/strong&gt;：可以将预训练模型的知识迁移到新任务上。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;神经网络的优势&#34;&gt;神经网络的优势
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;适用于各种类型的数据&lt;/strong&gt;：不仅限于结构化数据，还能有效处理图像、音频、文本等非结构化数据。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;强大的表示能力&lt;/strong&gt;：能够学习到非常复杂的非线性关系。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;可组合性&lt;/strong&gt;：多个模块化的神经网络可以很容易地连接在一起，构建更复杂的系统。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031105213918.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251031105213918&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Fundamentals of Machine Learning 1</title>
+        <link>https://ch0ser.github.io/p/fundamentals-of-machine-learning-1/</link>
         <pubDate>Wed, 29 Oct 2025 15:27:35 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/fundamentals-of-machine-learning/</guid>
-        <description>&lt;img src="http://localhost:1313/images/SunsetGlow.png" alt="Featured image of post Fundamentals of Machine Learning Ⅰ" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/fundamentals-of-machine-learning-1/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SunsetGlow.png" alt="Featured image of post Fundamentals of Machine Learning 1" /&gt;&lt;blockquote&gt;
 &lt;p&gt;本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;机器学习概述&#34;&gt;机器学习概述
@@ -75,7 +1300,7 @@
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/ML_01.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/ML_01.png&#34;
 	
 	
 	
@@ -299,7 +1524,7 @@
 &lt;li&gt;
 &lt;p&gt;等值线图（等高线）：&lt;/p&gt;
 &lt;p&gt;二维平面上，同一等值线的&lt;code&gt;J(w,b)&lt;/code&gt;值相同，中心处值最小，对应最优参数。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251029150513501.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251029150513501.png&#34;
 	
 	
 	
@@ -329,7 +1554,7 @@
 &lt;p&gt;特点：凸函数，梯度下降可找到全局最小值。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/ML_02.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/ML_02.png&#34;
 	
 	
 	
@@ -375,7 +1600,7 @@
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;选择建议&lt;/strong&gt;：尝试 3 倍递增的取值（如 0.001、0.003、0.01、0.03、0.1&amp;hellip;），找到使 &lt;em&gt;J&lt;/em&gt;(&lt;em&gt;w&lt;/em&gt;,&lt;em&gt;b&lt;/em&gt;) 快速下降的合适值。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251029152210815.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251029152210815.png&#34;
 	
 	
 	
