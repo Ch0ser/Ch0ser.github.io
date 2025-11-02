@@ -10722,13 +10722,13 @@
 </description>
         </item>
         <item>
-        <title>Quick Git</title>
-        <link>https://ch0ser.github.io/p/quick-git/</link>
+        <title>Git Code Management and Version Control</title>
+        <link>https://ch0ser.github.io/p/git-code-management-and-version-control/</link>
         <pubDate>Fri, 21 Feb 2025 20:58:54 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/quick-git/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/PacificRim_02.PNG" alt="Featured image of post Quick Git" /&gt;&lt;h1 id=&#34;git使用教程&#34;&gt;Git使用教程
-&lt;/h1&gt;&lt;h2 id=&#34;安装&#34;&gt;安装
+        <guid>https://ch0ser.github.io/p/git-code-management-and-version-control/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/PacificRim_02.PNG" alt="Featured image of post Git Code Management and Version Control" /&gt;&lt;h2 id=&#34;git代码托管与版本管理&#34;&gt;Git代码托管与版本管理
+&lt;/h2&gt;&lt;h2 id=&#34;安装&#34;&gt;安装
 &lt;/h2&gt;&lt;p&gt;官网下载安装即可，安装配置基本默认。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://git-scm.com&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -10829,7 +10829,15 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git init
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;在对应项目文件夹目录下创建Git仓库。&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;在对应项目文件夹目录下创建Git仓库，总的来说会执行2个动作：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创建名为&lt;code&gt;.git&lt;/code&gt;的子目录，含有初始化Git仓库中所有的必须文件，这些文件是Git仓库的骨干，但是项目里的文件还没有被跟踪；&lt;/li&gt;
+&lt;li&gt;一个没有任何commit（提交记录）的初始分支，这一分支默认名称为&lt;code&gt;master&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这里有一个很逗的点，在初始化完有概率遇到一条warning：大意是说默认分支叫master，你可以 git branch -m old-name new-name改为新main。&lt;/p&gt;
+&lt;p&gt;为什么会有这条莫名其妙的警告呢，因为master/slave主从分支在政治上是不正确的，所以现在很多git托管网站都是用main做默认分支名。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h3 id=&#34;查看本地状态&#34;&gt;查看本地状态
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -10880,7 +10888,60 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;添加到暂存区&#34;&gt;添加到暂存区
+&lt;p&gt;例如：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;干净的工作区（无任何修改）&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;On branch main
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Your branch is up to date with &lt;span class=&#34;s1&#34;&gt;&amp;#39;origin/main&amp;#39;&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nothing to commit, working tree clean
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;同时存在已暂存、未暂存和未跟踪的文件&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;On branch feature/login
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Your branch is up to date with &lt;span class=&#34;s1&#34;&gt;&amp;#39;origin/feature/login&amp;#39;&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Changes to be committed:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;use &lt;span class=&#34;s2&#34;&gt;&amp;#34;git restore --staged &amp;lt;file&amp;gt;...&amp;#34;&lt;/span&gt; to unstage&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        new file:   config.json
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Changes not staged &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; commit:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;use &lt;span class=&#34;s2&#34;&gt;&amp;#34;git add &amp;lt;file&amp;gt;...&amp;#34;&lt;/span&gt; to update what will be committed&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;use &lt;span class=&#34;s2&#34;&gt;&amp;#34;git restore &amp;lt;file&amp;gt;...&amp;#34;&lt;/span&gt; to discard changes in working directory&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        modified:   app.js
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Untracked files:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;use &lt;span class=&#34;s2&#34;&gt;&amp;#34;git add &amp;lt;file&amp;gt;...&amp;#34;&lt;/span&gt; to include in what will be committed&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        logs/debug.log
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;添加到暂存区&#34;&gt;添加到暂存区
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -11047,7 +11108,45 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;上述命令用于将当前分支和工作目录重置到指定的版本号，即某个特定的提交（commit）。这个命令会改变当前分支的 HEAD 指针，并且会重置工作目录和暂存区，使其与指定的提交完全一致。注意，这意味着所有在该提交之后所做的更改都将丢失，包括未提交的更改和暂存的更改，这是&lt;strong&gt;不可逆&lt;/strong&gt;的。&lt;/p&gt;
 &lt;p&gt;你需要找到你想要回退到的版本号，可以通过 &lt;code&gt;git log&lt;/code&gt; 命令查看提交历史，找到对应的提交哈希值。&lt;/p&gt;
-&lt;h2 id=&#34;分支操作&#34;&gt;分支操作
+&lt;h3 id=&#34;忽略文件&#34;&gt;忽略文件
+&lt;/h3&gt;&lt;p&gt;有些文件是不需要（不应该）加入版本控制的，例如编译的临时文件、日志文件。通过创建 &lt;code&gt;.gitignore&lt;/code&gt; 文件来配置要忽略的文件模式。&lt;/p&gt;
+&lt;p&gt;文件 &lt;code&gt;.gitignore&lt;/code&gt; 的格式规范如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;所有空行或者以 # 开头的行都会被 Git 忽略&lt;/li&gt;
+&lt;li&gt;可以使用标准的 glob 模式匹配，它会递归地应用在整个工作区中&lt;/li&gt;
+&lt;li&gt;匹配模式可以以 / 开头防止递归&lt;/li&gt;
+&lt;li&gt;匹配模式可以以 / 结尾指定目录&lt;/li&gt;
+&lt;li&gt;要忽略指定模式以外的文件或目录，可以在模式前加上叹号 ! 取反&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# .gitignore&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 忽略任何目录下的 build 目录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;build/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 忽略当前目录下的 hello.txt 文件，而不忽略子目录下的&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/hello.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 忽略所有以 .log 结尾的文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;*.log
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 忽略 doc 目录下的所有 .txt 结尾的文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;doc/*.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 跟踪 doc/config.txt，即使前面忽略了 doc/*.txt&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;!doc/*.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;分支操作&#34;&gt;分支操作
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;分支的好处&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;同时并进行多个功能开发，提高了开发效率&lt;/li&gt;
@@ -11085,10 +11184,18 @@
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git branch -v
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git branch
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 列出本地详细分支&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# * 代表当前所在分支&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git branch -v
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;* master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 列出远程分支&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git branch -r
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;&lt;code&gt;git branch -v&lt;/code&gt; 命令用于列出 Git 仓库中的所有分支，并显示每个分支的最新提交信息。这个命令是 &lt;code&gt;git branch&lt;/code&gt; 命令的一个变体，其中的 &lt;code&gt;-v&lt;/code&gt; 选项代表“verbose”，即详细模式。&lt;/p&gt;
@@ -11113,6 +11220,72 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;这将切换到指定的分支，并更新工作目录以反映该分支的状态。&lt;/p&gt;
+&lt;h3 id=&#34;重命名分支&#34;&gt;重命名分支
+&lt;/h3&gt;&lt;p&gt;如果你当前就在要重命名的分支上，可以使用：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git branch -m &amp;lt;新分支名&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;例如，将当前分支 &lt;code&gt;old-name&lt;/code&gt; 重命名为 &lt;code&gt;new-name&lt;/code&gt;（假设你已在 &lt;code&gt;old-name&lt;/code&gt; 分支）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git branch -m new-name
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如果你不在要重命名的分支上，可以指定原分支名和新分支名：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git branch -m &amp;lt;原分支名&amp;gt; &amp;lt;新分支名&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git branch -m old-name new-name
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;注意事项：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;-m&lt;/code&gt; 是 &lt;code&gt;--move&lt;/code&gt; 的缩写，表示移动（重命名）分支。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果你已经将旧分支推送到远程仓库，重命名本地分支后，还需要更新远程分支：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 删除远程旧分支&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push origin --delete old-name
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 推送新分支并设置上游&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push origin -u new-name
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重命名分支不会影响提交历史，只是更改了分支的引用名称。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;合并分支&#34;&gt;合并分支
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -11145,11 +11318,11 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;git remote&lt;/code&gt;：这是用于管理远程仓库引用的命令。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;add&lt;/code&gt;：这个子命令用于添加一个新的远程仓库引用。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;origin&lt;/code&gt;：这是远程仓库的默认短名称。Git 使用 &lt;code&gt;origin&lt;/code&gt; 作为远程仓库的默认名称，但你也可以使用其他名称。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;origin&lt;/code&gt;：这是远程仓库的&lt;strong&gt;默认短名称&lt;/strong&gt;。Git 使用 &lt;code&gt;origin&lt;/code&gt; 作为远程仓库的默认名称，但你也可以使用其他名称。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;远程库地址&lt;/code&gt;：这是远程仓库的 URL 地址。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;验证远程仓库&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;添加远程仓库后，你可以使用以下命令来查看所有远程仓库的 URL：&lt;/p&gt;
+&lt;h3 id=&#34;验证远程仓库&#34;&gt;&lt;strong&gt;验证远程仓库&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;添加远程仓库后，你可以使用以下命令来查看所有远程仓库的 URL：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -11159,8 +11332,56 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;这将列出所有远程仓库的名称和对应的 URL。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;修改远程仓库 URL&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;如果你需要修改远程仓库的 URL（例如，从 HTTPS 更改为 SSH），你可以使用以下命令：&lt;/p&gt;
+&lt;h3 id=&#34;获取远程仓库信息&#34;&gt;获取远程仓库信息
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;git fetch &amp;lt;代码库名&amp;gt;(通常是origin)&lt;/code&gt;  是从远程仓库拉取最新的数据（比如提交、分支、标签等），但不会自动合并到你的本地代码中。&lt;/p&gt;
+&lt;p&gt;执行 &lt;code&gt;git fetch origin&lt;/code&gt; 后，Git 会做以下事情：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;从远程仓库（如 &lt;code&gt;origin&lt;/code&gt;）拉取所有新的提交、分支、标签等信息&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;把这些信息保存在本地，但不会影响你当前的工作目录&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;更新本地对远程分支的引用（例如 &lt;code&gt;origin/main&lt;/code&gt;）&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这样你就知道：“哦，别人已经在 &lt;code&gt;main&lt;/code&gt; 分支上提交了新代码”，但你自己的代码还是原来的，没变。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;场景 1：你想先看看别人改了什么，再决定是否合并&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git fetch origin
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;现在你可以查看远程有哪些变化：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log origin/main..main
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这会显示：&lt;strong&gt;别人提交了哪些你还没有的改动&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;然后你可以选择：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果没问题 → &lt;code&gt;git merge origin/main&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;如果有问题 → 先修复冲突或回滚&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;⚠️ 而 &lt;code&gt;git pull&lt;/code&gt; 是直接拉 + 合并，没有缓冲，容易出错！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;场景 2：团队协作中避免意外覆盖&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果你刚写了一半的功能，同事突然推送了新代码，你不想立刻合并，可以：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git fetch origin
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;→ 看看有没有冲突，再决定要不要合并。&lt;/p&gt;
+&lt;h3 id=&#34;修改远程仓库-url&#34;&gt;&lt;strong&gt;修改远程仓库 URL&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;如果你需要修改远程仓库的 URL（例如，从 HTTPS 更改为 SSH），你可以使用以下命令：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -11170,8 +11391,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;将 &lt;code&gt;新的远程库地址&lt;/code&gt; 替换为你新的远程仓库 URL。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;删除远程仓库&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;如果你不再需要某个远程仓库，你可以使用以下命令删除它：&lt;/p&gt;
+&lt;h3 id=&#34;删除远程仓库&#34;&gt;&lt;strong&gt;删除远程仓库&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;如果你不再需要某个远程仓库，你可以使用以下命令删除它：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -11233,6 +11454,209 @@
 &lt;li&gt;&lt;strong&gt;推送分支&lt;/strong&gt;：将您的本地分支推送到远程仓库 &lt;code&gt;origin&lt;/code&gt;。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;设置上游分支&lt;/strong&gt;：&lt;code&gt;-u&lt;/code&gt; 参数将远程分支设置为本地分支的上游分支，这样您以后可以直接使用 &lt;code&gt;git push&lt;/code&gt; 或 &lt;code&gt;git pull&lt;/code&gt; 命令而不需要指定远程仓库和分支名。&lt;/li&gt;
 &lt;/ol&gt;
+&lt;h2 id=&#34;代码冲突&#34;&gt;代码冲突
+&lt;/h2&gt;&lt;h3 id=&#34;协作场景&#34;&gt;协作场景
+&lt;/h3&gt;&lt;p&gt;假设有这么一个场景，你和同事协作，你的同事push了新的代码，而你也在开发中，进行了pull：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;远程仓库&lt;/strong&gt;（比如 &lt;code&gt;origin/main&lt;/code&gt;）：有你&lt;strong&gt;本地没有&lt;/strong&gt;的新提交（比如同事推送了代码）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;你的本地分支&lt;/strong&gt;（比如 &lt;code&gt;main&lt;/code&gt;）：有你&lt;strong&gt;远程没有&lt;/strong&gt;的新提交（比如你写了一些新功能）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;此时你执行了：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git pull
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;实际上你执行了&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git &lt;span class=&#34;nv&#34;&gt;pull&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; git fetch + git merge
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;fetch&lt;/code&gt;&lt;/strong&gt;：把远程的新提交拉到本地（更新 &lt;code&gt;origin/main&lt;/code&gt;）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;merge&lt;/code&gt;&lt;/strong&gt;：尝试把 &lt;code&gt;origin/main&lt;/code&gt; 合并到你当前的本地分支（比如 &lt;code&gt;main&lt;/code&gt;）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;那么可能有两种情况：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;情况一：&lt;strong&gt;没有冲突 → 自动创建合并提交&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Git 能自动把两边的修改“合”在一起。你会看到类似这样的输出：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Auto-merging README.md
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Merge made by the &amp;#39;ort&amp;#39; strategy.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; README.md | 2 ++
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; 1 file changed, 2 insertions(+)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;​	Git 会自动创建一个 &lt;strong&gt;合并提交（merge commit）&lt;/strong&gt;，包含两个“父母”：本地提交和远程的新提交。
+​	&lt;strong&gt;结果&lt;/strong&gt;：代码合并成功，历史变成“分叉再合并”的样子。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;情况二：&lt;strong&gt;有冲突 → 合并失败，需要手动解决&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果&lt;strong&gt;你和远程修改了同一个文件的同一部分&lt;/strong&gt;，Git 不知道该保留谁的，就会报冲突。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;输出类似：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Auto-merging src/app.js
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;CONFLICT &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;content&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: Merge conflict in src/app.js
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Automatic merge failed&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; fix conflicts and &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt; commit the result.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;此时：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;你的工作区处于 &lt;strong&gt;“合并中”状态&lt;/strong&gt;（&lt;code&gt;MERGING&lt;/code&gt;）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;文件里会出现冲突标记：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;HEAD&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;my local change&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;=======&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;remote change from colleague&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;origin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;此时需要手动操作：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;编辑文件&lt;/strong&gt;，决定保留哪部分（或融合两者）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;删除冲突标记&lt;/strong&gt;（&lt;code&gt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&lt;/code&gt;, &lt;code&gt;=======&lt;/code&gt;, &lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;git add&lt;/code&gt;&lt;/strong&gt; 解决完冲突的文件&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;git commit&lt;/code&gt;&lt;/strong&gt; 完成合并（Git 会自动生成合并提交信息）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;完成后，本地就同时包含了你和远程的修改。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以每天开工前最好先&lt;code&gt;pull&lt;/code&gt;，减少冲突概率。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/Git.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;代码冲突&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;git工作流&#34;&gt;Git工作流
+&lt;/h2&gt;&lt;h3 id=&#34;gitflow工作流&#34;&gt;GitFlow工作流
+&lt;/h3&gt;&lt;p&gt;Gitflow工作流(Gitflow Workflow)是2010年由Vincent Driessen在他的一篇&lt;a class=&#34;link&#34; href=&#34;https://nvie.com/posts/a-successful-git-branching-model&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;博客&lt;/a&gt;里提出来的。它定义了一整套完善的基于Git分支模型的框架，结合了版本发布的研发流程，&lt;strong&gt;适合管理具有固定发布周期的大型项目。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;和特性分支工作流相比，Gitflow工作流并没有引入任何新的概念。不同的地方在于，它强化了对Git分支模型的使用，结合产品或项目发布周期的特定需求，定义了各种不同类型的分支，每一种分支都有它自己特定的职责，并且分支之间什么时候、以什么样的方式交互，也都有相应的规则。下面我们就具体来看一下。&lt;/p&gt;
+&lt;h4 id=&#34;master分支&#34;&gt;Master分支
+&lt;/h4&gt;&lt;p&gt;Master分支作为唯一一个正式对外发布的分支，是所有分支里&lt;strong&gt;最稳定的&lt;/strong&gt;。这是因为，只有经过了严格审核和测试，并且在当前发布计划里的特性，才会被合并到master分支。当某个版本发布的时候，我们通常还会为master分支加上带有相应版本号的tag。&lt;/p&gt;
+&lt;h4 id=&#34;develop分支&#34;&gt;Develop分支
+&lt;/h4&gt;&lt;p&gt;Develop分支是根据master分支创建出来的，它作为一种集成分支(Integration Branch)，是专门用来集成开发完成的各种特性的。Develop分支通常具有更加详细和完整的提交历史，包括一些很细节的提交记录。而master分支则因为是面向版本发布的，所以它的提交历史会略去这些细节，显得比较精简。&lt;/p&gt;
+&lt;h4 id=&#34;feature分支&#34;&gt;Feature分支
+&lt;/h4&gt;&lt;p&gt;Feature分支是根据develop分支创建出来的，Gitflow工作流里的&lt;strong&gt;每个新特性&lt;/strong&gt;都有自己的feature分支，这一点和特性分支工作流是一样的。这些分支除了在开发人员的本地存在以外，也可以被推送到共享的远程Git库，作为工作备份，以及与其他人协同工作的基础。当特性开发结束以后，这些分支上的工作会被合并到develop分支。但feature分支从来不会直接和master分支打交道。&lt;/p&gt;
+&lt;h4 id=&#34;release分支&#34;&gt;Release分支
+&lt;/h4&gt;&lt;p&gt;当积累了足够多的已完成特性，或者预定的系统发布周期临近的时候，我们就会从develop分支创建出一个release分支，&lt;strong&gt;专门用来做和当前版本发布有关的工作&lt;/strong&gt;。Release分支一旦开出来以后，就不允许再有新的特性被加入到这个分支了，只有bug修复或者文档编辑之类的工作才允许进入该分支。&lt;/p&gt;
+&lt;p&gt;Release分支上的内容最终会被合并到master分支，等版本发布的时候，我们通常还会为master分支加上带有相应版本号的tag。同时，release分支也会被合并到develop分支。在release分支活跃其间，develop分支也一直处于Open状态。Release分支上的内容代表当前版本在发布之前的准备工作，develop分支上的内容则代表下一个版本的开发工作，两者是可以并行展开的。&lt;/p&gt;
+&lt;h4 id=&#34;hotfix分支&#34;&gt;Hotfix分支
+&lt;/h4&gt;&lt;p&gt;Hotfix（热补丁）分支不从是develop分支创建出来的，而是直接根据master分支创建得到的，其目的是为了给运行在生产环境中的&lt;strong&gt;系统快速提供补丁&lt;/strong&gt;，同时确保不会给正在其他上分支进行的工作造成影响。当hotfix分支上的工作完成以后，可以合并到master分支和develop分支，以及当前的release分支。如果有版本的更新，也可以为master分支打上相应的tag。&lt;/p&gt;
+&lt;p&gt;大致关系如图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/git-model.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Gitflow&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;来源：&lt;a class=&#34;link&#34; href=&#34;https://nvie.com/posts/a-successful-git-branching-model/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;A successful Git branching model » nvie.com&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;具体工作&#34;&gt;具体工作
+&lt;/h4&gt;&lt;p&gt;Vincent Driessen不仅定义了Gitflow的工作流程，还提供了一个相应的命令行工具&lt;a class=&#34;link&#34; href=&#34;https://github.com/nvie/gitflow&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;git-flow&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;具体工作流详见：&lt;a class=&#34;link&#34; href=&#34;https://morningspace.github.io/tech/git-workflow-4/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Git工作流面面观——Gitflow工作流 - 晴耕小筑&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;githubflow&#34;&gt;GitHubFlow
+&lt;/h3&gt;&lt;p&gt;GitHubFlow看名字也知道和GitHub有关，它来源于GitHub团队的工作实践。当代码托管在GitHub上时，则需要使用GitHubFlow。相比GitFlow而言，GitHubFlow没有那么多分支。&lt;/p&gt;
+&lt;p&gt;GitHubFlow通常只有一个Master分支是固定的，而且GitHubFlow中的Master分支通常是受保护的，只有特定权限的人才可以向Master分支合入代码。&lt;/p&gt;
+&lt;p&gt;在GitHubFlow中，新功能开发或修复Bug需要从Master分支拉取一个新分支，在这个新分支上进行代码提交；功能开发完成，开发者创建Pull Request（简称PR），通知源仓库开发者进行代码修改review，确认无误后，将由源仓库开发人员将代码合入Master分支。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/GithubFlow.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;GitHubflow&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;很多人可能会问，提交代码通常是commit或者push，拉取代码才是pull，为什么GitHubFlow中提交代码提出的是“Pull Request”。因为在GitHubFlow中，PR是通知其他人员到你的代码库去拉取代码至本地，然后由他们进行最终的提交，所以用“pull”而非“push”。&lt;/p&gt;
+&lt;p&gt;GitHubFlow优点是相对于GitFlow来说比较简单，其缺点是因为只有一条Master分支，万一代码合入后，由于某些因素Master分支不能立刻发布，就会导致最终发布的版本和计划不同。&lt;/p&gt;
+&lt;h3 id=&#34;gitlabflow&#34;&gt;GitLabFlow
+&lt;/h3&gt;&lt;p&gt;GitLabFlow出现的最晚，GitLabFlow是开源工具GitLab推荐的做法。&lt;/p&gt;
+&lt;p&gt;GitLabFlow支持GitFlow的分支策略，也支持GitHubFlow的“Pull Request”（在GitLabFlow中被称为“&lt;a class=&#34;link&#34; href=&#34;https://zhida.zhihu.com/search?content_id=174769729&amp;amp;content_type=Article&amp;amp;match_order=1&amp;amp;q=Merge&amp;#43;Request&amp;amp;zhida_source=entity&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Merge Request&lt;/a&gt;”）。&lt;/p&gt;
+&lt;p&gt;相比于GitHubFlow，GitLabFlow增加了对预生产环境和生产环境的管理，即Master分支对应为开发环境的分支，预生产和生产环境由其他分支（如Pre-Production、Production）进行管理。在这种情况下，Master分支是Pre-Production分支的上游，Pre-Production是Production分支的上游；GitLabFlow规定代码必须从上游向下游发展，即新功能或修复Bug时，特性分支的代码测试无误后，必须先合入Master分支，然后才能由Master分支向Pre-Production环境合入，最后由Pre-Production合入到Production。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://picx.zhimg.com/v2-e89d28ea723b1ad70a288ba05d6b84db_1440w.jpg&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;img&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;GitLabFlow中的Merge Request是将一个分支合入到另一个分支的请求，通过Merge Request可以对比合入分支和被合入分支的差异，也可以做代码的Review。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/GithubFlow.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Gitflow&#34;
+	
+	
+&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
