@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>FRP on Choser&#39;s Blog</title>
-        <link>https://ch0ser.github.io/tags/frp/</link>
+        <link>http://localhost:1313/tags/frp/</link>
         <description>Recent content in FRP on Choser&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Ch0ser</copyright>
-        <lastBuildDate>Thu, 30 Oct 2025 19:36:23 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/tags/frp/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 30 Oct 2025 19:36:23 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/frp/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>FRP-Deploy</title>
-        <link>https://ch0ser.github.io/p/frp-deploy/</link>
+        <link>http://localhost:1313/p/frp-deploy/</link>
         <pubDate>Thu, 30 Oct 2025 19:36:23 +0800</pubDate>
         
-        <guid>https://ch0ser.github.io/p/frp-deploy/</guid>
-        <description>&lt;img src="https://ch0ser.github.io/images/MirrorLake.png" alt="Featured image of post FRP-Deploy" /&gt;&lt;h2 id=&#34;frp-内网穿透部署教程&#34;&gt;FRP 内网穿透部署教程
+        <guid>http://localhost:1313/p/frp-deploy/</guid>
+        <description>&lt;img src="http://localhost:1313/images/MirrorLake.png" alt="Featured image of post FRP-Deploy" /&gt;&lt;h2 id=&#34;frp-内网穿透部署教程&#34;&gt;FRP 内网穿透部署教程
 &lt;/h2&gt;&lt;h3 id=&#34;部署前提&#34;&gt;部署前提
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;公网服务器（VPS）：需具备公网 IP，用于部署 &lt;code&gt;frps&lt;/code&gt;（服务端）。&lt;/li&gt;
