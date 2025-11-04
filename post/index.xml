@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Posts on Choser&#39;s Blog</title>
-        <link>http://localhost:1313/post/</link>
+        <link>https://ch0ser.github.io/post/</link>
         <description>Recent content in Posts on Choser&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Ch0ser</copyright>
-        <lastBuildDate>Fri, 31 Oct 2025 10:53:50 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 31 Oct 2025 10:53:50 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Fundamentals of Machine Learning 2</title>
-        <link>http://localhost:1313/p/fundamentals-of-machine-learning-2/</link>
+        <link>https://ch0ser.github.io/p/fundamentals-of-machine-learning-2/</link>
         <pubDate>Fri, 31 Oct 2025 10:53:50 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/fundamentals-of-machine-learning-2/</guid>
-        <description>&lt;img src="http://localhost:1313/images/SunsetGlow.png" alt="Featured image of post Fundamentals of Machine Learning 2" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/fundamentals-of-machine-learning-2/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SunsetGlow.png" alt="Featured image of post Fundamentals of Machine Learning 2" /&gt;&lt;blockquote&gt;
 &lt;p&gt;本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;神经网络概述&#34;&gt;神经网络概述
@@ -35,7 +35,7 @@
 &lt;li&gt;&lt;strong&gt;示例 - 人脸识别&lt;/strong&gt;：输入是 1000 像素的图像，网络的第一层可能学习到边缘等简单特征，后续层则组合这些简单特征形成更复杂的模式（如眼睛、鼻子），最终输出层给出属于特定人物的概率。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;示例 - 汽车分类&lt;/strong&gt;：原理类似，网络能自动学习到足以区分汽车与其他物体的特征。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030104704681.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030104704681.png&#34;
 	
 	
 	
@@ -53,7 +53,7 @@
 &lt;li&gt;&lt;strong&gt;隐藏层 (Hidden Layers)&lt;/strong&gt;：位于输入层和输出层之间，负责特征的转换和提取。一个网络可以有多个隐藏层。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;输出层 (Output Layer)&lt;/strong&gt;：产生最终的预测结果。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030104834412.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030104834412.png&#34;
 	
 	
 	
@@ -63,7 +63,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030105019777.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030105019777.png&#34;
 	
 	
 	
@@ -73,7 +73,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030105043036.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030105043036.png&#34;
 	
 	
 	
@@ -115,7 +115,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030122205246.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030122205246.png&#34;
 	
 	
 	
@@ -125,7 +125,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030122221336.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030122221336.png&#34;
 	
 	
 	
@@ -158,7 +158,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030124424243.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030124424243.png&#34;
 	
 	
 	
@@ -216,7 +216,7 @@
 &lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;通常不用显示赋值层，而是在不断训练中自行微调&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030122846301.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030122846301.png&#34;
 	
 	
 	
@@ -226,7 +226,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030122907175.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030122907175.png&#34;
 	
 	
 	
@@ -236,7 +236,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;​      &lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030122927512.png&#34;
+&lt;p&gt;​      &lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030122927512.png&#34;
 	
 	
 	
@@ -288,7 +288,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030124757217.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030124757217.png&#34;
 	
 	
 	
@@ -300,7 +300,7 @@
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;训练细节&#34;&gt;训练细节
 &lt;/h3&gt;&lt;p&gt;一些训练时的细节&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030124910822.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030124910822.png&#34;
 	
 	
 	
@@ -310,7 +310,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;​       &lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030124932431.png&#34;
+&lt;p&gt;​       &lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030124932431.png&#34;
 	
 	
 	
@@ -320,7 +320,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030124949195.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030124949195.png&#34;
 	
 	
 	
@@ -330,7 +330,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030125005130.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030125005130.png&#34;
 	
 	
 	
@@ -376,7 +376,7 @@
 &lt;li&gt;&lt;strong&gt;弱人工智能（ANI，Artificial Narrow Intelligence）&lt;/strong&gt;：指专门用于完成特定任务的人工智能，如智能音箱。这是目前已经广泛实现的技术。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;通用人工智能（AGI，Artificial General Intelligence）&lt;/strong&gt;：指具备像人类一样全面智能的AI，能够理解和学习任何智力任务。这是AI领域的长期目标。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030123256271.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030123256271.png&#34;
 	
 	
 	
@@ -391,7 +391,7 @@
 &lt;li&gt;PPT展示了&lt;strong&gt;生物神经元&lt;/strong&gt;（包含细胞体、树突、轴突等）的结构。&lt;/li&gt;
 &lt;li&gt;并给出了一个&lt;strong&gt;简化的神经元数学模型&lt;/strong&gt;，将生物神经元的输入（树突）、处理（细胞体）和输出（轴突）过程用数学函数来模拟。这正是人工神经网络的基础单元。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030123909104.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030123909104.png&#34;
 	
 	
 	
@@ -406,7 +406,7 @@
 &lt;li&gt;&lt;strong&gt;提出的问题&lt;/strong&gt;：我们能否模仿人脑？但幻灯片也诚实地指出，我们（几乎）不知道大脑的具体工作原理。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;关键假说——“单一学习算法”假说&lt;/strong&gt;：&lt;strong&gt;假说内容&lt;/strong&gt;：智能可能来源于一个通用的、单一的学习算法。大脑的不同部分（如处理视觉、听觉、触觉的区域）可能是在运行同一个基本算法，只是处理的数据来源不同。&lt;strong&gt;证据支持&lt;/strong&gt;：幻灯片以人类大脑发育初期的“可塑性”作为证据。例如，大脑中原本负责处理声音的区域，如果被连接到视觉信号，也可以学会“看”。这说明大脑皮层可能具有通用的处理能力。&lt;strong&gt;深远意义&lt;/strong&gt;：如果这个假说成立，那么理论上我们可以利用&lt;strong&gt;单一的神经网络算法&lt;/strong&gt;，通过提供不同的数据，来解决各种各样的问题（视觉、听觉、语言等），而无需为每个问题专门编写复杂的程序。这正是深度学习所追求的“以不变应万变”的策略。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030123934920.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030123934920.png&#34;
 	
 	
 	
@@ -416,7 +416,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030123951662.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030123951662.png&#34;
 	
 	
 	
@@ -444,7 +444,7 @@ $$\text{Loss}(\mathbf{a}, y) = -\log(a_y)$$&lt;p&gt; 即只&lt;strong&gt;关注�
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;逻辑回归的泛化&lt;/strong&gt;：从公式上我们可以看出Softmax其实是二元的逻辑回归的多元泛化。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030184404741.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030184404741.png&#34;
 	
 	
 	
@@ -456,7 +456,7 @@ $$\text{Loss}(\mathbf{a}, y) = -\log(a_y)$$&lt;p&gt; 即只&lt;strong&gt;关注�
 &gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030184425363.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030184425363.png&#34;
 	
 	
 	
@@ -545,7 +545,7 @@ $$a_j = \frac{e^{z_j - z_{\text{max}}}}{\sum_{k=1}^{N} e^{z_k - z_{\text{max}}}}
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030195526547.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030195526547.png&#34;
 	
 	
 	
@@ -575,7 +575,7 @@ $$a_j = \frac{e^{z_j - z_{\text{max}}}}{\sum_{k=1}^{N} e^{z_k - z_{\text{max}}}}
 &lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;&lt;strong&gt;需要更少的训练数据&lt;/strong&gt;：参数减少也意味着模型更不容易过拟合。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030195658287.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030195658287.png&#34;
 	
 	
 	
@@ -595,7 +595,7 @@ $$a_j = \frac{e^{z_j - z_{\text{max}}}}{\sum_{k=1}^{N} e^{z_k - z_{\text{max}}}}
 &lt;li&gt;&lt;strong&gt;链式法则&lt;/strong&gt;：反向传播从输出（代价 $J$）开始，应用&lt;strong&gt;链式法则&lt;/strong&gt;，从右向左（从输出层到输入层）逐层计算梯度。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;高效性&lt;/strong&gt;：对于一个有 $N$ 个节点和 $P$ 个参数的网络，反向传播可以在大约 $N + P$ 步内计算出所有梯度，而朴素方法需要 $N \times P$ 步。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030195752030.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030195752030.png&#34;
 	
 	
 	
@@ -646,7 +646,7 @@ $$a_j = \frac{e^{z_j - z_{\text{max}}}}{\sum_{k=1}^{N} e^{z_k - z_{\text{max}}}}
 &lt;li&gt;&lt;strong&gt;高方差&lt;/strong&gt;（bias）：两条曲线之间存在较大差距，且验证误差远高于训练误差。&lt;strong&gt;增加更多训练数据&lt;/strong&gt;通常能有效改善。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;高偏差&lt;/strong&gt;（variance）：两条曲线都处于较高水平，且随着数据量增加，两者都趋于一个较高的平台。&lt;strong&gt;增加数据量帮助不大&lt;/strong&gt;，应考虑增加模型复杂度（如添加特征、使用更高阶多项式）。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030200622567.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030200622567.png&#34;
 	
 	
 	
@@ -656,7 +656,7 @@ $$a_j = \frac{e^{z_j - z_{\text{max}}}}{\sum_{k=1}^{N} e^{z_k - z_{\text{max}}}}
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030200834560.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030200834560.png&#34;
 	
 	
 	
@@ -666,7 +666,7 @@ $$a_j = \frac{e^{z_j - z_{\text{max}}}}{\sum_{k=1}^{N} e^{z_k - z_{\text{max}}}}
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030200958725.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030200958725.png&#34;
 	
 	
 	
@@ -734,7 +734,7 @@ $$J_{\text{regularized}}(\mathbf{W}, \mathbf{b}) = J(\mathbf{W}, \mathbf{b}) + \
 &lt;li&gt;&lt;strong&gt;重复&lt;/strong&gt;：回到步骤 2，直到达到满意的性能。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;这种基于诊断的迭代方法比盲目尝试各种技巧要高效得多。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030203325395.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030203325395.png&#34;
 	
 	
 	
@@ -806,7 +806,7 @@ $$J_{\text{regularized}}(\mathbf{W}, \mathbf{b}) = J(\mathbf{W}, \mathbf{b}) + \
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030205228921.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030205228921.png&#34;
 	
 	
 	
@@ -825,7 +825,7 @@ $$J_{\text{regularized}}(\mathbf{W}, \mathbf{b}) = J(\mathbf{W}, \mathbf{b}) + \
 &lt;blockquote&gt;
 &lt;p&gt;现在的深度学习领域，数据比模型更重要&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030205248459.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030205248459.png&#34;
 	
 	
 	
@@ -859,7 +859,7 @@ $$J_{\text{regularized}}(\mathbf{W}, \mathbf{b}) = J(\mathbf{W}, \mathbf{b}) + \
 &lt;li&gt;后几层则学习到更高级、更特定于原始任务的特征。&lt;/li&gt;
 &lt;li&gt;通过迁移学习，我们避免了从零开始学习这些通用特征，从而节省了大量计算资源和时间，并且在目标任务数据量有限时也能取得很好的效果。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030205401748.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030205401748.png&#34;
 	
 	
 	
@@ -889,7 +889,7 @@ $$\mathrm{Precision} = \frac{TP}{TP + FP}$$&lt;/li&gt;
 &lt;p&gt;&lt;strong&gt;召回率 (Recall)&lt;/strong&gt;：在所有真正的正类样本中，有多少被模型成功找出。&lt;/p&gt;
 $$\mathrm{Recall} = \frac{TP}{TP + FN}$$&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030210114075.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030210114075.png&#34;
 	
 	
 	
@@ -916,7 +916,7 @@ $$\mathrm{F1\,Score} = \frac{2\,\mathrm{Precision}\cdot\mathrm{Recall}}{\mathrm{
 &lt;p&gt;&lt;strong&gt;策略&lt;/strong&gt;：根据具体应用需求手动选择阈值。例如，对于罕见疾病的筛查，宁愿误报也不愿漏报，因此会选择较低的阈值以最大化召回率。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030220345711.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030220345711.png&#34;
 	
 	
 	
@@ -935,7 +935,7 @@ $$\mathrm{F1\,Score} = \frac{2\,\mathrm{Precision}\cdot\mathrm{Recall}}{\mathrm{
 &lt;li&gt;&lt;strong&gt;选择分裂特征&lt;/strong&gt;： 在每个节点，算法会评估所有可能的特征及其分裂点，选择能够&lt;strong&gt;最大化纯度&lt;/strong&gt;（或最小化不纯度）的特征进行分裂。常用的不纯度度量包括基尼不纯度（Gini Impurity）和信息增益（Information Gain）。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;停止分裂&lt;/strong&gt;： 当&lt;strong&gt;一个节点中的所有样本都属于同一类别&lt;/strong&gt;（纯节点）时，停止分裂。实践中，也可能设置其他停止条件，如树的最大深度、节点的最小样本数等。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030220545338.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030220545338.png&#34;
 	
 	
 	
@@ -958,7 +958,7 @@ $$\mathrm{F1\,Score} = \frac{2\,\mathrm{Precision}\cdot\mathrm{Recall}}{\mathrm{
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030221640573.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030221640573.png&#34;
 	
 	
 	
@@ -976,7 +976,7 @@ $$\mathrm{F1\,Score} = \frac{2\,\mathrm{Precision}\cdot\mathrm{Recall}}{\mathrm{
 &lt;li&gt;分裂所带来的信息增益（或纯度提升）小于一个给定的阈值。&lt;/li&gt;
 &lt;li&gt;当前节点包含的样本数量少于一个预设的最小值。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030221703841.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030221703841.png&#34;
 	
 	
 	
@@ -990,7 +990,7 @@ $$\mathrm{F1\,Score} = \frac{2\,\mathrm{Precision}\cdot\mathrm{Recall}}{\mathrm{
 &lt;/h3&gt;&lt;p&gt;以熵来衡量不纯度，类似二分类。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;不纯度度量&lt;/strong&gt;：通常使用&lt;strong&gt;熵&lt;/strong&gt;（Entropy）来量化一个节点的不纯度。对于一个包含正负样本的节点，其熵 $H(p_1)$ 定义为：&lt;/p&gt;
 $$H(p_1) = -p_1\log_2 p_1 - (1-p_1)\log_2 (1-p_1)$$&lt;p&gt;其中 $p_1$ 是该节点中正类样本的比例。当 $p_1=0$ 或 $p_1=1$（纯节点）时，熵为 0；当 $p_1=0.5$ 时，熵达到最大值 1。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030221837588.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030221837588.png&#34;
 	
 	
 	
@@ -1043,7 +1043,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;li&gt;&lt;strong&gt;后续分裂&lt;/strong&gt;：对每个子节点继续应用相同的过程。例如，在“尖耳”子节点中，可能根据“脸型”进一步分裂；在“非尖耳”子节点中，可能根据“胡须”进行分裂。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;最终结果&lt;/strong&gt;：通过一系列这样的分裂，最终得到一棵完整的决策树，其中每个叶节点都对应一个类别（如“猫”或“非猫”）。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031101349930.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031101349930.png&#34;
 	
 	
 	
@@ -1071,7 +1071,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;li&gt;&lt;code&gt;is_floppy_ear&lt;/code&gt;: 1 if &lt;code&gt;Floppy&lt;/code&gt;, else 0.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;这种方法清晰地表示了分类信息，并且适用于包括神经网络在内的各种机器学习模型。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031102053667.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031102053667.png&#34;
 	
 	
 	
@@ -1088,7 +1088,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;li&gt;&lt;strong&gt;选择标准&lt;/strong&gt;：选择能使分裂后子节点纯度提升最大的那个阈值 t&lt;em&gt;t&lt;/em&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;这点和多分类的处理是一样的。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031102147748.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031102147748.png&#34;
 	
 	
 	
@@ -1101,7 +1101,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;h3 id=&#34;回归树&#34;&gt;回归树
 &lt;/h3&gt;&lt;p&gt;类似监督学习中的回归问题，回归树的分类结果也不是孤立的的1/0，而是多个连续值。&lt;/p&gt;
 &lt;p&gt;下面这个回归树示例，就是根据三个输入特征，把小动物分类到尽量体重相近的分类中。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031102843963.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031102843963.png&#34;
 	
 	
 	
@@ -1111,7 +1111,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031103256843.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031103256843.png&#34;
 	
 	
 	
@@ -1123,7 +1123,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;集成树tree-ensembles&#34;&gt;集成树（tree ensembles）
 &lt;/h2&gt;&lt;p&gt;单一决策树对数据变化高度敏感，所以我们可以构建多个决策树集成学习，再通过投票，综合多棵树的预测结果来做出最终预测。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031103740469.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031103740469.png&#34;
 	
 	
 	
@@ -1160,7 +1160,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;随机森林因其高准确性、鲁棒性和对过拟合的良好抵抗力而被广泛应用。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031104418543.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031104418543.png&#34;
 	
 	
 	
@@ -1176,7 +1176,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;li&gt;&lt;strong&gt;核心思想&lt;/strong&gt;：每棵新树都专注于学习前序所有树的&lt;strong&gt;组合预测所产生的残差&lt;/strong&gt;（即错误），即刻意选择使树分类错误的样例。通过这种方式，模型逐步修正其预测，整体性能得到“提升”（Boosting）。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;代表算法&lt;/strong&gt;：&lt;code&gt;XGBoost&lt;/code&gt;（eXtreme Gradient Boosting）是提升树算法中最著名和高效的实现之一，在许多机器学习竞赛和工业应用中取得了巨大成功。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031104656040.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031104656040.png&#34;
 	
 	
 	
@@ -1186,7 +1186,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031104733968.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031104733968.png&#34;
 	
 	
 	
@@ -1196,7 +1196,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031104752291.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031104752291.png&#34;
 	
 	
 	
@@ -1220,7 +1220,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;li&gt;&lt;strong&gt;强大的表示能力&lt;/strong&gt;：能够学习到非常复杂的非线性关系。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;可组合性&lt;/strong&gt;：多个模块化的神经网络可以很容易地连接在一起，构建更复杂的系统。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031105213918.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031105213918.png&#34;
 	
 	
 	
@@ -1234,11 +1234,11 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
         </item>
         <item>
         <title>FRP-Deploy</title>
-        <link>http://localhost:1313/p/frp-deploy/</link>
+        <link>https://ch0ser.github.io/p/frp-deploy/</link>
         <pubDate>Thu, 30 Oct 2025 19:36:23 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/frp-deploy/</guid>
-        <description>&lt;img src="http://localhost:1313/images/MirrorLake.png" alt="Featured image of post FRP-Deploy" /&gt;&lt;h2 id=&#34;frp-内网穿透部署教程&#34;&gt;FRP 内网穿透部署教程
+        <guid>https://ch0ser.github.io/p/frp-deploy/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/MirrorLake.png" alt="Featured image of post FRP-Deploy" /&gt;&lt;h2 id=&#34;frp-内网穿透部署教程&#34;&gt;FRP 内网穿透部署教程
 &lt;/h2&gt;&lt;h3 id=&#34;部署前提&#34;&gt;部署前提
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;公网服务器（VPS）：需具备公网 IP，用于部署 &lt;code&gt;frps&lt;/code&gt;（服务端）。&lt;/li&gt;
@@ -1560,11 +1560,11 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
         </item>
         <item>
         <title>Fundamentals of Machine Learning 1</title>
-        <link>http://localhost:1313/p/fundamentals-of-machine-learning-1/</link>
+        <link>https://ch0ser.github.io/p/fundamentals-of-machine-learning-1/</link>
         <pubDate>Wed, 29 Oct 2025 15:27:35 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/fundamentals-of-machine-learning-1/</guid>
-        <description>&lt;img src="http://localhost:1313/images/SunsetGlow.png" alt="Featured image of post Fundamentals of Machine Learning 1" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/fundamentals-of-machine-learning-1/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SunsetGlow.png" alt="Featured image of post Fundamentals of Machine Learning 1" /&gt;&lt;blockquote&gt;
 &lt;p&gt;本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;机器学习概述&#34;&gt;机器学习概述
@@ -1626,7 +1626,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/ML_01.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/ML_01.png&#34;
 	
 	
 	
@@ -1850,7 +1850,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;li&gt;
 &lt;p&gt;等值线图（等高线）：&lt;/p&gt;
 &lt;p&gt;二维平面上，同一等值线的&lt;code&gt;J(w,b)&lt;/code&gt;值相同，中心处值最小，对应最优参数。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251029150513501.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251029150513501.png&#34;
 	
 	
 	
@@ -1880,7 +1880,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;p&gt;特点：凸函数，梯度下降可找到全局最小值。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/ML_02.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/ML_02.png&#34;
 	
 	
 	
@@ -1926,7 +1926,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;选择建议&lt;/strong&gt;：尝试 3 倍递增的取值（如 0.001、0.003、0.01、0.03、0.1&amp;hellip;），找到使 &lt;em&gt;J&lt;/em&gt;(&lt;em&gt;w&lt;/em&gt;,&lt;em&gt;b&lt;/em&gt;) 快速下降的合适值。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251029152210815.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251029152210815.png&#34;
 	
 	
 	
@@ -2084,11 +2084,11 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
         </item>
         <item>
         <title>CVE_Binary_Reproduction</title>
-        <link>http://localhost:1313/p/cve_binary_reproduction/</link>
+        <link>https://ch0ser.github.io/p/cve_binary_reproduction/</link>
         <pubDate>Sat, 25 Oct 2025 19:54:45 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/cve_binary_reproduction/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Genichiro.png" alt="Featured image of post CVE_Binary_Reproduction" /&gt;&lt;p&gt;本文是对此博客二进制场景下的所有CVE（共计36个）复现笔记的汇总，权供学习参考。&lt;/p&gt;
+        <guid>https://ch0ser.github.io/p/cve_binary_reproduction/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Genichiro.png" alt="Featured image of post CVE_Binary_Reproduction" /&gt;&lt;p&gt;本文是对此博客二进制场景下的所有CVE（共计36个）复现笔记的汇总，权供学习参考。&lt;/p&gt;
 &lt;p&gt;未有引用的CVE代表笔记暂时还未完成，笔者闲暇时也许会补上（），如果有想法想交流或者想纠正笔误，欢迎发信至ch0ser@std.uestc.edu.cn或choser@qq.com。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;以及申明：以下工作都是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -2097,20 +2097,20 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;openjpeg9&#34;&gt;openjpeg(9)
 &lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;openjpeg_01: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/openjpeg_01cve-2017-14164/&#34; &gt;CVE-2017-14164&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;openjpeg_02: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/openjpeg_02cve-2016-7445/&#34; &gt;CVE-2016-7445&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;openjpeg_03: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/openjpeg_03cve-2016-9118/&#34; &gt;CVE-2016-9118&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;openjpeg_04: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/openjpeg_04cve-2016-10504/&#34; &gt;CVE-2016-10504&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;openjpeg_05: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/openjpeg_05cve-2018-5785/&#34; &gt;CVE-2018-5785&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;openjpeg_06: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/openjpeg_06cve-2018-6616/&#34; &gt;CVE-2018-6616&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;openjpeg_07: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/openjpeg_07cve-2018-5727/&#34; &gt;CVE-2018-5727&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;openjpeg_08: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/openjpeg_08cve-2018-18088/&#34; &gt;CVE-2018-18088&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;openjpeg_09: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/openjpeg_09cve-2020-27814/&#34; &gt;CVE-2020-27814&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openjpeg_01: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_01cve-2017-14164/&#34; &gt;CVE-2017-14164&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openjpeg_02: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_02cve-2016-7445/&#34; &gt;CVE-2016-7445&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openjpeg_03: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_03cve-2016-9118/&#34; &gt;CVE-2016-9118&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openjpeg_04: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_04cve-2016-10504/&#34; &gt;CVE-2016-10504&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openjpeg_05: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_05cve-2018-5785/&#34; &gt;CVE-2018-5785&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openjpeg_06: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_06cve-2018-6616/&#34; &gt;CVE-2018-6616&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openjpeg_07: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_07cve-2018-5727/&#34; &gt;CVE-2018-5727&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openjpeg_08: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_08cve-2018-18088/&#34; &gt;CVE-2018-18088&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openjpeg_09: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/openjpeg_09cve-2020-27814/&#34; &gt;CVE-2020-27814&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;libjpeg8&#34;&gt;libjpeg（8）
 &lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;libjpeg_01: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/libjpeg_01cve-2020-13790/&#34; &gt;CVE-2020-13790&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;libjpeg_02: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/libjpeg_02cve-2018-14498/&#34; &gt;CVE-2018-14498&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;libjpeg_01: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/libjpeg_01cve-2020-13790/&#34; &gt;CVE-2020-13790&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;libjpeg_02: &lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/libjpeg_02cve-2018-14498/&#34; &gt;CVE-2018-14498&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;libjpeg_03:CVE-2018-20330&lt;/li&gt;
 &lt;li&gt;libjpeg_04:CVE-2018-19664&lt;/li&gt;
 &lt;li&gt;libjpeg_05:CVE-2018-11813&lt;/li&gt;
@@ -2159,16 +2159,16 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
         </item>
         <item>
         <title>libjpeg_02:CVE-2018-14498</title>
-        <link>http://localhost:1313/p/libjpeg_02cve-2018-14498/</link>
+        <link>https://ch0ser.github.io/p/libjpeg_02cve-2018-14498/</link>
         <pubDate>Sat, 25 Oct 2025 17:28:42 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/libjpeg_02cve-2018-14498/</guid>
-        <description>&lt;img src="http://localhost:1313/images/SekiroOwl.png" alt="Featured image of post libjpeg_02:CVE-2018-14498" /&gt;&lt;h1 id=&#34;cve-2018-14498&#34;&gt;CVE-2018-14498
+        <guid>https://ch0ser.github.io/p/libjpeg_02cve-2018-14498/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SekiroOwl.png" alt="Featured image of post libjpeg_02:CVE-2018-14498" /&gt;&lt;h1 id=&#34;cve-2018-14498&#34;&gt;CVE-2018-14498
 &lt;/h1&gt;&lt;p&gt;本文将介绍&lt;strong&gt;CVE-2018-14498&lt;/strong&gt;这一漏洞的背景、原理和复现方式，仅为个人学习笔记，供大家学习参考。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;申明：本工作是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;A.S.E (AI Code Generation Security Evaluation)&lt;/a&gt;开源项目的一部分，很荣幸能作为contributor参与这一开源项目，为大模型的安全评估做出贡献；&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;漏洞卡片&#34;&gt;漏洞卡片
@@ -2468,7 +2468,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;[A.S.E] ASan build complete: &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BLD&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/cjpeg-static&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2018-14498_01.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2018-14498_01.png&#34;
 	
 	
 	
@@ -2504,7 +2504,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;/div&gt;&lt;p&gt;我使用的poc文件链接附上：&lt;a class=&#34;link&#34; href=&#34;https://github.com/Ch0ser/CVE-POC/blob/main/libjpeg/2018-14498&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;2018-14498&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;调整路径并执行后成功触发漏洞，显著标志为 &lt;code&gt;heap-buffer-overflow&lt;/code&gt;，具体结果如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2018-14498_02.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2018-14498_02.png&#34;
 	
 	
 	
@@ -2627,7 +2627,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./setup.sh &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; /workspace/libjpeg-turbo/build_asan/cjpeg-static -outfile /dev/null /workspace/poc/2018-14498.bmp
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2018-14498_03.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2018-14498_03.png&#34;
 	
 	
 	
@@ -2776,16 +2776,16 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
         </item>
         <item>
         <title>libjpeg_01:CVE-2020-13790</title>
-        <link>http://localhost:1313/p/libjpeg_01cve-2020-13790/</link>
+        <link>https://ch0ser.github.io/p/libjpeg_01cve-2020-13790/</link>
         <pubDate>Sat, 25 Oct 2025 15:14:44 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/libjpeg_01cve-2020-13790/</guid>
-        <description>&lt;img src="http://localhost:1313/images/SekiroOwl.png" alt="Featured image of post libjpeg_01:CVE-2020-13790" /&gt;&lt;h1 id=&#34;cve-2020-13790&#34;&gt;CVE-2020-13790
+        <guid>https://ch0ser.github.io/p/libjpeg_01cve-2020-13790/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SekiroOwl.png" alt="Featured image of post libjpeg_01:CVE-2020-13790" /&gt;&lt;h1 id=&#34;cve-2020-13790&#34;&gt;CVE-2020-13790
 &lt;/h1&gt;&lt;p&gt;本文将介绍&lt;strong&gt;CVE-2020-13790&lt;/strong&gt;这一漏洞的背景、原理和复现方式，仅为个人学习笔记，供大家学习参考。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;申明：本工作是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;A.S.E (AI Code Generation Security Evaluation)&lt;/a&gt;开源项目的一部分，很荣幸能作为contributor参与这一开源项目，为大模型的安全评估做出贡献；&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;漏洞卡片&#34;&gt;漏洞卡片
@@ -3030,7 +3030,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;make -j&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;nproc&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2020-13790_01.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2020-13790_01.png&#34;
 	
 	
 	
@@ -3066,7 +3066,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;/div&gt;&lt;p&gt;我使用的poc文件链接附上：&lt;a class=&#34;link&#34; href=&#34;https://github.com/Ch0ser/CVE-POC/blob/main/libjpeg/2020-13790&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;2020-13790&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;调整路径并执行后成功触发漏洞，显著标志为 &lt;code&gt;heap-buffer-overflow&lt;/code&gt;，具体结果如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2020-13790_02.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2020-13790_02.png&#34;
 	
 	
 	
@@ -3199,7 +3199,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./setup.sh &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; /workspace/libjpeg-turbo/build/cjpeg-static /workspace/poc/2020-13790 
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2020-13790_03.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2020-13790_03.png&#34;
 	
 	
 	
@@ -3365,11 +3365,11 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
         </item>
         <item>
         <title>DAFL Reproduce</title>
-        <link>http://localhost:1313/p/dafl-reproduce/</link>
+        <link>https://ch0ser.github.io/p/dafl-reproduce/</link>
         <pubDate>Fri, 24 Oct 2025 19:27:41 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/dafl-reproduce/</guid>
-        <description>&lt;img src="http://localhost:1313/images/FullMoon.png" alt="Featured image of post DAFL Reproduce" /&gt;&lt;h1 id=&#34;dafl实验复现&#34;&gt;DAFL实验复现
+        <guid>https://ch0ser.github.io/p/dafl-reproduce/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/FullMoon.png" alt="Featured image of post DAFL Reproduce" /&gt;&lt;h1 id=&#34;dafl实验复现&#34;&gt;DAFL实验复现
 &lt;/h1&gt;&lt;p&gt;论文官网：&lt;a class=&#34;link&#34; href=&#34;https://www.usenix.org/conference/usenixsecurity23/presentation/kim-tae-eun&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;DAFL: Directed Grey-box Fuzzing guided by Data Dependency | USENIX&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;实验代码：https://github.com/prosyslab/DAFL-artifact.git&lt;/p&gt;
@@ -3842,16 +3842,16 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
         </item>
         <item>
         <title>openjpeg_09:CVE-2020-27814</title>
-        <link>http://localhost:1313/p/openjpeg_09cve-2020-27814/</link>
+        <link>https://ch0ser.github.io/p/openjpeg_09cve-2020-27814/</link>
         <pubDate>Wed, 22 Oct 2025 17:20:31 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/openjpeg_09cve-2020-27814/</guid>
-        <description>&lt;img src="http://localhost:1313/images/SekiroDragon.png" alt="Featured image of post openjpeg_09:CVE-2020-27814" /&gt;&lt;h1 id=&#34;cve-2020-27814&#34;&gt;CVE-2020-27814
+        <guid>https://ch0ser.github.io/p/openjpeg_09cve-2020-27814/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SekiroDragon.png" alt="Featured image of post openjpeg_09:CVE-2020-27814" /&gt;&lt;h1 id=&#34;cve-2020-27814&#34;&gt;CVE-2020-27814
 &lt;/h1&gt;&lt;p&gt;本文将介绍&lt;strong&gt;CVE-2020-27814&lt;/strong&gt;这一漏洞的背景、原理和复现方式，仅为个人学习笔记，供大家学习参考。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;申明：本工作是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;A.S.E (AI Code Generation Security Evaluation)&lt;/a&gt;开源项目的一部分，很荣幸能作为contributor参与这一开源项目，为大模型的安全评估做出贡献；&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;漏洞卡片&#34;&gt;漏洞卡片
@@ -4125,7 +4125,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Executable: &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;BUILD_DIR&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/bin/opj_compress&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2020-27814_01.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2020-27814_01.png&#34;
 	
 	
 	
@@ -4175,7 +4175,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;/div&gt;&lt;p&gt;我使用的poc文件链接附上：&lt;a class=&#34;link&#34; href=&#34;https://github.com/Ch0ser/CVE-POC/blob/main/openjpeg/2020-27814.png&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;2020-27814.png&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;调整路径并执行后成功触发漏洞，显著标志为 &lt;code&gt;heap-buffer-overflow&lt;/code&gt;，具体结果如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2020-27814_02.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2020-27814_02.png&#34;
 	
 	
 	
@@ -4345,7 +4345,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;这次就被补丁提前拦截了，检测到缓冲区空间不足，并没有再进行强行分配。
-&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2020-27814_03.png&#34;
+&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2020-27814_03.png&#34;
 	
 	
 	
@@ -4488,16 +4488,16 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
         </item>
         <item>
         <title>openjpeg_08:CVE-2018-18088</title>
-        <link>http://localhost:1313/p/openjpeg_08cve-2018-18088/</link>
+        <link>https://ch0ser.github.io/p/openjpeg_08cve-2018-18088/</link>
         <pubDate>Wed, 22 Oct 2025 17:20:14 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/openjpeg_08cve-2018-18088/</guid>
-        <description>&lt;img src="http://localhost:1313/images/SekiroDragon.png" alt="Featured image of post openjpeg_08:CVE-2018-18088" /&gt;&lt;h1 id=&#34;cve-2018-18088&#34;&gt;CVE-2018-18088
+        <guid>https://ch0ser.github.io/p/openjpeg_08cve-2018-18088/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SekiroDragon.png" alt="Featured image of post openjpeg_08:CVE-2018-18088" /&gt;&lt;h1 id=&#34;cve-2018-18088&#34;&gt;CVE-2018-18088
 &lt;/h1&gt;&lt;p&gt;本文将介绍&lt;strong&gt;CVE-2018-18088&lt;/strong&gt;这一漏洞的背景、原理和复现方式，仅为个人学习笔记，供大家学习参考。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;申明：本工作是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;A.S.E (AI Code Generation Security Evaluation)&lt;/a&gt;开源项目的一部分，很荣幸能作为contributor参与这一开源项目，为大模型的安全评估做出贡献；&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;漏洞卡片&#34;&gt;漏洞卡片
@@ -4816,7 +4816,7 @@ b) 代码层面：&lt;code&gt;imagetopnm()&lt;/code&gt; 未检查 &lt;code&gt;da
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Executable: &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/bin/opj_decompress&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2018-18088_01.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2018-18088_01.png&#34;
 	
 	
 	
@@ -4858,7 +4858,7 @@ b) 代码层面：&lt;code&gt;imagetopnm()&lt;/code&gt; 未检查 &lt;code&gt;da
 &lt;/div&gt;&lt;p&gt;我使用的poc文件链接附上：&lt;a class=&#34;link&#34; href=&#34;https://github.com/Ch0ser/CVE-POC/blob/main/openjpeg/2018-18088&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;2018-18088&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;调整路径并执行后成功触发漏洞，显著标志为 &lt;code&gt;xxxxxx&lt;/code&gt;，具体结果如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2018-18088_02.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2018-18088_02.png&#34;
 	
 	
 	
@@ -5117,16 +5117,16 @@ b) 代码层面：&lt;code&gt;imagetopnm()&lt;/code&gt; 未检查 &lt;code&gt;da
         </item>
         <item>
         <title>openjpeg_07:CVE-2018-5727</title>
-        <link>http://localhost:1313/p/openjpeg_07cve-2018-5727/</link>
+        <link>https://ch0ser.github.io/p/openjpeg_07cve-2018-5727/</link>
         <pubDate>Wed, 22 Oct 2025 17:20:01 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/openjpeg_07cve-2018-5727/</guid>
-        <description>&lt;img src="http://localhost:1313/images/SekiroDragon.png" alt="Featured image of post openjpeg_07:CVE-2018-5727" /&gt;&lt;h1 id=&#34;cve-2018-5727&#34;&gt;CVE-2018-5727
+        <guid>https://ch0ser.github.io/p/openjpeg_07cve-2018-5727/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SekiroDragon.png" alt="Featured image of post openjpeg_07:CVE-2018-5727" /&gt;&lt;h1 id=&#34;cve-2018-5727&#34;&gt;CVE-2018-5727
 &lt;/h1&gt;&lt;p&gt;本文将介绍&lt;strong&gt;CVE-2018-5727&lt;/strong&gt;这一漏洞的背景、原理和复现方式，仅为个人学习笔记，供大家学习参考。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;申明：本工作是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;A.S.E (AI Code Generation Security Evaluation)&lt;/a&gt;开源项目的一部分，很荣幸能作为contributor参与这一开源项目，为大模型的安全评估做出贡献；&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;漏洞卡片&#34;&gt;漏洞卡片
@@ -5442,7 +5442,7 @@ b) 代码层面：&lt;code&gt;imagetopnm()&lt;/code&gt; 未检查 &lt;code&gt;da
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Executable: &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/bin/opj_compress&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2018-5727_01.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2018-5727_01.png&#34;
 	
 	
 	
@@ -5484,7 +5484,7 @@ b) 代码层面：&lt;code&gt;imagetopnm()&lt;/code&gt; 未检查 &lt;code&gt;da
 &lt;/div&gt;&lt;p&gt;我使用的poc文件链接附上：&lt;a class=&#34;link&#34; href=&#34;https://github.com/Ch0ser/CVE-POC/blob/main/openjpeg/2018-5727.bmp&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;2018-5727.bmp&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;调整路径并执行后成功触发漏洞，显著标志为 &lt;code&gt;runtime error&lt;/code&gt;，具体结果如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2018-5727_02.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2018-5727_02.png&#34;
 	
 	
 	
@@ -5534,7 +5534,7 @@ b) 代码层面：&lt;code&gt;imagetopnm()&lt;/code&gt; 未检查 &lt;code&gt;da
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;这次就被补丁提前拦截了，检测到缓冲区空间不足，并没有再进行强行分配。
-&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2018-5727_03.png&#34;
+&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2018-5727_03.png&#34;
 	
 	
 	
@@ -5717,16 +5717,16 @@ b) 代码层面：&lt;code&gt;imagetopnm()&lt;/code&gt; 未检查 &lt;code&gt;da
         </item>
         <item>
         <title>openjpeg_06:CVE-2018-6616</title>
-        <link>http://localhost:1313/p/openjpeg_06cve-2018-6616/</link>
+        <link>https://ch0ser.github.io/p/openjpeg_06cve-2018-6616/</link>
         <pubDate>Wed, 22 Oct 2025 17:19:45 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/openjpeg_06cve-2018-6616/</guid>
-        <description>&lt;img src="http://localhost:1313/images/SekiroDragon.png" alt="Featured image of post openjpeg_06:CVE-2018-6616" /&gt;&lt;h1 id=&#34;cve-2018-6616&#34;&gt;CVE-2018-6616
+        <guid>https://ch0ser.github.io/p/openjpeg_06cve-2018-6616/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SekiroDragon.png" alt="Featured image of post openjpeg_06:CVE-2018-6616" /&gt;&lt;h1 id=&#34;cve-2018-6616&#34;&gt;CVE-2018-6616
 &lt;/h1&gt;&lt;p&gt;本文将介绍&lt;strong&gt;CVE-2018-6616&lt;/strong&gt;这一漏洞的背景、原理和复现方式，仅为个人学习笔记，供大家学习参考。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;申明：本工作是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;A.S.E (AI Code Generation Security Evaluation)&lt;/a&gt;开源项目的一部分，很荣幸能作为contributor参与这一开源项目，为大模型的安全评估做出贡献；&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;漏洞卡片&#34;&gt;漏洞卡片
@@ -6031,7 +6031,7 @@ b) 代码层面：&lt;code&gt;imagetopnm()&lt;/code&gt; 未检查 &lt;code&gt;da
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Executable: &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/bin/opj_compress&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2018-6616_01.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2018-6616_01.png&#34;
 	
 	
 	
@@ -6099,7 +6099,7 @@ b) 代码层面：&lt;code&gt;imagetopnm()&lt;/code&gt; 未检查 &lt;code&gt;da
 &lt;/div&gt;&lt;p&gt;我使用的poc文件链接附上：&lt;a class=&#34;link&#34; href=&#34;https://github.com/Ch0ser/CVE-POC/blob/main/openjpeg/2018-6616.bmp&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;2018-6616.bmp&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;调整路径并执行后就能成功触发漏洞，即触发命令执行超时，具体结果如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2018-6616_02.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2018-6616_02.png&#34;
 	
 	
 	
@@ -6137,7 +6137,7 @@ b) 代码层面：&lt;code&gt;imagetopnm()&lt;/code&gt; 未检查 &lt;code&gt;da
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;这次就不再触发超时。
-&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2018-6616_03.png&#34;
+&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2018-6616_03.png&#34;
 	
 	
 	
@@ -6305,16 +6305,16 @@ commit 8ee3352 仅在 &lt;code&gt;src/bin/jp2/convertbmp.c&lt;/code&gt; 的 &lt;
         </item>
         <item>
         <title>openjpeg_05:CVE-2018-5785</title>
-        <link>http://localhost:1313/p/openjpeg_05cve-2018-5785/</link>
+        <link>https://ch0ser.github.io/p/openjpeg_05cve-2018-5785/</link>
         <pubDate>Wed, 22 Oct 2025 16:54:38 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/openjpeg_05cve-2018-5785/</guid>
-        <description>&lt;img src="http://localhost:1313/images/SekiroDragon.png" alt="Featured image of post openjpeg_05:CVE-2018-5785" /&gt;&lt;h1 id=&#34;cve-2018-5785&#34;&gt;CVE-2018-5785
+        <guid>https://ch0ser.github.io/p/openjpeg_05cve-2018-5785/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SekiroDragon.png" alt="Featured image of post openjpeg_05:CVE-2018-5785" /&gt;&lt;h1 id=&#34;cve-2018-5785&#34;&gt;CVE-2018-5785
 &lt;/h1&gt;&lt;p&gt;本文将介绍&lt;strong&gt;CVE-2018-5785&lt;/strong&gt;这一漏洞的背景、原理和复现方式，仅为个人学习笔记，供大家学习参考。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;申明：本工作是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;A.S.E (AI Code Generation Security Evaluation)&lt;/a&gt;开源项目的一部分，很荣幸能作为contributor参与这一开源项目，为大模型的安全评估做出贡献；&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;漏洞卡片&#34;&gt;漏洞卡片
@@ -6626,7 +6626,7 @@ commit 8ee3352 仅在 &lt;code&gt;src/bin/jp2/convertbmp.c&lt;/code&gt; 的 &lt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Executable: &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/bin/opj_compress&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2018-5785_01.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2018-5785_01.png&#34;
 	
 	
 	
@@ -6668,7 +6668,7 @@ commit 8ee3352 仅在 &lt;code&gt;src/bin/jp2/convertbmp.c&lt;/code&gt; 的 &lt;
 &lt;/div&gt;&lt;p&gt;我使用的poc文件链接附上：&lt;a class=&#34;link&#34; href=&#34;https://github.com/Ch0ser/CVE-POC/blob/main/openjpeg/2018-5785.bmp&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;2018-5785.bmp&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;调整路径并执行后成功触发漏洞，在启用 UBSAN/ASan 并使用修复前的 commit（修复前版本）时会看到诸如： runtime error: shift exponent 4294967295 is too large for 32-bit type &amp;lsquo;int&amp;rsquo; 以及随后的一些 signed integer overflow 报错或崩溃行为，具体结果如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2018-5785_02.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2018-5785_02.png&#34;
 	
 	
 	
@@ -6726,7 +6726,7 @@ commit 8ee3352 仅在 &lt;code&gt;src/bin/jp2/convertbmp.c&lt;/code&gt; 的 &lt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;在应用补丁（commit ca16fe55&amp;hellip;）后，BMP 解析层会拒绝此类“intentional 0 bitmasks”情形，从而在早期阻断处理流程、避免触发后续未定义行为。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2018-5785_03.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2018-5785_03.png&#34;
 	
 	
 	
@@ -6880,16 +6880,16 @@ commit 8ee3352 仅在 &lt;code&gt;src/bin/jp2/convertbmp.c&lt;/code&gt; 的 &lt;
         </item>
         <item>
         <title>openjpeg_04:CVE-2016-10504</title>
-        <link>http://localhost:1313/p/openjpeg_04cve-2016-10504/</link>
+        <link>https://ch0ser.github.io/p/openjpeg_04cve-2016-10504/</link>
         <pubDate>Wed, 22 Oct 2025 09:43:10 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/openjpeg_04cve-2016-10504/</guid>
-        <description>&lt;img src="http://localhost:1313/images/SekiroDragon.png" alt="Featured image of post openjpeg_04:CVE-2016-10504" /&gt;&lt;h1 id=&#34;cve-2016-10504&#34;&gt;CVE-2016-10504
+        <guid>https://ch0ser.github.io/p/openjpeg_04cve-2016-10504/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SekiroDragon.png" alt="Featured image of post openjpeg_04:CVE-2016-10504" /&gt;&lt;h1 id=&#34;cve-2016-10504&#34;&gt;CVE-2016-10504
 &lt;/h1&gt;&lt;p&gt;本文将介绍&lt;strong&gt;CVE-2016-10504&lt;/strong&gt;这一漏洞的背景、原理和复现方式，仅为个人学习笔记，供大家学习参考。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;申明：本工作是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;A.S.E (AI Code Generation Security Evaluation)&lt;/a&gt;开源项目的一部分，很荣幸能作为contributor参与这一开源项目，为大模型的安全评估做出贡献；&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;漏洞卡片&#34;&gt;漏洞卡片
@@ -7200,7 +7200,7 @@ commit 8ee3352 仅在 &lt;code&gt;src/bin/jp2/convertbmp.c&lt;/code&gt; 的 &lt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Executable: &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/bin/opj_compress&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2016-10504_01.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2016-10504_01.png&#34;
 	
 	
 	
@@ -7242,7 +7242,7 @@ commit 8ee3352 仅在 &lt;code&gt;src/bin/jp2/convertbmp.c&lt;/code&gt; 的 &lt;
 &lt;/div&gt;&lt;p&gt;我使用的poc文件链接附上：&lt;a class=&#34;link&#34; href=&#34;https://github.com/Ch0ser/CVE-POC/blob/main/openjpeg/2016-10504.bmp&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;2016-10504.bmp&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;调整路径并执行后成功触发漏洞，显著标志为 &lt;code&gt;heap-buffer-overflow&lt;/code&gt;，具体结果如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2016-10504_02.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2016-10504_02.png&#34;
 	
 	
 	
@@ -7412,7 +7412,7 @@ commit 8ee3352 仅在 &lt;code&gt;src/bin/jp2/convertbmp.c&lt;/code&gt; 的 &lt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;编码能成功或在出现空间不足时被拦截，不再触发 ASan 报错。
-&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2016-10504_03.png&#34;
+&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2016-10504_03.png&#34;
 	
 	
 	
@@ -7607,16 +7607,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>openjpeg_03:CVE-2016-9118</title>
-        <link>http://localhost:1313/p/openjpeg_03cve-2016-9118/</link>
+        <link>https://ch0ser.github.io/p/openjpeg_03cve-2016-9118/</link>
         <pubDate>Wed, 22 Oct 2025 08:41:06 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/openjpeg_03cve-2016-9118/</guid>
-        <description>&lt;img src="http://localhost:1313/images/SekiroDragon.png" alt="Featured image of post openjpeg_03:CVE-2016-9118" /&gt;&lt;h1 id=&#34;cve-2016-9118&#34;&gt;CVE-2016-9118
+        <guid>https://ch0ser.github.io/p/openjpeg_03cve-2016-9118/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SekiroDragon.png" alt="Featured image of post openjpeg_03:CVE-2016-9118" /&gt;&lt;h1 id=&#34;cve-2016-9118&#34;&gt;CVE-2016-9118
 &lt;/h1&gt;&lt;p&gt;本文将介绍&lt;strong&gt;CVE-2016-9118&lt;/strong&gt;这一漏洞的背景、原理和复现方式，仅为个人学习笔记，供大家学习参考。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;申明：本工作是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;A.S.E (AI Code Generation Security Evaluation)&lt;/a&gt;开源项目的一部分，很荣幸能作为contributor参与这一开源项目，为大模型的安全评估做出贡献；&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;漏洞卡片&#34;&gt;漏洞卡片
@@ -7921,7 +7921,7 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Executable: &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/bin/opj_compress&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2016-9118_01.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2016-9118_01.png&#34;
 	
 	
 	
@@ -7963,7 +7963,7 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
 &lt;/div&gt;&lt;p&gt;我使用的poc文件链接附上：&lt;a class=&#34;link&#34; href=&#34;https://github.com/Ch0ser/CVE-POC/blob/main/openjpeg/2016-9118.pgm&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;2016-9118.pgm&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;调整路径并执行后成功触发漏洞，显著标志为 &lt;code&gt;heap-buffer-overflow&lt;/code&gt;，具体结果如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2016-9118_02.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2016-9118_02.png&#34;
 	
 	
 	
@@ -8103,7 +8103,7 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;这次就被补丁提前拦截了，检测到缓冲区空间不足，并没有再进行强行分配。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2016-9118_03.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2016-9118_03.png&#34;
 	
 	
 	
@@ -8343,16 +8343,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>openjpeg_01:CVE-2017-14164</title>
-        <link>http://localhost:1313/p/openjpeg_01cve-2017-14164/</link>
+        <link>https://ch0ser.github.io/p/openjpeg_01cve-2017-14164/</link>
         <pubDate>Mon, 20 Oct 2025 19:16:32 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/openjpeg_01cve-2017-14164/</guid>
-        <description>&lt;img src="http://localhost:1313/images/SekiroDragon.png" alt="Featured image of post openjpeg_01:CVE-2017-14164" /&gt;&lt;h1 id=&#34;cve-2017-14164&#34;&gt;CVE-2017-14164
+        <guid>https://ch0ser.github.io/p/openjpeg_01cve-2017-14164/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SekiroDragon.png" alt="Featured image of post openjpeg_01:CVE-2017-14164" /&gt;&lt;h1 id=&#34;cve-2017-14164&#34;&gt;CVE-2017-14164
 &lt;/h1&gt;&lt;p&gt;本文将介绍&lt;strong&gt;CVE-2017-14164&lt;/strong&gt;这一漏洞的背景、原理和复现方式，仅为个人学习笔记，供大家学习参考。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;申明：本工作是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;A.S.E (AI Code Generation Security Evaluation)&lt;/a&gt;开源项目的一部分，很荣幸能作为contributor参与这一开源项目，为大模型的安全评估做出贡献；&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;漏洞卡片&#34;&gt;漏洞卡片
@@ -8659,7 +8659,7 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Executable: &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/bin/opj_compress&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2017-14164_01.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2017-14164_01.png&#34;
 	
 	
 	
@@ -8701,7 +8701,7 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
 &lt;/div&gt;&lt;p&gt;我使用的poc文件链接附上：&lt;a class=&#34;link&#34; href=&#34;https://github.com/Ch0ser/CVE-POC/tree/d9832a2b456fe8b02e7fb0b64f9a71d34f3f521f/openjpeg&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;2017-14164.tif&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;调整路径并执行后成功触发漏洞，显著标志为 &lt;code&gt;heap-buffer-overflow&lt;/code&gt;，具体结果如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2017-14164_02.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2017-14164_02.png&#34;
 	
 	
 	
@@ -9039,16 +9039,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>openjpeg_02:CVE-2016-7445</title>
-        <link>http://localhost:1313/p/openjpeg_02cve-2016-7445/</link>
+        <link>https://ch0ser.github.io/p/openjpeg_02cve-2016-7445/</link>
         <pubDate>Mon, 20 Oct 2025 19:10:06 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/openjpeg_02cve-2016-7445/</guid>
-        <description>&lt;img src="http://localhost:1313/images/SekiroDragon.png" alt="Featured image of post openjpeg_02:CVE-2016-7445" /&gt;&lt;h1 id=&#34;cve-2016-7445&#34;&gt;CVE-2016-7445
+        <guid>https://ch0ser.github.io/p/openjpeg_02cve-2016-7445/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SekiroDragon.png" alt="Featured image of post openjpeg_02:CVE-2016-7445" /&gt;&lt;h1 id=&#34;cve-2016-7445&#34;&gt;CVE-2016-7445
 &lt;/h1&gt;&lt;p&gt;本文将介绍&lt;strong&gt;CVE-2016-7445&lt;/strong&gt;这一漏洞的背景、原理和复现方式，仅为个人学习笔记，供大家学习参考。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;申明：本工作是&lt;a class=&#34;link&#34; href=&#34;https://github.com/Tencent/AICGSecEval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;A.S.E (AI Code Generation Security Evaluation)&lt;/a&gt;开源项目的一部分，很荣幸能作为contributor参与这一开源项目，为大模型的安全评估做出贡献；&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/cve_binary_reproduction/&#34; &gt;CVE_Binary_Reproduction&lt;/a&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;漏洞卡片&#34;&gt;漏洞卡片
@@ -9340,7 +9340,7 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Executable: &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/bin/opj_compress&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2016-7445_01.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2016-7445_01.png&#34;
 	
 	
 	
@@ -9384,7 +9384,7 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
 &lt;/div&gt;&lt;p&gt;我使用的poc文件链接附上：&lt;a class=&#34;link&#34; href=&#34;https://github.com/Ch0ser/CVE-POC/blob/main/openjpeg/2016-7445.ppm&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;2016-7445.ppm&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;调整路径并执行后成功触发漏洞，显著标志为 &lt;code&gt;SEGV on unknown address&lt;/code&gt;，具体结果如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/CVE/CVE-2016-7445_02.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/CVE/CVE-2016-7445_02.png&#34;
 	
 	
 	
@@ -9598,16 +9598,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_prompt</title>
-        <link>http://localhost:1313/p/bash_prompt/</link>
+        <link>https://ch0ser.github.io/p/bash_prompt/</link>
         <pubDate>Mon, 20 Oct 2025 15:51:58 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_prompt/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_prompt" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_prompt/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_prompt" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;命令提示符&#34;&gt;命令提示符
 &lt;/h1&gt;&lt;p&gt;用户进入 Bash 以后，Bash 会显示一个命令提示符，用来提示用户在该位置后面输入命令。&lt;/p&gt;
@@ -9785,16 +9785,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_startup</title>
-        <link>http://localhost:1313/p/bash_startup/</link>
+        <link>https://ch0ser.github.io/p/bash_startup/</link>
         <pubDate>Mon, 20 Oct 2025 15:50:43 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_startup/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_startup" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_startup/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_startup" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;bash-启动环境&#34;&gt;Bash 启动环境
 &lt;/h1&gt;&lt;h2 id=&#34;session&#34;&gt;Session
@@ -9932,16 +9932,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_mktemp&amp;trap</title>
-        <link>http://localhost:1313/p/bash_mktemptrap/</link>
+        <link>https://ch0ser.github.io/p/bash_mktemptrap/</link>
         <pubDate>Mon, 20 Oct 2025 15:49:38 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_mktemptrap/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_mktemp&amp;trap" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_mktemptrap/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_mktemp&amp;trap" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;mktemp-命令trap-命令&#34;&gt;mktemp 命令，trap 命令
 &lt;/h1&gt;&lt;p&gt;Bash 脚本有时需要创建临时文件或临时目录。常见的做法是，在&lt;code&gt;/tmp&lt;/code&gt;目录里面创建文件或目录，这样做有很多弊端，使用&lt;code&gt;mktemp&lt;/code&gt;命令是最安全的做法。&lt;/p&gt;
@@ -10204,16 +10204,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_debug</title>
-        <link>http://localhost:1313/p/bash_debug/</link>
+        <link>https://ch0ser.github.io/p/bash_debug/</link>
         <pubDate>Mon, 20 Oct 2025 15:47:12 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_debug/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_debug" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_debug/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_debug" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;脚本除错&#34;&gt;脚本除错
 &lt;/h1&gt;&lt;p&gt;本章介绍如何对 Shell 脚本除错。&lt;/p&gt;
@@ -10632,16 +10632,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_set&amp;shopt</title>
-        <link>http://localhost:1313/p/bash_setshopt/</link>
+        <link>https://ch0ser.github.io/p/bash_setshopt/</link>
         <pubDate>Mon, 20 Oct 2025 15:46:02 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_setshopt/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_set&amp;shopt" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_setshopt/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_set&amp;shopt" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;set-命令shopt-命令&#34;&gt;set 命令，shopt 命令
 &lt;/h1&gt;&lt;p&gt;&lt;code&gt;set&lt;/code&gt;命令是 Bash 脚本的重要环节，却常常被忽视，导致脚本的安全性和可维护性出问题。本章介绍&lt;code&gt;set&lt;/code&gt;的基本用法，帮助你写出更安全的 Bash 脚本。&lt;/p&gt;
@@ -11248,16 +11248,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_array</title>
-        <link>http://localhost:1313/p/bash_array/</link>
+        <link>https://ch0ser.github.io/p/bash_array/</link>
         <pubDate>Mon, 20 Oct 2025 15:45:08 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_array/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_array" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_array/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_array" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;数组&#34;&gt;数组
 &lt;/h1&gt;&lt;p&gt;数组（array）是一个包含多个值的变量。成员的编号从0开始，数量没有上限，也没有要求成员被连续索引。&lt;/p&gt;
@@ -11863,16 +11863,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_function</title>
-        <link>http://localhost:1313/p/bash_function/</link>
+        <link>https://ch0ser.github.io/p/bash_function/</link>
         <pubDate>Mon, 20 Oct 2025 15:44:20 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_function/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_function" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_function/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_function" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;bash-函数&#34;&gt;Bash 函数
 &lt;/h1&gt;&lt;p&gt;本章介绍 Bash 函数的用法。&lt;/p&gt;
@@ -12219,16 +12219,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_loop</title>
-        <link>http://localhost:1313/p/bash_loop/</link>
+        <link>https://ch0ser.github.io/p/bash_loop/</link>
         <pubDate>Mon, 20 Oct 2025 15:43:28 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_loop/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_loop" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_loop/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_loop" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;循环&#34;&gt;循环
 &lt;/h1&gt;&lt;p&gt;Bash 提供三种循环语法&lt;code&gt;for&lt;/code&gt;、&lt;code&gt;while&lt;/code&gt;和&lt;code&gt;until&lt;/code&gt;。&lt;/p&gt;
@@ -12775,16 +12775,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_condition</title>
-        <link>http://localhost:1313/p/bash_condition/</link>
+        <link>https://ch0ser.github.io/p/bash_condition/</link>
         <pubDate>Mon, 20 Oct 2025 15:42:22 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_condition/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_condition" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_condition/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_condition" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;条件判断&#34;&gt;条件判断
 &lt;/h1&gt;&lt;p&gt;本章介绍 Bash 脚本的条件判断语法。&lt;/p&gt;
@@ -13877,16 +13877,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_read</title>
-        <link>http://localhost:1313/p/bash_read/</link>
+        <link>https://ch0ser.github.io/p/bash_read/</link>
         <pubDate>Mon, 20 Oct 2025 15:40:37 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_read/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_read" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_read/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_read" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;read-命令&#34;&gt;read 命令
 &lt;/h1&gt;&lt;h2 id=&#34;用法&#34;&gt;用法
@@ -14208,16 +14208,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_script</title>
-        <link>http://localhost:1313/p/bash_script/</link>
+        <link>https://ch0ser.github.io/p/bash_script/</link>
         <pubDate>Mon, 20 Oct 2025 15:39:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_script/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_script" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_script/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_script" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;bash-脚本入门&#34;&gt;Bash 脚本入门
 &lt;/h1&gt;&lt;p&gt;脚本（script）就是&lt;strong&gt;包含一系列命令的一个文本文件&lt;/strong&gt;。Shell 读取这个文件，&lt;strong&gt;依次执行里面的所有命令，就好像这些命令直接输入到命令行一样&lt;/strong&gt;。所有能够在命令行完成的任务，都能够用脚本完成。&lt;/p&gt;
@@ -14903,16 +14903,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_stack</title>
-        <link>http://localhost:1313/p/bash_stack/</link>
+        <link>https://ch0ser.github.io/p/bash_stack/</link>
         <pubDate>Mon, 20 Oct 2025 15:37:40 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_stack/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_stack" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_stack/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_stack" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;目录堆栈&#34;&gt;目录堆栈
 &lt;/h1&gt;&lt;p&gt;为了方便用户在不同目录之间切换，Bash 提供了目录堆栈功能。&lt;/p&gt;
@@ -15080,16 +15080,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_readline</title>
-        <link>http://localhost:1313/p/bash_readline/</link>
+        <link>https://ch0ser.github.io/p/bash_readline/</link>
         <pubDate>Mon, 20 Oct 2025 15:35:44 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_readline/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_readline" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_readline/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_readline" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;bash-行操作&#34;&gt;Bash 行操作
 &lt;/h1&gt;&lt;h2 id=&#34;简介&#34;&gt;简介
@@ -15213,16 +15213,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_history</title>
-        <link>http://localhost:1313/p/bash_history/</link>
+        <link>https://ch0ser.github.io/p/bash_history/</link>
         <pubDate>Mon, 20 Oct 2025 15:33:46 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_history/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_history" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_history/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_history" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;操作历史&#34;&gt;操作历史
 &lt;/h1&gt;&lt;h2 id=&#34;简介&#34;&gt;简介
@@ -15652,16 +15652,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_arithmetic</title>
-        <link>http://localhost:1313/p/bash_arithmetic/</link>
+        <link>https://ch0ser.github.io/p/bash_arithmetic/</link>
         <pubDate>Mon, 20 Oct 2025 15:29:39 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_arithmetic/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_arithmetic" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_arithmetic/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_arithmetic" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;bash-的算术运算&#34;&gt;Bash 的算术运算
 &lt;/h1&gt;&lt;h2 id=&#34;算术表达式&#34;&gt;算术表达式
@@ -16144,16 +16144,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_string</title>
-        <link>http://localhost:1313/p/bash_string/</link>
+        <link>https://ch0ser.github.io/p/bash_string/</link>
         <pubDate>Thu, 16 Oct 2025 11:30:56 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_string/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_string" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_string/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_string" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;字符串操作&#34;&gt;字符串操作
 &lt;/h1&gt;&lt;p&gt;本章介绍 Bash 字符串操作的语法。&lt;/p&gt;
@@ -16644,16 +16644,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_variable</title>
-        <link>http://localhost:1313/p/bash_variable/</link>
+        <link>https://ch0ser.github.io/p/bash_variable/</link>
         <pubDate>Wed, 15 Oct 2025 20:44:53 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_variable/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_variable" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_variable/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_variable" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;bash-变量&#34;&gt;Bash 变量
 &lt;/h1&gt;&lt;h2 id=&#34;简介&#34;&gt;简介
@@ -17389,16 +17389,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_quotation</title>
-        <link>http://localhost:1313/p/bash_quotation/</link>
+        <link>https://ch0ser.github.io/p/bash_quotation/</link>
         <pubDate>Wed, 15 Oct 2025 19:08:35 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_quotation/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_quotation" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_quotation/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_quotation" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;引号和转义&#34;&gt;引号和转义
 &lt;/h1&gt;&lt;p&gt;**Bash 只有一种数据类型，就是字符串。**不管用户输入什么数据，Bash 都视为字符串。因此，字符串相关的引号和转义，对 Bash 来说就非常重要。&lt;/p&gt;
@@ -17880,16 +17880,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_expansion</title>
-        <link>http://localhost:1313/p/bash_expansion/</link>
+        <link>https://ch0ser.github.io/p/bash_expansion/</link>
         <pubDate>Wed, 15 Oct 2025 16:38:58 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_expansion/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_expansion" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_expansion/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_expansion" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;bash的模式拓展&#34;&gt;Bash的模式拓展
 &lt;/h1&gt;&lt;h2 id=&#34;简介&#34;&gt;简介
@@ -18984,16 +18984,16 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash_intro&amp;grammar</title>
-        <link>http://localhost:1313/p/bash_introgrammar/</link>
+        <link>https://ch0ser.github.io/p/bash_introgrammar/</link>
         <pubDate>Wed, 15 Oct 2025 16:10:33 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash_introgrammar/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cloud.png" alt="Featured image of post Bash_intro&amp;grammar" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/bash_introgrammar/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cloud.png" alt="Featured image of post Bash_intro&amp;grammar" /&gt;&lt;blockquote&gt;
 &lt;p&gt;学习参考的教程为&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;，非常感谢开源工作者的贡献！&lt;/p&gt;
 &lt;p&gt;如使用到该教程，可随意使用，但请标明出处（&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;）。&lt;/p&gt;
-&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;笔记汇总在&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash/&#34; &gt;Bash&lt;/a&gt;中。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;bash简介&#34;&gt;Bash简介
 &lt;/h2&gt;&lt;blockquote&gt;
@@ -19354,47 +19354,47 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Bash</title>
-        <link>http://localhost:1313/p/bash/</link>
+        <link>https://ch0ser.github.io/p/bash/</link>
         <pubDate>Wed, 15 Oct 2025 16:02:47 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/bash/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Cat&amp;Tree.png" alt="Featured image of post Bash" /&gt;&lt;p&gt;本文是本人学习 Linux 命令行 Bash 的基本用法和脚本编程的笔记汇总。&lt;/p&gt;
+        <guid>https://ch0ser.github.io/p/bash/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Cat&amp;Tree.png" alt="Featured image of post Bash" /&gt;&lt;p&gt;本文是本人学习 Linux 命令行 Bash 的基本用法和脚本编程的笔记汇总。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;核心参考教程：&lt;a class=&#34;link&#34; href=&#34;https://wangdoc.com/bash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bash 脚本教程 - 网道&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;这是一个互联网开源文档，非常感谢开源创作者的贡献。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_introgrammar/&#34; &gt;Bash 介绍和基本语法&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_expansion/&#34; &gt;Bash 模式扩展&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_quotation/&#34; &gt;Bash 引号和转义&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_variable/&#34; &gt;Bash 变量&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_string/&#34; &gt;Bash 字符串操作&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_arithmetic/&#34; &gt;Bash 算术运算&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_history/&#34; &gt;Bash 历史命令&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_readline/&#34; &gt;Bash 行操作&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_stack/&#34; &gt;Bash 目录堆栈&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_script/&#34; &gt;Bash 脚本&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_read/&#34; &gt;Bash read命令&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_condition/&#34; &gt;Bash 条件判断&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_loop/&#34; &gt;Bash 循环&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_function/&#34; &gt;Bash 函数&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_array/&#34; &gt;Bash 数组&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_setshopt/&#34; &gt;Bash set&amp;amp;shopt&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_debug/&#34; &gt;Bash 调试除错&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_mktemptrap/&#34; &gt;Bash mktemp&amp;amp;trap&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_startup/&#34; &gt;Bash 启动环境&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/bash_prompt/&#34; &gt;Bash 命令提示符&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_introgrammar/&#34; &gt;Bash 介绍和基本语法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_expansion/&#34; &gt;Bash 模式扩展&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_quotation/&#34; &gt;Bash 引号和转义&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_variable/&#34; &gt;Bash 变量&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_string/&#34; &gt;Bash 字符串操作&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_arithmetic/&#34; &gt;Bash 算术运算&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_history/&#34; &gt;Bash 历史命令&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_readline/&#34; &gt;Bash 行操作&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_stack/&#34; &gt;Bash 目录堆栈&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_script/&#34; &gt;Bash 脚本&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_read/&#34; &gt;Bash read命令&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_condition/&#34; &gt;Bash 条件判断&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_loop/&#34; &gt;Bash 循环&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_function/&#34; &gt;Bash 函数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_array/&#34; &gt;Bash 数组&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_setshopt/&#34; &gt;Bash set&amp;amp;shopt&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_debug/&#34; &gt;Bash 调试除错&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_mktemptrap/&#34; &gt;Bash mktemp&amp;amp;trap&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_startup/&#34; &gt;Bash 启动环境&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/bash_prompt/&#34; &gt;Bash 命令提示符&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 </description>
         </item>
         <item>
         <title>Beacon&amp;WindRanger</title>
-        <link>http://localhost:1313/p/beaconwindranger/</link>
+        <link>https://ch0ser.github.io/p/beaconwindranger/</link>
         <pubDate>Tue, 14 Oct 2025 14:59:29 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/beaconwindranger/</guid>
-        <description>&lt;img src="http://localhost:1313/images/ChillOcean.png" alt="Featured image of post Beacon&amp;WindRanger" /&gt;&lt;h1 id=&#34;windrangerbeaconfuzz&#34;&gt;WindRanger&amp;amp;BeaconFuzz
+        <guid>https://ch0ser.github.io/p/beaconwindranger/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/ChillOcean.png" alt="Featured image of post Beacon&amp;WindRanger" /&gt;&lt;h1 id=&#34;windrangerbeaconfuzz&#34;&gt;WindRanger&amp;amp;BeaconFuzz
 &lt;/h1&gt;&lt;p&gt;WindRanger 是一个&lt;strong&gt;基于 BeaconFuzz 算法的定向模糊测试工具&lt;/strong&gt;，发表于 &lt;strong&gt;ICSE 2022&lt;/strong&gt;，旨在高效引导模糊测试到达目标代码（如漏洞触发点）。其核心创新是 &lt;strong&gt;BeaconFuzz 策略&lt;/strong&gt;，通过动态识别关键代码块（Beacon）来优化路径探索。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;1-windranger-概述&#34;&gt;&lt;strong&gt;1. WindRanger 概述&lt;/strong&gt;
@@ -19521,11 +19521,11 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>DGF Tool Energy Allocation Strategies</title>
-        <link>http://localhost:1313/p/dgf-tool-energy-allocation-strategies/</link>
+        <link>https://ch0ser.github.io/p/dgf-tool-energy-allocation-strategies/</link>
         <pubDate>Tue, 14 Oct 2025 14:47:25 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/dgf-tool-energy-allocation-strategies/</guid>
-        <description>&lt;img src="http://localhost:1313/images/RiverInTrees.png" alt="Featured image of post DGF Tool Energy Allocation Strategies" /&gt;&lt;h1 id=&#34;dgf-tool-energy-allocation-strategies&#34;&gt;DGF Tool Energy Allocation Strategies
+        <guid>https://ch0ser.github.io/p/dgf-tool-energy-allocation-strategies/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/RiverInTrees.png" alt="Featured image of post DGF Tool Energy Allocation Strategies" /&gt;&lt;h1 id=&#34;dgf-tool-energy-allocation-strategies&#34;&gt;DGF Tool Energy Allocation Strategies
 &lt;/h1&gt;&lt;p&gt;DGF工具能量分配策略一览&lt;/p&gt;
 &lt;h2 id=&#34;afl&#34;&gt;AFL
 &lt;/h2&gt;&lt;p&gt;本节聚焦AFL 及其衍生工具在 seed fuzzing 过程中的&lt;strong&gt;能量分配策略&lt;/strong&gt;（power schedule），即决定“从某个种子输入生成多少额外测试用例”的算法。以 AFLFast 提供的六种策略为基准，给出简明对比和使用建议。&lt;/p&gt;
@@ -19965,11 +19965,11 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Quick_fuzz</title>
-        <link>http://localhost:1313/p/quick_fuzz/</link>
+        <link>https://ch0ser.github.io/p/quick_fuzz/</link>
         <pubDate>Tue, 14 Oct 2025 14:40:02 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/quick_fuzz/</guid>
-        <description>&lt;img src="http://localhost:1313/images/greenland.png" alt="Featured image of post Quick_fuzz" /&gt;&lt;h1 id=&#34;quickfuzz&#34;&gt;QuickFuzz
+        <guid>https://ch0ser.github.io/p/quick_fuzz/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/greenland.png" alt="Featured image of post Quick_fuzz" /&gt;&lt;h1 id=&#34;quickfuzz&#34;&gt;QuickFuzz
 &lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;Fuzz入门，学习参考：&lt;a class=&#34;link&#34; href=&#34;https://lidaxian121.github.io/posts/fuzz/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Baby Fuzz · Home&lt;/a&gt;，BV1ZM4m1R7gZ&lt;/p&gt;
@@ -20552,7 +20552,7 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;在创建了相关目录和种子文件后，命令运行成功就能在终端看见如下结果了：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/fuzzing.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/fuzzing.png&#34;
 	
 	
 	
@@ -20761,11 +20761,11 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>DGF Overview</title>
-        <link>http://localhost:1313/p/dgf-overview/</link>
+        <link>https://ch0ser.github.io/p/dgf-overview/</link>
         <pubDate>Mon, 13 Oct 2025 23:51:05 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/dgf-overview/</guid>
-        <description>&lt;img src="http://localhost:1313/images/EarlyMorningForest.png" alt="Featured image of post DGF Overview" /&gt;&lt;h1 id=&#34;dgf-overview&#34;&gt;DGF Overview
+        <guid>https://ch0ser.github.io/p/dgf-overview/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/EarlyMorningForest.png" alt="Featured image of post DGF Overview" /&gt;&lt;h1 id=&#34;dgf-overview&#34;&gt;DGF Overview
 &lt;/h1&gt;&lt;p&gt;定向灰盒测试相关技术 核心策略 时间顺序梳理 速览&lt;/p&gt;
 &lt;h2 id=&#34;aflamerican-fuzzy-lop-2014&#34;&gt;AFL(American Fuzzy Lop 2014)
 &lt;/h2&gt;&lt;p&gt;传统灰盒：全图覆盖，无定向&lt;/p&gt;
@@ -20878,11 +20878,11 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Docker Commands</title>
-        <link>http://localhost:1313/p/docker-commands/</link>
+        <link>https://ch0ser.github.io/p/docker-commands/</link>
         <pubDate>Mon, 06 Oct 2025 21:56:04 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/docker-commands/</guid>
-        <description>&lt;img src="http://localhost:1313/images/TrippyWave.png" alt="Featured image of post Docker Commands" /&gt;&lt;h1 id=&#34;docker命令&#34;&gt;Docker命令
+        <guid>https://ch0ser.github.io/p/docker-commands/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/TrippyWave.png" alt="Featured image of post Docker Commands" /&gt;&lt;h1 id=&#34;docker命令&#34;&gt;Docker命令
 &lt;/h1&gt;&lt;h2 id=&#34;docker-镜像构建&#34;&gt;Docker 镜像构建
 &lt;/h2&gt;&lt;p&gt;&lt;code&gt;docker build&lt;/code&gt;命令是 Docker 引擎的核心命令之一，用于根据 &lt;code&gt;Dockerfile&lt;/code&gt;中的指令自动构建 Docker 镜像。&lt;/p&gt;
 &lt;h3 id=&#34;核心概念与基础语法&#34;&gt;&lt;strong&gt;核心概念与基础语法&lt;/strong&gt;
@@ -21474,11 +21474,11 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Git Code Management and Version Control</title>
-        <link>http://localhost:1313/p/git-code-management-and-version-control/</link>
+        <link>https://ch0ser.github.io/p/git-code-management-and-version-control/</link>
         <pubDate>Fri, 21 Feb 2025 20:58:54 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/git-code-management-and-version-control/</guid>
-        <description>&lt;img src="http://localhost:1313/images/PacificRim_02.PNG" alt="Featured image of post Git Code Management and Version Control" /&gt;&lt;h2 id=&#34;git代码托管与版本管理&#34;&gt;Git代码托管与版本管理
+        <guid>https://ch0ser.github.io/p/git-code-management-and-version-control/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/PacificRim_02.PNG" alt="Featured image of post Git Code Management and Version Control" /&gt;&lt;h2 id=&#34;git代码托管与版本管理&#34;&gt;Git代码托管与版本管理
 &lt;/h2&gt;&lt;h2 id=&#34;安装&#34;&gt;安装
 &lt;/h2&gt;&lt;p&gt;官网下载安装即可，安装配置基本默认。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -22320,7 +22320,7 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;所以每天开工前最好先&lt;code&gt;pull&lt;/code&gt;，减少冲突概率。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/Git.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/Git.png&#34;
 	
 	
 	
@@ -22347,7 +22347,7 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
 &lt;h4 id=&#34;hotfix分支&#34;&gt;Hotfix分支
 &lt;/h4&gt;&lt;p&gt;Hotfix（热补丁）分支不从是develop分支创建出来的，而是直接根据master分支创建得到的，其目的是为了给运行在生产环境中的&lt;strong&gt;系统快速提供补丁&lt;/strong&gt;，同时确保不会给正在其他上分支进行的工作造成影响。当hotfix分支上的工作完成以后，可以合并到master分支和develop分支，以及当前的release分支。如果有版本的更新，也可以为master分支打上相应的tag。&lt;/p&gt;
 &lt;p&gt;大致关系如图：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/git-model.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/git-model.png&#34;
 	
 	
 	
@@ -22370,7 +22370,7 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
 &lt;/h3&gt;&lt;p&gt;GitHubFlow看名字也知道和GitHub有关，它来源于GitHub团队的工作实践。当代码托管在GitHub上时，则需要使用GitHubFlow。相比GitFlow而言，GitHubFlow没有那么多分支。&lt;/p&gt;
 &lt;p&gt;GitHubFlow通常只有一个Master分支是固定的，而且GitHubFlow中的Master分支通常是受保护的，只有特定权限的人才可以向Master分支合入代码。&lt;/p&gt;
 &lt;p&gt;在GitHubFlow中，新功能开发或修复Bug需要从Master分支拉取一个新分支，在这个新分支上进行代码提交；功能开发完成，开发者创建Pull Request（简称PR），通知源仓库开发者进行代码修改review，确认无误后，将由源仓库开发人员将代码合入Master分支。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/GithubFlow.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/GithubFlow.png&#34;
 	
 	
 	
@@ -22398,7 +22398,7 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;GitLabFlow中的Merge Request是将一个分支合入到另一个分支的请求，通过Merge Request可以对比合入分支和被合入分支的差异，也可以做代码的Review。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/GithubFlow.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/GithubFlow.png&#34;
 	
 	
 	
@@ -22412,11 +22412,11 @@ OpenJPEG 的 BMP 读取器按 &lt;code&gt;biSizeImage = 0x8c8c8c8c&lt;/code&gt;�
         </item>
         <item>
         <title>Quick Java</title>
-        <link>http://localhost:1313/p/quick-java/</link>
+        <link>https://ch0ser.github.io/p/quick-java/</link>
         <pubDate>Mon, 16 Dec 2024 16:04:20 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/quick-java/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Lover.PNG" alt="Featured image of post Quick Java" /&gt;&lt;h2 id=&#34;1-java背景知识&#34;&gt;1 Java背景知识
+        <guid>https://ch0ser.github.io/p/quick-java/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Lover.PNG" alt="Featured image of post Quick Java" /&gt;&lt;h2 id=&#34;1-java背景知识&#34;&gt;1 Java背景知识
 &lt;/h2&gt;&lt;h3 id=&#34;11-jdk-jre-jvm&#34;&gt;1.1 JDK JRE JVM
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;JDK(开发工具包)&lt;/li&gt;
@@ -24347,11 +24347,11 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
         </item>
         <item>
         <title>Do Users Write More Insecure Code with AI Assistants?</title>
-        <link>http://localhost:1313/p/do-users-write-more-insecure-code-with-ai-assistants/</link>
+        <link>https://ch0ser.github.io/p/do-users-write-more-insecure-code-with-ai-assistants/</link>
         <pubDate>Sat, 23 Nov 2024 21:45:04 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/do-users-write-more-insecure-code-with-ai-assistants/</guid>
-        <description>&lt;img src="http://localhost:1313/images/Tiger.JPG" alt="Featured image of post Do Users Write More Insecure Code with AI Assistants?" /&gt;&lt;h1 id=&#34;span-stylecolor-rgb25-60-71span-stylebackground-color-rgb238-249-2532023-11-15-do-users-write-more-insecure-code-with-ai-assistantsspanspan&#34;&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(238, 249, 253)&#34;&gt;(2023-11-15) Do Users Write More Insecure Code with AI Assistants?&lt;/span&gt;&lt;/span&gt;
+        <guid>https://ch0ser.github.io/p/do-users-write-more-insecure-code-with-ai-assistants/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/Tiger.JPG" alt="Featured image of post Do Users Write More Insecure Code with AI Assistants?" /&gt;&lt;h1 id=&#34;span-stylecolor-rgb25-60-71span-stylebackground-color-rgb238-249-2532023-11-15-do-users-write-more-insecure-code-with-ai-assistantsspanspan&#34;&gt;&lt;span style=&#34;color: rgb(25, 60, 71)&#34;&gt;&lt;span style=&#34;background-color: rgb(238, 249, 253)&#34;&gt;(2023-11-15) Do Users Write More Insecure Code with AI Assistants?&lt;/span&gt;&lt;/span&gt;
 &lt;/h1&gt;&lt;table&gt;
   &lt;thead&gt;
       &lt;tr&gt;
@@ -24504,17 +24504,17 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
         </item>
         <item>
         <title>Typora</title>
-        <link>http://localhost:1313/p/typora/</link>
+        <link>https://ch0ser.github.io/p/typora/</link>
         <pubDate>Sat, 23 Nov 2024 21:45:04 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/typora/</guid>
-        <description>&lt;img src="http://localhost:1313/images/PacificRim_01.jpg" alt="Featured image of post Typora" /&gt;&lt;h1 id=&#34;typora教程&#34;&gt;Typora教程
+        <guid>https://ch0ser.github.io/p/typora/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/PacificRim_01.jpg" alt="Featured image of post Typora" /&gt;&lt;h1 id=&#34;typora教程&#34;&gt;Typora教程
 &lt;/h1&gt;&lt;h2 id=&#34;typora的安装&#34;&gt;Typora的安装
 &lt;/h2&gt;&lt;p&gt;这是b站up主 &lt;strong&gt;格格分享集&lt;/strong&gt; 提供的1.9.5版本及绕过激活方法，在此鸣谢。&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&amp;amp;vd_source=94c6a60e88fb8109fcdee4173a2a7281&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://www.bilibili.com/video/BV1iKUsYdEat/?share_source=copy_web&amp;vd_source=94c6a60e88fb8109fcdee4173a2a7281&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;不想看视频的可以往下看。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/Typora1.9.5zip.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/Typora1.9.5zip.png&#34;
 	
 	
 	
@@ -24525,7 +24525,7 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;解压 &lt;strong&gt;Typora1.9.5.zip&lt;/strong&gt;后，文件结构如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/Typora02.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/Typora02.png&#34;
 	
 	
 	
@@ -24536,7 +24536,7 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
 &lt;p&gt;先运行安装程序安装&lt;strong&gt;typora1.9.5&lt;/strong&gt;；&lt;/p&gt;
 &lt;p&gt;然后解压&lt;strong&gt;河蟹.zip&lt;/strong&gt;,将其中的配置文件&lt;strong&gt;winmm.dll&lt;/strong&gt;复制到&lt;strong&gt;typora所在文件夹&lt;/strong&gt;(右键点击typora快捷方式即可)；&lt;/p&gt;
 &lt;p&gt;最后打开typora，点击侧边栏中的帮助，再点击关于激活即可。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/Typora03.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/Typora03.png&#34;
 	
 	
 	
@@ -24662,7 +24662,7 @@ clone getClass toString equals hashCode notify notifyAll wait finalize&lt;/p&gt;
 &lt;li&gt;然后中括号里面写属性文本&lt;/li&gt;
 &lt;li&gt;小括号里面写图片地址，后可接标题&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/&#34;
 	
 	
 	

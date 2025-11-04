@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Git on Choser&#39;s Blog</title>
-        <link>http://localhost:1313/tags/git/</link>
+        <link>https://ch0ser.github.io/tags/git/</link>
         <description>Recent content in Git on Choser&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Ch0ser</copyright>
-        <lastBuildDate>Fri, 21 Feb 2025 20:58:54 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/git/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 21 Feb 2025 20:58:54 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Git Code Management and Version Control</title>
-        <link>http://localhost:1313/p/git-code-management-and-version-control/</link>
+        <link>https://ch0ser.github.io/p/git-code-management-and-version-control/</link>
         <pubDate>Fri, 21 Feb 2025 20:58:54 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/git-code-management-and-version-control/</guid>
-        <description>&lt;img src="http://localhost:1313/images/PacificRim_02.PNG" alt="Featured image of post Git Code Management and Version Control" /&gt;&lt;h2 id=&#34;git代码托管与版本管理&#34;&gt;Git代码托管与版本管理
+        <guid>https://ch0ser.github.io/p/git-code-management-and-version-control/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/PacificRim_02.PNG" alt="Featured image of post Git Code Management and Version Control" /&gt;&lt;h2 id=&#34;git代码托管与版本管理&#34;&gt;Git代码托管与版本管理
 &lt;/h2&gt;&lt;h2 id=&#34;安装&#34;&gt;安装
 &lt;/h2&gt;&lt;p&gt;官网下载安装即可，安装配置基本默认。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -855,7 +855,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;所以每天开工前最好先&lt;code&gt;pull&lt;/code&gt;，减少冲突概率。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/Git.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/Git.png&#34;
 	
 	
 	
@@ -882,7 +882,7 @@
 &lt;h4 id=&#34;hotfix分支&#34;&gt;Hotfix分支
 &lt;/h4&gt;&lt;p&gt;Hotfix（热补丁）分支不从是develop分支创建出来的，而是直接根据master分支创建得到的，其目的是为了给运行在生产环境中的&lt;strong&gt;系统快速提供补丁&lt;/strong&gt;，同时确保不会给正在其他上分支进行的工作造成影响。当hotfix分支上的工作完成以后，可以合并到master分支和develop分支，以及当前的release分支。如果有版本的更新，也可以为master分支打上相应的tag。&lt;/p&gt;
 &lt;p&gt;大致关系如图：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/git-model.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/git-model.png&#34;
 	
 	
 	
@@ -905,7 +905,7 @@
 &lt;/h3&gt;&lt;p&gt;GitHubFlow看名字也知道和GitHub有关，它来源于GitHub团队的工作实践。当代码托管在GitHub上时，则需要使用GitHubFlow。相比GitFlow而言，GitHubFlow没有那么多分支。&lt;/p&gt;
 &lt;p&gt;GitHubFlow通常只有一个Master分支是固定的，而且GitHubFlow中的Master分支通常是受保护的，只有特定权限的人才可以向Master分支合入代码。&lt;/p&gt;
 &lt;p&gt;在GitHubFlow中，新功能开发或修复Bug需要从Master分支拉取一个新分支，在这个新分支上进行代码提交；功能开发完成，开发者创建Pull Request（简称PR），通知源仓库开发者进行代码修改review，确认无误后，将由源仓库开发人员将代码合入Master分支。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/GithubFlow.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/GithubFlow.png&#34;
 	
 	
 	
@@ -933,7 +933,7 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;GitLabFlow中的Merge Request是将一个分支合入到另一个分支的请求，通过Merge Request可以对比合入分支和被合入分支的差异，也可以做代码的Review。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/GithubFlow.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/GithubFlow.png&#34;
 	
 	
 	

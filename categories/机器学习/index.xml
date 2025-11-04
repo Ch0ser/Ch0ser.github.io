@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>机器学习 on Choser&#39;s Blog</title>
-        <link>http://localhost:1313/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</link>
+        <link>https://ch0ser.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</link>
         <description>Recent content in 机器学习 on Choser&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Ch0ser</copyright>
-        <lastBuildDate>Fri, 31 Oct 2025 10:53:50 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 31 Oct 2025 10:53:50 +0800</lastBuildDate><atom:link href="https://ch0ser.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Fundamentals of Machine Learning 2</title>
-        <link>http://localhost:1313/p/fundamentals-of-machine-learning-2/</link>
+        <link>https://ch0ser.github.io/p/fundamentals-of-machine-learning-2/</link>
         <pubDate>Fri, 31 Oct 2025 10:53:50 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/fundamentals-of-machine-learning-2/</guid>
-        <description>&lt;img src="http://localhost:1313/images/SunsetGlow.png" alt="Featured image of post Fundamentals of Machine Learning 2" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/fundamentals-of-machine-learning-2/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SunsetGlow.png" alt="Featured image of post Fundamentals of Machine Learning 2" /&gt;&lt;blockquote&gt;
 &lt;p&gt;本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;神经网络概述&#34;&gt;神经网络概述
@@ -35,7 +35,7 @@
 &lt;li&gt;&lt;strong&gt;示例 - 人脸识别&lt;/strong&gt;：输入是 1000 像素的图像，网络的第一层可能学习到边缘等简单特征，后续层则组合这些简单特征形成更复杂的模式（如眼睛、鼻子），最终输出层给出属于特定人物的概率。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;示例 - 汽车分类&lt;/strong&gt;：原理类似，网络能自动学习到足以区分汽车与其他物体的特征。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030104704681.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030104704681.png&#34;
 	
 	
 	
@@ -53,7 +53,7 @@
 &lt;li&gt;&lt;strong&gt;隐藏层 (Hidden Layers)&lt;/strong&gt;：位于输入层和输出层之间，负责特征的转换和提取。一个网络可以有多个隐藏层。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;输出层 (Output Layer)&lt;/strong&gt;：产生最终的预测结果。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030104834412.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030104834412.png&#34;
 	
 	
 	
@@ -63,7 +63,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030105019777.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030105019777.png&#34;
 	
 	
 	
@@ -73,7 +73,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030105043036.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030105043036.png&#34;
 	
 	
 	
@@ -115,7 +115,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030122205246.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030122205246.png&#34;
 	
 	
 	
@@ -125,7 +125,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030122221336.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030122221336.png&#34;
 	
 	
 	
@@ -158,7 +158,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030124424243.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030124424243.png&#34;
 	
 	
 	
@@ -216,7 +216,7 @@
 &lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;通常不用显示赋值层，而是在不断训练中自行微调&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030122846301.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030122846301.png&#34;
 	
 	
 	
@@ -226,7 +226,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030122907175.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030122907175.png&#34;
 	
 	
 	
@@ -236,7 +236,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;​      &lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030122927512.png&#34;
+&lt;p&gt;​      &lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030122927512.png&#34;
 	
 	
 	
@@ -288,7 +288,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030124757217.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030124757217.png&#34;
 	
 	
 	
@@ -300,7 +300,7 @@
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;训练细节&#34;&gt;训练细节
 &lt;/h3&gt;&lt;p&gt;一些训练时的细节&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030124910822.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030124910822.png&#34;
 	
 	
 	
@@ -310,7 +310,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;​       &lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030124932431.png&#34;
+&lt;p&gt;​       &lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030124932431.png&#34;
 	
 	
 	
@@ -320,7 +320,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030124949195.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030124949195.png&#34;
 	
 	
 	
@@ -330,7 +330,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030125005130.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030125005130.png&#34;
 	
 	
 	
@@ -376,7 +376,7 @@
 &lt;li&gt;&lt;strong&gt;弱人工智能（ANI，Artificial Narrow Intelligence）&lt;/strong&gt;：指专门用于完成特定任务的人工智能，如智能音箱。这是目前已经广泛实现的技术。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;通用人工智能（AGI，Artificial General Intelligence）&lt;/strong&gt;：指具备像人类一样全面智能的AI，能够理解和学习任何智力任务。这是AI领域的长期目标。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030123256271.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030123256271.png&#34;
 	
 	
 	
@@ -391,7 +391,7 @@
 &lt;li&gt;PPT展示了&lt;strong&gt;生物神经元&lt;/strong&gt;（包含细胞体、树突、轴突等）的结构。&lt;/li&gt;
 &lt;li&gt;并给出了一个&lt;strong&gt;简化的神经元数学模型&lt;/strong&gt;，将生物神经元的输入（树突）、处理（细胞体）和输出（轴突）过程用数学函数来模拟。这正是人工神经网络的基础单元。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030123909104.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030123909104.png&#34;
 	
 	
 	
@@ -406,7 +406,7 @@
 &lt;li&gt;&lt;strong&gt;提出的问题&lt;/strong&gt;：我们能否模仿人脑？但幻灯片也诚实地指出，我们（几乎）不知道大脑的具体工作原理。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;关键假说——“单一学习算法”假说&lt;/strong&gt;：&lt;strong&gt;假说内容&lt;/strong&gt;：智能可能来源于一个通用的、单一的学习算法。大脑的不同部分（如处理视觉、听觉、触觉的区域）可能是在运行同一个基本算法，只是处理的数据来源不同。&lt;strong&gt;证据支持&lt;/strong&gt;：幻灯片以人类大脑发育初期的“可塑性”作为证据。例如，大脑中原本负责处理声音的区域，如果被连接到视觉信号，也可以学会“看”。这说明大脑皮层可能具有通用的处理能力。&lt;strong&gt;深远意义&lt;/strong&gt;：如果这个假说成立，那么理论上我们可以利用&lt;strong&gt;单一的神经网络算法&lt;/strong&gt;，通过提供不同的数据，来解决各种各样的问题（视觉、听觉、语言等），而无需为每个问题专门编写复杂的程序。这正是深度学习所追求的“以不变应万变”的策略。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030123934920.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030123934920.png&#34;
 	
 	
 	
@@ -416,7 +416,7 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030123951662.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030123951662.png&#34;
 	
 	
 	
@@ -444,7 +444,7 @@ $$\text{Loss}(\mathbf{a}, y) = -\log(a_y)$$&lt;p&gt; 即只&lt;strong&gt;关注�
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;逻辑回归的泛化&lt;/strong&gt;：从公式上我们可以看出Softmax其实是二元的逻辑回归的多元泛化。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030184404741.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030184404741.png&#34;
 	
 	
 	
@@ -456,7 +456,7 @@ $$\text{Loss}(\mathbf{a}, y) = -\log(a_y)$$&lt;p&gt; 即只&lt;strong&gt;关注�
 &gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030184425363.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030184425363.png&#34;
 	
 	
 	
@@ -545,7 +545,7 @@ $$a_j = \frac{e^{z_j - z_{\text{max}}}}{\sum_{k=1}^{N} e^{z_k - z_{\text{max}}}}
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030195526547.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030195526547.png&#34;
 	
 	
 	
@@ -575,7 +575,7 @@ $$a_j = \frac{e^{z_j - z_{\text{max}}}}{\sum_{k=1}^{N} e^{z_k - z_{\text{max}}}}
 &lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;&lt;strong&gt;需要更少的训练数据&lt;/strong&gt;：参数减少也意味着模型更不容易过拟合。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030195658287.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030195658287.png&#34;
 	
 	
 	
@@ -595,7 +595,7 @@ $$a_j = \frac{e^{z_j - z_{\text{max}}}}{\sum_{k=1}^{N} e^{z_k - z_{\text{max}}}}
 &lt;li&gt;&lt;strong&gt;链式法则&lt;/strong&gt;：反向传播从输出（代价 $J$）开始，应用&lt;strong&gt;链式法则&lt;/strong&gt;，从右向左（从输出层到输入层）逐层计算梯度。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;高效性&lt;/strong&gt;：对于一个有 $N$ 个节点和 $P$ 个参数的网络，反向传播可以在大约 $N + P$ 步内计算出所有梯度，而朴素方法需要 $N \times P$ 步。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030195752030.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030195752030.png&#34;
 	
 	
 	
@@ -646,7 +646,7 @@ $$a_j = \frac{e^{z_j - z_{\text{max}}}}{\sum_{k=1}^{N} e^{z_k - z_{\text{max}}}}
 &lt;li&gt;&lt;strong&gt;高方差&lt;/strong&gt;（bias）：两条曲线之间存在较大差距，且验证误差远高于训练误差。&lt;strong&gt;增加更多训练数据&lt;/strong&gt;通常能有效改善。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;高偏差&lt;/strong&gt;（variance）：两条曲线都处于较高水平，且随着数据量增加，两者都趋于一个较高的平台。&lt;strong&gt;增加数据量帮助不大&lt;/strong&gt;，应考虑增加模型复杂度（如添加特征、使用更高阶多项式）。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030200622567.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030200622567.png&#34;
 	
 	
 	
@@ -656,7 +656,7 @@ $$a_j = \frac{e^{z_j - z_{\text{max}}}}{\sum_{k=1}^{N} e^{z_k - z_{\text{max}}}}
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030200834560.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030200834560.png&#34;
 	
 	
 	
@@ -666,7 +666,7 @@ $$a_j = \frac{e^{z_j - z_{\text{max}}}}{\sum_{k=1}^{N} e^{z_k - z_{\text{max}}}}
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030200958725.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030200958725.png&#34;
 	
 	
 	
@@ -734,7 +734,7 @@ $$J_{\text{regularized}}(\mathbf{W}, \mathbf{b}) = J(\mathbf{W}, \mathbf{b}) + \
 &lt;li&gt;&lt;strong&gt;重复&lt;/strong&gt;：回到步骤 2，直到达到满意的性能。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;这种基于诊断的迭代方法比盲目尝试各种技巧要高效得多。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030203325395.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030203325395.png&#34;
 	
 	
 	
@@ -806,7 +806,7 @@ $$J_{\text{regularized}}(\mathbf{W}, \mathbf{b}) = J(\mathbf{W}, \mathbf{b}) + \
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030205228921.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030205228921.png&#34;
 	
 	
 	
@@ -825,7 +825,7 @@ $$J_{\text{regularized}}(\mathbf{W}, \mathbf{b}) = J(\mathbf{W}, \mathbf{b}) + \
 &lt;blockquote&gt;
 &lt;p&gt;现在的深度学习领域，数据比模型更重要&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030205248459.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030205248459.png&#34;
 	
 	
 	
@@ -859,7 +859,7 @@ $$J_{\text{regularized}}(\mathbf{W}, \mathbf{b}) = J(\mathbf{W}, \mathbf{b}) + \
 &lt;li&gt;后几层则学习到更高级、更特定于原始任务的特征。&lt;/li&gt;
 &lt;li&gt;通过迁移学习，我们避免了从零开始学习这些通用特征，从而节省了大量计算资源和时间，并且在目标任务数据量有限时也能取得很好的效果。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030205401748.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030205401748.png&#34;
 	
 	
 	
@@ -889,7 +889,7 @@ $$\mathrm{Precision} = \frac{TP}{TP + FP}$$&lt;/li&gt;
 &lt;p&gt;&lt;strong&gt;召回率 (Recall)&lt;/strong&gt;：在所有真正的正类样本中，有多少被模型成功找出。&lt;/p&gt;
 $$\mathrm{Recall} = \frac{TP}{TP + FN}$$&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030210114075.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030210114075.png&#34;
 	
 	
 	
@@ -916,7 +916,7 @@ $$\mathrm{F1\,Score} = \frac{2\,\mathrm{Precision}\cdot\mathrm{Recall}}{\mathrm{
 &lt;p&gt;&lt;strong&gt;策略&lt;/strong&gt;：根据具体应用需求手动选择阈值。例如，对于罕见疾病的筛查，宁愿误报也不愿漏报，因此会选择较低的阈值以最大化召回率。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030220345711.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030220345711.png&#34;
 	
 	
 	
@@ -935,7 +935,7 @@ $$\mathrm{F1\,Score} = \frac{2\,\mathrm{Precision}\cdot\mathrm{Recall}}{\mathrm{
 &lt;li&gt;&lt;strong&gt;选择分裂特征&lt;/strong&gt;： 在每个节点，算法会评估所有可能的特征及其分裂点，选择能够&lt;strong&gt;最大化纯度&lt;/strong&gt;（或最小化不纯度）的特征进行分裂。常用的不纯度度量包括基尼不纯度（Gini Impurity）和信息增益（Information Gain）。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;停止分裂&lt;/strong&gt;： 当&lt;strong&gt;一个节点中的所有样本都属于同一类别&lt;/strong&gt;（纯节点）时，停止分裂。实践中，也可能设置其他停止条件，如树的最大深度、节点的最小样本数等。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030220545338.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030220545338.png&#34;
 	
 	
 	
@@ -958,7 +958,7 @@ $$\mathrm{F1\,Score} = \frac{2\,\mathrm{Precision}\cdot\mathrm{Recall}}{\mathrm{
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030221640573.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030221640573.png&#34;
 	
 	
 	
@@ -976,7 +976,7 @@ $$\mathrm{F1\,Score} = \frac{2\,\mathrm{Precision}\cdot\mathrm{Recall}}{\mathrm{
 &lt;li&gt;分裂所带来的信息增益（或纯度提升）小于一个给定的阈值。&lt;/li&gt;
 &lt;li&gt;当前节点包含的样本数量少于一个预设的最小值。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030221703841.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030221703841.png&#34;
 	
 	
 	
@@ -990,7 +990,7 @@ $$\mathrm{F1\,Score} = \frac{2\,\mathrm{Precision}\cdot\mathrm{Recall}}{\mathrm{
 &lt;/h3&gt;&lt;p&gt;以熵来衡量不纯度，类似二分类。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;不纯度度量&lt;/strong&gt;：通常使用&lt;strong&gt;熵&lt;/strong&gt;（Entropy）来量化一个节点的不纯度。对于一个包含正负样本的节点，其熵 $H(p_1)$ 定义为：&lt;/p&gt;
 $$H(p_1) = -p_1\log_2 p_1 - (1-p_1)\log_2 (1-p_1)$$&lt;p&gt;其中 $p_1$ 是该节点中正类样本的比例。当 $p_1=0$ 或 $p_1=1$（纯节点）时，熵为 0；当 $p_1=0.5$ 时，熵达到最大值 1。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251030221837588.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251030221837588.png&#34;
 	
 	
 	
@@ -1043,7 +1043,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;li&gt;&lt;strong&gt;后续分裂&lt;/strong&gt;：对每个子节点继续应用相同的过程。例如，在“尖耳”子节点中，可能根据“脸型”进一步分裂；在“非尖耳”子节点中，可能根据“胡须”进行分裂。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;最终结果&lt;/strong&gt;：通过一系列这样的分裂，最终得到一棵完整的决策树，其中每个叶节点都对应一个类别（如“猫”或“非猫”）。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031101349930.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031101349930.png&#34;
 	
 	
 	
@@ -1071,7 +1071,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;li&gt;&lt;code&gt;is_floppy_ear&lt;/code&gt;: 1 if &lt;code&gt;Floppy&lt;/code&gt;, else 0.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;这种方法清晰地表示了分类信息，并且适用于包括神经网络在内的各种机器学习模型。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031102053667.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031102053667.png&#34;
 	
 	
 	
@@ -1088,7 +1088,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;li&gt;&lt;strong&gt;选择标准&lt;/strong&gt;：选择能使分裂后子节点纯度提升最大的那个阈值 t&lt;em&gt;t&lt;/em&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;这点和多分类的处理是一样的。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031102147748.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031102147748.png&#34;
 	
 	
 	
@@ -1101,7 +1101,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;h3 id=&#34;回归树&#34;&gt;回归树
 &lt;/h3&gt;&lt;p&gt;类似监督学习中的回归问题，回归树的分类结果也不是孤立的的1/0，而是多个连续值。&lt;/p&gt;
 &lt;p&gt;下面这个回归树示例，就是根据三个输入特征，把小动物分类到尽量体重相近的分类中。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031102843963.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031102843963.png&#34;
 	
 	
 	
@@ -1111,7 +1111,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031103256843.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031103256843.png&#34;
 	
 	
 	
@@ -1123,7 +1123,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;集成树tree-ensembles&#34;&gt;集成树（tree ensembles）
 &lt;/h2&gt;&lt;p&gt;单一决策树对数据变化高度敏感，所以我们可以构建多个决策树集成学习，再通过投票，综合多棵树的预测结果来做出最终预测。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031103740469.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031103740469.png&#34;
 	
 	
 	
@@ -1160,7 +1160,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;随机森林因其高准确性、鲁棒性和对过拟合的良好抵抗力而被广泛应用。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031104418543.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031104418543.png&#34;
 	
 	
 	
@@ -1176,7 +1176,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;li&gt;&lt;strong&gt;核心思想&lt;/strong&gt;：每棵新树都专注于学习前序所有树的&lt;strong&gt;组合预测所产生的残差&lt;/strong&gt;（即错误），即刻意选择使树分类错误的样例。通过这种方式，模型逐步修正其预测，整体性能得到“提升”（Boosting）。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;代表算法&lt;/strong&gt;：&lt;code&gt;XGBoost&lt;/code&gt;（eXtreme Gradient Boosting）是提升树算法中最著名和高效的实现之一，在许多机器学习竞赛和工业应用中取得了巨大成功。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031104656040.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031104656040.png&#34;
 	
 	
 	
@@ -1186,7 +1186,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031104733968.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031104733968.png&#34;
 	
 	
 	
@@ -1196,7 +1196,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031104752291.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031104752291.png&#34;
 	
 	
 	
@@ -1220,7 +1220,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;li&gt;&lt;strong&gt;强大的表示能力&lt;/strong&gt;：能够学习到非常复杂的非线性关系。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;可组合性&lt;/strong&gt;：多个模块化的神经网络可以很容易地连接在一起，构建更复杂的系统。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251031105213918.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251031105213918.png&#34;
 	
 	
 	
@@ -1234,11 +1234,11 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
         </item>
         <item>
         <title>Fundamentals of Machine Learning 1</title>
-        <link>http://localhost:1313/p/fundamentals-of-machine-learning-1/</link>
+        <link>https://ch0ser.github.io/p/fundamentals-of-machine-learning-1/</link>
         <pubDate>Wed, 29 Oct 2025 15:27:35 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/fundamentals-of-machine-learning-1/</guid>
-        <description>&lt;img src="http://localhost:1313/images/SunsetGlow.png" alt="Featured image of post Fundamentals of Machine Learning 1" /&gt;&lt;blockquote&gt;
+        <guid>https://ch0ser.github.io/p/fundamentals-of-machine-learning-1/</guid>
+        <description>&lt;img src="https://ch0ser.github.io/images/SunsetGlow.png" alt="Featured image of post Fundamentals of Machine Learning 1" /&gt;&lt;blockquote&gt;
 &lt;p&gt;本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;机器学习概述&#34;&gt;机器学习概述
@@ -1300,7 +1300,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/ML_01.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/ML_01.png&#34;
 	
 	
 	
@@ -1524,7 +1524,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;li&gt;
 &lt;p&gt;等值线图（等高线）：&lt;/p&gt;
 &lt;p&gt;二维平面上，同一等值线的&lt;code&gt;J(w,b)&lt;/code&gt;值相同，中心处值最小，对应最优参数。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251029150513501.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251029150513501.png&#34;
 	
 	
 	
@@ -1554,7 +1554,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;p&gt;特点：凸函数，梯度下降可找到全局最小值。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/ML_02.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/ML_02.png&#34;
 	
 	
 	
@@ -1600,7 +1600,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;选择建议&lt;/strong&gt;：尝试 3 倍递增的取值（如 0.001、0.003、0.01、0.03、0.1&amp;hellip;），找到使 &lt;em&gt;J&lt;/em&gt;(&lt;em&gt;w&lt;/em&gt;,&lt;em&gt;b&lt;/em&gt;) 快速下降的合适值。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/pics/MachineLearning/image-20251029152210815.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ch0ser.github.io/pics/MachineLearning/image-20251029152210815.png&#34;
 	
 	
 	
