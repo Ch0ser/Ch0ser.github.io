@@ -346,5 +346,9 @@
     <loc>https://ch0ser.github.io/archives/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+  </url><url>
+    <loc>https://ch0ser.github.io/guestbook/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>
