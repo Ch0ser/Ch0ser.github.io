@@ -15,6 +15,7 @@
         <guid>https://ch0ser.github.io/p/fundamentals-of-machine-learning-2/</guid>
         <description>&lt;img src="https://ch0ser.github.io/images/SunsetGlow.png" alt="Featured image of post Fundamentals of Machine Learning 2" /&gt;&lt;blockquote&gt;
 &lt;p&gt;本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考&lt;/p&gt;
+&lt;p&gt;此为第二部分，第一部分见&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/fundamentals-of-machine-learning-1/&#34; &gt;Fundamentals of Machine Learning 1&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;神经网络概述&#34;&gt;神经网络概述
 &lt;/h2&gt;&lt;h3 id=&#34;起源与演变&#34;&gt;起源与演变
@@ -1240,6 +1241,7 @@ $$H_{\text{children}} = w_{\text{left}}\,H_{\text{left}} + w_{\text{right}}\,H_{
         <guid>https://ch0ser.github.io/p/fundamentals-of-machine-learning-1/</guid>
         <description>&lt;img src="https://ch0ser.github.io/images/SunsetGlow.png" alt="Featured image of post Fundamentals of Machine Learning 1" /&gt;&lt;blockquote&gt;
 &lt;p&gt;本文是笔者的机器学习笔记，学习课程为吴恩达老师的公开课（网上搬运资源很多此处不附链接了），供大家学习参考&lt;/p&gt;
+&lt;p&gt;此为第一部分，第二部分见&lt;a class=&#34;link&#34; href=&#34;https://ch0ser.github.io/p/fundamentals-of-machine-learning-2/&#34; &gt;Fundamentals of Machine Learning 2&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;机器学习概述&#34;&gt;机器学习概述
 &lt;/h2&gt;&lt;h3 id=&#34;基本概念&#34;&gt;基本概念
